@@ -8,5 +8,6 @@ namespace UnderSeaModel.Model
     public class User
     {
         public Country Country { get; set; }
+        public string UserName { get; set; }
     }
 }

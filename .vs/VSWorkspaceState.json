@@ -1,4 +1,9 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\UnderSea",
+    "\\UnderSea\\UnderSea"
+  ],
+  "SelectedNode": "\\UnderSea\\UnderSea\\Class1.cs",
   "PreviewInSolutionExplorer": false
 }
