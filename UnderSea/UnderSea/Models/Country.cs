@@ -10,6 +10,7 @@ namespace UnderSeaModel.Model
 {
     public class Country
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public BuildingGroup BuildingGroup { get; set; }

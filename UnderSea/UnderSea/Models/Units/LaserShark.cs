@@ -7,6 +7,7 @@ namespace UnderSeaModel.Models.Units
 {
     public class LaserShark
     {
+        public int Id { get; set; }
         public int Count { get; set; }
         public int Price { get; set; }
         public double AttackScore { get; protected set; }

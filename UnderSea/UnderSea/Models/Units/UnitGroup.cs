@@ -8,6 +8,7 @@ namespace UnderSeaModel.Model
 {
     public class UnitGroup
     {
+        public int Id { get; set; }
         public StormSeal StormSeal { get; set; }
         public CombatSeaHorse CombatSeaHorse { get; set; }
         public LaserShark LaserShark { get; set; }

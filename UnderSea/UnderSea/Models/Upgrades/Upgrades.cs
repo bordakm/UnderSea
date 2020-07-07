@@ -7,12 +7,13 @@ using UnderSeaModel.Models;
 namespace UnderSeaModel.Model
 {
     public class Upgrades
-    {   
-        public UpgradeStates MudTractor { get; set; }
-        public UpgradeStates MudHarvester { get; set; }
-        public UpgradeStates CoralWall { get; set; }
-        public UpgradeStates SonarCannon { get; set; }
-        public UpgradeStates UnderwaterMartialArts { get; set; }
-        public UpgradeStates Alchemy { get; set; }
+    {
+        public int Id { get; set; }
+        public UpgradeState MudTractor { get; set; }
+        public UpgradeState MudHarvester { get; set; }
+        public UpgradeState CoralWall { get; set; }
+        public UpgradeState SonarCannon { get; set; }
+        public UpgradeState UnderwaterMartialArts { get; set; }
+        public UpgradeState Alchemy { get; set; }
     }
 }

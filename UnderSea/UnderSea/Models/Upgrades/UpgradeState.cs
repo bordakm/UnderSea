@@ -6,8 +6,8 @@ namespace UnderSeaModel.Models
 {
     public enum UpgradeState
     {
-        InProgress,
-        Researched,
-        Unresearched
+        InProgress = 1,
+        Researched = 2,
+        Unresearched = 3
     }
 }
