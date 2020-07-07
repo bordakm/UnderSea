@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bordak.mate\\Desktop\\UnderSea\\UnderSea\\UnderSea.API\\UnderSea.API.csproj": {}
+    "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.API\\UnderSea.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bordak.mate\\Desktop\\UnderSea\\UnderSea\\UnderSea.API\\UnderSea.API.csproj": {
+    "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.API\\UnderSea.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bordak.mate\\Desktop\\UnderSea\\UnderSea\\UnderSea.API\\UnderSea.API.csproj",
+        "projectUniqueName": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.API\\UnderSea.API.csproj",
         "projectName": "UnderSea.API",
-        "projectPath": "C:\\Users\\bordak.mate\\Desktop\\UnderSea\\UnderSea\\UnderSea.API\\UnderSea.API.csproj",
-        "packagesPath": "C:\\Users\\bordak.mate\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bordak.mate\\Desktop\\UnderSea\\UnderSea\\UnderSea.API\\obj\\",
+        "projectPath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.API\\UnderSea.API.csproj",
+        "packagesPath": "C:\\Users\\knapp.rajmund\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bordak.mate\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\knapp.rajmund\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
