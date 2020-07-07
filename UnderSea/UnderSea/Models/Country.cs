@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UnderSeaModel.Model.Buildings;
 using UnderSeaModel.Models;
 using UnderSeaModel.Models.Buildings;
 

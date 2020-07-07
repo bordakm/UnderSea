@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea\\UnderSeaModel.csproj",
-      "projectName": "UnderSeaModel",
-      "projectPath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea\\UnderSeaModel.csproj",
+      "projectUniqueName": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea\\UnderSea.Model.csproj",
+      "projectName": "UnderSea.Model",
+      "projectPath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea\\UnderSea.Model.csproj",
       "packagesPath": "C:\\Users\\knapp.rajmund\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea\\obj\\",
       "projectStyle": "PackageReference",
