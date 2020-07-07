@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnderSea.API", "UnderSea.API\UnderSea.API.csproj", "{9C4CAF38-CA0F-4D56-9DCE-31631DB4913E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnderSea.DAL", "UnderSea.DAL\UnderSea.DAL.csproj", "{701A92EE-3F84-46E3-B25F-4AAFB48EFE5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnderSea.BLL", "UnderSea.DAL\UnderSea.BLL.csproj", "{701A92EE-3F84-46E3-B25F-4AAFB48EFE5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnderSea.Model", "UnderSea\UnderSea.Model.csproj", "{1C51DDCF-2040-4275-AE10-52A0C12AD9F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnderSea.DAL", "UnderSea\UnderSea.DAL.csproj", "{1C51DDCF-2040-4275-AE10-52A0C12AD9F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

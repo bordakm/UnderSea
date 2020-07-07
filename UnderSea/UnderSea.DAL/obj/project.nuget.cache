@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KGVSliW1L0g48ywqRdc9mjo0/wwAr6FxHDn8QocL6WMzPLngqPi2Yr7r/edooDgCIvMF+9Ra0fsjnZkCh3fIwg==",
+  "dgSpecHash": "JRmCfwNQIAVRep9cib/f2D2HpU39c9h5Lbz1ERQoERP5BcfpM89WgQ36X5iYfIPYweyxX8MbtXf9EXiCcU6bWQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.DAL\\UnderSea.DAL.csproj",
+  "projectFilePath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.DAL\\UnderSea.BLL.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

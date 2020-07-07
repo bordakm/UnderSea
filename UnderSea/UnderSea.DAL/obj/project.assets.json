@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.DAL\\UnderSea.DAL.csproj",
-      "projectName": "UnderSea.DAL",
-      "projectPath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.DAL\\UnderSea.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.DAL\\UnderSea.BLL.csproj",
+      "projectName": "UnderSea.BLL",
+      "projectPath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.DAL\\UnderSea.BLL.csproj",
       "packagesPath": "C:\\Users\\knapp.rajmund\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\knapp.rajmund\\source\\repos\\UnderSea2\\UnderSea\\UnderSea.DAL\\obj\\",
       "projectStyle": "PackageReference",
