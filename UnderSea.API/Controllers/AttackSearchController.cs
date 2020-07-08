@@ -13,15 +13,15 @@ namespace UnderSea.API.Controllers
     public class AttackSearchController : ControllerBase
     {
         [HttpPost]
-        public ActionResult<string> Search([FromQuery]string searchPhase)
+        public ActionResult<string> Search([FromQuery]string searchPhrase)
         {
             return NotFound("post error");
         }
 
         [HttpGet]
-        public ActionResult<PlayerViewModel> Get()
+        public ActionResult<List<PlayerViewModel>> Get()
         {
-            return Ok(new PlayerViewModel());
+            return Ok(new List<PlayerViewModel>());
         }
     }
 }

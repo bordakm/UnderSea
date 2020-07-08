@@ -7,7 +7,7 @@ namespace UnderSea.API.DTO
 {
     public class StructuresDTO
     {
-        public bool FlowMaganer { get; set; }
+        public bool FlowManager { get; set; }
         public bool ReefCastle { get; set; }
         public bool MudTractor { get; set; }
         public bool MudHarvester { get; set; }

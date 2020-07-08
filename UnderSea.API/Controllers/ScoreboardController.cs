@@ -20,7 +20,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<string> Search([FromQuery] string searchPhase)
+        public ActionResult<string> Search([FromQuery] string searchPhrase)
         {
             return NotFound("post error");
         }
