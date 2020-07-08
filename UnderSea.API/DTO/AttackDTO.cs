@@ -7,6 +7,7 @@ namespace UnderSea.API.DTO
 {
     public class AttackDTO
     {
-
+        public int Id { get; set; }
+        public List<AvailableUnitDTO> AttackingUnits { get; set; }
     }
 }

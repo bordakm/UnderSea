@@ -7,5 +7,6 @@ namespace UnderSea.API.DTO
 {
     public class BuildingPurchaseDTO
     {
+        public int Id { get; set; }
     }
 }

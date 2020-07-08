@@ -7,5 +7,9 @@ namespace UnderSea.API.DTO
 {
     public class OutgoingAttack
     {
+        public string CountryName { get; set; }
+        public int LaserSharkCount { get; set; }
+        public int StormSealCount { get; set; }
+        public int CombatSeaHorseCount { get; set; }
     }
 }
