@@ -12,7 +12,7 @@ namespace UnderSea.API.Controllers
     public class UpgradeController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<UpgradeDTO> Get()
+        public ActionResult<List<UpgradeDTO>> Get()
         {
             return NotFound();
         }
