@@ -13,7 +13,10 @@ namespace UnderSea.API.DTO
         public int StromSealCount { get; set; }
         public int CombatSeaHorseCount { get; set; }
         public int PearlCount { get; set; }
+        public int PearlProductionCount { get; set; }
         public int CoralCount { get; set; }
-
+        public int CoralProductionCount { get; set; }
+        public string CountryName { get; set; }
+        public StructuresDTO Structures { get; set; }
     }
 }
