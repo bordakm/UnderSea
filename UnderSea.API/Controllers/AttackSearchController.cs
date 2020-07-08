@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UnderSea.API.DTO;
 using UnderSea.API.ViewModels;
 
 namespace UnderSea.API.Controllers
@@ -13,7 +14,7 @@ namespace UnderSea.API.Controllers
     public class AttackSearchController : ControllerBase
     {
         [HttpPost]
-        public ActionResult<List<string>> Search([FromBody]string searchPhrase, [FromBody] int page, [FromBody] int itemPerPage)
+        public ActionResult<List<string>> Search([FromBody] SearchDTO search)
         {
             return NotFound(new List<string>());
         }

@@ -15,7 +15,7 @@ namespace UnderSea.API.Controllers
     {
 
         [HttpPost]
-        public ActionResult<List<ScoreboardViewModel>> Search([FromBody] string searchPhrase, [FromBody] int page, [FromBody] int itemPerPage)
+        public ActionResult<List<ScoreboardViewModel>> Search([FromBody] SearchDTO search)
         {
             return NotFound(new List<ScoreboardViewModel>());
         }
