@@ -19,7 +19,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<string> Research([FromQuery]int id)
+        public ActionResult<string> Research([FromBody]int id)
         {
             return NotFound("post error");
         }

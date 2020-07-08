@@ -13,16 +13,11 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class ScoreboardController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<ScoreboardViewModel>> Get()
-        {
-            return NotFound(new List<ScoreboardViewModel>());
-        }
 
         [HttpPost]
-        public ActionResult<string> Search([FromQuery] string searchPhrase)
+        public ActionResult<List<ScoreboardViewModel>> Search([FromBody] string searchPhrase, [FromBody] int page, [FromBody] int itemPerPage)
         {
-            return NotFound("post error");
+            return NotFound(new List<ScoreboardViewModel>());
         }
     }
 }

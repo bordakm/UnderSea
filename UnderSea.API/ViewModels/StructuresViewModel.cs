@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UnderSea.API.DTO
+namespace UnderSea.API.ViewModels
 {
-    public class StructuresDTO
+    public class StructuresViewModel
     {
         public bool FlowManager { get; set; }
         public bool ReefCastle { get; set; }

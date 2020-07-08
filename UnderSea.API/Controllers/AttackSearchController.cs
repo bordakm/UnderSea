@@ -13,15 +13,9 @@ namespace UnderSea.API.Controllers
     public class AttackSearchController : ControllerBase
     {
         [HttpPost]
-        public ActionResult<string> Search([FromQuery]string searchPhrase)
+        public ActionResult<List<string>> Search([FromBody]string searchPhrase, [FromBody] int page, [FromBody] int itemPerPage)
         {
-            return NotFound("post error");
-        }
-
-        [HttpGet]
-        public ActionResult<List<PlayerViewModel>> Get()
-        {
-            return Ok(new List<PlayerViewModel>());
+            return NotFound(new List<string>());
         }
     }
 }

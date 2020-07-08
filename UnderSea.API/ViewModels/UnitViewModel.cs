@@ -12,7 +12,9 @@ namespace UnderSea.API.ViewModels
         public int Count { get; set; }
         public int AttackScore { get; set; }
         public int DefenseScore { get; set; }
-        public int Salary { get; set; }
+        public int PearlCostPerTurn { get; set; }
+        public int CoralCostPerTurn { get; set; }
         public int Price { get; set; }
+        public string Picture { get; set; }
     }
 }

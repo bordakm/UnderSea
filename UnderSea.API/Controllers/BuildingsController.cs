@@ -20,7 +20,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<string> Buy([FromQuery]int id)
+        public ActionResult<string> Buy([FromBody]int id)
         {
             return NotFound("post error");
         }
