@@ -13,9 +13,17 @@ namespace UnderSea.API.Controllers
     public class AuthController : ControllerBase
     {
         [HttpPost]
+        [Route("/login")]
         public ActionResult<string> Login([FromBody] LoginDTO loginData)
         {
             return NotFound("post error");
+        }
+
+        [HttpPost]
+        [Route("/logout")]
+        public ActionResult Logout()
+        {
+            return BadRequest("Not implemented");
         }
     }
 }
