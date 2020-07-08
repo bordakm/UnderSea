@@ -13,9 +13,9 @@ namespace UnderSea.API.Controllers
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public Task<List<AvailableUnitDTO>> GetAvailable()
+        public Task<List<UnitDTO>> GetUnitInfo()
         {
-            List<AvailableUnitDTO> units = new List<AvailableUnitDTO>();
+            List<UnitDTO> units = new List<UnitDTO>();
             return Task.FromResult(units);
         }
 
