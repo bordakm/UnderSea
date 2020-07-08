@@ -10,13 +10,18 @@ namespace UnderSea.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OutgoingAttackController : ControllerBase
+    public class ScoreboardController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<OutgoingAttackDTO> Get()
+        public ActionResult<ScoreboardDTO> Get()
         {
             return NotFound();
         }
 
+        [HttpPost]
+        public ActionResult<string> Post(string searchPhase)
+        {
+            return NotFound("post error");
+        }
     }
 }

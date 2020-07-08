@@ -18,9 +18,9 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ResultMessageDTO> Post(int id)
+        public ActionResult<string> Post(int id)
         {
-            return NotFound(new ResultMessageDTO());
+            return NotFound("post error");
         }
     }
 }
