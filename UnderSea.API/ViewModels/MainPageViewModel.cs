@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UnderSea.API.DTO;
 
-namespace UnderSea.API.DTO
+namespace UnderSea.API.ViewModels
 {
-    public class MainPageDTO
+    public class MainPageViewModel
     {
         public int RoundCount { get; set; }
         public int ScoreboardPosition { get; set; }

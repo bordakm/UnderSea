@@ -5,22 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UnderSea.API.DTO;
-using UnderSea.API.ViewModels;
 
 namespace UnderSea.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ScoreboardController : ControllerBase
+    public class RegisterController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<ScoreboardViewModel>> Get()
-        {
-            return NotFound(new List<ScoreboardViewModel>());
-        }
-
         [HttpPost]
-        public ActionResult<string> Search([FromQuery] string searchPhase)
+        public ActionResult<string> Register([FromBody]RegisterDTO registerData)
         {
             return NotFound("post error");
         }

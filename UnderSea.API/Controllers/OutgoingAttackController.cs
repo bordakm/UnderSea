@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UnderSea.API.DTO;
+using UnderSea.API.ViewModels;
 
 namespace UnderSea.API.Controllers
 {
@@ -13,9 +14,9 @@ namespace UnderSea.API.Controllers
     public class OutgoingAttackController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<List<OutgoingAttackDTO>> Get()
+        public ActionResult<List<OutgoingAttackViewModel>> Get()
         {
-            return NotFound(new List<OutgoingAttackDTO>());
+            return NotFound(new List<OutgoingAttackViewModel>());
         }
 
     }

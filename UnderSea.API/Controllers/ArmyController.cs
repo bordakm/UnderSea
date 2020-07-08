@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UnderSea.API.DTO;
+using UnderSea.API.ViewModels;
 
 namespace UnderSea.API.Controllers
 {
@@ -13,13 +14,16 @@ namespace UnderSea.API.Controllers
     public class ArmyController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<List<UnitDTO>> Get()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<List<UnitViewModel>> Get()
         {
-            return NotFound(new List<UnitDTO>());
+            return Ok(new List<UnitViewModel>());
         }
 
         [HttpPost]
-        public ActionResult<string> Post(List<UnitPurchaseDTO> list)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<string> Buy([FromBody]List<UnitPurchaseDTO> purchases)
         {
             return NotFound("post error");
         }

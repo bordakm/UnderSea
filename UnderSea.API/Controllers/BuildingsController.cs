@@ -1,25 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using UnderSea.API.DTO;
 using UnderSea.API.ViewModels;
 
 namespace UnderSea.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class UpgradeController : ControllerBase
+    [ApiController]
+    public class BuildingsController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<List<UpgradeViewModel>> Get()
+        public ActionResult<List<BuildingInfoViewModel>> Get()
         {
-            return NotFound(new List<UpgradeViewModel>());
+            return NotFound(new List<BuildingInfoViewModel>());
         }
 
         [HttpPost]
-        public ActionResult<string> Research([FromQuery]int id)
+        public ActionResult<string> Buy([FromQuery]int id)
         {
             return NotFound("post error");
         }
