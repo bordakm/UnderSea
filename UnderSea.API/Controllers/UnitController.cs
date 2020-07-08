@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,26 +7,24 @@ using UnderSea.API.DTO;
 
 namespace UnderSea.API.Controllers
 {
-    [Route("api/units")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UnitController : ControllerBase
     {
-        [HttpPost]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetAvailable()
+        public Task<List<AvailableUnitDTO>> GetAvailable()
         {
-            throw new NotImplementedException();
-            List<AvailableUnitDTO> units = ;
-            return Ok(units);
+            List<AvailableUnitDTO> units = new List<AvailableUnitDTO>();
+            return Task.FromResult(units);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Buy([FromBody] List<UnitPurchaseDTO> purchases)
+        public Task Buy([FromBody] List<UnitPurchaseDTO> purchases)
         {
-            throw new NotImplementedException();
-            return Ok();
+            return Task.FromResult(new Object());
         }
     }
 }
