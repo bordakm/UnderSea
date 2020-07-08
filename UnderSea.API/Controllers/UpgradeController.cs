@@ -14,7 +14,7 @@ namespace UnderSea.API.Controllers
         [HttpGet]
         public ActionResult<List<UpgradeDTO>> Get()
         {
-            return NotFound();
+            return NotFound(new List<UpgradeDTO>());
         }
 
         [HttpPost]

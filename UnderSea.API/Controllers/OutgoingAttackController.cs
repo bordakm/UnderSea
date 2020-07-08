@@ -15,7 +15,7 @@ namespace UnderSea.API.Controllers
         [HttpGet]
         public ActionResult<List<OutgoingAttackDTO>> Get()
         {
-            return NotFound();
+            return NotFound(new List<OutgoingAttackDTO>());
         }
 
     }

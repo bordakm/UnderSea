@@ -15,7 +15,7 @@ namespace UnderSea.API.Controllers
         [HttpGet]
         public ActionResult<List<ScoreboardDTO>> Get()
         {
-            return NotFound();
+            return NotFound(new List<ScoreboardDTO>());
         }
 
         [HttpPost]

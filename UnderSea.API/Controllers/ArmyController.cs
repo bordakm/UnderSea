@@ -15,7 +15,7 @@ namespace UnderSea.API.Controllers
         [HttpGet]
         public ActionResult<List<UnitDTO>> Get()
         {
-            return NotFound();
+            return NotFound(new List<UnitDTO>());
         }
 
         [HttpPost]
