@@ -7,6 +7,6 @@ namespace UnderSea.API.DTO
 {
     public class UpgradePurchaseDTO
     {
-
+        public int UpgradeId { get; set; }
     }
 }

@@ -7,5 +7,7 @@ namespace UnderSea.API.DTO
 {
     public class TargetDTO
     {
+        public int CountryId { get; set; }
+        public int Name { get; set; }
     }
 }

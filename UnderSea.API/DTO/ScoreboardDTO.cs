@@ -7,5 +7,9 @@ namespace UnderSea.API.DTO
 {
     public class ScoreboardDTO
     {
+        public int Place { get; set; }
+        public int UserId { get; set; }
+        public int UserName { get; set; }
+        public int Score { get; set; }
     }
 }

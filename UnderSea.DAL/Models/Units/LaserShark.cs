@@ -9,9 +9,9 @@ namespace UnderSea.DAL.Models.Units
         public int Id { get; set; }
         public int Count { get; set; }
         public int Price { get; set; }
-        public double AttackScore { get; protected set; }
-        public double DefenseScore { get; protected set; }
-        public int PearlCostPerTurn { get; protected set; }
-        public int CoralCostPerTurn { get; protected set; }
+        public double AttackScore { get; set; }
+        public double DefenseScore { get; set; }
+        public int PearlCostPerTurn { get; set; }
+        public int CoralCostPerTurn { get; set; }
     }
 }

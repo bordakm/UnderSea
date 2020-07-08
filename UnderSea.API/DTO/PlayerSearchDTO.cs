@@ -7,5 +7,6 @@ namespace UnderSea.API.DTO
 {
     public class PlayerSearchDTO
     {
+        public string SearchPhrase { get; set; }
     }
 }
