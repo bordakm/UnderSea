@@ -8,7 +8,7 @@ using UnderSea.API.DTO;
 namespace UnderSea.API.Controllers
 {
     [ApiController]
-    [Route("[api/upgrade]")]
+    [Route("api/[controller]")]
     public class UpgradeController : ControllerBase
     {
         [HttpGet]

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UnderSea.API.DTO
 {
-    public class OutgoingAttack
+    public class OutgoingAttackDTO
     {
         public string CountryName { get; set; }
         public int LaserSharkCount { get; set; }
