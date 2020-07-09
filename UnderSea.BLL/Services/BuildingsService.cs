@@ -14,7 +14,7 @@ namespace UnderSea.BLL.Services
 {
     class BuildingsService : IBuildingsService
     {
-        private UnderSeaDbContext db;
+        private readonly UnderSeaDbContext db;
 
         public BuildingsService(UnderSeaDbContext db)
         {

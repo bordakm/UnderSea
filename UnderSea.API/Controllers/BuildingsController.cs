@@ -14,7 +14,7 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class BuildingsController : ControllerBase
     {
-        private IBuildingsService buildingsService;
+        private readonly IBuildingsService buildingsService;
 
         public BuildingsController(IBuildingsService buildingsService)
         {
@@ -22,15 +22,16 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<BuildingInfoViewModel>> GetBuildingInfos()
+        public Task<List<BuildingInfoViewModel>> GetBuildingInfos()
         {
-            return NotFound(new List<BuildingInfoViewModel>());
+            return buildingsService.GetBuildingInfos();
         }
 
         [HttpPost]
-        public ActionResult<string> PurchaseBuilding([FromBody] int id)
+        public Task PurchaseBuilding([FromBody] int buildingId)
         {
-            return NotFound("post error");
+            int userId = 0;
+            return buildingsService.PurchaseBuildingById(userId, buildingId);
         }
     }
 }
