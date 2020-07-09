@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UnderSea.DAL.Models.Buildings;
+using UnderSea.DAL.Models.Units;
 
 namespace UnderSea.BLL.ViewModels
 {
     public class StatusBarViewModel
     {
-        public StatusBarUnit CombatSeaHorse { get; set; }
-        public StatusBarUnit LaserShark { get; set; }
-        public StatusBarUnit StromSeal { get; set; }
-        public StatusBarBuilding FlowManager { get; set; }
-        public StatusBarBuilding ReefCastle { get; set; }
+        public UnitGroup Units { get; set; }
+        public BuildingGroup Buildings { get; set; }
         public int RoundCount { get; set; }
         public int ScoreboardPosition { get; set; }
         
@@ -36,10 +35,10 @@ namespace UnderSea.BLL.ViewModels
         {
             public int PearlCount { get; set; }
             public int PearlProductionCount { get; set; }
-            public string PearlPicture { get; set; }
+            public string PearlPictureUrl { get; set; }
             public int CoralCount { get; set; }
             public int CoralProductionCount { get; set; }
-            public string CoralPicture { get; set; }
+            public string CoralPictureUrl { get; set; }
         }
     }
 }

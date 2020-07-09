@@ -16,8 +16,10 @@ namespace UnderSea.DAL.Models
         public UnitGroup Army { get; set; }
         public int Coral { get; set; }
         public int CoralProduction { get; set; }
+        public string CoralPictureUrl { get; set; }
         public int Pearl { get; set; }
         public int PearlProduction { get; set; }
+        public string PearlPictureUrl {get;set;}
 
         public int Population { get; set; }
         public int UnitStorage { get; set; }

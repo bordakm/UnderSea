@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Upgrades
 {
-    class UnderwaterMartialArts : Upgrade
+    public class UnderwaterMartialArts : Upgrade
     {
         public UnderwaterMartialArts() 
         {

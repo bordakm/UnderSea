@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Upgrades
 {
-    class CoralWall : Upgrade
+    public class CoralWall : Upgrade
     {
         public CoralWall()
         {

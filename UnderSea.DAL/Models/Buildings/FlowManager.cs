@@ -13,7 +13,7 @@ namespace UnderSea.DAL.Models.Buildings
             PopulationBonus = 50;
             CoralBonus = 200;
             UnitStorage = 0;
-            UnderConstructionCount = false;
+            UnderConstructionCount = 0;
         }
     }
 }
