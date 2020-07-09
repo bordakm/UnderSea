@@ -46,7 +46,7 @@ namespace UnderSea.BLL.Services
         public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
         {
             var game = await db.Game.FirstOrDefaultAsync();
-            var attacks = game.Attacks;
+            var attacks = game.Attacks.ToList();
             var res = new List<OutgoingAttackViewModel>();
             foreach (var item in attacks)
             {
@@ -64,7 +64,7 @@ namespace UnderSea.BLL.Services
         public async Task<List<UnitViewModel>> GetUnits()
         {
             var user = await db.Users.FirstOrDefaultAsync();
-            var units = user.Country.Army.Units;
+            var units = user.Country.Army.Units.ToList();
             return mapper.Map<List<UnitViewModel>>(units);
         }
     }
