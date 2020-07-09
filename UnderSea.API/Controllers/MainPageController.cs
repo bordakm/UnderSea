@@ -18,5 +18,11 @@ namespace UnderSea.API.Controllers
         {
             return NotFound(new MainPageViewModel());
         }
+
+        [HttpPost]
+        public ActionResult<string> NewRound([FromBody] int rounds)
+        {
+            return BadRequest("Not implemented");
+        }
     }
 }
