@@ -8,6 +8,9 @@ namespace UnderSea.DAL.Models.Upgrades
     {
         public MudHarvester()
         {
+            Name = "Iszapkombájn";
+            Description = "növeli a korall termesztést 15%-kal";
+            ImageUrl = "majd/kesobb/lesz/kep.jpg";
             CoralProductionBonusPercentage = 15;
         }
     }

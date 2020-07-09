@@ -6,8 +6,8 @@ namespace UnderSea.DAL.Models.Upgrades
 {
     public enum UpgradeState
     {
-        InProgress = 1,
-        Researched = 2,
-        Unresearched = 3
+        Unresearched = 1,
+        InProgress = 2,
+        Researched = 3
     }
 }

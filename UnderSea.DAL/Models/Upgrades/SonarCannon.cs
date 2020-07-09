@@ -8,6 +8,9 @@ namespace UnderSea.DAL.Models.Upgrades
     {
         public SonarCannon()
         {
+            Name = "Szonárágyú";
+            Description = "növeli a támadópontokat 20%-kal";
+            ImageUrl = "majd/kesobb/lesz/kep.jpg";
             AttackBonusPercentage = 20;
         }
     }
