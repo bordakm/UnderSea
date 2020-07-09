@@ -32,7 +32,7 @@ namespace UnderSea.BLL.Services
         public async Task PurchaseBuilding(int id)
         {
             // TODO authentication
-            var user = await db.Users.FirstOrDefaultAsync();
+            var user = await db.Users.FirstOrDefaultAsync();            
             var building = user.Country.BuildingGroup.Buildings.ToList()
                 .Find(building => building.Id == id);
             var underConstructionCount = user.Country.BuildingGroup.Buildings.Sum(building => building.UnderConstructionCount);
