@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UnderSea.BLL.DTO;
-using UnderSea.BLL.Exceptions.Filters;
 using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
 
@@ -29,7 +28,6 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost]
-        [PurchaseFailedExceptionFilter]
         public ActionResult<string> PurchaseBuilding([FromBody] int id)
         {
             return NotFound("post error");

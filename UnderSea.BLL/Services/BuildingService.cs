@@ -38,11 +38,11 @@ namespace UnderSea.BLL.Services
             var underConstructionCount = user.Country.BuildingGroup.Buildings.Sum(building => building.UnderConstructionCount);
             if (underConstructionCount > 0)
             {
-                throw new PurchaseFailedException("A building is already under construction.");
+                throw new Exception("A building is already under construction.");
             }
             if (building.Price > user.Country.Pearl)
             {
-                throw new PurchaseFailedException("Not enough pearls.");
+                throw new Exception("Not enough pearls.");
             }
             building.UnderConstructionCount++;
             user.Country.BuildingTimeLeft = 15;
