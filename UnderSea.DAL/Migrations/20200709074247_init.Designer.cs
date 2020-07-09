@@ -10,8 +10,8 @@ using UnderSea.DAL.Context;
 namespace UnderSea.DAL.Migrations
 {
     [DbContext(typeof(UnderSeaDbContext))]
-    [Migration("20200708062402_UnderSeaDbMig")]
-    partial class UnderSeaDbMig
+    [Migration("20200709074247_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,47 @@ namespace UnderSea.DAL.Migrations
                     b.ToTable("Attack");
                 });
 
+            modelBuilder.Entity("UnderSea.DAL.Models.Buildings.Building", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BuildingGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoralBonus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PopulationBonus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("UnderConstructionCount")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UnitStorage")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingGroupId");
+
+                    b.ToTable("Buildings");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Building");
+                });
+
             modelBuilder.Entity("UnderSea.DAL.Models.Buildings.BuildingGroup", b =>
                 {
                     b.Property<int>("Id")
@@ -60,76 +101,9 @@ namespace UnderSea.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BuildingState")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FlowManagerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReefCastleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("FlowManagerId");
-
-                    b.HasIndex("ReefCastleId");
 
                     b.ToTable("BuildingGroup");
-                });
-
-            modelBuilder.Entity("UnderSea.DAL.Models.Buildings.FlowManager", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CoralBonus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PopulationBonus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UnitStorage")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FlowManager");
-                });
-
-            modelBuilder.Entity("UnderSea.DAL.Models.Buildings.ReefCastle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CoralBonus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PopulationBonus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UnitStorage")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReefCastle");
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Country", b =>
@@ -163,13 +137,19 @@ namespace UnderSea.DAL.Migrations
                     b.Property<int>("PearlProduction")
                         .HasColumnType("int");
 
+                    b.Property<int>("Population")
+                        .HasColumnType("int");
+
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
-                    b.Property<int>("UpgradeTimeLeft")
+                    b.Property<int>("TaxRate")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UpgradesId")
+                    b.Property<int>("UnitStorage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpgradeTimeLeft")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -177,8 +157,6 @@ namespace UnderSea.DAL.Migrations
                     b.HasIndex("ArmyId");
 
                     b.HasIndex("BuildingGroupId");
-
-                    b.HasIndex("UpgradesId");
 
                     b.ToTable("Country");
                 });
@@ -198,7 +176,7 @@ namespace UnderSea.DAL.Migrations
                     b.ToTable("Game");
                 });
 
-            modelBuilder.Entity("UnderSea.DAL.Models.Units.CombatSeaHorse", b =>
+            modelBuilder.Entity("UnderSea.DAL.Models.Units.Unit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -217,35 +195,9 @@ namespace UnderSea.DAL.Migrations
                     b.Property<double>("DefenseScore")
                         .HasColumnType("float");
 
-                    b.Property<int>("PearlCostPerTurn")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CombatSeaHorse");
-                });
-
-            modelBuilder.Entity("UnderSea.DAL.Models.Units.LaserShark", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("AttackScore")
-                        .HasColumnType("float");
-
-                    b.Property<int>("CoralCostPerTurn")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<double>("DefenseScore")
-                        .HasColumnType("float");
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PearlCostPerTurn")
                         .HasColumnType("int");
@@ -253,39 +205,16 @@ namespace UnderSea.DAL.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("LaserShark");
-                });
-
-            modelBuilder.Entity("UnderSea.DAL.Models.Units.StormSeal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("AttackScore")
-                        .HasColumnType("float");
-
-                    b.Property<int>("CoralCostPerTurn")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<double>("DefenseScore")
-                        .HasColumnType("float");
-
-                    b.Property<int>("PearlCostPerTurn")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
+                    b.Property<int?>("UnitGroupId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("StormSeal");
+                    b.HasIndex("UnitGroupId");
+
+                    b.ToTable("Unit");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Unit");
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Units.UnitGroup", b =>
@@ -295,54 +224,50 @@ namespace UnderSea.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CombatSeaHorseId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LaserSharkId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StormSealId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CombatSeaHorseId");
-
-                    b.HasIndex("LaserSharkId");
-
-                    b.HasIndex("StormSealId");
 
                     b.ToTable("UnitGroup");
                 });
 
-            modelBuilder.Entity("UnderSea.DAL.Models.Upgrade.Upgrades", b =>
+            modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.Upgrade", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Alchemy")
+                    b.Property<int>("AttackAndDefenseBonusPercentage")
                         .HasColumnType("int");
 
-                    b.Property<int>("CoralWall")
+                    b.Property<int>("AttackBonusPercentage")
                         .HasColumnType("int");
 
-                    b.Property<int>("MudHarvester")
+                    b.Property<int>("CoralProductionBonusPercentage")
                         .HasColumnType("int");
 
-                    b.Property<int>("MudTractor")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SonarCannon")
+                    b.Property<int>("DefenseBonusPercentage")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnderwaterMartialArts")
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PearlProductionBonusPercentage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("State")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Upgrades");
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Upgrade");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Upgrade");
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.User", b =>
@@ -370,6 +295,83 @@ namespace UnderSea.DAL.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("UnderSea.DAL.Models.Buildings.FlowManager", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Buildings.Building");
+
+                    b.HasDiscriminator().HasValue("FlowManager");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Buildings.ReefCastle", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Buildings.Building");
+
+                    b.HasDiscriminator().HasValue("ReefCastle");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Units.CombatSeaHorse", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Units.Unit");
+
+                    b.HasDiscriminator().HasValue("CombatSeaHorse");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Units.LaserShark", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Units.Unit");
+
+                    b.HasDiscriminator().HasValue("LaserShark");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Units.StormSeal", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Units.Unit");
+
+                    b.HasDiscriminator().HasValue("StormSeal");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.Alchemy", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Upgrades.Upgrade");
+
+                    b.HasDiscriminator().HasValue("Alchemy");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.CoralWall", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Upgrades.Upgrade");
+
+                    b.HasDiscriminator().HasValue("CoralWall");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.MudHarvester", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Upgrades.Upgrade");
+
+                    b.HasDiscriminator().HasValue("MudHarvester");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.MudTractor", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Upgrades.Upgrade");
+
+                    b.HasDiscriminator().HasValue("MudTractor");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.SonarCannon", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Upgrades.Upgrade");
+
+                    b.HasDiscriminator().HasValue("SonarCannon");
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.UnderwaterMartialArts", b =>
+                {
+                    b.HasBaseType("UnderSea.DAL.Models.Upgrades.Upgrade");
+
+                    b.HasDiscriminator().HasValue("UnderwaterMartialArts");
+                });
+
             modelBuilder.Entity("UnderSea.DAL.Models.Attack", b =>
                 {
                     b.HasOne("UnderSea.DAL.Models.User", "AttackerUser")
@@ -389,15 +391,11 @@ namespace UnderSea.DAL.Migrations
                         .HasForeignKey("UnitGroupId");
                 });
 
-            modelBuilder.Entity("UnderSea.DAL.Models.Buildings.BuildingGroup", b =>
+            modelBuilder.Entity("UnderSea.DAL.Models.Buildings.Building", b =>
                 {
-                    b.HasOne("UnderSea.DAL.Models.Buildings.FlowManager", "FlowManager")
-                        .WithMany()
-                        .HasForeignKey("FlowManagerId");
-
-                    b.HasOne("UnderSea.DAL.Models.Buildings.ReefCastle", "ReefCastle")
-                        .WithMany()
-                        .HasForeignKey("ReefCastleId");
+                    b.HasOne("UnderSea.DAL.Models.Buildings.BuildingGroup", null)
+                        .WithMany("Buildings")
+                        .HasForeignKey("BuildingGroupId");
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Country", b =>
@@ -409,25 +407,20 @@ namespace UnderSea.DAL.Migrations
                     b.HasOne("UnderSea.DAL.Models.Buildings.BuildingGroup", "BuildingGroup")
                         .WithMany()
                         .HasForeignKey("BuildingGroupId");
-
-                    b.HasOne("UnderSea.DAL.Models.Upgrade.Upgrades", "Upgrades")
-                        .WithMany()
-                        .HasForeignKey("UpgradesId");
                 });
 
-            modelBuilder.Entity("UnderSea.DAL.Models.Units.UnitGroup", b =>
+            modelBuilder.Entity("UnderSea.DAL.Models.Units.Unit", b =>
                 {
-                    b.HasOne("UnderSea.DAL.Models.Units.CombatSeaHorse", "CombatSeaHorse")
-                        .WithMany()
-                        .HasForeignKey("CombatSeaHorseId");
+                    b.HasOne("UnderSea.DAL.Models.Units.UnitGroup", null)
+                        .WithMany("Units")
+                        .HasForeignKey("UnitGroupId");
+                });
 
-                    b.HasOne("UnderSea.DAL.Models.Units.LaserShark", "LaserShark")
-                        .WithMany()
-                        .HasForeignKey("LaserSharkId");
-
-                    b.HasOne("UnderSea.DAL.Models.Units.StormSeal", "StormSeal")
-                        .WithMany()
-                        .HasForeignKey("StormSealId");
+            modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.Upgrade", b =>
+                {
+                    b.HasOne("UnderSea.DAL.Models.Country", null)
+                        .WithMany("Upgrades")
+                        .HasForeignKey("CountryId");
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.User", b =>
