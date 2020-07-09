@@ -13,7 +13,6 @@ namespace UnderSea.DAL.Context
     public class UnderSeaDbContext : DbContext
     {
         public DbSet<Game> Game { get; set; }
-        public DbSet<Building> Buildings { get; set; }
         public UnderSeaDbContext(DbContextOptions<UnderSeaDbContext> options) : base(options)
         {
 
