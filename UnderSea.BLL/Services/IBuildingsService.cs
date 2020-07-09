@@ -7,10 +7,10 @@ using UnderSea.DAL.Models.Buildings;
 
 namespace UnderSea.BLL.Services
 {
-    public interface IBuildingService
+    public interface IBuildingsService
     {
         public Task<List<BuildingInfoViewModel>> GetBuildingInfos();
 
-        public Task PurchaseBuilding(int id);        
+        public Task PurchaseBuildingById(int userId, int buildingId);        
     }
 }

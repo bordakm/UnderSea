@@ -14,11 +14,11 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class BuildingsController : ControllerBase
     {
-        private IBuildingService buildingService;
+        private IBuildingsService buildingsService;
 
-        public BuildingsController(IBuildingService buildingService)
+        public BuildingsController(IBuildingsService buildingsService)
         {
-            this.buildingService = buildingService;
+            this.buildingsService = buildingsService;
         }
 
         [HttpGet]

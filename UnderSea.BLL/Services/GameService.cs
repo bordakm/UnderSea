@@ -25,17 +25,16 @@ namespace UnderSea.BLL.Services
             this.mapper = mapper;
         }
 
-        public async Task<string> AttackSearch (SearchDTO search)
+        public async Task<List<string>> AttackSearch (SearchDTO search)
         {
             var game = await db.Game.FirstOrDefaultAsync();
-            var users = game.Users.Where(x => 
-                                    (x.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper())));
+            var user = game.Users.FindAll(x => x.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
+                                    .Skip(search.ItemPerPage * (search.Page - 1))
+                                    .Take(search.ItemPerPage)
+                                    .Select(x => x.UserName)
+                                    .ToList();
 
-            //if (search.ItemPerPage > users.Count)
-            //    return users;
-            return null;
-            
-
+            return user;
         }
 
         public async Task<MainPageViewModel> GetMainPage()
@@ -89,7 +88,13 @@ namespace UnderSea.BLL.Services
 
         public async Task<List<ScoreboardViewModel>> SearchScoreboard(SearchDTO search)
         {
-            throw new NotImplementedException();
+            var game = await db.Game.FirstOrDefaultAsync();
+            var user = game.Users.FindAll(x => x.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
+                                    .Skip(search.ItemPerPage * (search.Page - 1))
+                                    .Take(search.ItemPerPage)
+                                    .ToList();
+
+            return mapper.Map<List<ScoreboardViewModel>>(user);
         }
     }
 }

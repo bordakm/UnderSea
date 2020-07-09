@@ -9,7 +9,7 @@ namespace UnderSea.BLL.Services
 {
     interface IGameService
     {
-        public Task<string> AttackSearch(SearchDTO search);
+        public Task<List<string>> AttackSearch(SearchDTO search);
         public Task<MainPageViewModel> GetMainPage();
         public Task NewRound(int rounds);
         public Task<List<ScoreboardViewModel>> SearchScoreboard(SearchDTO search);
