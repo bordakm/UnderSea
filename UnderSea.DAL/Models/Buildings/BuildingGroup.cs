@@ -7,8 +7,6 @@ namespace UnderSea.DAL.Models.Buildings
     public class BuildingGroup
     {
         public int Id { get; set; }
-        public FlowManager FlowManager { get; set; }
-        public ReefCastle ReefCastle { get; set; }
-        public BuildingState BuildingState { get; set; }
+        public List<Building> Buildings { get; set; }
     }
 }
