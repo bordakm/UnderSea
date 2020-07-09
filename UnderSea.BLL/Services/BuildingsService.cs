@@ -14,7 +14,7 @@ namespace UnderSea.BLL.Services
 {
     class BuildingsService : IBuildingsService
     {
-        private UnderSeaDbContext db;
+        private readonly UnderSeaDbContext db;
 
         public BuildingsService(UnderSeaDbContext db)
         {
@@ -37,7 +37,7 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(ent => ent.BuildingGroup)
                 .ThenInclude(ent => ent.Buildings)
                 .SingleAsync(user => user.Id == userId);
-            var building = user.Country.BuildingGroup.Buildings.Single(building => building.Id == id);
+            var building = user.Country.BuildingGroup.Buildings.Single(building => building.Id == buildingId);
             var underConstructionCount = user.Country.BuildingGroup.Buildings.Sum(building => building.UnderConstructionCount);
             if (underConstructionCount > 0)
             {

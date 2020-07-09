@@ -16,7 +16,7 @@ namespace UnderSea.BLL.Services
 {
     class ArmyService: IArmyService
     {
-        private UnderSeaDbContext db;
+        private readonly UnderSeaDbContext db;
         private readonly IMapper mapper;
 
         public ArmyService(UnderSeaDbContext db, IMapper mapper)
@@ -48,10 +48,25 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task BuyUnits(List<UnitPurchaseDTO> purchases)
+        public async Task BuyUnits(int userId, List<UnitPurchaseDTO> purchases)
         {
-            //same as the upper one
-            throw new NotImplementedException();
+            var user = await db.Users.Include(user => user.Country)
+                .ThenInclude(country => country.Army)
+                .FirstAsync(user => user.Id == userId);
+            var units = await db.Units.ToListAsync();
+            int currentSupplyDemand = units.Sum(unit => unit.Count);
+            int newSupplyDemand = purchases.Sum(purchase => purchase.Count);
+            if (user.Country.Population < currentSupplyDemand + newSupplyDemand)
+            {
+                throw new Exception("More barracks are needed.");
+            }
+            int priceTotal = purchases.Sum(purchase => purchase.Count * units.Find(unit => unit.Id == purchase.Id).Price);
+            if (priceTotal > user.Country.Pearl)
+            {
+                throw new Exception("Not enough pearls.");
+            }
+            units.ForEach(unit => unit.Count += purchases.Find(purchase => purchase.Id == unit.Id).Count);
+            await db.SaveChangesAsync();
         }
 
         public async Task<List<AvailableUnitViewModel>> GetAvailableUnits()
