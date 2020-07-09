@@ -10,7 +10,7 @@ namespace UnderSea.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UpgradeController : ControllerBase
+    public class UpgradesController : ControllerBase
     {
         [HttpGet]
         public ActionResult<List<UpgradeViewModel>> Get()
