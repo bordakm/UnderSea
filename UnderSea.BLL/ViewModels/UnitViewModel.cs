@@ -15,6 +15,6 @@ namespace UnderSea.BLL.ViewModels
         public int PearlCostPerTurn { get; set; }
         public int CoralCostPerTurn { get; set; }
         public int Price { get; set; }
-        public string Picture { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

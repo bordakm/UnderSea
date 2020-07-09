@@ -10,5 +10,6 @@ namespace UnderSea.DAL.Models
         public int Id { get; set; }
         public Country Country { get; set; }
         public string UserName { get; set; }
+        public int Place { get; set; }
     }
 }

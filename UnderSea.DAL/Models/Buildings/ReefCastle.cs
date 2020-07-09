@@ -9,11 +9,12 @@ namespace UnderSea.DAL.Models.Buildings
         public ReefCastle()
         {
             Count = 0;
+            Name = "zátonyvár";
             Price = 1000;
             PopulationBonus = 0;
             CoralBonus = 0;
             UnitStorage = 200;
-            UnderConstructionCount = false;
+            UnderConstructionCount = 0;
         }
     }
 }
