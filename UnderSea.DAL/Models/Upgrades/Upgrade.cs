@@ -6,6 +6,7 @@ namespace UnderSea.DAL.Models.Upgrades
 {
     public abstract class Upgrade
     {
+        public int Id { get; set; }
         public int CoralProductionBonusPercentage { get; set; }
         public int DefenseBonusPercentage { get; set; }
         public int AttackBonusPercentage { get; set; }
