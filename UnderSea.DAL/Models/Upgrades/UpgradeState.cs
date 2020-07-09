@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UnderSea.DAL.Models.Upgrade
+namespace UnderSea.DAL.Models.Upgrades
 {
     public enum UpgradeState
     {
