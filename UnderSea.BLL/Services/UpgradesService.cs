@@ -9,10 +9,10 @@ using UnderSea.DAL.Context;
 
 namespace UnderSea.BLL.Services
 {
-    class UpgradeService : IUpgradeService
+    class UpgradesService : IUpgradesService
     {
         UnderSeaDbContext db;
-        public UpgradeService(UnderSeaDbContext context)
+        public UpgradesService(UnderSeaDbContext context)
         {
             db = context;
         }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UnderSea.BLL.ViewModels;
 using UnderSea.DAL.Context;
@@ -11,11 +12,11 @@ using UnderSea.DAL.Models.Buildings;
 
 namespace UnderSea.BLL.Services
 {
-    class BuildingService : IBuildingService
+    class BuildingsService : IBuildingsService
     {
         private UnderSeaDbContext db;
 
-        public BuildingService(UnderSeaDbContext db)
+        public BuildingsService(UnderSeaDbContext db)
         {
             this.db = db;
         }
@@ -29,12 +30,14 @@ namespace UnderSea.BLL.Services
             return buildingInfos;
         }
 
-        public async Task PurchaseBuilding(int id)
+        public async Task PurchaseBuildingById(int userId, int buildingId)
         {
             // TODO authentication
-            var user = await db.Users.FirstOrDefaultAsync();
-            var building = user.Country.BuildingGroup.Buildings.ToList()
-                .Find(building => building.Id == id);
+            var user = await db.Users.Include(ent => ent.Country)
+                .ThenInclude(ent => ent.BuildingGroup)
+                .ThenInclude(ent => ent.Buildings)
+                .SingleAsync(user => user.Id == userId);
+            var building = user.Country.BuildingGroup.Buildings.Single(building => building.Id == id);
             var underConstructionCount = user.Country.BuildingGroup.Buildings.Sum(building => building.UnderConstructionCount);
             if (underConstructionCount > 0)
             {
