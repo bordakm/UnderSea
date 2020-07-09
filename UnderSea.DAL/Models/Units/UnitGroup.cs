@@ -9,6 +9,8 @@ namespace UnderSea.DAL.Models.Units
     {
         public int Id { get; set; }
 
-        public List<Unit> Units { get; set; }
+        public List<Unit> Units { get; set; } = new List<Unit> { new StormSeal(),
+                                                                 new LaserShark(),
+                                                                 new CombatSeaHorse()};
     }
 }
