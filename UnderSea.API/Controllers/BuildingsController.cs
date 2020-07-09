@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UnderSea.BLL.DTO;
+using UnderSea.BLL.Exceptions.Filters;
+using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
 
 namespace UnderSea.API.Controllers
@@ -13,14 +15,22 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class BuildingsController : ControllerBase
     {
+        private IBuildingService buildingService;
+
+        public BuildingsController(IBuildingService buildingService)
+        {
+            this.buildingService = buildingService;
+        }
+
         [HttpGet]
-        public ActionResult<List<BuildingInfoViewModel>> Get()
+        public ActionResult<List<BuildingInfoViewModel>> GetBuildingInfos()
         {
             return NotFound(new List<BuildingInfoViewModel>());
         }
 
         [HttpPost]
-        public ActionResult<string> Buy([FromBody]int id)
+        [PurchaseFailedExceptionFilter]
+        public ActionResult<string> PurchaseBuilding([FromBody] int id)
         {
             return NotFound("post error");
         }
