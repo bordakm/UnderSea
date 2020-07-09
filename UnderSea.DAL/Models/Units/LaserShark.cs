@@ -4,14 +4,16 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Units
 {
-    public class LaserShark
+    public class LaserShark : Unit
     {
-        public int Id { get; set; }
-        public int Count { get; set; }
-        public int Price { get; set; }
-        public double AttackScore { get; set; }
-        public double DefenseScore { get; set; }
-        public int PearlCostPerTurn { get; set; }
-        public int CoralCostPerTurn { get; set; }
+        public LaserShark()
+        {
+            Count = 0;
+            Price = 100;
+            AttackScore = 5.0;
+            DefenseScore = 5.0;
+            PearlCostPerTurn = 3;
+            CoralCostPerTurn = 2;
+        }
     }
 }

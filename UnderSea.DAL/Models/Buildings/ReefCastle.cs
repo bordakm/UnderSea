@@ -4,13 +4,16 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Buildings
 {
-    public class ReefCastle
+    public class ReefCastle : Building
     {
-        public int Id { get; set; }
-        public int Count { get; set; }
-        public int Price { get; set; }
-        public int PopulationBonus { get; set; }
-        public int CoralBonus { get; set; }
-        public int UnitStorage { get; set; }
+        public ReefCastle()
+        {
+            Count = 0;
+            Price = 1000;
+            PopulationBonus = 0;
+            CoralBonus = 0;
+            UnitStorage = 200;
+            UnderConstructionCount = false;
+        }
     }
 }

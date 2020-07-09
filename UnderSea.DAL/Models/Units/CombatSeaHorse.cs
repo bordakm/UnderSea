@@ -4,14 +4,16 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Units
 {
-    public class CombatSeaHorse
+    public class CombatSeaHorse : Unit
     {
-        public int Id { get; set; }
-        public int Count { get; set; }
-        public int Price { get; set; }
-        public double AttackScore { get; set; }
-        public double DefenseScore { get; set; }
-        public int PearlCostPerTurn { get; set; }
-        public int CoralCostPerTurn { get; set; }
+        public CombatSeaHorse()
+        {
+            Count = 0;
+            Price = 50;
+            AttackScore = 2.0;
+            DefenseScore = 6.0;
+            PearlCostPerTurn = 1;
+            CoralCostPerTurn = 1;
+        }
     }
 }
