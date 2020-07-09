@@ -1,0 +1,98 @@
+<body class = "login">
+    
+<div class="flex-box">
+
+    <div class="wave" style="--w:100px;--h:30px;--p:12.5px; --t:8px;--c:#9FFFF0"></div>
+
+    <h1>UNDERSEA</h1>
+
+    <mat-card *ngIf=!reg class="flex-box">
+        <mat-card-title>Belépés</mat-card-title>
+        <mat-card-content class="input-line">
+            <form class="login-form">
+                <mat-form-field class="login-full-width">
+                    <mat-label>Felhasználónév</mat-label>
+                    <input type="text" matInput [formControl]="userFormControl" [errorStateMatcher]="matcher"
+                        placeholder="username" [(ngModel)]="username">
+                    <mat-error *ngIf="userFormControl.hasError('required')">
+                        <strong>Kötelező</strong> tartomány
+                    </mat-error>
+                </mat-form-field>
+            </form>
+           
+        </mat-card-content>
+
+        <mat-card-content class="input-line">
+            <form class="login-form">
+                <mat-form-field class="login-full-width">  
+                    <mat-label>Jelszó</mat-label>
+                    <input type="password" matInput placeholder="*********" [(ngModel)]="password">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="submit" class="top-button" (click)="login()" mat-raised-button>Belépés</button>
+        </mat-card-actions>
+        <mat-card-actions>
+            <button class="bottom-button" (click)="_true()" mat-raised-button>Regisztráció</button>
+        </mat-card-actions>
+    </mat-card>
+
+   
+    <mat-card *ngIf=reg class="flex-box">
+        <mat-card-title>Regisztráció</mat-card-title>
+        <mat-card-content class="input-line">
+            <form class="login-form">
+                <mat-form-field class="login-full-width">
+                    <mat-label>Felhasználónév</mat-label>
+                    <input matInput [formControl]="userFormControl" [errorStateMatcher]="matcher"
+                        placeholder="Példa Béla">
+                    <mat-error *ngIf="userFormControl.hasError('required')">
+                        <strong>Kötelező</strong> tartomány
+                    </mat-error>
+                </mat-form-field>
+
+
+            </form>
+           
+        </mat-card-content>
+
+        <mat-card-content class="input-line">
+            <form class="login-form">
+                <mat-form-field class="login-full-width">  
+                    <mat-label>Jelszó</mat-label>
+                    <input matInput placeholder="*********">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+
+        <mat-card-content class="input-line">
+            <form class="login-form">
+                <mat-form-field class="login-full-width">  
+                    <mat-label>Jelszó megerősítése</mat-label>
+                    <input matInput placeholder="*********">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+
+        <mat-card-content class="input-line">
+            <form class="login-form">
+                <mat-form-field class="login-full-width">  
+                    <mat-label>A városod neve amit építesz</mat-label>
+                    <input matInput placeholder="KirályVáros">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+
+        
+        <mat-card-actions class="input-line">
+            <button class="top-button" (click)="signup()" mat-raised-button>Regisztráció</button>
+        </mat-card-actions>
+        <mat-card-actions>
+            <button class="bottom-button" (click)="_false()" mat-raised-button >Bejelentkezés</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+
+</body>
