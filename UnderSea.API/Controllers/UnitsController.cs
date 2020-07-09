@@ -11,7 +11,7 @@ namespace UnderSea.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ArmyController : ControllerBase
+    public class UnitsController : ControllerBase
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
