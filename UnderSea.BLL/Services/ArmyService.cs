@@ -10,6 +10,7 @@ using UnderSea.BLL.DTO;
 using UnderSea.BLL.ViewModels;
 using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
+using UnderSea.DAL.Models.Units;
 
 namespace UnderSea.BLL.Services
 {
@@ -24,10 +25,27 @@ namespace UnderSea.BLL.Services
             this.mapper = mapper;
         }
 
-        public async Task Attack(AttackDTO attack)
-        {
-            //result ??? logika ellenőrzése? idk
-            throw new NotImplementedException();
+        public async Task Attack(int attackeruserid, AttackDTO attack)
+        { // TODO: ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
+            var game = await db.Game.FirstOrDefaultAsync();
+            
+            var attackinguser = await db.Users.FirstOrDefaultAsync(u => u.Id == attackeruserid);
+            var defendingcountry = await db.Countries.FirstOrDefaultAsync(c => c.Id == attack.CountryId);
+            var defendinguser = defendingcountry.User;
+
+            game.Attacks.Add(new Attack
+            {
+                AttackerUser = attackinguser,
+                DefenderUser = defendinguser,
+                UnitGroup = new UnitGroup 
+                {
+                    Units = new List<Unit>{ 
+                        new StormSeal(){ Count = attack.AttackingUnits .....}, // TODO minden típusnak beállítani, hogy hányat küldött..
+                        new CombatSeaHorse(),
+                        new LaserShark()}
+                }
+            }) ;
+            await db.SaveChangesAsync();
         }
 
         public async Task BuyUnits(List<UnitPurchaseDTO> purchases)

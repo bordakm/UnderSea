@@ -15,6 +15,7 @@ namespace UnderSea.DAL.Context
         public DbSet<Game> Game { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Building> Buildings { get; set; }
+        public DbSet<Country> Countries { get; set; }
         public UnderSeaDbContext(DbContextOptions<UnderSeaDbContext> options) : base(options)
         {
 

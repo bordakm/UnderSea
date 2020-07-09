@@ -21,13 +21,14 @@ namespace UnderSea.DAL.Models
         public int Population { get; set; }
         public int UnitStorage { get; set; }
         public int TaxRate { get; set; }
-
-        public List<Upgrade> Upgrades { get; set; } = new List<Upgrade> { new Alchemy(),
-                                                                          new CoralWall(),
-                                                                          new MudHarvester(),
-                                                                          new MudTractor(),
-                                                                          new SonarCannon(),
-                                                                          new UnderwaterMartialArts()};
+        public User User { get; set; }
+        public List<Upgrade> Upgrades { get; set; }
+            = new List<Upgrade> { new Alchemy(),
+                                  new CoralWall(),
+                                  new MudHarvester(),
+                                  new MudTractor(),
+                                  new SonarCannon(),
+                                  new UnderwaterMartialArts()};
 
 
         public int UpgradeTimeLeft { get; set; }

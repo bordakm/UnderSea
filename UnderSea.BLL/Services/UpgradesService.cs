@@ -19,7 +19,6 @@ namespace UnderSea.BLL.Services
         }
         public async Task<List<UpgradeViewModel>> GetUpgrades(int userid)
         {
-            //TODO auth
             var user = await db.Users
                 .Include(u => u.Country)
                 .ThenInclude(c => c.Upgrades)

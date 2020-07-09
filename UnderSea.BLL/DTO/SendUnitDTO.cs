@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace UnderSea.BLL.DTO
 {
-    public class AvailableUnitDTO
+    public class SendUnitDTO
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int AvailableCount { get; set; }
+        public int SendCount { get; set; }
     }
 }
