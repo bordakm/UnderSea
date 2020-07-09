@@ -22,6 +22,10 @@ namespace UnderSea.DAL.Models
         public int Pearl { get; set; }
         public int PearlProduction { get; set; }
 
+        public int Population { get; set; }
+        public int UnitStorage { get; set; }
+        public int TaxRate { get; set; }
+
         public Upgrades Upgrades { get; set; }
         
         public int UpgradeTimeLeft { get; set; }
