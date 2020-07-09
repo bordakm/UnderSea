@@ -9,7 +9,7 @@ namespace UnderSea.API.ViewModels
     {
         public int Place { get; set; }
         public int UserId { get; set; }
-        public int UserName { get; set; }
+        public string UserName { get; set; }
         public int Score { get; set; }
     }
 }
