@@ -11,5 +11,7 @@ namespace UnderSea.DAL.Models
         public List<User> Users { get; set; }
         public List<Attack> Attacks { get; set; }
         public int Round { get; set; }
+        public string CoralPictureUrl { get; set; }
+        public string PearlPictureUrl { get; set; }
     }
 }

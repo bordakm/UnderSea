@@ -57,10 +57,10 @@ namespace UnderSea.BLL.Services
                     {
                         CoralCount = country.Coral,
                         CoralProductionCount = country.CoralProduction,
-                        CoralPictureUrl = country.CoralPictureUrl,
+                        CoralPictureUrl = game.CoralPictureUrl,
                         PearlCount = country.Pearl,
                         PearlProductionCount = country.PearlProduction,
-                        PearlPictureUrl = country.PearlPictureUrl
+                        PearlPictureUrl = game.PearlPictureUrl
 
                     }
 
