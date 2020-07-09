@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UnderSea.API.DTO
+namespace UnderSea.BLL.DTO
 {
-    public class AvailableUnitDTO
+    public class UnitPurchaseDTO
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int AvailableCount { get; set; }
+        public int Count { get; set; }
     }
 }

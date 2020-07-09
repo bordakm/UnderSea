@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UnderSea.API.DTO;
+using UnderSea.BLL.DTO;
 
-namespace UnderSea.API.ViewModels
+namespace UnderSea.BLL.ViewModels
 {
     public class MainPageViewModel
     {

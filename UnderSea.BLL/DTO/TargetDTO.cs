@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UnderSea.API.DTO
+namespace UnderSea.BLL.DTO
 {
     public class TargetDTO
     {

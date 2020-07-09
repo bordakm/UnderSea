@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UnderSea.API.DTO
+namespace UnderSea.BLL.ViewModels
 {
-    public class UnitPurchaseDTO
+    public class PlayerViewModel
     {
         public int Id { get; set; }
-        public int Count { get; set; }
+        public string Name { get; set; }
     }
 }

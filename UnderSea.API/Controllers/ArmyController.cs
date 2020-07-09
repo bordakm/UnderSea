@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UnderSea.API.DTO;
-using UnderSea.API.ViewModels;
+using UnderSea.BLL.DTO;
+using UnderSea.BLL.ViewModels;
 
 namespace UnderSea.API.Controllers
 {
