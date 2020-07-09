@@ -43,6 +43,9 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<UnderwaterMartialArts>();
         }
 
+        protected void SeedData()
+        {
 
+        }
     }
 }
