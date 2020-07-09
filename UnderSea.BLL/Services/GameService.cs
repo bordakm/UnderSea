@@ -88,7 +88,13 @@ namespace UnderSea.BLL.Services
 
         public async Task<List<ScoreboardViewModel>> SearchScoreboard(SearchDTO search)
         {
-            throw new NotImplementedException();
+            var game = await db.Game.FirstOrDefaultAsync();
+            var user = game.Users.FindAll(x => x.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
+                                    .Skip(search.ItemPerPage * (search.Page - 1))
+                                    .Take(search.ItemPerPage)
+                                    .ToList();
+
+            return mapper.Map<List<ScoreboardViewModel>>(user);
         }
     }
 }
