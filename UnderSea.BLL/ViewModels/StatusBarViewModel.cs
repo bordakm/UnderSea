@@ -9,7 +9,7 @@ namespace UnderSea.BLL.ViewModels
 {
     public class StatusBarViewModel
     {
-        public UnitGroup Units { get; set; }
+        public List<Unit> Units { get; set; }
         public BuildingGroup Buildings { get; set; }
         public int RoundCount { get; set; }
         public int ScoreboardPosition { get; set; }
