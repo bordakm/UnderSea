@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace UnderSea.DAL.Models.Buildings
@@ -17,5 +18,7 @@ namespace UnderSea.DAL.Models.Buildings
         public int UnderConstructionCount { get; set; }
         public int ConstructionTimeLeft { get; set; }
         public string ImageUrl { get; set; }
+        [NotMapped]
+        public int CoralBonusTotal => CoralBonus * (Count - UnderConstructionCount);
     }
 }

@@ -34,5 +34,20 @@ namespace UnderSea.DAL.Models
         public int UpgradeTimeLeft { get; set; }
         public int BuildingTimeLeft { get; set; }
         public int Score { get; set; }
+
+        public void AddTaxes()
+        {
+            Pearl += Population * 25;
+        }
+
+        public void AddCoral()
+        {
+            int producedCoral = 0;
+            BuildingGroup.Buildings.ForEach(building =>
+            {
+                producedCoral += building.CoralBonusTotal;
+            });
+            Coral += producedCoral;
+        }
     }
 }
