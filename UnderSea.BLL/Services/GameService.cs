@@ -91,8 +91,9 @@ namespace UnderSea.BLL.Services
             return res;
         }
 
-        public async Task NewRound(int rounds)
+        public async Task NewRound(int rounds = 1)
         {
+<<<<<<< HEAD
             AddTaxes();
             AddCoral();
             
@@ -101,6 +102,14 @@ namespace UnderSea.BLL.Services
             DoBuildings();
             CalculateAttacks();
             CalculatePosition();
+=======
+            for (int i = 0; i < rounds; ++i)
+            {
+                AddTaxes();
+                AddCoral();
+                PayUnits();
+            }            
+>>>>>>> 40fc1ec... Implement PayUnit method in GameService
             throw new NotImplementedException();
         }
 
@@ -187,6 +196,16 @@ namespace UnderSea.BLL.Services
         private async void CalculatePosition()
         {
 
+        }
+
+        private async void PayUnits()
+        {
+            var users = db.Users.Include(user => user.Country)
+                .ThenInclude(country => country.AttackingArmy)
+                .Include(user => user.Country)
+                .ThenInclude(country => country.DefendingArmy);
+            await users.ForEachAsync(user => user.Country.PayUnits());
+            await db.SaveChangesAsync();
         }
     }
 }
