@@ -29,15 +29,13 @@ namespace UnderSea.API.Controllers
             return NotFound("post error");
         }
 
-        [HttpPost]
-        [Route("/search")]
+        [HttpPost("/search")]
         public ActionResult<List<string>> SearchTargets([FromBody] SearchDTO search)
         {
             return NotFound(new List<string>());
         }
 
-        [HttpGet]
-        [Route("/units")]
+        [HttpGet("/units")]
         public ActionResult<List<AvailableUnitViewModel>> GetAvailableUnits()
         {
             return Ok(new List<AvailableUnitViewModel>());
