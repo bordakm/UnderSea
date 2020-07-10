@@ -27,7 +27,7 @@ namespace UnderSea.BLL.Services
         }
 
         public async Task Attack(int attackeruserid, AttackDTO attack)
-        { // TODO: ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
+        { // TODO: majd ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
             var game = await db.Game.FirstOrDefaultAsync();
             var unittypes = await db.UnitTypes.ToListAsync();            
             var attackinguser = await db.Users.Include(u=>u.Country).FirstOrDefaultAsync(u => u.Id == attackeruserid);

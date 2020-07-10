@@ -83,11 +83,8 @@ namespace UnderSea.BLL.Services
                     MudTractor = (user.Country.Upgrades.FirstOrDefault(y => y.Type is MudTractor).State != UpgradeState.Unresearched),
                     SonarCannon = (user.Country.Upgrades.FirstOrDefault(y => y.Type is SonarCannon).State != UpgradeState.Unresearched),
                     UnderwaterMartialArts = (user.Country.Upgrades.FirstOrDefault(y => y.Type is UnderwaterMartialArts).State != UpgradeState.Unresearched),
-
-                }
-                
+                }                
             };
-
             return res;
         }
 
@@ -149,18 +146,8 @@ namespace UnderSea.BLL.Services
             var users = db.Users
                 .Include(u => u.Country)
                 .ThenInclude(c => c.Upgrades);
-            await db.Countries.ForEachAsync(country=> {
-                var upgrades = country.Upgrades.ToList();
-                if(upgrades.Any(u=>u.State == UpgradeState.InProgress))
-                {
-                    country.UpgradeTimeLeft--;
-                    if(country.UpgradeTimeLeft <= 0)
-                    {
-                        var upgrade = upgrades.FirstOrDefault(u => u.State == UpgradeState.InProgress);
-                        upgrade.State = UpgradeState.Researched;
-                    }
-                }
-            });
+            await db.Countries.ForEachAsync(country => country.DoUpgrades());
+            await db.SaveChangesAsync();
         }
 
         private async void DoBuildings()

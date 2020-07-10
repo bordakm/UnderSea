@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Units
 {
-    public class UnitType
+    public abstract class UnitType
     {
         public int Id { get; set; }
         public string Name { get; set; }

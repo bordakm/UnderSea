@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Upgrades
 {
-    public class UpgradeType
+    public abstract class UpgradeType
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -23,10 +23,15 @@ namespace UnderSea.DAL.Models
         public int UnitStorage { get; set; }
         public int TaxRate { get; set; }
         public User User { get; set; }
-        public List<Upgrade> Upgrades { get; set; }
         public int UpgradeTimeLeft { get; set; }
         public int BuildingTimeLeft { get; set; }
         public int Score { get; set; }
+        public List<Upgrade> Upgrades { get; set; } = new List<Upgrade>() { new Upgrade() { Type=new Alchemy(),State = UpgradeState.Unresearched},
+                                                                            new Upgrade() { Type=new CoralWall(),State = UpgradeState.Unresearched},
+                                                                            new Upgrade() { Type=new MudHarvester(),State = UpgradeState.Unresearched},
+                                                                            new Upgrade() { Type=new SonarCannon(),State = UpgradeState.Unresearched},
+                                                                            new Upgrade() { Type=new UnderwaterMartialArts(),State = UpgradeState.Unresearched},
+        };
 
         public void AddTaxes()
         {
@@ -92,5 +97,19 @@ namespace UnderSea.DAL.Models
                 }
             }
         }
+        public void DoUpgrades()
+        {
+            if (Upgrades.Any(u => u.State == UpgradeState.InProgress))
+            {
+                UpgradeTimeLeft--;
+                if (UpgradeTimeLeft <= 0)
+                {
+                    var upgrade = Upgrades.FirstOrDefault(u => u.State == UpgradeState.InProgress);
+                    upgrade.State = UpgradeState.Researched;
+                }
+
+            }
+        }
+
     }
 }
