@@ -30,27 +30,30 @@ namespace UnderSea.BLL.Services
         { // TODO: ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
             var game = await db.Game.FirstOrDefaultAsync();
             var unittypes = await db.UnitTypes.ToListAsync();            
-            var attackinguser = await db.Users.Include(u=>u.Country).ThenInclude(c=>c.Army).FirstOrDefaultAsync(u => u.Id == attackeruserid);
+            var attackinguser = await db.Users.Include(u=>u.Country).FirstOrDefaultAsync(u => u.Id == attackeruserid);
             var defendingcountry = await db.Countries.FirstOrDefaultAsync(c => c.Id == attack.CountryId);
             var defendinguser = defendingcountry.User;
 
             var sentunits = new List<Unit>();
+
             foreach (SendUnitDTO sendunit in attack.AttackingUnits) {
                 UnitType type = unittypes.FirstOrDefault(ut => ut.Id == sendunit.Id);
-                int ownedcount = attackinguser.Country.Army.Units.FirstOrDefault(u => u.Type == type).Count;
-                if (sendunit.SendCount > ownedcount) 
+                int ownedcount = attackinguser.Country.DefendingArmy.FirstOrDefault(u => u.Type == type).Count;
+                if (sendunit.SendCount > ownedcount)
                     throw new Exception("Nem küldhetsz több egységet, mint amennyid van!");
-                sentunits.Add(new Unit() {Count = sendunit.SendCount, Type = type});
+                else
+                {                    
+                    attackinguser.Country.AttackingArmy.FirstOrDefault(u => u.Type == type).Count += sendunit.SendCount;
+                    attackinguser.Country.DefendingArmy.FirstOrDefault(u => u.Type == type).Count -= sendunit.SendCount;
+                    sentunits.Add(new Unit() {Count = sendunit.SendCount, Type = type});
+                }
             }
 
             game.Attacks.Add(new Attack
             {
                 AttackerUser = attackinguser,
                 DefenderUser = defendinguser,
-                UnitGroup = new UnitGroup 
-                {
-                    Units = sentunits
-                }
+                UnitGroup = sentunits
             });
             await db.SaveChangesAsync();
         }
