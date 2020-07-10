@@ -132,7 +132,14 @@ namespace UnderSea.BLL.Services
 
         private async void FeedUnits()
         {
+            var users = db.Users
+                            .Include(user => user.Country)
+                            .ThenInclude(country => country.Army)
+                            .ThenInclude(army => army.Units)
+                            .ThenInclude(units => units.Type);
 
+            await users.ForEachAsync(user => user.Country.FeedUnits());
+            await db.SaveChangesAsync();
         }
 
         private async void DoUpgrades()
