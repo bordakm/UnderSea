@@ -18,6 +18,7 @@ namespace UnderSea.DAL.Context
         public DbSet<Unit> Units { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<UnitType> UnitTypes { get; set; }
+        public DbSet<Attack> Attacks { get; set; }
         public UnderSeaDbContext(DbContextOptions<UnderSeaDbContext> options) : base(options)
         {
 

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.ViewModels;
 using UnderSea.DAL.Context;
+using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Upgrades;
 
@@ -27,38 +28,45 @@ namespace UnderSea.BLL.Services
 
         public async Task<List<string>> AttackSearch (SearchDTO search)
         {
-            var game = await db.Game.FirstOrDefaultAsync();
-            var user = game.Users.FindAll(x => x.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
-                                    .Skip(search.ItemPerPage * (search.Page - 1))
-                                    .Take(search.ItemPerPage)
-                                    .Select(x => x.UserName)
-                                    .ToList();
+            var users = await db.Users
+                                .Where(users => users.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
+                                .Skip(search.ItemPerPage * (search.Page - 1))
+                                .Take(search.ItemPerPage)
+                                .Select(users => users.UserName)
+                                .ToListAsync();
 
-            return user;
+            return users;
         }
 
-        public async Task<MainPageViewModel> GetMainPage()
+        public async Task<MainPageViewModel> GetMainPage(int userId)
         {
             var game = await db.Game.FirstOrDefaultAsync();
-            var user = game.Users.FirstOrDefault();
-            var country = user.Country;
+            var user = await db.Users
+                                .Include(users => users.Country)
+                                .Include(users => users.Country.Army)
+                                .Include(users => users.Country.Army.Units)
+                                .Include(users => users.Country.BuildingGroup)
+                                .Include(users => users.Country.BuildingGroup.Buildings)
+                                .Include(users => users.Country.Upgrades)
+                                .FirstOrDefaultAsync(user => user.Id == userId);
+
 
             MainPageViewModel res = new MainPageViewModel()
             {
-                CountryName = country.Name,
+                CountryName = user.Country.Name,
                 StatusBar = new StatusBarViewModel
                 {
-                    Buildings = country.BuildingGroup,
+                    Buildings = user.Country.BuildingGroup,
                     RoundCount = game.Round,
                     ScoreboardPosition = user.Place,
-                    Units = country.Army,
+                    Units = user.Country.Army,
                     Resources = new StatusBarViewModel.StatusBarResource()
                     {
-                        CoralCount = country.Coral,
-                        CoralProductionCount = country.CoralProduction,
+                        CoralCount = user.Country.Coral,
+                        CoralProductionCount = user.Country.CoralProduction,
                         CoralPictureUrl = game.CoralPictureUrl,
-                        PearlCount = country.Pearl,
-                        PearlProductionCount = country.PearlProduction,
+                        PearlCount = user.Country.Pearl,
+                        PearlProductionCount = user.Country.PearlProduction,
                         PearlPictureUrl = game.PearlPictureUrl
 
                     }
@@ -66,16 +74,17 @@ namespace UnderSea.BLL.Services
                 },
                 Structures = new StructuresViewModel()
                 {
-                    FlowManager = (country.BuildingGroup.Buildings.FirstOrDefault(y => y is FlowManager).Count != 0),
-                    ReefCastle = (country.BuildingGroup.Buildings.FirstOrDefault(y => y is ReefCastle).Count != 0),
-                    Alchemy = (country.Upgrades.FirstOrDefault(y => y is Alchemy).State != UpgradeState.Unresearched),
-                    CoralWall = (country.Upgrades.FirstOrDefault(y => y is CoralWall).State != UpgradeState.Unresearched),
-                    MudHarvester = (country.Upgrades.FirstOrDefault(y => y is MudHarvester).State != UpgradeState.Unresearched),
-                    MudTractor = (country.Upgrades.FirstOrDefault(y => y is MudTractor).State != UpgradeState.Unresearched),
-                    SonarCannon = (country.Upgrades.FirstOrDefault(y => y is SonarCannon).State != UpgradeState.Unresearched),
-                    UnderwaterMartialArts = (country.Upgrades.FirstOrDefault(y => y is UnderwaterMartialArts).State != UpgradeState.Unresearched),
+                    FlowManager = (user.Country.BuildingGroup.Buildings.FirstOrDefault(y => y is FlowManager).Count != 0),
+                    ReefCastle = (user.Country.BuildingGroup.Buildings.FirstOrDefault(y => y is ReefCastle).Count != 0),
+                    Alchemy = (user.Country.Upgrades.FirstOrDefault(y => y is Alchemy).State != UpgradeState.Unresearched),
+                    CoralWall = (user.Country.Upgrades.FirstOrDefault(y => y is CoralWall).State != UpgradeState.Unresearched),
+                    MudHarvester = (user.Country.Upgrades.FirstOrDefault(y => y is MudHarvester).State != UpgradeState.Unresearched),
+                    MudTractor = (user.Country.Upgrades.FirstOrDefault(y => y is MudTractor).State != UpgradeState.Unresearched),
+                    SonarCannon = (user.Country.Upgrades.FirstOrDefault(y => y is SonarCannon).State != UpgradeState.Unresearched),
+                    UnderwaterMartialArts = (user.Country.Upgrades.FirstOrDefault(y => y is UnderwaterMartialArts).State != UpgradeState.Unresearched),
 
                 }
+                
             };
 
             return res;
@@ -88,13 +97,13 @@ namespace UnderSea.BLL.Services
 
         public async Task<List<ScoreboardViewModel>> SearchScoreboard(SearchDTO search)
         {
-            var game = await db.Game.FirstOrDefaultAsync();
-            var user = game.Users.FindAll(x => x.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
-                                    .Skip(search.ItemPerPage * (search.Page - 1))
-                                    .Take(search.ItemPerPage)
-                                    .ToList();
+            var users = await db.Users
+                               .Where(users => users.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
+                               .Skip(search.ItemPerPage * (search.Page - 1))
+                               .Take(search.ItemPerPage)
+                               .ToListAsync();
 
-            return mapper.Map<List<ScoreboardViewModel>>(user);
+            return mapper.Map<List<ScoreboardViewModel>>(users);
         }
     }
 }

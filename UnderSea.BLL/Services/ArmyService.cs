@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,17 +76,29 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task<List<AvailableUnitViewModel>> GetAvailableUnits()
+        public async Task<List<AvailableUnitViewModel>> GetAvailableUnits(int userId)
         {
-            var user = await db.Users.FirstOrDefaultAsync();
-            var units = user.Country.Army.Units;
+
+            var user = await db.Users
+                               .Include(user => user.Country)
+                               .ThenInclude(country => country.Army)
+                               .ThenInclude(army => army.Units)
+                               .FirstOrDefaultAsync(user => user.Id == userId);
+
+            var units = user.Country.Army.Units.ToList();
+
             return mapper.Map<List<AvailableUnitViewModel>>(units);
         }
 
-        public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
+        public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks(int userId)
         {
-            var game = await db.Game.FirstOrDefaultAsync();
-            var attacks = game.Attacks.ToList();
+            var attacks = await db.Attacks
+                               .Include(attacks => attacks.UnitGroup)
+                               .ThenInclude(unitGroup => unitGroup.Units)
+                               .Where(attacks => attacks.AttackerUser.Id == userId)
+                               .ToListAsync();
+
+            //maybe automapper
             var res = new List<OutgoingAttackViewModel>();
             foreach (var item in attacks)
             {
@@ -100,10 +113,16 @@ namespace UnderSea.BLL.Services
 
         }
 
-        public async Task<List<UnitViewModel>> GetUnits()
+        public async Task<List<UnitViewModel>> GetUnits(int userId)
         {
-            var user = await db.Users.FirstOrDefaultAsync();
+            var user = await db.Users
+                               .Include(user => user.Country)
+                               .ThenInclude(country => country.Army)
+                               .ThenInclude(army => army.Units)
+                               .FirstOrDefaultAsync(user => user.Id == userId);
+
             var units = user.Country.Army.Units.ToList();
+
             return mapper.Map<List<UnitViewModel>>(units);
         }
     }
