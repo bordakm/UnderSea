@@ -9,10 +9,6 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
   },
-  {
-    path: 'main',
-    loadChildren: () => import('./features/main/main.module').then(m => m.MainModule)
-  },
 ];
 
 @NgModule({

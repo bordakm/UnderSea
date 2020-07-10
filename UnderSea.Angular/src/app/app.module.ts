@@ -11,6 +11,7 @@ import { FightComponent } from './features/fight/components/fight.component';
 import { ScoreboardComponent } from './features/scoreboard/components/scoreboard.component';
 import { UpgradesComponent } from './features/upgrades/components/upgrades.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     CoreModule,
     BrowserAnimationsModule,
-    CoreModule
+    CoreModule,
+    MatDialogModule
   ],
-  providers: [],
+  entryComponents: [
+    ArmyComponent
+  ],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

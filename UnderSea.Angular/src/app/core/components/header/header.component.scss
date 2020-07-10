@@ -13,6 +13,13 @@ $baloo-font: 'baloo', regular;
     align-items: center;
 }
 
+.flex-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 ::ng-deep .mat-card-content{
     margin-bottom: 0px !important;
 }

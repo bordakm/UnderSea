@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.reg = true;
+    this.reg = false;
   }
 
   login(): void {

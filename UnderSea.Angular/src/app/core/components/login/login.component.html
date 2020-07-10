@@ -12,7 +12,7 @@
             <form class="login-form">
                 <mat-form-field class="login-full-width">
                     <mat-label>Felhasználónév</mat-label>
-                    <input type="text" matInput [formControl]="userFormControl" [errorStateMatcher]="matcher"
+                    <input matInput [formControl]="userFormControl" [errorStateMatcher]="matcher"
                         placeholder="username" [(ngModel)]="username">
                     <mat-error *ngIf="userFormControl.hasError('required')">
                         <strong>Kötelező</strong> tartomány
