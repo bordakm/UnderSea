@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,17 +70,17 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task<List<AvailableUnitViewModel>> GetAvailableUnits()
+        public async Task<List<AvailableUnitViewModel>> GetAvailableUnits(int userId)
         {
-            var user = await db.Users.FirstOrDefaultAsync();
-            var units = user.Country.Army.Units;
+            var game = await db.Game.FirstOrDefaultAsync();
+            var units = game.Users.Find(x => x.Id == userId).Country.Army.Units.ToList();
             return mapper.Map<List<AvailableUnitViewModel>>(units);
         }
 
-        public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
+        public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks(int userId)
         {
             var game = await db.Game.FirstOrDefaultAsync();
-            var attacks = game.Attacks.ToList();
+            var attacks = game.Attacks.FindAll(x => x.AttackerUser.Id == userId).ToList();
             var res = new List<OutgoingAttackViewModel>();
             foreach (var item in attacks)
             {
@@ -94,10 +95,10 @@ namespace UnderSea.BLL.Services
 
         }
 
-        public async Task<List<UnitViewModel>> GetUnits()
+        public async Task<List<UnitViewModel>> GetUnits(int userId)
         {
-            var user = await db.Users.FirstOrDefaultAsync();
-            var units = user.Country.Army.Units.ToList();
+            var game = await db.Game.FirstOrDefaultAsync();
+            var units = game.Users.Find(x => x.Id == userId).Country.Army.Units.ToList();
             return mapper.Map<List<UnitViewModel>>(units);
         }
     }

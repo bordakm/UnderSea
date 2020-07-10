@@ -9,10 +9,10 @@ namespace UnderSea.BLL.Services
 {
     interface IArmyService
     {
-        public Task<List<UnitViewModel>> GetUnits();
+        public Task<List<UnitViewModel>> GetUnits(int userId);
         public Task BuyUnits(int userId, List<UnitPurchaseDTO> purchases);
-        public Task<List<AvailableUnitViewModel>> GetAvailableUnits();
-        public Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks();
+        public Task<List<AvailableUnitViewModel>> GetAvailableUnits(int userId);
+        public Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks(int userId);
         public Task Attack(int attackeruserid, AttackDTO attack);
     }
 }
