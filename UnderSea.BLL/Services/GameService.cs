@@ -93,26 +93,17 @@ namespace UnderSea.BLL.Services
 
         public async Task NewRound(int rounds = 1)
         {
-<<<<<<< HEAD
-            AddTaxes();
-            AddCoral();
-            
-            FeedUnits();
-            DoUpgrades();
-            DoBuildings();
-            CalculateAttacks();
-            CalculatePosition();
-=======
             for (int i = 0; i < rounds; ++i)
             {
                 AddTaxes();
                 AddCoral();
                 PayUnits();
+                FeedUnits();
+                DoUpgrades();
                 Build();
+                CalculateAttacks();
                 CalculateRankings();
-            }            
->>>>>>> 40fc1ec... Implement PayUnit method in GameService
-            throw new NotImplementedException();
+            }
         }
 
         public async Task<List<ScoreboardViewModel>> SearchScoreboard(SearchDTO search)
@@ -174,11 +165,6 @@ namespace UnderSea.BLL.Services
             });
         }
 
-        private async void DoBuildings()
-        {
-
-        }
-
         private async void CalculateAttacks()
         {
             var game = db.Game
@@ -193,11 +179,6 @@ namespace UnderSea.BLL.Services
                             .ThenInclude(da => da.Type);
             await game.ForEachAsync(g => g.CalculateAttacks());
             await db.SaveChangesAsync();
-        }
-
-        private async void CalculatePosition()
-        {
-
         }
 
         private async void PayUnits()

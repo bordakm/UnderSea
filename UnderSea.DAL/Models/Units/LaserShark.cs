@@ -14,10 +14,5 @@ namespace UnderSea.DAL.Models.Units
             PearlCostPerTurn = 3;
             CoralCostPerTurn = 2;
         }
-
-        public override int CalculateScore()
-        {
-            return Count * 10;
-        }
     }
 }
