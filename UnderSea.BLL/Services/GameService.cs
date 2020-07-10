@@ -192,6 +192,7 @@ namespace UnderSea.BLL.Services
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
                 .ThenInclude(buildingGroup => buildingGroup.Buildings)
+                .ThenInclude(b=>b.Type)
                 .Include(user => user.Country)
                 .ThenInclude(country => country.Upgrades);
             await users.ForEachAsync(user => user.Score = user.Country.CalculateScore());

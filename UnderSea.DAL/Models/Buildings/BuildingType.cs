@@ -14,5 +14,6 @@ namespace UnderSea.DAL.Models.Buildings
         public int CoralBonus { get; set; }
         public int UnitStorage { get; set; }
         public string ImageUrl { get; set; }
+        public int Score { get; set; }
     }
 }
