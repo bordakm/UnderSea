@@ -49,5 +49,38 @@ namespace UnderSea.DAL.Models
             });
             Coral += producedCoral;
         }
+
+        public void FeedUnits()
+        {
+            int totalCoralCost = 0;
+            Army.Units.ForEach(unit =>
+            {
+                totalCoralCost += unit.Type.CoralCostPerTurn;
+            });
+
+            if(Coral >= totalCoralCost)
+            {
+                Coral -= totalCoralCost;
+            }
+            else
+            {
+                int difference = totalCoralCost - Coral;
+
+                while(difference > 0)
+                {
+                    foreach (var item in Army.Units)
+                    {
+                        if(item.Count > 0)
+                        {
+                            difference -= item.Type.CoralCostPerTurn;
+                            item.Count--;
+                            if (difference <= 0)
+                                break;
+                        }
+                        
+                    }
+                }
+            }
+        }
     }
 }
