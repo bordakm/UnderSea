@@ -40,13 +40,6 @@
 		79820C5924B716C1006D7258 /* city.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5524B716C1006D7258 /* city.svg */; };
 		79820C5A24B716C1006D7258 /* main.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5624B716C1006D7258 /* main.svg */; };
 		79820C5B24B716C1006D7258 /* attack.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5724B716C1006D7258 /* attack.svg */; };
-		79820C6324B716CB006D7258 /* csikóhal.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5C24B716CB006D7258 /* csikóhal.svg */; };
-		79820C6424B716CB006D7258 /* cápa.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5D24B716CB006D7258 /* cápa.svg */; };
-		79820C6524B716CB006D7258 /* áramlásirányító.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5E24B716CB006D7258 /* áramlásirányító.svg */; };
-		79820C6624B716CB006D7258 /* fóka.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5F24B716CB006D7258 /* fóka.svg */; };
-		79820C6724B716CB006D7258 /* korall.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6024B716CB006D7258 /* korall.svg */; };
-		79820C6824B716CB006D7258 /* zátonyvár.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6124B716CB006D7258 /* zátonyvár.svg */; };
-		79820C6924B716CB006D7258 /* gyöngy.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6224B716CB006D7258 /* gyöngy.svg */; };
 		79820C6C24B716E5006D7258 /* userImage.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6A24B716E5006D7258 /* userImage.svg */; };
 		79820C6D24B716E5006D7258 /* underseaLogo.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6B24B716E5006D7258 /* underseaLogo.svg */; };
 		79820C7124B71D08006D7258 /* TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C7024B71D08006D7258 /* TabController.swift */; };
@@ -60,6 +53,15 @@
 		79820C8B24B73A67006D7258 /* TeamsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C8A24B73A67006D7258 /* TeamsPage.swift */; };
 		79820C8D24B7415C006D7258 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C8C24B7415C006D7258 /* CustomTabBar.swift */; };
 		79820C8F24B76155006D7258 /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C8E24B76155006D7258 /* SVGImage.swift */; };
+		799C0DC324B8B39900CEBD2E /* shark.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC224B8B39900CEBD2E /* shark.svg */; };
+		799C0DCA24B8B3BC00CEBD2E /* seahorse.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC424B8B3BB00CEBD2E /* seahorse.svg */; };
+		799C0DCB24B8B3BC00CEBD2E /* seal.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC524B8B3BC00CEBD2E /* seal.svg */; };
+		799C0DCC24B8B3BC00CEBD2E /* reefcastle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC624B8B3BC00CEBD2E /* reefcastle.svg */; };
+		799C0DCD24B8B3BC00CEBD2E /* pearl.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC724B8B3BC00CEBD2E /* pearl.svg */; };
+		799C0DCE24B8B3BC00CEBD2E /* coral.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC824B8B3BC00CEBD2E /* coral.svg */; };
+		799C0DCF24B8B3BC00CEBD2E /* flowcontroller.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC924B8B3BC00CEBD2E /* flowcontroller.svg */; };
+		79C39EEB24B8B11400803C00 /* SlideInMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEA24B8B11400803C00 /* SlideInMenu.swift */; };
+		79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */; };
 		9716A4D8D401F86C5396A3DE /* Pods_Undersea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A22C343B8C5C4E5D915B7CB6 /* Pods_Undersea.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,13 +102,6 @@
 		79820C5524B716C1006D7258 /* city.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = city.svg; sourceTree = "<group>"; };
 		79820C5624B716C1006D7258 /* main.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.svg; sourceTree = "<group>"; };
 		79820C5724B716C1006D7258 /* attack.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = attack.svg; sourceTree = "<group>"; };
-		79820C5C24B716CB006D7258 /* csikóhal.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "csikóhal.svg"; sourceTree = "<group>"; };
-		79820C5D24B716CB006D7258 /* cápa.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "cápa.svg"; sourceTree = "<group>"; };
-		79820C5E24B716CB006D7258 /* áramlásirányító.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "áramlásirányító.svg"; sourceTree = "<group>"; };
-		79820C5F24B716CB006D7258 /* fóka.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fóka.svg"; sourceTree = "<group>"; };
-		79820C6024B716CB006D7258 /* korall.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = korall.svg; sourceTree = "<group>"; };
-		79820C6124B716CB006D7258 /* zátonyvár.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "zátonyvár.svg"; sourceTree = "<group>"; };
-		79820C6224B716CB006D7258 /* gyöngy.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "gyöngy.svg"; sourceTree = "<group>"; };
 		79820C6A24B716E5006D7258 /* userImage.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = userImage.svg; sourceTree = "<group>"; };
 		79820C6B24B716E5006D7258 /* underseaLogo.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = underseaLogo.svg; sourceTree = "<group>"; };
 		79820C7024B71D08006D7258 /* TabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabController.swift; sourceTree = "<group>"; };
@@ -120,6 +115,15 @@
 		79820C8A24B73A67006D7258 /* TeamsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsPage.swift; sourceTree = "<group>"; };
 		79820C8C24B7415C006D7258 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		79820C8E24B76155006D7258 /* SVGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImage.swift; sourceTree = "<group>"; };
+		799C0DC224B8B39900CEBD2E /* shark.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shark.svg; sourceTree = "<group>"; };
+		799C0DC424B8B3BB00CEBD2E /* seahorse.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = seahorse.svg; sourceTree = "<group>"; };
+		799C0DC524B8B3BC00CEBD2E /* seal.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = seal.svg; sourceTree = "<group>"; };
+		799C0DC624B8B3BC00CEBD2E /* reefcastle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reefcastle.svg; sourceTree = "<group>"; };
+		799C0DC724B8B3BC00CEBD2E /* pearl.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pearl.svg; sourceTree = "<group>"; };
+		799C0DC824B8B3BC00CEBD2E /* coral.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coral.svg; sourceTree = "<group>"; };
+		799C0DC924B8B3BC00CEBD2E /* flowcontroller.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flowcontroller.svg; sourceTree = "<group>"; };
+		79C39EEA24B8B11400803C00 /* SlideInMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenu.swift; sourceTree = "<group>"; };
+		79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenuView.swift; sourceTree = "<group>"; };
 		7B2A8D040160C9A807195C73 /* Pods-Undersea.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Undersea.debug.xcconfig"; path = "Target Support Files/Pods-Undersea/Pods-Undersea.debug.xcconfig"; sourceTree = "<group>"; };
 		A22C343B8C5C4E5D915B7CB6 /* Pods_Undersea.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Undersea.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -259,6 +263,7 @@
 		794CAAD024B5C697007DC9C7 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				79C39EE824B8B0C200803C00 /* SlideInMenu */,
 				79820C7524B71DC1006D7258 /* Teams */,
 				79820C7424B71D4A006D7258 /* Attack */,
 				79820C7324B71D43006D7258 /* City */,
@@ -349,13 +354,13 @@
 		79820C5224B716A2006D7258 /* Stat */ = {
 			isa = PBXGroup;
 			children = (
-				79820C5E24B716CB006D7258 /* áramlásirányító.svg */,
-				79820C5D24B716CB006D7258 /* cápa.svg */,
-				79820C5C24B716CB006D7258 /* csikóhal.svg */,
-				79820C5F24B716CB006D7258 /* fóka.svg */,
-				79820C6224B716CB006D7258 /* gyöngy.svg */,
-				79820C6024B716CB006D7258 /* korall.svg */,
-				79820C6124B716CB006D7258 /* zátonyvár.svg */,
+				799C0DC824B8B3BC00CEBD2E /* coral.svg */,
+				799C0DC924B8B3BC00CEBD2E /* flowcontroller.svg */,
+				799C0DC724B8B3BC00CEBD2E /* pearl.svg */,
+				799C0DC624B8B3BC00CEBD2E /* reefcastle.svg */,
+				799C0DC424B8B3BB00CEBD2E /* seahorse.svg */,
+				799C0DC524B8B3BC00CEBD2E /* seal.svg */,
+				799C0DC224B8B39900CEBD2E /* shark.svg */,
 			);
 			path = Stat;
 			sourceTree = "<group>";
@@ -448,6 +453,23 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		79C39EE824B8B0C200803C00 /* SlideInMenu */ = {
+			isa = PBXGroup;
+			children = (
+				79C39EE924B8B0E800803C00 /* View */,
+				79C39EEA24B8B11400803C00 /* SlideInMenu.swift */,
+			);
+			path = SlideInMenu;
+			sourceTree = "<group>";
+		};
+		79C39EE924B8B0E800803C00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		949F0AF84BE2BB186A73D15E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -518,25 +540,25 @@
 			files = (
 				7922A9D724B4BBBA002A7957 /* LaunchScreen.storyboard in Resources */,
 				79820C6D24B716E5006D7258 /* underseaLogo.svg in Resources */,
-				79820C6924B716CB006D7258 /* gyöngy.svg in Resources */,
 				7922A9E824B4CA7C002A7957 /* Baloo2-ExtraBold.ttf in Resources */,
 				7922A9EC24B4CA7C002A7957 /* Baloo2-SemiBold.ttf in Resources */,
-				79820C6424B716CB006D7258 /* cápa.svg in Resources */,
+				799C0DCA24B8B3BC00CEBD2E /* seahorse.svg in Resources */,
+				799C0DC324B8B39900CEBD2E /* shark.svg in Resources */,
+				799C0DCB24B8B3BC00CEBD2E /* seal.svg in Resources */,
 				7922A9EA24B4CA7C002A7957 /* Baloo2-Medium.ttf in Resources */,
-				79820C6824B716CB006D7258 /* zátonyvár.svg in Resources */,
+				799C0DCE24B8B3BC00CEBD2E /* coral.svg in Resources */,
+				799C0DCF24B8B3BC00CEBD2E /* flowcontroller.svg in Resources */,
 				79820C5B24B716C1006D7258 /* attack.svg in Resources */,
 				7922A9EB24B4CA7C002A7957 /* Baloo2-Bold.ttf in Resources */,
 				79820C5A24B716C1006D7258 /* main.svg in Resources */,
 				79820C6C24B716E5006D7258 /* userImage.svg in Resources */,
 				79820C5824B716C1006D7258 /* teams.svg in Resources */,
-				79820C6624B716CB006D7258 /* fóka.svg in Resources */,
-				79820C6324B716CB006D7258 /* csikóhal.svg in Resources */,
-				79820C6724B716CB006D7258 /* korall.svg in Resources */,
+				799C0DCD24B8B3BC00CEBD2E /* pearl.svg in Resources */,
 				7922A9D424B4BBBA002A7957 /* Preview Assets.xcassets in Resources */,
 				7922A9E924B4CA7C002A7957 /* Baloo2-Regular.ttf in Resources */,
 				79820C5924B716C1006D7258 /* city.svg in Resources */,
+				799C0DCC24B8B3BC00CEBD2E /* reefcastle.svg in Resources */,
 				7922A9D124B4BBBA002A7957 /* Assets.xcassets in Resources */,
-				79820C6524B716CB006D7258 /* áramlásirányító.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +625,7 @@
 				7922A9CB24B4BBB8002A7957 /* AppDelegate.swift in Sources */,
 				79820C7124B71D08006D7258 /* TabController.swift in Sources */,
 				794CAACB24B5C51B007DC9C7 /* BaseApiWorker.swift in Sources */,
+				79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */,
 				794CAACA24B5C51B007DC9C7 /* BaseApiService.swift in Sources */,
 				794CAACC24B5C51B007DC9C7 /* ServerProxy.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
@@ -618,6 +641,7 @@
 				79820C5024B707F7006D7258 /* RootPageController.swift in Sources */,
 				794CAAD324B5C6FB007DC9C7 /* Login.swift in Sources */,
 				79820C8F24B76155006D7258 /* SVGImage.swift in Sources */,
+				79C39EEB24B8B11400803C00 /* SlideInMenu.swift in Sources */,
 				794C674824B6F8AD006D1F2B /* RootPage.swift in Sources */,
 				794CAAE124B5FB61007DC9C7 /* SeaInputField.swift in Sources */,
 				79820C7F24B71E20006D7258 /* City.swift in Sources */,
