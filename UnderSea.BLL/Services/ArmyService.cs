@@ -118,11 +118,10 @@ namespace UnderSea.BLL.Services
         {
             var user = await db.Users
                                .Include(user => user.Country)
-                               .ThenInclude(country => country.Army)
-                               .ThenInclude(army => army.Units)
+                               .ThenInclude(country => country.DefendingArmy)
                                .FirstOrDefaultAsync(user => user.Id == userId);
 
-            var units = user.Country.Army.Units.ToList();
+            var units = user.Country.DefendingArmy;
 
             return mapper.Map<List<UnitViewModel>>(units);
         }
