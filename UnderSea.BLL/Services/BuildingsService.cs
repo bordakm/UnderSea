@@ -23,7 +23,11 @@ namespace UnderSea.BLL.Services
 
         public async Task<List<BuildingInfoViewModel>> GetBuildingInfos()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Building, BuildingInfoViewModel>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Building, BuildingInfoViewModel>()
+                                                        .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))
+                                                        .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Type.Price))
+                                                        .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))
+                                                        );
             var mapper = new Mapper(config);
             var buildingInfos = new List<BuildingInfoViewModel>();
             await db.Buildings.ForEachAsync(building => buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building)));

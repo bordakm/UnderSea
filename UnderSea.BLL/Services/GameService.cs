@@ -41,7 +41,7 @@ namespace UnderSea.BLL.Services
 
         public async Task<MainPageViewModel> GetMainPage(int userId)
         {
-            var game = await db.Game.FirstOrDefaultAsync();
+            var game = await db.Game.SingleAsync();
             var user = await db.Users
                                 .Include(users => users.Country)
                                 .Include(users => users.Country.DefendingArmy)
@@ -49,7 +49,7 @@ namespace UnderSea.BLL.Services
                                 .Include(users => users.Country.BuildingGroup.Buildings)
                                 .Include(users => users.Country.Upgrades)
                                 .ThenInclude(u=>u.Type)
-                                .FirstOrDefaultAsync(user => user.Id == userId);
+                                .SingleAsync(user => user.Id == userId);
 
 
             MainPageViewModel res = new MainPageViewModel()
@@ -74,15 +74,15 @@ namespace UnderSea.BLL.Services
                 },
                 Structures = new StructuresViewModel()
                 {
-                    FlowManager = (user.Country.BuildingGroup.Buildings.FirstOrDefault(y => y is FlowManager).Count != 0),
-                    ReefCastle = (user.Country.BuildingGroup.Buildings.FirstOrDefault(y => y is ReefCastle).Count != 0),
+                    FlowManager = (user.Country.BuildingGroup.Buildings.Single(y => y is FlowManager).Count != 0),
+                    ReefCastle = (user.Country.BuildingGroup.Buildings.Single(y => y is ReefCastle).Count != 0),
 
-                    Alchemy = (user.Country.Upgrades.FirstOrDefault(y => y.Type is Alchemy).State != UpgradeState.Unresearched),
-                    CoralWall = (user.Country.Upgrades.FirstOrDefault(y => y.Type is CoralWall).State != UpgradeState.Unresearched),
-                    MudHarvester = (user.Country.Upgrades.FirstOrDefault(y => y.Type is MudHarvester).State != UpgradeState.Unresearched),
-                    MudTractor = (user.Country.Upgrades.FirstOrDefault(y => y.Type is MudTractor).State != UpgradeState.Unresearched),
-                    SonarCannon = (user.Country.Upgrades.FirstOrDefault(y => y.Type is SonarCannon).State != UpgradeState.Unresearched),
-                    UnderwaterMartialArts = (user.Country.Upgrades.FirstOrDefault(y => y.Type is UnderwaterMartialArts).State != UpgradeState.Unresearched),
+                    Alchemy = (user.Country.Upgrades.Single(y => y.Type is Alchemy).State != UpgradeState.Unresearched),
+                    CoralWall = (user.Country.Upgrades.Single(y => y.Type is CoralWall).State != UpgradeState.Unresearched),
+                    MudHarvester = (user.Country.Upgrades.Single(y => y.Type is MudHarvester).State != UpgradeState.Unresearched),
+                    MudTractor = (user.Country.Upgrades.Single(y => y.Type is MudTractor).State != UpgradeState.Unresearched),
+                    SonarCannon = (user.Country.Upgrades.Single(y => y.Type is SonarCannon).State != UpgradeState.Unresearched),
+                    UnderwaterMartialArts = (user.Country.Upgrades.Single(y => y.Type is UnderwaterMartialArts).State != UpgradeState.Unresearched),
                 }                
             };
             return res;

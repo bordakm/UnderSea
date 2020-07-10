@@ -23,7 +23,7 @@ namespace UnderSea.BLL.Services
                 .Include(u => u.Country)
                 .ThenInclude(c => c.Upgrades)
                 .ThenInclude(u=>u.Type)
-                .FirstOrDefaultAsync(u => u.Id == userid);
+                .SingleAsync(u => u.Id == userid);
             int roundsLeft = user.Country.UpgradeTimeLeft;
             return user.Country
             .Upgrades.Select(u =>
@@ -45,9 +45,9 @@ namespace UnderSea.BLL.Services
                 .Include(u => u.Country)
                 .ThenInclude(c => c.Upgrades)
                 .ThenInclude(u => u.State)
-                .FirstOrDefaultAsync(u => u.Id == userid);
+                .SingleAsync(u => u.Id == userid);
 
-            var upgrade = user.Country.Upgrades.FirstOrDefault(u => u.Type.Id == upgradetypeid);
+            var upgrade = user.Country.Upgrades.Single(u => u.Type.Id == upgradetypeid);
             if (upgrade.State == UpgradeState.Unresearched && !user.Country.Upgrades.Any(u => u.State == UpgradeState.InProgress))
             {
                 // can upgrade, starting upgrade

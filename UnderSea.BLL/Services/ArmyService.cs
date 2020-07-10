@@ -28,23 +28,23 @@ namespace UnderSea.BLL.Services
 
         public async Task Attack(int attackeruserid, AttackDTO attack)
         { // TODO: majd ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
-            var game = await db.Game.FirstOrDefaultAsync();
+            var game = await db.Game.FirstAsync();
             var unittypes = await db.UnitTypes.ToListAsync();            
-            var attackinguser = await db.Users.Include(u=>u.Country).FirstOrDefaultAsync(u => u.Id == attackeruserid);
-            var defendingcountry = await db.Countries.FirstOrDefaultAsync(c => c.Id == attack.CountryId);
+            var attackinguser = await db.Users.Include(u=>u.Country).SingleAsync(u => u.Id == attackeruserid);
+            var defendingcountry = await db.Countries.SingleAsync(c => c.Id == attack.CountryId);
             var defendinguser = defendingcountry.User;
 
             var sentunits = new List<Unit>();
 
             foreach (SendUnitDTO sendunit in attack.AttackingUnits) {
-                UnitType type = unittypes.FirstOrDefault(ut => ut.Id == sendunit.Id);
-                int ownedcount = attackinguser.Country.DefendingArmy.FirstOrDefault(u => u.Type == type).Count;
+                UnitType type = unittypes.Single(ut => ut.Id == sendunit.Id);
+                int ownedcount = attackinguser.Country.DefendingArmy.Single(u => u.Type == type).Count;
                 if (sendunit.SendCount > ownedcount)
                     throw new Exception("Nem küldhetsz több egységet, mint amennyid van!");
                 else
                 {                    
-                    attackinguser.Country.AttackingArmy.FirstOrDefault(u => u.Type == type).Count += sendunit.SendCount;
-                    attackinguser.Country.DefendingArmy.FirstOrDefault(u => u.Type == type).Count -= sendunit.SendCount;
+                    attackinguser.Country.AttackingArmy.Single(u => u.Type == type).Count += sendunit.SendCount;
+                    attackinguser.Country.DefendingArmy.Single(u => u.Type == type).Count -= sendunit.SendCount;
                     sentunits.Add(new Unit() {Count = sendunit.SendCount, Type = type});
                 }
             }
@@ -69,12 +69,12 @@ namespace UnderSea.BLL.Services
             {
                 throw new Exception("More barracks are needed.");
             }
-            int priceTotal = purchases.Sum(purchase => purchase.Count * units.FirstOrDefault(unit => unit.Id == purchase.Id).Type.Price);
+            int priceTotal = purchases.Sum(purchase => purchase.Count * units.Single(unit => unit.Id == purchase.Id).Type.Price);
             if (priceTotal > user.Country.Pearl)
             {
                 throw new Exception("Not enough pearls.");
             }
-            units.ForEach(unit => unit.Count += purchases.FirstOrDefault(purchase => purchase.Id == unit.Id).Count);
+            units.ForEach(unit => unit.Count += purchases.Single(purchase => purchase.Id == unit.Id).Count);
             await db.SaveChangesAsync();
         }
 
@@ -84,7 +84,7 @@ namespace UnderSea.BLL.Services
             var user = await db.Users
                                .Include(user => user.Country)
                                .ThenInclude(country => country.DefendingArmy)
-                               .FirstOrDefaultAsync(user => user.Id == userId);
+                               .SingleAsync(user => user.Id == userId);
 
             var units = user.Country.DefendingArmy.ToList();
 
@@ -118,7 +118,7 @@ namespace UnderSea.BLL.Services
             var user = await db.Users
                                .Include(user => user.Country)
                                .ThenInclude(country => country.DefendingArmy)
-                               .FirstOrDefaultAsync(user => user.Id == userId);
+                               .SingleAsync(user => user.Id == userId);
 
             var units = user.Country.DefendingArmy;
 

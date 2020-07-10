@@ -200,7 +200,7 @@ namespace UnderSea.DAL.Models
                 UpgradeTimeLeft--;
                 if (UpgradeTimeLeft <= 0)
                 {
-                    var upgrade = Upgrades.FirstOrDefault(u => u.State == UpgradeState.InProgress);
+                    var upgrade = Upgrades.Single(u => u.State == UpgradeState.InProgress);
                     upgrade.State = UpgradeState.Researched;
                 }
 
