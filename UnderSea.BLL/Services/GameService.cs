@@ -139,6 +139,7 @@ namespace UnderSea.BLL.Services
                             .ThenInclude(units => units.Type);
 
             await users.ForEachAsync(user => user.Country.FeedUnits());
+            await db.SaveChangesAsync();
         }
 
         private async void DoUpgrades()
