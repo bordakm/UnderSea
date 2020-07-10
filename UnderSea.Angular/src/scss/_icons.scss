@@ -1,0 +1,18 @@
+.rectangle{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 4vh;
+    width: 4vh;
+    border: 2px;
+    border-style: solid;
+    border-color: #428DFF;
+    border-radius: 14px;
+    background-color: #9FFFF0;
+    padding: 10px;
+}
+
+img{
+    width: 100%;
+}

@@ -1,0 +1,33 @@
+.flex-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;    
+}
+
+.mat-card{
+    border-radius: 16px;
+    background-color: rgba(white, 0.3);
+    
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: none;
+    padding: 10px;
+}
+
+.mat-card-title{
+    color: $dark-blue;
+    font-family: $baloo-font;
+    padding-bottom: 1vw;
+}
+
+::ng-deep .mat-card-content{
+    margin-bottom: 0px !important;
+}
