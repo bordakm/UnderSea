@@ -31,8 +31,8 @@ namespace UnderSea.BLL.Services
             var game = await db.Game.FirstOrDefaultAsync();
             var unittypes = await db.UnitTypes.ToListAsync();            
             var attackinguser = await db.Users.Include(u=>u.Country).FirstOrDefaultAsync(u => u.Id == attackeruserid);
-            var defendingcountry = await db.Countries.FirstOrDefaultAsync(c => c.Id == attack.CountryId);
-            var defendinguser = defendingcountry.User;
+            var defendinguser = await db.Users.FirstOrDefaultAsync(u => u.Id == attack.AttackerUserId);
+            var defendingcountry = defendinguser.Country;
 
             var sentunits = new List<Unit>();
 
