@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UnderSea.BLL.DTO;
+using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
 
 namespace UnderSea.API.Controllers
@@ -9,10 +11,16 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class AttacksController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
+        private IArmyService armyService;
+        public AttacksController(IArmyService armyService)
         {
-            return NotFound(new List<OutgoingAttackViewModel>());
+            this.armyService = armyService;
+        }
+
+        [HttpGet]
+        public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
+        {
+            return await armyService.GetOutgoingAttacks(1); // TODO userid
         }
 
         [HttpPost]

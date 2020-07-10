@@ -7,7 +7,7 @@ using UnderSea.BLL.ViewModels;
 
 namespace UnderSea.BLL.Services
 {
-    interface IArmyService
+    public interface IArmyService
     {
         public Task<List<UnitViewModel>> GetUnits(int userId);
         public Task BuyUnits(int userId, List<UnitPurchaseDTO> purchases);
