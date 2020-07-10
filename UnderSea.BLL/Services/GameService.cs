@@ -12,6 +12,7 @@ using UnderSea.BLL.ViewModels;
 using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
+using UnderSea.DAL.Models.Units;
 using UnderSea.DAL.Models.Upgrades;
 
 namespace UnderSea.BLL.Services
@@ -92,14 +93,14 @@ namespace UnderSea.BLL.Services
         {
             for (int i = 0; i < rounds; ++i)
             {
-                AddTaxes();
-                AddCoral();
-                PayUnits();
-                FeedUnits();
-                DoUpgrades();
-                Build();
-                CalculateAttacks();
-                CalculateRankings();
+                await AddTaxes();
+                await AddCoral();
+                await PayUnits();
+                await FeedUnits();
+                await DoUpgrades();
+                await Build();
+                await CalculateAttacks();
+                await CalculateRankings();
             }
         }
 
@@ -114,14 +115,14 @@ namespace UnderSea.BLL.Services
             return mapper.Map<List<ScoreboardViewModel>>(users);
         }
 
-        private async void AddTaxes()
+        private async Task AddTaxes()
         {
             var users = db.Users.Include(user => user.Country);
             await users.ForEachAsync(user => user.Country.AddTaxes());
             await db.SaveChangesAsync();
         }
 
-        private async void AddCoral()
+        private async Task AddCoral()
         {
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
@@ -130,7 +131,7 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        private async void FeedUnits()
+        private async Task FeedUnits()
         {
             var users = db.Users
                             .Include(user => user.Country)
@@ -143,7 +144,7 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        private async void DoUpgrades()
+        private async Task DoUpgrades()
         {
             var users = db.Users
                 .Include(u => u.Country)
@@ -152,7 +153,7 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        private async void CalculateAttacks()
+        private async Task CalculateAttacks()
         {
             var game = db.Game
                             .Include(game => game.Attacks)
@@ -168,17 +169,42 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        private async void PayUnits()
+        private async Task PayUnits()
         {
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.AttackingArmy)
                 .Include(user => user.Country)
                 .ThenInclude(country => country.DefendingArmy);
-            await users.ForEachAsync(user => user.Country.PayUnits());
+            await users.ForEachAsync(user =>
+            {
+                var removeUnits = user.Country.PayUnits();
+                var game = db.Game.Single();
+                var userAttacks = game.Attacks.FindAll(attack => attack.AttackerUser.Id == user.Id);
+                bool stop = false;
+                while (!stop) {
+                    foreach (Attack attack in userAttacks)
+                    {
+                        foreach (int unitId in removeUnits.Keys)
+                        {
+                            var unitToRemove = attack.UnitList.Find(unit => unit.Id == unitId);
+                            if (unitToRemove.Count > 0 && removeUnits[unitId] > 0)
+                            {
+                                removeUnits[unitId]--;
+                                unitToRemove.Count--;
+                            }
+                        }
+                        stop = removeUnits.Values.All(count => count == 0);
+                        if (stop)
+                        {
+                            break;
+                        }
+                    }
+                }
+            });
             await db.SaveChangesAsync();
         }
 
-        private async void Build()
+        private async Task Build()
         {
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
@@ -187,7 +213,7 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        private async void CalculateRankings()
+        private async Task CalculateRankings()
         {
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
