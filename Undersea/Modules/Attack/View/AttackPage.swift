@@ -8,10 +8,35 @@
 
 import SwiftUI
 
+struct User : Identifiable {
+    let id = UUID()
+    let name: String
+}
+
 struct AttackPage: View {
+    
+    @State private var userName: String = ""
+    @State private var userList: [User] = {
+        var tmp = [User]()
+        for i in 0..<10 {
+            tmp.append(User(name: "User \(i)"))
+        }
+        print(tmp)
+        return tmp
+    }()
+    
     var body: some View {
         NavigationView {
-            Text("Attack page").navigationBarTitle("Attack", displayMode: .inline)
+            VStack {
+                SeaInputField(placeholder: "Jatekos keresese", inputText: $userName)
+                List(userList) { item in
+                    Text(item.name).foregroundColor(Color.black)
+                }
+                .background(Colors.darkBlue)
+            }
+            .navigationBarTitle("Attack", displayMode: .inline)
+            .background(Colors.darkBlue)
+            .navigationBarColor(Colors.navBarTintColor)
         }
     }
 }

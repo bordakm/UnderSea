@@ -11,8 +11,28 @@ import SwiftUI
 struct MainPage: View {
     var body: some View {
         NavigationView {
-            Text("Main page")
-                .navigationBarTitle("Main", displayMode: .inline).navigationBarColor(Colors.navBarTintColor)
+            ZStack {
+                VStack {
+                    RoundedRectangle(cornerRadius: 5.0)
+                        .fill(Color.black)
+                        .frame(width: 80.0, height: 30.0)
+                        .padding(Edge.Set.top, 10.0)
+                    GeometryReader { geometry in
+                        ZStack {
+                            Text("Epuletek")
+                        }
+                        .frame(height: geometry.size.height)
+                    }
+                }
+                //Gordulo menu
+            }
+            .background(Image("mainBackground")
+                .resizable()
+                .scaledToFill())
+            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarItems(leading: SVGImage(svgName: "underseaLogo").frame(width: 70.0, height: 40.0),
+                                trailing: SVGImage(svgName: "userImage").frame(width: 30.0, height: 30.0))
+            .navigationBarColor(Colors.navBarTintColor)
         }
     }
 }

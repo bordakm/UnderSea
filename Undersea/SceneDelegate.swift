@@ -40,6 +40,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
         UINavigationBar.appearance().tintColor = .white
         
+        UITableView.appearance().tableFooterView = UIView()
+        
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)

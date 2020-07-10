@@ -15,44 +15,41 @@ struct LoginPage: View {
     @State private var pushRegister = false
     
     var body: some View {
-        VStack {
-            VStack(spacing: 0) {
-                Rectangle().frame(height: 10)
-                Text("UNDERSEA")
-                    .font(Font.custom("Baloo2-Regular", size: 37))
-                    .foregroundColor(Colors.underseaTitleColor)
-            }
-            VStack {
-                
-                Text("Belepes")
-                    .font(Font.custom("Baloo2-Regular", size: 20))
-                    .foregroundColor(Colors.loginTitleColor)
-                
-                SeaInputField(placeholder: "Felhasznalonev", inputText: $userName)
-                SeaInputField(placeholder: "Jelszo", inputText: $userPassword)
-                
-                SeaButton(title: "Belepes", action: {
-                    ObservableRootPage.shared.currentPage = RootPage.main
-                })
-                    
-                Button(action: {
-                    ObservableRootPage.shared.currentPage = RootPage.register
-                }) {
-                    Text("Regisztracio")
-                        .font(Font.custom("Baloo2-Regular", size: 16))
-                        .foregroundColor(Colors.loginBtnTextColor)
+        
+        GeometryReader { geometry in
+                VStack {
+                    SVGImage(svgName: "underseaLogo")
+                        .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.15)
+                    VStack {
+                        
+                        Text("Belepes")
+                            .font(Font.custom("Baloo2-Regular", size: 20))
+                            .foregroundColor(Colors.loginTitleColor)
+                        
+                        SeaInputField(placeholder: "Felhasznalonev", inputText: self.$userName)
+                        SeaInputField(placeholder: "Jelszo", inputText: self.$userPassword)
+                        
+                        SeaButton(title: "Belepes", action: {
+                            ObservableRootPage.shared.currentPage = RootPage.main
+                        })
+                            
+                        Button(action: {
+                            ObservableRootPage.shared.currentPage = RootPage.register
+                        }) {
+                            Text("Regisztracio")
+                                .font(Font.custom("Baloo2-Regular", size: 16))
+                                .foregroundColor(Colors.loginBtnTextColor)
+                        }
+                        
+                    }
+                    .padding()
+                    .background(Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.65))
+                    .cornerRadius(16.0)
                 }
-                
-            }
-            .padding()
-            .background(Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.65))
-            .cornerRadius(16.0)
-            Spacer()
         }
-        /*.navigationBarTitle("")
-        .navigationBarHidden(true)*/
-        //.statusBar(hidden: true)
-        .background(Colors.darkBlue)
+        .background(Image("loginBackground")
+            .resizable()
+            .scaledToFill())
         .edgesIgnoringSafeArea(.vertical)
     }
 }

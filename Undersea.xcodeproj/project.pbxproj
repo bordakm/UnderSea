@@ -47,8 +47,8 @@
 		79820C6724B716CB006D7258 /* korall.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6024B716CB006D7258 /* korall.svg */; };
 		79820C6824B716CB006D7258 /* zátonyvár.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6124B716CB006D7258 /* zátonyvár.svg */; };
 		79820C6924B716CB006D7258 /* gyöngy.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6224B716CB006D7258 /* gyöngy.svg */; };
-		79820C6C24B716E5006D7258 /* user image.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6A24B716E5006D7258 /* user image.svg */; };
-		79820C6D24B716E5006D7258 /* undersea logo.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6B24B716E5006D7258 /* undersea logo.svg */; };
+		79820C6C24B716E5006D7258 /* userImage.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6A24B716E5006D7258 /* userImage.svg */; };
+		79820C6D24B716E5006D7258 /* underseaLogo.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6B24B716E5006D7258 /* underseaLogo.svg */; };
 		79820C7124B71D08006D7258 /* TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C7024B71D08006D7258 /* TabController.swift */; };
 		79820C7B24B71E01006D7258 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C7A24B71E01006D7258 /* Main.swift */; };
 		79820C7D24B71E0C006D7258 /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C7C24B71E0C006D7258 /* MainPage.swift */; };
@@ -107,8 +107,8 @@
 		79820C6024B716CB006D7258 /* korall.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = korall.svg; sourceTree = "<group>"; };
 		79820C6124B716CB006D7258 /* zátonyvár.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "zátonyvár.svg"; sourceTree = "<group>"; };
 		79820C6224B716CB006D7258 /* gyöngy.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "gyöngy.svg"; sourceTree = "<group>"; };
-		79820C6A24B716E5006D7258 /* user image.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "user image.svg"; sourceTree = "<group>"; };
-		79820C6B24B716E5006D7258 /* undersea logo.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "undersea logo.svg"; sourceTree = "<group>"; };
+		79820C6A24B716E5006D7258 /* userImage.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = userImage.svg; sourceTree = "<group>"; };
+		79820C6B24B716E5006D7258 /* underseaLogo.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = underseaLogo.svg; sourceTree = "<group>"; };
 		79820C7024B71D08006D7258 /* TabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabController.swift; sourceTree = "<group>"; };
 		79820C7A24B71E01006D7258 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		79820C7C24B71E0C006D7258 /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
@@ -374,8 +374,8 @@
 		79820C6E24B716E9006D7258 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				79820C6B24B716E5006D7258 /* undersea logo.svg */,
-				79820C6A24B716E5006D7258 /* user image.svg */,
+				79820C6B24B716E5006D7258 /* underseaLogo.svg */,
+				79820C6A24B716E5006D7258 /* userImage.svg */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -517,7 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7922A9D724B4BBBA002A7957 /* LaunchScreen.storyboard in Resources */,
-				79820C6D24B716E5006D7258 /* undersea logo.svg in Resources */,
+				79820C6D24B716E5006D7258 /* underseaLogo.svg in Resources */,
 				79820C6924B716CB006D7258 /* gyöngy.svg in Resources */,
 				7922A9E824B4CA7C002A7957 /* Baloo2-ExtraBold.ttf in Resources */,
 				7922A9EC24B4CA7C002A7957 /* Baloo2-SemiBold.ttf in Resources */,
@@ -527,7 +527,7 @@
 				79820C5B24B716C1006D7258 /* attack.svg in Resources */,
 				7922A9EB24B4CA7C002A7957 /* Baloo2-Bold.ttf in Resources */,
 				79820C5A24B716C1006D7258 /* main.svg in Resources */,
-				79820C6C24B716E5006D7258 /* user image.svg in Resources */,
+				79820C6C24B716E5006D7258 /* userImage.svg in Resources */,
 				79820C5824B716C1006D7258 /* teams.svg in Resources */,
 				79820C6624B716CB006D7258 /* fóka.svg in Resources */,
 				79820C6324B716CB006D7258 /* csikóhal.svg in Resources */,

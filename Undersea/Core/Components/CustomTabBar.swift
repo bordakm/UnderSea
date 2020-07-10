@@ -27,7 +27,7 @@ struct CustomTabBar: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack {
+            VStack(spacing: 0) {
                 self.tabItems[self.selectedTab].view
                 ZStack {
                     LinearGradient(gradient: Gradient(colors: [Colors.loginGradientStart, Colors.loginGradientMid, Colors.loginGradientEnd]), startPoint: .bottom, endPoint: .top)

@@ -33,7 +33,6 @@ struct TabController: View {
             }
             
         }
-        .background(LinearGradient(gradient: Gradient(colors: [Colors.loginGradientStart, Colors.loginGradientMid, Colors.loginGradientEnd]), startPoint: .leading, endPoint: .trailing))
     }
 }
 
