@@ -108,6 +108,7 @@ namespace UnderSea.BLL.Services
                 AddTaxes();
                 AddCoral();
                 PayUnits();
+                Build();
             }            
 >>>>>>> 40fc1ec... Implement PayUnit method in GameService
             throw new NotImplementedException();
@@ -205,6 +206,15 @@ namespace UnderSea.BLL.Services
                 .Include(user => user.Country)
                 .ThenInclude(country => country.DefendingArmy);
             await users.ForEachAsync(user => user.Country.PayUnits());
+            await db.SaveChangesAsync();
+        }
+
+        private async void Build()
+        {
+            var users = db.Users.Include(user => user.Country)
+                .ThenInclude(country => country.BuildingGroup)
+                .ThenInclude(buildingGroup => buildingGroup.Buildings);
+            await users.ForEachAsync(user => user.Country.Build());
             await db.SaveChangesAsync();
         }
     }

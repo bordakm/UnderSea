@@ -145,5 +145,22 @@ namespace UnderSea.DAL.Models
                 }
             }
         }
+
+        public void Build()
+        {
+            var buildings = BuildingGroup.Buildings;
+            foreach (Building building in buildings)
+            {
+                if (building.UnderConstructionCount > 0 && BuildingTimeLeft > 0)
+                {
+                    BuildingTimeLeft--;
+                    if (BuildingTimeLeft == 0)
+                    {
+                        building.Count++;
+                        building.UnderConstructionCount--;
+                    }
+                }                
+            }
+        }
     }
 }
