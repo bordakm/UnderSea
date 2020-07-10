@@ -4,11 +4,10 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Units
 {
-    public class CombatSeaHorse : Unit
+    public class CombatSeaHorse : UnitType
     {
         public CombatSeaHorse()
-        {
-            Count = 0;
+        {            
             Price = 50;
             AttackScore = 2.0;
             DefenseScore = 6.0;

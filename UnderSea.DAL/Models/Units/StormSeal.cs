@@ -4,11 +4,10 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Units
 {
-    public class StormSeal : Unit
+    public class StormSeal : UnitType
     {
         public StormSeal() 
         {
-            Count = 0;
             Price = 50;
             AttackScore = 6.0;
             DefenseScore = 2.0;

@@ -28,10 +28,19 @@ namespace UnderSea.BLL.Services
         public async Task Attack(int attackeruserid, AttackDTO attack)
         { // TODO: ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
             var game = await db.Game.FirstOrDefaultAsync();
-            
-            var attackinguser = await db.Users.FirstOrDefaultAsync(u => u.Id == attackeruserid);
+            var unittypes = await db.UnitTypes.ToListAsync();            
+            var attackinguser = await db.Users.Include(u=>u.Country).ThenInclude(c=>c.Army).FirstOrDefaultAsync(u => u.Id == attackeruserid);
             var defendingcountry = await db.Countries.FirstOrDefaultAsync(c => c.Id == attack.CountryId);
             var defendinguser = defendingcountry.User;
+
+            var sentunits = new List<Unit>();
+            foreach (SendUnitDTO sendunit in attack.AttackingUnits) {
+                UnitType type = unittypes.FirstOrDefault(ut => ut.Id == sendunit.Id);
+                int ownedcount = attackinguser.Country.Army.Units.FirstOrDefault(u => u.Type == type).Count;
+                if (sendunit.SendCount > ownedcount) 
+                    throw new Exception("Nem küldhetsz több egységet, mint amennyid van!");
+                sentunits.Add(new Unit() {Count = sendunit.SendCount, Type = type});
+            }
 
             game.Attacks.Add(new Attack
             {
@@ -39,12 +48,9 @@ namespace UnderSea.BLL.Services
                 DefenderUser = defendinguser,
                 UnitGroup = new UnitGroup 
                 {
-                    Units = new List<Unit>{ 
-                        new StormSeal(){ Count = attack.AttackingUnits .....}, // TODO minden típusnak beállítani, hogy hányat küldött..
-                        new CombatSeaHorse(),
-                        new LaserShark()}
+                    Units = sentunits
                 }
-            }) ;
+            });
             await db.SaveChangesAsync();
         }
 
@@ -53,19 +59,19 @@ namespace UnderSea.BLL.Services
             var user = await db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.Army)
                 .FirstAsync(user => user.Id == userId);
-            var units = await db.Units.ToListAsync();
+            var units = await db.Units.Include(u=>u.Type).ToListAsync();
             int currentSupplyDemand = units.Sum(unit => unit.Count);
             int newSupplyDemand = purchases.Sum(purchase => purchase.Count);
             if (user.Country.Population < currentSupplyDemand + newSupplyDemand)
             {
                 throw new Exception("More barracks are needed.");
             }
-            int priceTotal = purchases.Sum(purchase => purchase.Count * units.Find(unit => unit.Id == purchase.Id).Price);
+            int priceTotal = purchases.Sum(purchase => purchase.Count * units.FirstOrDefault(unit => unit.Id == purchase.Id).Type.Price);
             if (priceTotal > user.Country.Pearl)
             {
                 throw new Exception("Not enough pearls.");
             }
-            units.ForEach(unit => unit.Count += purchases.Find(purchase => purchase.Id == unit.Id).Count);
+            units.ForEach(unit => unit.Count += purchases.FirstOrDefault(purchase => purchase.Id == unit.Id).Count);
             await db.SaveChangesAsync();
         }
 
