@@ -91,7 +91,7 @@ namespace UnderSea.BLL.Services
             return res;
         }
 
-        public async Task NewRound(int rounds = 1)
+        public void NewRound(int rounds = 1)
         {
             for (int i = 0; i < rounds; ++i)
             {
