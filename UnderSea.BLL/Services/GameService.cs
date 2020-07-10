@@ -92,6 +92,8 @@ namespace UnderSea.BLL.Services
 
         public async Task NewRound(int rounds)
         {
+            AddTaxes();
+            AddCoral();
             throw new NotImplementedException();
         }
 
@@ -104,6 +106,22 @@ namespace UnderSea.BLL.Services
                                .ToListAsync();
 
             return mapper.Map<List<ScoreboardViewModel>>(users);
+        }
+
+        private async void AddTaxes()
+        {
+            var users = db.Users.Include(user => user.Country);
+            await users.ForEachAsync(user => user.Country.AddTaxes());
+            await db.SaveChangesAsync();
+        }
+
+        private async void AddCoral()
+        {
+            var users = db.Users.Include(user => user.Country)
+                .ThenInclude(country => country.BuildingGroup)
+                .ThenInclude(buildingGroup => buildingGroup.Buildings);
+            await users.ForEachAsync(user => user.Country.AddCoral());
+            await db.SaveChangesAsync();
         }
     }
 }
