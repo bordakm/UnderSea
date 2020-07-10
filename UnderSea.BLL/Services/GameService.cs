@@ -94,6 +94,12 @@ namespace UnderSea.BLL.Services
         {
             AddTaxes();
             AddCoral();
+            
+            FeedUnits();
+            DoUpgrades();
+            DoBuildings();
+            CalculateAttacks();
+            CalculatePosition();
             throw new NotImplementedException();
         }
 
@@ -122,6 +128,31 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(buildingGroup => buildingGroup.Buildings);
             await users.ForEachAsync(user => user.Country.AddCoral());
             await db.SaveChangesAsync();
+        }
+
+        private async void FeedUnits()
+        {
+
+        }
+
+        private async void DoUpgrades()
+        {
+
+        }
+
+        private async void DoBuildings()
+        {
+
+        }
+
+        private async void CalculateAttacks()
+        {
+
+        }
+
+        private async void CalculatePosition()
+        {
+
         }
     }
 }
