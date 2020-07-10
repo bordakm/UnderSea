@@ -11,7 +11,8 @@ namespace UnderSea.DAL.Models.Upgrades
             Name = "Vízalatti harcművészetek";
             Description = "növeli a védelmi és támadóerőt 10%-kal";
             ImageUrl = "majd/kesobb/lesz/kep.jpg";
-            AttackAndDefenseBonusPercentage = 10;
+            AttackBonusPercentage = 10;
+            DefenseBonusPercentage = 10;
         }
     }
 }

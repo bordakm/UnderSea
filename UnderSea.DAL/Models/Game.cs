@@ -16,11 +16,110 @@ namespace UnderSea.DAL.Models
 
         public void CalculateAttacks()
         {
-            //kik a defenderek?
-            //sikeres a támadás ha a támadók támadó ereje nagyobb mint a védekezők védekező ereje 
-            //támadók ereje random változik +-5%
-            //vesztes sereg 10%a megsemmisül
-            //ha a támadó nyer akkor a vesztestől elviszi a gyöngy és a korall felét
+            foreach (var attack in Attacks)
+            {
+                double defenderScore = 0;
+                double attackerScore = 0;
+
+                double defenderScoreModifier = 0;
+                double attackerScoreModifier = 0;
+
+                var defUserCountry = attack.DefenderUser.Country;
+                var attUserCountry = attack.AttackerUser.Country;
+
+                //calculationg defender base score
+                foreach (var unit in defUserCountry.DefendingArmy)
+                {
+                    defenderScore += unit.Type.DefenseScore;
+                }
+
+                //calculating defender modifier
+                foreach (var upgrade in defUserCountry.Upgrades)
+                {
+                    if (upgrade.State == Upgrades.UpgradeState.Researched)
+                        defenderScoreModifier += upgrade.Type.DefenseBonusPercentage;
+                }
+                defenderScore *= 1 + defenderScoreModifier / 100;
+
+                //calculating attacker base score
+                foreach (var unit in attack.UnitList)
+                {
+                    attackerScore += unit.Type.AttackScore;
+                }
+
+                //calculating attacker modifier
+                foreach (var upgrade in attUserCountry.Upgrades)
+                {
+                    if (upgrade.State == Upgrades.UpgradeState.Researched)
+                        attackerScoreModifier += upgrade.Type.AttackBonusPercentage;
+                }
+                attackerScore *= 1 + attackerScoreModifier / 100;
+
+                //calculating random for attacker
+                Random rand = new Random();
+                attackerScore *= 1 + rand.Next(-5, 5) / 100;
+
+                //if the defender wins
+                if(defenderScore > attackerScore)
+                {
+                    //levonjuk az egységeket az attacking armyból
+                    foreach (var unit in attack.UnitList)
+                    {
+                        foreach (var attunit in attUserCountry.AttackingArmy)
+                        {
+                            if (unit.Type.Id == attunit.Type.Id)
+                                attunit.Count -= unit.Count;
+                        }
+                    }
+
+                    //hozzáadjuk a defender armyhoz 10%osan csökkentve
+                    foreach (var unit in attack.UnitList)
+                    {
+                        foreach (var defunit in attUserCountry.DefendingArmy)
+                        {
+                            if (unit.Type.Id == defunit.Type.Id)
+                                defunit.Count += Convert.ToInt32(Math.Floor(unit.Count * 0.9));
+                        }
+                    }
+                }
+                else if (attackerScore > defenderScore)
+                {
+                    //levonjuk az egységeket az attacking armyból
+                    foreach (var unit in attack.UnitList)
+                    {
+                        foreach (var attunit in attUserCountry.AttackingArmy)
+                        {
+                            if (unit.Type.Id == attunit.Type.Id)
+                                attunit.Count -= unit.Count;
+                        }
+                    }
+
+                    //hozzáadjuk a defender armyhoz
+                    foreach (var unit in attack.UnitList)
+                    {
+                        foreach (var defunit in attUserCountry.DefendingArmy)
+                        {
+                            if (unit.Type.Id == defunit.Type.Id)
+                                defunit.Count += unit.Count;
+                        }
+                    }
+
+                    //csökkentjük a deffender armyját 10%al
+                    foreach (var defunit in defUserCountry.DefendingArmy)
+                    {
+                        defunit.Count = Convert.ToInt32(Math.Floor(defunit.Count * 0.9));
+                    }
+
+                    //nyereség jóváírása
+                    attUserCountry.Pearl += Convert.ToInt32(Math.Ceiling(defUserCountry.Pearl * 0.5));
+                    defUserCountry.Pearl = Convert.ToInt32(Math.Ceiling(defUserCountry.Pearl * 0.5));
+
+                    attUserCountry.Coral += Convert.ToInt32(Math.Ceiling(defUserCountry.Coral * 0.5));
+                    defUserCountry.Coral = Convert.ToInt32(Math.Ceiling(defUserCountry.Coral * 0.5));
+                }
+            }
+
+            Attacks.Clear();
         }
     }
 }

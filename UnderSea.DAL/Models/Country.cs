@@ -61,7 +61,7 @@ namespace UnderSea.DAL.Models
                 totalCoralCost += unit.Type.CoralCostPerTurn;
             });
 
-            if(Coral >= totalCoralCost)
+            if (Coral >= totalCoralCost)
             {
                 Coral -= totalCoralCost;
             }
@@ -69,7 +69,7 @@ namespace UnderSea.DAL.Models
             {
                 int difference = totalCoralCost - Coral;
 
-                while(difference > 0)
+                while (difference > 0)
                 {
                     foreach (var item in DefendingArmy)
                     {
@@ -85,17 +85,113 @@ namespace UnderSea.DAL.Models
 
                     foreach (var item in AttackingArmy)
                     {
-                        if(item.Count > 0)
+                        if (item.Count > 0)
                         {
                             if (difference <= 0)
                                 break;
                             difference -= item.Type.CoralCostPerTurn;
                             item.Count--;
                         }
-                        
+
                     }
                 }
             }
+        }
+
+        public void PayUnits()
+        {
+            int costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+            costTotal += DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+            int difference = Pearl - costTotal;
+            if (difference < 0)
+            {
+                FireUnits(Math.Abs(difference));
+                costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn)
+                    + DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+            }
+            Pearl -= costTotal;
+        }
+
+        private void FireUnits(int difference)
+        {
+            // TODO: Remove units from attack queue
+            bool stop = false;
+            while (!stop)
+            {
+                foreach (Unit unit in DefendingArmy)
+                {
+                    if (unit.Count > 0)
+                    {
+                        unit.Count--;
+                        difference -= unit.Type.PearlCostPerTurn;
+                        if (difference <= 0)
+                        {
+                            stop = true;
+                            break;                            
+                        }
+                    }
+                }
+                if (stop)
+                {
+                    break;
+                }
+                foreach (Unit unit in AttackingArmy)
+                {
+                    if (unit.Count > 0)
+                    {
+                        unit.Count--;
+                        difference -= unit.Type.PearlCostPerTurn;
+                        if (difference <= 0)
+                        {
+                            stop = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Build()
+        {
+            var buildings = BuildingGroup.Buildings;
+            foreach (Building building in buildings)
+            {
+                if (building.UnderConstructionCount > 0 && BuildingTimeLeft > 0)
+                {
+                    BuildingTimeLeft--;
+                    if (BuildingTimeLeft == 0)
+                    {
+                        building.Count++;
+                        building.UnderConstructionCount--;
+                    }
+                }                
+            }
+        }
+
+        public int CalculateScore()
+        {
+            int score = 0;
+            score += Population;
+            foreach (Building building in BuildingGroup.Buildings)
+            {
+                score += building.Score;
+            }
+            foreach (Unit unit in AttackingArmy)
+            {
+                score += unit.CalculateScore();
+            }
+            foreach (Unit unit in DefendingArmy)
+            {
+                score += unit.CalculateScore();
+            }
+            foreach (Upgrade upgrade in Upgrades)
+            {
+                if (upgrade.State == UpgradeState.Researched)
+                {
+                    score += 100;
+                }
+            }
+            return score;
         }
         public void DoUpgrades()
         {

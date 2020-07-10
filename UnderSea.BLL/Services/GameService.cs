@@ -88,8 +88,9 @@ namespace UnderSea.BLL.Services
             return res;
         }
 
-        public async Task NewRound(int rounds)
+        public async Task NewRound(int rounds = 1)
         {
+<<<<<<< HEAD
             AddTaxes();
             AddCoral();
             
@@ -98,6 +99,16 @@ namespace UnderSea.BLL.Services
             DoBuildings();
             CalculateAttacks();
             CalculatePosition();
+=======
+            for (int i = 0; i < rounds; ++i)
+            {
+                AddTaxes();
+                AddCoral();
+                PayUnits();
+                Build();
+                CalculateRankings();
+            }            
+>>>>>>> 40fc1ec... Implement PayUnit method in GameService
             throw new NotImplementedException();
         }
 
@@ -174,6 +185,39 @@ namespace UnderSea.BLL.Services
         private async void CalculatePosition()
         {
 
+        }
+
+        private async void PayUnits()
+        {
+            var users = db.Users.Include(user => user.Country)
+                .ThenInclude(country => country.AttackingArmy)
+                .Include(user => user.Country)
+                .ThenInclude(country => country.DefendingArmy);
+            await users.ForEachAsync(user => user.Country.PayUnits());
+            await db.SaveChangesAsync();
+        }
+
+        private async void Build()
+        {
+            var users = db.Users.Include(user => user.Country)
+                .ThenInclude(country => country.BuildingGroup)
+                .ThenInclude(buildingGroup => buildingGroup.Buildings);
+            await users.ForEachAsync(user => user.Country.Build());
+            await db.SaveChangesAsync();
+        }
+
+        private async void CalculateRankings()
+        {
+            var users = db.Users.Include(user => user.Country)
+                .ThenInclude(country => country.BuildingGroup)
+                .ThenInclude(buildingGroup => buildingGroup.Buildings)
+                .Include(user => user.Country)
+                .ThenInclude(country => country.Upgrades);
+            await users.ForEachAsync(user => user.Score = user.Country.CalculateScore());
+            users.OrderByDescending(user => user.Score);
+            int rank = 1;
+            await users.ForEachAsync(user => user.Place = rank++);
+            await db.SaveChangesAsync();
         }
     }
 }

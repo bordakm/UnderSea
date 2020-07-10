@@ -9,5 +9,10 @@ namespace UnderSea.DAL.Models.Units
         public int Id { get; set; }
         public int Count { get; set; }
         public UnitType Type { get; set; }
+
+        public int CalculateScore()
+        {
+            return Type.Score * Count;
+        }
     }
 }
