@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Upgrades
 {
-    public class SonarCannon : Upgrade
+    public class SonarCannon : UpgradeType
     {
         public SonarCannon()
         {
