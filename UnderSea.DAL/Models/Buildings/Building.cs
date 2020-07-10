@@ -20,5 +20,8 @@ namespace UnderSea.DAL.Models.Buildings
         public string ImageUrl { get; set; }
         [NotMapped]
         public int CoralBonusTotal => CoralBonus * (Count - UnderConstructionCount);
+
+        [NotMapped]
+        public int Score => Count * 50;
     }
 }

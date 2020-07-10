@@ -14,5 +14,6 @@ namespace UnderSea.DAL.Models.Units
         public int PearlCostPerTurn { get; set; }
         public int CoralCostPerTurn { get; set; }
         public string ImageUrl { get; set; }
+        public int Score { get; set; }
     }
 }

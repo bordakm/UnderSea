@@ -162,5 +162,31 @@ namespace UnderSea.DAL.Models
                 }                
             }
         }
+
+        public int CalculateScore()
+        {
+            int score = 0;
+            score += Population;
+            foreach (Building building in BuildingGroup.Buildings)
+            {
+                score += building.Score;
+            }
+            foreach (Unit unit in AttackingArmy)
+            {
+                score += unit.CalculateScore();
+            }
+            foreach (Unit unit in DefendingArmy)
+            {
+                score += unit.CalculateScore();
+            }
+            foreach (Upgrade upgrade in Upgrades)
+            {
+                if (upgrade.State == UpgradeState.Researched)
+                {
+                    score += 100;
+                }
+            }
+            return score;
+        }
     }
 }
