@@ -53,7 +53,7 @@ namespace UnderSea.BLL.Services
             {
                 AttackerUser = attackinguser,
                 DefenderUser = defendinguser,
-                UnitGroup = sentunits
+                UnitList = sentunits
             });
             await db.SaveChangesAsync();
         }
@@ -105,7 +105,7 @@ namespace UnderSea.BLL.Services
                 res.Add(new OutgoingAttackViewModel
                 {
                     CountryName = item.AttackerUser.Country.Name,
-                    Units = item.UnitGroup
+                    Units = item.UnitList
                 });
             }
 
