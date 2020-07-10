@@ -1,0 +1,27 @@
+//
+//  Colors.swift
+//  Undersea
+//
+//  Created by Vekety Robin on 2020. 07. 08..
+//  Copyright © 2020. Vekety Robin. All rights reserved.
+//
+
+import Foundation
+import SwiftUI
+
+struct Colors {
+    
+    static let darkBlue = Color(hex: "#1C3E76")
+    static let whiteTransparent = Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.65)
+    static let underseaTitleColor = Color(hex: "#9FFFF0")
+    static let loginGradientStart = Color(hex: "#0FCFDE")
+    static let loginGradientMid = Color(hex: "#6BEEE9")
+    static let loginGradientEnd = Color(hex: "#9FFFF0")
+    static let loginShadowColor = Color(hex: "#3B7DBD")
+    static let loginBtnTextColor = Color(hex: "#001234")
+    static let loginTitleColor = Color(hex: "#001234")
+    static let textFieldColor = Color(hex: "#1C3E76")
+    static let tabTintColor = Color(hex: "#001234")
+    static let navBarTintColor = UIColor(hex: "#1C3E76")
+    
+}
