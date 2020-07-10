@@ -168,7 +168,15 @@ namespace UnderSea.BLL.Services
 
         private async void CalculateAttacks()
         {
-
+            var game = db.Game
+                            .Include(game => game.Attacks)
+                            .Include(game => game.Users)
+                            .ThenInclude(users => users.Country)
+                            .ThenInclude(country => country.Army)
+                            .ThenInclude(army => army.Units)
+                            .ThenInclude(units => units.Type);
+            await game.ForEachAsync(g => g.CalculateAttacks());
+            await db.SaveChangesAsync();
         }
 
         private async void CalculatePosition()
