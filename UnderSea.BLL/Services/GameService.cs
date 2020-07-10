@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using UnderSea.BLL.DTO;
@@ -134,9 +135,10 @@ namespace UnderSea.BLL.Services
         {
             var users = db.Users
                             .Include(user => user.Country)
-                            .ThenInclude(country => country.Army)
-                            .ThenInclude(army => army.Units)
-                            .ThenInclude(units => units.Type);
+                            .ThenInclude(country => country.AttackingArmy)
+                            .ThenInclude(aa => aa.Type)
+                            .Include(user => user.Country.DefendingArmy)
+                            .ThenInclude(da => da.Type);
 
             await users.ForEachAsync(user => user.Country.FeedUnits());
             await db.SaveChangesAsync();
@@ -172,9 +174,12 @@ namespace UnderSea.BLL.Services
                             .Include(game => game.Attacks)
                             .Include(game => game.Users)
                             .ThenInclude(users => users.Country)
-                            .ThenInclude(country => country.Army)
-                            .ThenInclude(army => army.Units)
-                            .ThenInclude(units => units.Type);
+                            .ThenInclude(country => country.AttackingArmy)
+                            .ThenInclude(units => units.Type)
+                            .Include(game => game.Users)
+                            .ThenInclude(u => u.Country)
+                            .ThenInclude(c => c.DefendingArmy)
+                            .ThenInclude(da => da.Type);
             await game.ForEachAsync(g => g.CalculateAttacks());
             await db.SaveChangesAsync();
         }

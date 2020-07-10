@@ -46,7 +46,12 @@ namespace UnderSea.DAL.Models
         public void FeedUnits()
         {
             int totalCoralCost = 0;
-            Army.Units.ForEach(unit =>
+            AttackingArmy.ForEach(unit =>
+            {
+                totalCoralCost += unit.Type.CoralCostPerTurn;
+            });
+
+            DefendingArmy.ForEach(unit =>
             {
                 totalCoralCost += unit.Type.CoralCostPerTurn;
             });
@@ -61,14 +66,26 @@ namespace UnderSea.DAL.Models
 
                 while(difference > 0)
                 {
-                    foreach (var item in Army.Units)
+                    foreach (var item in DefendingArmy)
+                    {
+                        if (item.Count > 0)
+                        {
+                            if (difference <= 0)
+                                break;
+                            difference -= item.Type.CoralCostPerTurn;
+                            item.Count--;
+                        }
+
+                    }
+
+                    foreach (var item in AttackingArmy)
                     {
                         if(item.Count > 0)
                         {
-                            difference -= item.Type.CoralCostPerTurn;
-                            item.Count--;
                             if (difference <= 0)
                                 break;
+                            difference -= item.Type.CoralCostPerTurn;
+                            item.Count--;
                         }
                         
                     }
