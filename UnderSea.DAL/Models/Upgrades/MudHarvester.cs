@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Upgrades
 {
-    public class MudHarvester : Upgrade
+    public class MudHarvester : UpgradeType
     {
         public MudHarvester()
         {

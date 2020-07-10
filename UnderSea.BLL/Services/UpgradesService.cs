@@ -22,23 +22,24 @@ namespace UnderSea.BLL.Services
             var user = await db.Users
                 .Include(u => u.Country)
                 .ThenInclude(c => c.Upgrades)
+                .ThenInclude(u=>u.Type)
                 .FirstOrDefaultAsync(u => u.Id == userid);
             int roundsLeft = user.Country.UpgradeTimeLeft;
             return user.Country
             .Upgrades.Select(u =>
                         new UpgradeViewModel
                         {
-                            Id = u.Id,
-                            Name = u.Name,
-                            Description = u.Description,
-                            ImageUrl = u.ImageUrl,
+                            Id = u.Type.Id,
+                            Name = u.Type.Name,
+                            Description = u.Type.Description,
+                            ImageUrl = u.Type.ImageUrl,
                             IsPurchased = u.State == UpgradeState.Researched,
                             RemainingRounds = u.State == UpgradeState.Researched ? 0 : roundsLeft
                         })
             .ToList();
         }
 
-        public async Task<string> ResearchById(int userid, int upgradeid)
+        public async Task<string> ResearchById(int userid, int upgradetypeid)
         {
             var user = await db.Users
                 .Include(u => u.Country)
@@ -46,7 +47,7 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(u => u.State)
                 .FirstOrDefaultAsync(u => u.Id == userid);
 
-            var upgrade = user.Country.Upgrades.FirstOrDefault(u => u.Id == upgradeid);
+            var upgrade = user.Country.Upgrades.FirstOrDefault(u => u.Type.Id == upgradetypeid);
             if (upgrade.State == UpgradeState.Unresearched && !user.Country.Upgrades.Any(u => u.State == UpgradeState.InProgress))
             {
                 // can upgrade, starting upgrade

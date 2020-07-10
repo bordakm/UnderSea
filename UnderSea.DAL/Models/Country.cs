@@ -13,7 +13,8 @@ namespace UnderSea.DAL.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public BuildingGroup BuildingGroup { get; set; }
-        public UnitGroup Army { get; set; }
+        public List<Unit> AttackingArmy { get; set; }
+        public List<Unit> DefendingArmy { get; set; }
         public int Coral { get; set; }
         public int CoralProduction { get; set; }
         public int Pearl { get; set; }
@@ -23,14 +24,6 @@ namespace UnderSea.DAL.Models
         public int TaxRate { get; set; }
         public User User { get; set; }
         public List<Upgrade> Upgrades { get; set; }
-            = new List<Upgrade> { new Alchemy(),
-                                  new CoralWall(),
-                                  new MudHarvester(),
-                                  new MudTractor(),
-                                  new SonarCannon(),
-                                  new UnderwaterMartialArts()};
-
-
         public int UpgradeTimeLeft { get; set; }
         public int BuildingTimeLeft { get; set; }
         public int Score { get; set; }
