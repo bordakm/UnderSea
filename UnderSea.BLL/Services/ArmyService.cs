@@ -84,11 +84,10 @@ namespace UnderSea.BLL.Services
 
             var user = await db.Users
                                .Include(user => user.Country)
-                               .ThenInclude(country => country.Army)
-                               .ThenInclude(army => army.Units)
+                               .ThenInclude(country => country.DefendingArmy)
                                .FirstOrDefaultAsync(user => user.Id == userId);
 
-            var units = user.Country.Army.Units.ToList();
+            var units = user.Country.DefendingArmy.ToList();
 
             return mapper.Map<List<AvailableUnitViewModel>>(units);
         }
@@ -96,8 +95,7 @@ namespace UnderSea.BLL.Services
         public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks(int userId)
         {
             var attacks = await db.Attacks
-                               .Include(attacks => attacks.UnitGroup)
-                               .ThenInclude(unitGroup => unitGroup.Units)
+                               .Include(attacks => attacks.UnitList)
                                .Where(attacks => attacks.AttackerUser.Id == userId)
                                .ToListAsync();
 
