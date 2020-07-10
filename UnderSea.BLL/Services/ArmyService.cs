@@ -61,7 +61,6 @@ namespace UnderSea.BLL.Services
         public async Task BuyUnits(int userId, List<UnitPurchaseDTO> purchases)
         {
             var user = await db.Users.Include(user => user.Country)
-                .ThenInclude(country => country.Army)
                 .FirstAsync(user => user.Id == userId);
             var units = await db.Units.Include(u=>u.Type).ToListAsync();
             int currentSupplyDemand = units.Sum(unit => unit.Count);
