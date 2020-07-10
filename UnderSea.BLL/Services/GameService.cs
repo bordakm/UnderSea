@@ -143,7 +143,21 @@ namespace UnderSea.BLL.Services
 
         private async void DoUpgrades()
         {
-
+            var users = db.Users
+                .Include(u => u.Country)
+                .ThenInclude(c => c.Upgrades);
+            await db.Countries.ForEachAsync(country=> {
+                var upgrades = country.Upgrades.ToList();
+                if(upgrades.Any(u=>u.State == UpgradeState.InProgress))
+                {
+                    country.UpgradeTimeLeft--;
+                    if(country.UpgradeTimeLeft <= 0)
+                    {
+                        var upgrade = upgrades.FirstOrDefault(u => u.State == UpgradeState.InProgress);
+                        upgrade.State = UpgradeState.Researched;
+                    }
+                }
+            });
         }
 
         private async void DoBuildings()
