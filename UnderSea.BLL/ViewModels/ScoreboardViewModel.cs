@@ -7,8 +7,8 @@ namespace UnderSea.BLL.ViewModels
 {
     public class ScoreboardViewModel
     {
-        public int Place { get; set; }
         public int Id { get; set; }
+        public int Place { get; set; }
         public int UserName { get; set; }
         public int Score { get; set; }
     }

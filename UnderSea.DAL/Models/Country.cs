@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
 using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Units;
 using UnderSea.DAL.Models.Upgrades;
@@ -16,20 +16,42 @@ namespace UnderSea.DAL.Models
         public List<Unit> AttackingArmy { get; set; }
         public List<Unit> DefendingArmy { get; set; }
         public int Coral { get; set; }
-        public int CoralProduction { get; set; }
+
+        [NotMapped]
+        public int CoralProduction
+        {
+            get
+            {
+                return BuildingGroup.Buildings.Sum(building => building.Count * building.CoralBonus);
+            }
+        }
         public int Pearl { get; set; }
-        public int PearlProduction { get; set; }
-        public int Population { get; set; }
-        public int UnitStorage { get; set; }
-        public int TaxRate { get; set; }
-        public List<Upgrade> Upgrades { get; set; }
+
+        [NotMapped]
+        public int PearlProduction => Population * taxRate;
+
+        [NotMapped]
+        public int Population => BuildingGroup.Buildings.Sum(building => building.PopulationBonus);
+
+        [NotMapped]
+        public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.UnitStorage);
+        
+        public User User { get; set; }
         public int UpgradeTimeLeft { get; set; }
         public int BuildingTimeLeft { get; set; }
         public int Score { get; set; }
+        public List<Upgrade> Upgrades { get; set; } = new List<Upgrade>() { new Upgrade() { Type=new Alchemy(),State = UpgradeState.Unresearched},
+                                                                            new Upgrade() { Type=new CoralWall(),State = UpgradeState.Unresearched},
+                                                                            new Upgrade() { Type=new MudHarvester(),State = UpgradeState.Unresearched},
+                                                                            new Upgrade() { Type=new SonarCannon(),State = UpgradeState.Unresearched},
+                                                                            new Upgrade() { Type=new UnderwaterMartialArts(),State = UpgradeState.Unresearched},
+        };
+
+        private readonly int taxRate = 25;
 
         public void AddTaxes()
         {
-            Pearl += Population * 25;
+            Pearl += PearlProduction;
         }
 
         public void AddCoral()
@@ -92,23 +114,29 @@ namespace UnderSea.DAL.Models
             }
         }
 
-        public void PayUnits()
+        public Dictionary<int, int> PayUnits()
         {
+            Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
             int costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
             costTotal += DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
             int difference = Pearl - costTotal;
             if (difference < 0)
             {
-                FireUnits(Math.Abs(difference));
+                unitsToRemove = FireUnits(Math.Abs(difference));
                 costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn)
-                    + DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+                          + DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
             }
             Pearl -= costTotal;
+            return unitsToRemove;
         }
 
-        private void FireUnits(int difference)
+        private Dictionary<int, int> FireUnits(int difference)
         {
-            // TODO: Remove units from attack queue
+            Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
+            foreach (Unit unit in AttackingArmy)
+            {
+                unitsToRemove.Add(unit.Id, 0);
+            }
             bool stop = false;
             while (!stop)
             {
@@ -133,6 +161,7 @@ namespace UnderSea.DAL.Models
                 {
                     if (unit.Count > 0)
                     {
+                        unitsToRemove[unit.Id]++;
                         unit.Count--;
                         difference -= unit.Type.PearlCostPerTurn;
                         if (difference <= 0)
@@ -143,6 +172,7 @@ namespace UnderSea.DAL.Models
                     }
                 }
             }
+            return unitsToRemove;
         }
 
         public void Build()
@@ -168,7 +198,7 @@ namespace UnderSea.DAL.Models
             score += Population;
             foreach (Building building in BuildingGroup.Buildings)
             {
-                score += building.Score;
+                score += building.Type.Score;
             }
             foreach (Unit unit in AttackingArmy)
             {
@@ -187,5 +217,19 @@ namespace UnderSea.DAL.Models
             }
             return score;
         }
+        public void DoUpgrades()
+        {
+            if (Upgrades.Any(u => u.State == UpgradeState.InProgress))
+            {
+                UpgradeTimeLeft--;
+                if (UpgradeTimeLeft <= 0)
+                {
+                    var upgrade = Upgrades.Single(u => u.State == UpgradeState.InProgress);
+                    upgrade.State = UpgradeState.Researched;
+                }
+
+            }
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UnderSea.BLL.DTO;
+using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
 
 namespace UnderSea.API.Controllers
@@ -13,19 +14,28 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class UnitsController : ControllerBase
     {
+        private IArmyService armyService;
+        public UnitsController(IArmyService armyService)
+        {
+            this.armyService = armyService;
+        }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<List<UnitViewModel>> Get()
+        public Task<List<UnitViewModel>> Get()
         {
-            return Ok(new List<UnitViewModel>());
+            int userId = 1; // TODO
+            return armyService.GetUnits(userId);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<string> Buy([FromBody]List<UnitPurchaseDTO> purchases)
+        public Task<string> Buy([FromBody]List<UnitPurchaseDTO> purchases)
         {
-            return NotFound("post error");
+            int userId = 1;
+            armyService.BuyUnits(userId, purchases);
+            return Task.Run(() => { return "TODO"; }) // TODO
         }
     }
 }
