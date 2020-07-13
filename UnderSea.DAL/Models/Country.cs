@@ -87,14 +87,14 @@ namespace UnderSea.DAL.Models
         {
 
             Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
-            int costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
-            costTotal += DefendingArmy.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
+            int costTotal = AttackingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
+            costTotal += DefendingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
             int difference = Coral - costTotal;
             if (difference < 0)
             {
                 unitsToRemove = FireUnits(Math.Abs(difference), FireReason.Coral);
-                costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn)
-                          + DefendingArmy.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
+                costTotal = AttackingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn)
+                          + DefendingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
             }
             Coral -= costTotal;
             return unitsToRemove;
@@ -163,14 +163,14 @@ namespace UnderSea.DAL.Models
         public Dictionary<int, int> PayUnits()
         {
             Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
-            int costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
-            costTotal += DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+            int costTotal = AttackingArmy.Units.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+            costTotal += DefendingArmy.Units.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
             int difference = Pearl - costTotal;
             if (difference < 0)
             {
                 unitsToRemove = FireUnits(Math.Abs(difference), FireReason.Pearl);
-                costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn)
-                          + DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+                costTotal = AttackingArmy.Units.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn)
+                          + DefendingArmy.Units.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
             }
             Pearl -= costTotal;
             return unitsToRemove;
@@ -179,14 +179,14 @@ namespace UnderSea.DAL.Models
         private Dictionary<int, int> FireUnits(int difference, FireReason fireReason)
         {
             Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
-            foreach (Unit unit in AttackingArmy)
+            foreach (Unit unit in AttackingArmy.Units)
             {
                 unitsToRemove.Add(unit.Id, 0);
             }
             bool stop = false;
             while (!stop)
             {
-                foreach (Unit unit in DefendingArmy)
+                foreach (Unit unit in DefendingArmy.Units)
                 {
                     if (unit.Count > 0)
                     {
@@ -211,7 +211,7 @@ namespace UnderSea.DAL.Models
                 {
                     break;
                 }
-                foreach (Unit unit in AttackingArmy)
+                foreach (Unit unit in AttackingArmy.Units)
                 {
                     if (unit.Count > 0)
                     {
@@ -262,11 +262,11 @@ namespace UnderSea.DAL.Models
             {
                 score += building.Type.Score;
             }
-            foreach (Unit unit in AttackingArmy)
+            foreach (Unit unit in AttackingArmy.Units)
             {
                 score += unit.CalculateScore();
             }
-            foreach (Unit unit in DefendingArmy)
+            foreach (Unit unit in DefendingArmy.Units)
             {
                 score += unit.CalculateScore();
             }

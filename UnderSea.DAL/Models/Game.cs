@@ -28,7 +28,7 @@ namespace UnderSea.DAL.Models
                 var attUserCountry = attack.AttackerUser.Country;
 
                 //calculationg defender base score
-                foreach (var unit in defUserCountry.DefendingArmy)
+                foreach (var unit in defUserCountry.DefendingArmy.Units)
                 {
                     defenderScore += unit.Type.DefenseScore;
                 }
@@ -65,7 +65,7 @@ namespace UnderSea.DAL.Models
                     //levonjuk az egységeket az attacking armyból
                     foreach (var unit in attack.UnitList)
                     {
-                        foreach (var attunit in attUserCountry.AttackingArmy)
+                        foreach (var attunit in attUserCountry.AttackingArmy.Units)
                         {
                             if (unit.Type.Id == attunit.Type.Id)
                                 attunit.Count -= unit.Count;
@@ -75,7 +75,7 @@ namespace UnderSea.DAL.Models
                     //hozzáadjuk a defender armyhoz 10%osan csökkentve
                     foreach (var unit in attack.UnitList)
                     {
-                        foreach (var defunit in attUserCountry.DefendingArmy)
+                        foreach (var defunit in attUserCountry.DefendingArmy.Units)
                         {
                             if (unit.Type.Id == defunit.Type.Id)
                                 defunit.Count += Convert.ToInt32(Math.Floor(unit.Count * 0.9));
@@ -87,7 +87,7 @@ namespace UnderSea.DAL.Models
                     //levonjuk az egységeket az attacking armyból
                     foreach (var unit in attack.UnitList)
                     {
-                        foreach (var attunit in attUserCountry.AttackingArmy)
+                        foreach (var attunit in attUserCountry.AttackingArmy.Units)
                         {
                             if (unit.Type.Id == attunit.Type.Id)
                                 attunit.Count -= unit.Count;
@@ -97,7 +97,7 @@ namespace UnderSea.DAL.Models
                     //hozzáadjuk a defender armyhoz
                     foreach (var unit in attack.UnitList)
                     {
-                        foreach (var defunit in attUserCountry.DefendingArmy)
+                        foreach (var defunit in attUserCountry.DefendingArmy.Units)
                         {
                             if (unit.Type.Id == defunit.Type.Id)
                                 defunit.Count += unit.Count;
@@ -105,7 +105,7 @@ namespace UnderSea.DAL.Models
                     }
 
                     //csökkentjük a deffender armyját 10%al
-                    foreach (var defunit in defUserCountry.DefendingArmy)
+                    foreach (var defunit in defUserCountry.DefendingArmy.Units)
                     {
                         defunit.Count = Convert.ToInt32(Math.Floor(defunit.Count * 0.9));
                     }

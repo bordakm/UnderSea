@@ -58,7 +58,7 @@ namespace UnderSea.BLL.Services
                     Buildings = user.Country.BuildingGroup,
                     RoundCount = game.Round,
                     ScoreboardPosition = user.Place,
-                    Units = user.Country.DefendingArmy,
+                    Units = user.Country.DefendingArmy.Units,
                     Resources = new StatusBarViewModel.StatusBarResource()
                     {
                         CoralCount = user.Country.Coral,
@@ -159,11 +159,13 @@ namespace UnderSea.BLL.Services
                             .Include(game => game.Users)
                             .ThenInclude(users => users.Country)
                             .ThenInclude(country => country.AttackingArmy)
+                            .ThenInclude(army => army.Units)
                             .ThenInclude(units => units.Type)
                             .Include(game => game.Users)
                             .ThenInclude(u => u.Country)
                             .ThenInclude(c => c.DefendingArmy)
-                            .ThenInclude(da => da.Type);
+                            .ThenInclude(da => da.Units)
+                            .ThenInclude(units => units.Type);
             await game.ForEachAsync(g => g.CalculateAttacks());
             await db.SaveChangesAsync();
         }
@@ -173,9 +175,11 @@ namespace UnderSea.BLL.Services
             var users = db.Users
                             .Include(user => user.Country)
                             .ThenInclude(country => country.AttackingArmy)
-                            .ThenInclude(aa => aa.Type)
+                            .ThenInclude(aa => aa.Units)
+                            .ThenInclude(units => units.Type)
                             .Include(user => user.Country.DefendingArmy)
-                            .ThenInclude(da => da.Type);
+                            .ThenInclude(da => da.Units)
+                            .ThenInclude(units => units.Type);
 
             await users.ForEachAsync(user =>
             {

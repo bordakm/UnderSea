@@ -38,7 +38,7 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<StormSeal>();
             modelBuilder.Entity<LaserShark>();
             modelBuilder.Entity<CombatSeaHorse>();
-            
+
             modelBuilder.Entity<Alchemy>();
             modelBuilder.Entity<CoralWall>();
             modelBuilder.Entity<MudHarvester>();
@@ -67,7 +67,7 @@ namespace UnderSea.DAL.Context
                 Type = stormSeal
             };
             var unit3 = new Unit
-            { 
+            {
                 Id = 3,
                 AttackId = 1,
                 UnitGroupId = 1,
@@ -269,129 +269,6 @@ namespace UnderSea.DAL.Context
                 DefenderUserId = 2
             };
 
-            modelBuilder.Entity<Game>().HasData(
-                new Game()
-                {
-                    Attacks = new List<Attack>(),
-                    {
-                        user1,
-                        new User()
-                        {
-                            Id = -2,
-                            GameId = -1,
-                            Country = new Country()
-                            {
-                                Id = -2,
-                                AttackingArmy = new List<Unit>()
-                                {
-                                    new Unit()
-                                    {
-                                        Id = -7,
-                                        Count = 0,
-                                        Type = new LaserShark()
-                                    },
-                                    new Unit()
-                                    {
-                                        Id = -8,
-                                        Count = 0,
-                                        Type = new StormSeal()
-                                    },
-                                    new Unit()
-                                    {
-                                        Id = -9,
-                                        Count = 0,
-                                        Type = new CombatSeaHorse()
-                                    }
-                                },
-                                DefendingArmy = new List<Unit>()
-                                {
-                                    new Unit()
-                                    {
-                                        Id = -10,
-                                        Count = 0,
-                                        Type = new LaserShark()
-                                    },
-                                    new Unit()
-                                    {
-                                        Id = -11,
-                                        Count = 10,
-                                        Type = new StormSeal()
-                                    },
-                                    new Unit()
-                                    {
-                                        Id = -12,
-                                        Count = 0,
-                                        Type = new CombatSeaHorse()
-                                    }
-                                },
-                                BuildingTimeLeft = 0,
-                                Coral = 0,
-                                Name = "Second Country",
-                                Pearl = 0,
-                                Score = 0,
-                                UpgradeTimeLeft = 0,
-                                Upgrades = new List<Upgrade>()
-                                {
-                                    new Upgrade()
-                                    {
-                                        Id = -6,
-                                        State = UpgradeState.Unresearched,
-                                        Type = new Alchemy()
-                                    },
-                                    new Upgrade()
-                                    {
-                                        Id = -7,
-                                        State = UpgradeState.Unresearched,
-                                        Type = new CoralWall()
-                                    },
-                                    new Upgrade()
-                                    {
-                                        Id = -8,
-                                        State = UpgradeState.Unresearched,
-                                        Type = new MudHarvester()
-                                    },
-                                    new Upgrade()
-                                    {
-                                        Id = -9,
-                                        State = UpgradeState.Unresearched,
-                                        Type = new SonarCannon()
-                                    },
-                                    new Upgrade()
-                                    {
-                                        Id = -10,
-                                        State = UpgradeState.Unresearched,
-                                        Type = new UnderwaterMartialArts()
-                                    }
-
-                                },
-                                BuildingGroup = new BuildingGroup()
-                                {
-                                    Id = -2,
-                                    Buildings = new List<Building>()
-                                    {
-                                        new Building()
-                                        {
-                                            Id = -3,
-                                            Count = 0,
-                                            Type = new FlowManager()
-                                        },
-                                        new Building()
-                                        {
-                                            Id = -4,
-                                            Count = 0,
-                                            Type = new ReefCastle()
-                                        },
-                                    }
-                                }
-
-                            },
-                            Place = 0,
-                            Score = 0,
-                            UserName = "Second User"
-                        }
-                    }
-                }
-            );
         }
 
         protected void SeedData(ModelBuilder builder)

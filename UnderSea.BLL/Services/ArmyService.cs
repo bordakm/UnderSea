@@ -35,13 +35,13 @@ namespace UnderSea.BLL.Services
 
             foreach (SendUnitDTO sendunit in attack.AttackingUnits) {
                 UnitType type = unittypes.Single(ut => ut.Id == sendunit.Id);
-                int ownedcount = attackinguser.Country.DefendingArmy.Single(u => u.Type == type).Count;
+                int ownedcount = attackinguser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;
                 if (sendunit.SendCount > ownedcount)
                     throw new Exception("Nem küldhetsz több egységet, mint amennyid van!");
                 else
                 {                    
-                    attackinguser.Country.AttackingArmy.Single(u => u.Type == type).Count += sendunit.SendCount;
-                    attackinguser.Country.DefendingArmy.Single(u => u.Type == type).Count -= sendunit.SendCount;
+                    attackinguser.Country.AttackingArmy.Units.Single(u => u.Type == type).Count += sendunit.SendCount;
+                    attackinguser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendunit.SendCount;
                     sentunits.Add(new Unit() {Count = sendunit.SendCount, Type = type});
                 }
             }
@@ -83,7 +83,7 @@ namespace UnderSea.BLL.Services
                                .ThenInclude(country => country.DefendingArmy)
                                .SingleAsync(user => user.Id == userId);
 
-            var units = user.Country.DefendingArmy.ToList();
+            var units = user.Country.DefendingArmy.Units;
 
             List<AvailableUnitViewModel> res = new List<AvailableUnitViewModel>();
 
@@ -130,7 +130,7 @@ namespace UnderSea.BLL.Services
                                .ThenInclude(country => country.DefendingArmy)
                                .SingleAsync(user => user.Id == userId);
 
-            var units = user.Country.DefendingArmy;
+            var units = user.Country.DefendingArmy.Units;
 
             List<UnitViewModel> res = new List<UnitViewModel>();
 
