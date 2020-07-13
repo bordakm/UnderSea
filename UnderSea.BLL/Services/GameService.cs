@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +19,10 @@ namespace UnderSea.BLL.Services
     class GameService : IGameService
     {
         private UnderSeaDbContext db;
-        private readonly IMapper mapper;
 
-        public GameService(UnderSeaDbContext db, IMapper mapper)
+        public GameService(UnderSeaDbContext db)
         {
             this.db = db;
-            this.mapper = mapper;
         }
 
         public async Task<List<string>> AttackSearch (SearchDTO search)
@@ -112,7 +109,22 @@ namespace UnderSea.BLL.Services
                                .Take(search.ItemPerPage)
                                .ToListAsync();
 
-            return mapper.Map<List<ScoreboardViewModel>>(users);
+            List<ScoreboardViewModel> res = new List<ScoreboardViewModel>();
+
+            foreach (var user in users)
+            {
+                var localres = new ScoreboardViewModel
+                {
+                    Id = user.Id,
+                    Place = user.Place,
+                    Score = user.Score,
+                    UserName = user.UserName
+                };
+
+                res.Add(localres);
+            }
+
+            return res;
         }
 
         private async Task AddTaxes()

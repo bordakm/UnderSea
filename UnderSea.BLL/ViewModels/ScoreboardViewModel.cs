@@ -9,7 +9,7 @@ namespace UnderSea.BLL.ViewModels
     {
         public int Id { get; set; }
         public int Place { get; set; }
-        public int UserName { get; set; }
+        public string UserName { get; set; }
         public int Score { get; set; }
     }
 }

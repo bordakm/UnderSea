@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,32 +85,18 @@ namespace UnderSea.BLL.Services
 
             var units = user.Country.DefendingArmy.ToList();
 
-
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Unit, AvailableUnitViewModel>()
-                    .ForMember(dest => dest.AvailableCount, opt => opt.MapFrom(src => src.Count))
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name));
-
-                //var config = new MapperConfiguration(cfg => {
-                //    cfg.CreateMap<Unit, AvailableUnitViewModel>()
-                //    .ForMember(destination => destination,
-                //   opts => opts.MapFrom(
-                //      source => new AvailableUnitViewModel
-                //      {
-                //          Name = source.Type.Name,
-                //          ImageUrl = source.Type.ImageUrl,
-                //          AvailableCount = source.Count,
-                //          Id = source.Type.Id
-                //      }));
-                //});
-
-                IMapper iMapper = config.CreateMapper();
-
             List<AvailableUnitViewModel> res = new List<AvailableUnitViewModel>();
 
             foreach (var unit in units)
             {
-                var destination = iMapper.Map<Unit, AvailableUnitViewModel>(unit);
-                res.Add(destination);
+                var localres = new AvailableUnitViewModel
+                {
+                    Name = unit.Type.Name,
+                    ImageUrl = unit.Type.ImageUrl,
+                    AvailableCount = unit.Count,
+                    Id = unit.Type.Id
+                };
+                res.Add(localres);
             }
 
             return res;
@@ -124,7 +109,6 @@ namespace UnderSea.BLL.Services
                                .Where(attacks => attacks.AttackerUser.Id == userId)
                                .ToListAsync();
 
-            //maybe automapper
             var res = new List<OutgoingAttackViewModel>();
             foreach (var item in attacks)
             {
@@ -148,32 +132,23 @@ namespace UnderSea.BLL.Services
 
             var units = user.Country.DefendingArmy;
 
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Unit, UnitViewModel>()
-                .ForMember(destination => destination,
-               opts => opts.MapFrom(
-                  source => new UnitViewModel
-                  {
-                      AttackScore = source.Type.AttackScore,
-                      CoralCostPerTurn = source.Type.CoralCostPerTurn,
-                      Count = source.Count,
-                      DefenseScore = source.Type.DefenseScore,
-                      ImageUrl = source.Type.ImageUrl,
-                      Name = source.Type.Name,
-                      PearlCostPerTurn = source.Type.PearlCostPerTurn,
-                      Price = source.Type.Price,
-                      Id = source.Type.Id
-                  }));
-            });
-
-            IMapper iMapper = config.CreateMapper();
-
             List<UnitViewModel> res = new List<UnitViewModel>();
 
             foreach (var unit in units)
             {
-                var destination = iMapper.Map<Unit, UnitViewModel>(unit);
-                res.Add(destination);
+                var localres = new UnitViewModel
+                {
+                    AttackScore = unit.Type.AttackScore,
+                    CoralCostPerTurn = unit.Type.CoralCostPerTurn,
+                    Count = unit.Count,
+                    DefenseScore = unit.Type.DefenseScore,
+                    ImageUrl = unit.Type.ImageUrl,
+                    Name = unit.Type.Name,
+                    PearlCostPerTurn = unit.Type.PearlCostPerTurn,
+                    Price = unit.Type.Price,
+                    Id = unit.Type.Id
+                };
+                res.Add(localres);
             }
 
             return res;
