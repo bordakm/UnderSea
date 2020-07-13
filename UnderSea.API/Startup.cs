@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using UnderSea.BLL.Services;
 using UnderSea.DAL;
 using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
@@ -33,6 +34,11 @@ namespace UnderSea.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<IArmyService, ArmyService>();
+            services.AddTransient<IBuildingsService, BuildingsService>();
+            services.AddTransient<IGameService, GameService>();
+            services.AddTransient<IUpgradesService, UpgradesService>();
+
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
