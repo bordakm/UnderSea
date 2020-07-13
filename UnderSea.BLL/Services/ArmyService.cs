@@ -143,7 +143,35 @@ namespace UnderSea.BLL.Services
 
             var units = user.Country.DefendingArmy;
 
-            return mapper.Map<List<UnitViewModel>>(units);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Unit, UnitViewModel>()
+                .ForMember(destination => destination,
+               opts => opts.MapFrom(
+                  source => new UnitViewModel
+                  {
+                      AttackScore = source.Type.AttackScore,
+                      CoralCostPerTurn = source.Type.CoralCostPerTurn,
+                      Count = source.Count,
+                      DefenseScore = source.Type.DefenseScore,
+                      ImageUrl = source.Type.ImageUrl,
+                      Name = source.Type.Name,
+                      PearlCostPerTurn = source.Type.PearlCostPerTurn,
+                      Price = source.Type.Price,
+                      Id = source.Type.Id
+                  }));
+            });
+
+            IMapper iMapper = config.CreateMapper();
+
+            List<UnitViewModel> res = new List<UnitViewModel>();
+
+            foreach (var unit in units)
+            {
+                var destination = iMapper.Map<Unit, UnitViewModel>(unit);
+                res.Add(destination);
+            }
+
+            return res;
         }
     }
 }
