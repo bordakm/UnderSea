@@ -28,23 +28,60 @@ namespace UnderSea.DAL.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<FlowManager>();
+            /*modelBuilder.Entity<FlowManager>();
             modelBuilder.Entity<ReefCastle>();
-
-            modelBuilder.Entity<StormSeal>();
-            modelBuilder.Entity<LaserShark>();
-            modelBuilder.Entity<CombatSeaHorse>();
-
+            
             modelBuilder.Entity<Alchemy>();
             modelBuilder.Entity<CoralWall>();
             modelBuilder.Entity<MudHarvester>();
             modelBuilder.Entity<MudTractor>();
             modelBuilder.Entity<SonarCannon>();
-            modelBuilder.Entity<UnderwaterMartialArts>();
+            modelBuilder.Entity<UnderwaterMartialArts>();*/
 
-            var laserShark = new LaserShark();
-            var stormSeal = new StormSeal();
-            var combatSeaHorse = new CombatSeaHorse();
+            var laserShark = new LaserShark
+            {
+                Id = 1
+            };
+            var stormSeal = new StormSeal
+            {
+                Id = 2
+            };
+            var combatSeaHorse = new CombatSeaHorse
+            {
+                Id = 3
+            };
+            var reefCastle = new ReefCastle
+            {
+                Id = 1
+            };
+            var flowManager = new FlowManager
+            {
+                Id = 2
+            };
+            var alchemy = new Alchemy
+            {
+                Id = 1
+            };
+            var coralWall = new CoralWall
+            {
+                Id = 2
+            };
+            var mudHarvester = new MudHarvester
+            {
+                Id = 3
+            };
+            var mudTractor = new MudTractor
+            {
+                Id = 4
+            };
+            var sonarCannon = new SonarCannon
+            {
+                Id = 5
+            };
+            var underwaterMartialArts = new UnderwaterMartialArts
+            {
+                Id = 6
+            };
 
             var unit1 = new Unit
             {
@@ -52,7 +89,7 @@ namespace UnderSea.DAL.Context
                 AttackId = 1,
                 UnitGroupId = 1,
                 Count = 0,
-                Type = laserShark
+                TypeId = 1
             };
             var unit2 = new Unit
             {
@@ -60,7 +97,7 @@ namespace UnderSea.DAL.Context
                 AttackId = 1,
                 UnitGroupId = 1,
                 Count = 0,
-                Type = stormSeal
+                TypeId = 2
             };
             var unit3 = new Unit
             {
@@ -68,70 +105,70 @@ namespace UnderSea.DAL.Context
                 AttackId = 1,
                 UnitGroupId = 1,
                 Count = 0,
-                Type = combatSeaHorse
+                TypeId = 3
             };
             var unit4 = new Unit
             {
                 Id = 4,
                 UnitGroupId = 2,
                 Count = 10,
-                Type = laserShark
+                TypeId = 1
             };
             var unit5 = new Unit
             {
                 Id = 5,
                 UnitGroupId = 2,
                 Count = 20,
-                Type = stormSeal
+                TypeId = 2
             };
             var unit6 = new Unit
             {
                 Id = 6,
                 UnitGroupId = 2,
                 Count = 40,
-                Type = combatSeaHorse
+                TypeId = 3
             };
             var unit7 = new Unit
             {
                 Id = 7,
                 UnitGroupId = 3,
                 Count = 0,
-                Type = laserShark
+                TypeId = 1
             };
             var unit8 = new Unit
             {
                 Id = 8,
                 UnitGroupId = 3,
                 Count = 0,
-                Type = stormSeal
+                TypeId = 2
             };
             var unit9 = new Unit
             {
                 Id = 9,
                 UnitGroupId = 3,
                 Count = 0,
-                Type = combatSeaHorse
+                TypeId = 3
             };
             var unit10 = new Unit
             {
                 Id = 10,
                 UnitGroupId = 4,
                 Count = 10,
-                Type = laserShark
+                TypeId = 1
             };
             var unit11 = new Unit
             {
                 Id = 11,
                 UnitGroupId = 4,
                 Count = 20,
-                Type = stormSeal
+                TypeId = 2
             };
             var unit12 = new Unit
             {
                 Id = 12,
                 UnitGroupId = 4,
                 Count = 40,
-                Type = combatSeaHorse
+                TypeId = 3
             };
 
             var upgrade1 = new Upgrade
@@ -139,70 +176,70 @@ namespace UnderSea.DAL.Context
                 Id = 1,
                 CountryId = 1,
                 State = UpgradeState.Researched,
-                Type = new Alchemy()
+                TypeId = 1
             };
             var upgrade2 = new Upgrade
             {
                 Id = 2,
                 CountryId = 1,
                 State = UpgradeState.Researched,
-                Type = new CoralWall()
+                TypeId = 2
             };
             var upgrade3 = new Upgrade
             {
                 Id = 3,
                 CountryId = 1,
                 State = UpgradeState.Researched,
-                Type = new MudHarvester()
+                TypeId = 3
             };
             var upgrade4 = new Upgrade
             {
                 Id = 4,
                 CountryId = 1,
                 State = UpgradeState.Researched,
-                Type = new SonarCannon()
+                TypeId = 4
             };
             var upgrade5 = new Upgrade
             {
                 Id = 5,
                 CountryId = 1,
                 State = UpgradeState.Researched,
-                Type = new UnderwaterMartialArts()
+                TypeId = 5
             };
             var upgrade6 = new Upgrade
             {
                 Id = 6,
                 CountryId = 2,
                 State = UpgradeState.Researched,
-                Type = new Alchemy()
+                TypeId = 1
             };
             var upgrade7 = new Upgrade
             {
                 Id = 7,
                 CountryId = 2,
                 State = UpgradeState.Researched,
-                Type = new CoralWall()
+                TypeId = 2
             };
             var upgrade8 = new Upgrade
             {
                 Id = 8,
                 CountryId = 2,
                 State = UpgradeState.Researched,
-                Type = new MudHarvester()
+                TypeId = 3
             };
             var upgrade9 = new Upgrade
             {
                 Id = 9,
                 CountryId = 2,
                 State = UpgradeState.Researched,
-                Type = new SonarCannon()
+                TypeId = 4
             };
             var upgrade10 = new Upgrade
             {
                 Id = 10,
                 CountryId = 2,
                 State = UpgradeState.Researched,
-                Type = new UnderwaterMartialArts()
+                TypeId = 5
             };
 
             var buildingGroup1 = new BuildingGroup
@@ -221,28 +258,28 @@ namespace UnderSea.DAL.Context
                 Id = 1,
                 BuildingGroupId = 1,
                 Count = 1,
-                Type = new FlowManager()
+                TypeId = 1
             };
             var building2 = new Building
             {
                 Id = 2,
                 BuildingGroupId = 1,
                 Count = 1,
-                Type = new ReefCastle()
+                TypeId = 2
             };
             var building3 = new Building
             {
                 Id = 3,
                 BuildingGroupId = 2,
                 Count = 1,
-                Type = new FlowManager()
+                TypeId = 1
             };
             var building4 = new Building
             {
                 Id = 4,
                 BuildingGroupId = 2,
                 Count = 1,
-                Type = new ReefCastle()
+                TypeId = 2
             };            
 
             var unitGroup1 = new UnitGroup
@@ -320,6 +357,29 @@ namespace UnderSea.DAL.Context
                 DefenderUserId = 2
             };
 
+            modelBuilder.Entity<LaserShark>()
+                .HasData(laserShark/*new UnitType[]
+                {
+                    laserShark,
+                    stormSeal,
+                    combatSeaHorse
+                }*/);
+            modelBuilder.Entity<BuildingType>()
+                .HasData(new BuildingType[]
+                {
+                    reefCastle,
+                    flowManager
+                });
+            modelBuilder.Entity<UpgradeType>()
+                .HasData(new UpgradeType[]
+                {
+                    alchemy,
+                    mudTractor,
+                    mudHarvester,
+                    coralWall,
+                    sonarCannon,
+                    underwaterMartialArts
+                });
             modelBuilder.Entity<UnitGroup>()
                 .HasData(new UnitGroup[]
                 {

@@ -9,6 +9,9 @@ namespace UnderSea.DAL.Models.Buildings
         [ForeignKey("BuildingGroup")]
         public int BuildingGroupId { get; set; }
 
+        [ForeignKey("BuildingType")]
+        public int TypeId { get; set; }
+
         public int Count { get; set; }
 
         public int UnderConstructionCount { get; set; }

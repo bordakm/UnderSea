@@ -14,6 +14,9 @@ namespace UnderSea.DAL.Models.Units
 
         public int Count { get; set; }
 
+        [ForeignKey("UnitType")]
+        public int TypeId { get; set; }
+
         public UnitType Type { get; set; }
 
         public int CalculateScore()
