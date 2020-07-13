@@ -7,7 +7,7 @@ using UnderSea.BLL.ViewModels;
 
 namespace UnderSea.BLL.Services
 {
-    interface IGameService
+    public interface IGameService
     {
         public Task<List<string>> AttackSearch(SearchDTO search);
         public Task<MainPageViewModel> GetMainPage(int userId);

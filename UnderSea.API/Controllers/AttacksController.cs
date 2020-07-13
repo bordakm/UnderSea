@@ -12,33 +12,39 @@ namespace UnderSea.API.Controllers
     public class AttacksController : ControllerBase
     {
         private IArmyService armyService;
-        public AttacksController(IArmyService armyService)
+        private IGameService gameService;
+        public AttacksController(IArmyService armyService, IGameService gameService)
         {
             this.armyService = armyService;
+            this.gameService = gameService;
         }
 
         [HttpGet]
-        public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
+        public Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
         {
-            return await armyService.GetOutgoingAttacks(1); // TODO userid
+            int userId = 1;
+            return armyService.GetOutgoingAttacks(userId); // TODO userid
         }
 
         [HttpPost]
-        public ActionResult<string> Attack([FromBody] AttackDTO attack)
+        public Task<string> Attack([FromBody] AttackDTO attack)
         {
-            return NotFound("post error");
+            int userId = 1;
+            armyService.Attack(userId, attack);
+            return Task.Run( () => { return "asd"; }); // TODO ??
         }
 
         [HttpPost("/search")]
-        public ActionResult<List<string>> SearchTargets([FromBody] SearchDTO search)
-        {
-            return NotFound(new List<string>());
+        public Task<List<ScoreboardViewModel>> SearchTargets([FromBody] SearchDTO search)
+        { // ha egy usernek több countryja lesz, itt majd ScoreboardViewModel helyett olyat kell odaadni ami country nevet ad, nem usert
+            return gameService.SearchScoreboard(search);
         }
 
         [HttpGet("/units")]
-        public ActionResult<List<AvailableUnitViewModel>> GetAvailableUnits()
+        public Task<List<AvailableUnitViewModel>> GetAvailableUnits()
         {
-            return Ok(new List<AvailableUnitViewModel>());
+            int userId = 1;
+            return armyService.GetAvailableUnits(userId);
         }
     }
 }
