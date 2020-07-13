@@ -97,14 +97,9 @@ namespace UnderSea.DAL.Context
                                 },
                                 BuildingTimeLeft = 0,
                                 Coral = 0,
-                                CoralProduction = 500,
                                 Name = "First Country",
                                 Pearl = 0,
-                                PearlProduction = 500,
-                                Population = 200,
-                                TaxRate = 50,
                                 Score = 0,
-                                UnitStorage = 100,
                                 UpgradeTimeLeft = 0,
                                 Upgrades = new List<Upgrade>()
                                 {
@@ -139,8 +134,16 @@ namespace UnderSea.DAL.Context
                                 {
                                     Buildings = new List<Building>()
                                     {
-                                        new FlowManager(),
-                                        new ReefCastle()
+                                        new Building()
+                                        {
+                                            Count = 1,
+                                            Type = new FlowManager()
+                                        },
+                                        new Building()
+                                        {
+                                            Count = 1,
+                                            Type = new ReefCastle()
+                                        },
                                     }
                                 }
 
@@ -148,7 +151,7 @@ namespace UnderSea.DAL.Context
                             Place = 0,
                             Score = 0,
                             UserName = "First User",
-                            Id = 11111                            
+                            Id = 11111
                         },
 
                         new User()
@@ -193,14 +196,9 @@ namespace UnderSea.DAL.Context
                                 },
                                 BuildingTimeLeft = 0,
                                 Coral = 0,
-                                CoralProduction = 500,
                                 Name = "Second Country",
                                 Pearl = 0,
-                                PearlProduction = 500,
-                                Population = 200,
-                                TaxRate = 50,
                                 Score = 0,
-                                UnitStorage = 100,
                                 UpgradeTimeLeft = 0,
                                 Upgrades = new List<Upgrade>()
                                 {
@@ -235,7 +233,16 @@ namespace UnderSea.DAL.Context
                                 {
                                     Buildings = new List<Building>()
                                     {
-                                        
+                                        new Building()
+                                        {
+                                            Count = 0,
+                                            Type = new FlowManager()
+                                        },
+                                        new Building()
+                                        {
+                                            Count = 0,
+                                            Type = new ReefCastle()
+                                        },
                                     }
                                 }
 
