@@ -7,7 +7,9 @@ namespace UnderSea.DAL.Models.Units
     public class CombatSeaHorse : UnitType
     {
         public CombatSeaHorse()
-        {            
+        {
+            Name = "Csatacsikó";
+            ImageUrl = "majd/lesz/kep.jpeg";
             Price = 50;
             AttackScore = 2.0;
             DefenseScore = 6.0;
