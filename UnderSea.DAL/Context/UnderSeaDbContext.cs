@@ -46,33 +46,259 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<SonarCannon>();
             modelBuilder.Entity<UnderwaterMartialArts>();
 
+            var laserShark = new LaserShark();
+            var stormSeal = new StormSeal();
+            var combatSeaHorse = new CombatSeaHorse();
+
+            var unit1 = new Unit
+            {
+                Id = 1,
+                AttackId = 1,
+                UnitGroupId = 1,
+                Count = 0,
+                Type = laserShark
+            };
+            var unit2 = new Unit
+            {
+                Id = 2,
+                AttackId = 1,
+                UnitGroupId = 1,
+                Count = 0,
+                Type = stormSeal
+            };
+            var unit3 = new Unit
+            { 
+                Id = 3,
+                AttackId = 1,
+                UnitGroupId = 1,
+                Count = 0,
+                Type = combatSeaHorse
+            };
+            var unit4 = new Unit
+            {
+                Id = 4,
+                UnitGroupId = 2,
+                Count = 10,
+                Type = laserShark
+            };
+            var unit5 = new Unit
+            {
+                Id = 5,
+                UnitGroupId = 2,
+                Count = 20,
+                Type = stormSeal
+            };
+            var unit6 = new Unit
+            {
+                Id = 6,
+                UnitGroupId = 2,
+                Count = 40,
+                Type = combatSeaHorse
+            };
+            var unit7 = new Unit
+            {
+                Id = 7,
+                UnitGroupId = 3,
+                Count = 0,
+                Type = laserShark
+            };
+            var unit8 = new Unit
+            {
+                Id = 8,
+                UnitGroupId = 3,
+                Count = 0,
+                Type = stormSeal
+            };
+            var unit9 = new Unit
+            {
+                Id = 9,
+                UnitGroupId = 3,
+                Count = 0,
+                Type = combatSeaHorse
+            };
+            var unit10 = new Unit
+            {
+                Id = 10,
+                UnitGroupId = 4,
+                Count = 10,
+                Type = laserShark
+            };
+            var unit11 = new Unit
+            {
+                Id = 11,
+                UnitGroupId = 4,
+                Count = 20,
+                Type = stormSeal
+            };
+            var unit12 = new Unit
+            {
+                Id = 12,
+                UnitGroupId = 4,
+                Count = 40,
+                Type = combatSeaHorse
+            };
+
+            var upgrade1 = new Upgrade
+            {
+                Id = 1,
+                CountryId = 1,
+                State = UpgradeState.Researched,
+                Type = new Alchemy()
+            };
+            var upgrade2 = new Upgrade
+            {
+                Id = 2,
+                CountryId = 1,
+                State = UpgradeState.Researched,
+                Type = new CoralWall()
+            };
+            var upgrade3 = new Upgrade
+            {
+                Id = 3,
+                CountryId = 1,
+                State = UpgradeState.Researched,
+                Type = new MudHarvester()
+            };
+            var upgrade4 = new Upgrade
+            {
+                Id = 4,
+                CountryId = 1,
+                State = UpgradeState.Researched,
+                Type = new SonarCannon()
+            };
+            var upgrade5 = new Upgrade
+            {
+                Id = 5,
+                CountryId = 1,
+                State = UpgradeState.Researched,
+                Type = new UnderwaterMartialArts()
+            };
+
+            var building1 = new Building
+            {
+                Id = 1,
+                BuildingGroupId = 1,
+                Count = 1,
+                Type = new FlowManager()
+            };
+            var building2 = new Building
+            {
+                Id = 2,
+                BuildingGroupId = 1,
+                Count = 1,
+                Type = new ReefCastle()
+            };
+            var buildingGroup1 = new BuildingGroup
+            {
+                Id = 1,
+                CountryId = 1
+            };
+
+            var unitGroup1 = new UnitGroup
+            {
+                Id = 1
+            };
+            var unitGroup2 = new UnitGroup
+            {
+                Id = 2
+            };
+            var unitGroup3 = new UnitGroup
+            {
+                Id = 3
+            };
+            var unitGroup4 = new UnitGroup
+            {
+                Id = 4
+            };
+
+            var country1 = new Country
+            {
+                Id = 1,
+                AttackingArmyId = 1,
+                DefendingArmyId = 2,
+                BuildingTimeLeft = 0,
+                Coral = 0,
+                Name = "First Country",
+                Pearl = 0,
+                Score = 0,
+                UpgradeTimeLeft = 0
+            };
+            var country2 = new Country
+            {
+                Id = 2,
+                AttackingArmyId = 3,
+                DefendingArmyId = 4,
+                BuildingTimeLeft = 0,
+                Coral = 0,
+                Name = "First Country",
+                Pearl = 0,
+                Score = 0,
+                UpgradeTimeLeft = 0
+            };
+
+            var game = new Game
+            {
+                Id = 1,
+                Round = 1,
+                CoralPictureUrl = "",
+                PearlPictureUrl = "",
+            };
+
+            var user1 = new User
+            {
+                Id = 1,
+                GameId = 1,
+                Place = 1,
+                Score = 100,
+                UserName = "First User"
+            };
+
+            var user2 = new User
+            {
+                Id = 2,
+                GameId = 1,
+                Place = 2,
+                Score = 50,
+                UserName = "Second User"
+            };
+
+            var attack1 = new Attack
+            {
+                Id = 1,
+                AttackerUserId = 1,
+                DefenderUserId = 2
+            };
+
             modelBuilder.Entity<Game>().HasData(
                 new Game()
                 {
                     Attacks = new List<Attack>(),
-                    CoralPictureUrl = "",
-                    PearlPictureUrl = "",
-                    Round = 0,
-                    Users = new List<User>()
                     {
+                        user1,
                         new User()
                         {
+                            Id = -2,
+                            GameId = -1,
                             Country = new Country()
                             {
+                                Id = -2,
                                 AttackingArmy = new List<Unit>()
                                 {
                                     new Unit()
                                     {
+                                        Id = -7,
                                         Count = 0,
                                         Type = new LaserShark()
                                     },
                                     new Unit()
                                     {
+                                        Id = -8,
                                         Count = 0,
                                         Type = new StormSeal()
                                     },
                                     new Unit()
                                     {
+                                        Id = -9,
                                         Count = 0,
                                         Type = new CombatSeaHorse()
                                     }
@@ -81,115 +307,19 @@ namespace UnderSea.DAL.Context
                                 {
                                     new Unit()
                                     {
-                                        Count = 10,
-                                        Type = new LaserShark()
-                                    },
-                                    new Unit()
-                                    {
-                                        Count = 20,
-                                        Type = new StormSeal()
-                                    },
-                                    new Unit()
-                                    {
-                                        Count = 40,
-                                        Type = new CombatSeaHorse()
-                                    }
-                                },
-                                BuildingTimeLeft = 0,
-                                Coral = 0,
-                                Name = "First Country",
-                                Pearl = 0,
-                                Score = 0,
-                                UpgradeTimeLeft = 0,
-                                Upgrades = new List<Upgrade>()
-                                {
-                                    new Upgrade()
-                                    {
-                                        State = UpgradeState.Researched,
-                                        Type = new Alchemy()
-                                    },
-                                    new Upgrade()
-                                    {
-                                        State = UpgradeState.Researched,
-                                        Type = new CoralWall()
-                                    },
-                                    new Upgrade()
-                                    {
-                                        State = UpgradeState.Researched,
-                                        Type = new MudHarvester()
-                                    },
-                                    new Upgrade()
-                                    {
-                                        State = UpgradeState.Researched,
-                                        Type = new SonarCannon()
-                                    },
-                                    new Upgrade()
-                                    {
-                                        State = UpgradeState.Researched,
-                                        Type = new UnderwaterMartialArts()
-                                    }
-
-                                },
-                                BuildingGroup = new BuildingGroup()
-                                {
-                                    Buildings = new List<Building>()
-                                    {
-                                        new Building()
-                                        {
-                                            Count = 1,
-                                            Type = new FlowManager()
-                                        },
-                                        new Building()
-                                        {
-                                            Count = 1,
-                                            Type = new ReefCastle()
-                                        },
-                                    }
-                                }
-
-                            },
-                            Place = 0,
-                            Score = 0,
-                            UserName = "First User",
-                            Id = 11111
-                        },
-
-                        new User()
-                        {
-                            Country = new Country()
-                            {
-                                AttackingArmy = new List<Unit>()
-                                {
-                                    new Unit()
-                                    {
+                                        Id = -10,
                                         Count = 0,
                                         Type = new LaserShark()
                                     },
                                     new Unit()
                                     {
-                                        Count = 0,
-                                        Type = new StormSeal()
-                                    },
-                                    new Unit()
-                                    {
-                                        Count = 0,
-                                        Type = new CombatSeaHorse()
-                                    }
-                                },
-                                DefendingArmy = new List<Unit>()
-                                {
-                                    new Unit()
-                                    {
-                                        Count = 0,
-                                        Type = new LaserShark()
-                                    },
-                                    new Unit()
-                                    {
+                                        Id = -11,
                                         Count = 10,
                                         Type = new StormSeal()
                                     },
                                     new Unit()
                                     {
+                                        Id = -12,
                                         Count = 0,
                                         Type = new CombatSeaHorse()
                                     }
@@ -204,26 +334,31 @@ namespace UnderSea.DAL.Context
                                 {
                                     new Upgrade()
                                     {
+                                        Id = -6,
                                         State = UpgradeState.Unresearched,
                                         Type = new Alchemy()
                                     },
                                     new Upgrade()
                                     {
+                                        Id = -7,
                                         State = UpgradeState.Unresearched,
                                         Type = new CoralWall()
                                     },
                                     new Upgrade()
                                     {
+                                        Id = -8,
                                         State = UpgradeState.Unresearched,
                                         Type = new MudHarvester()
                                     },
                                     new Upgrade()
                                     {
+                                        Id = -9,
                                         State = UpgradeState.Unresearched,
                                         Type = new SonarCannon()
                                     },
                                     new Upgrade()
                                     {
+                                        Id = -10,
                                         State = UpgradeState.Unresearched,
                                         Type = new UnderwaterMartialArts()
                                     }
@@ -231,15 +366,18 @@ namespace UnderSea.DAL.Context
                                 },
                                 BuildingGroup = new BuildingGroup()
                                 {
+                                    Id = -2,
                                     Buildings = new List<Building>()
                                     {
                                         new Building()
                                         {
+                                            Id = -3,
                                             Count = 0,
                                             Type = new FlowManager()
                                         },
                                         new Building()
                                         {
+                                            Id = -4,
                                             Count = 0,
                                             Type = new ReefCastle()
                                         },
@@ -249,8 +387,7 @@ namespace UnderSea.DAL.Context
                             },
                             Place = 0,
                             Score = 0,
-                            UserName = "Second User",
-                            Id = 22222
+                            UserName = "Second User"
                         }
                     }
                 }

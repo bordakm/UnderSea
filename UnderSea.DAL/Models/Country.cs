@@ -11,10 +11,21 @@ namespace UnderSea.DAL.Models
     public class Country
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
+
         public BuildingGroup BuildingGroup { get; set; }
-        public List<Unit> AttackingArmy { get; set; }
-        public List<Unit> DefendingArmy { get; set; }
+
+        [ForeignKey("UnitGroup")]
+        public int AttackingArmyId { get; set; }
+
+        public UnitGroup AttackingArmy { get; set; }
+
+        [ForeignKey("UnitGroup")]
+        public int DefendingArmyId { get; set; }
+
+        public UnitGroup DefendingArmy { get; set; }
+
         public int Coral { get; set; }
 
         [NotMapped]
@@ -25,6 +36,7 @@ namespace UnderSea.DAL.Models
                 return BuildingGroup.Buildings.Sum(building => building.Count * building.Type.CoralBonus);
             }
         }
+
         public int Pearl { get; set; }
 
         [NotMapped]
@@ -37,11 +49,16 @@ namespace UnderSea.DAL.Models
         public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.Type.UnitStorage);
         
         public User User { get; set; }
+
         [ForeignKey("User")]
         public int UserId { get; set; }
+
         public int UpgradeTimeLeft { get; set; }
+
         public int BuildingTimeLeft { get; set; }
+
         public int Score { get; set; }
+
         public List<Upgrade> Upgrades { get; set; } = new List<Upgrade>() { new Upgrade() { Type=new Alchemy(),State = UpgradeState.Unresearched},
                                                                             new Upgrade() { Type=new CoralWall(),State = UpgradeState.Unresearched},
                                                                             new Upgrade() { Type=new MudHarvester(),State = UpgradeState.Unresearched},
