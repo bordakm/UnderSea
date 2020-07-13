@@ -27,16 +27,12 @@
     padding: 10px;
 }
 
-.mat-card-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.mat-card.mat-card-main{
     border-radius: 16px;
+    overflow: hidden;
     background-color: #03255F;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     box-shadow: none;
-    padding: 10px;
+    padding: 30px;
 }
 
 .mat-card-title{
