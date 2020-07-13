@@ -7,7 +7,7 @@ namespace UnderSea.BLL.DTO
 {
     public class AttackDTO
     {
-        public int AttackerUserId { get; set; }
+        public int DefenderUserId { get; set; }
         public List<SendUnitDTO> AttackingUnits { get; set; }
     }
 }

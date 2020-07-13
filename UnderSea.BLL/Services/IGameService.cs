@@ -11,7 +11,7 @@ namespace UnderSea.BLL.Services
     {
         public Task<List<string>> AttackSearch(SearchDTO search);
         public Task<MainPageViewModel> GetMainPage(int userId);
-        public void NewRound(int rounds);
+        public Task NewRound(int rounds);
         public Task<List<ScoreboardViewModel>> SearchScoreboard(SearchDTO search);
     }
 }
