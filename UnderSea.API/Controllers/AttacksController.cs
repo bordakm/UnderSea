@@ -31,7 +31,7 @@ namespace UnderSea.API.Controllers
         {
             int userId = 1;
             armyService.Attack(userId, attack);
-            return Task.Run( () => { return "asd"; }); // TODO ??
+            return Task.Run( () => { return "TODO"; }); // TODO ??
         }
 
         [HttpPost("/search")]
