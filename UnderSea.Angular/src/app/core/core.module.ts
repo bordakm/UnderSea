@@ -5,14 +5,17 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CoreRoutingModule } from './core-routing.module';
 import { AuthService } from './services/auth.service';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 
 import { HeaderComponent } from './components/header/header.component';
-import { MainPageComponent } from './components/main-page/main-page.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 
 
 
@@ -32,7 +35,9 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/d
     CoreRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSidenavModule,
+    MatToolbarModule,
   ],
   exports: [
     SharedModule

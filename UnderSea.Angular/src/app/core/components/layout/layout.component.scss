@@ -1,0 +1,41 @@
+$baloo-font: 'baloo', regular;
+$light-blue: #9FFFF0;
+
+h1{
+    color: $light-blue;
+    font-family: $baloo-font;
+    font-size: 33px;
+    height: 5vw;
+
+}
+
+.flex-box {
+    flex-direction: column;
+    justify-content: flex-end;
+    max-width: 10vw;
+    min-height: 20vh;
+    padding-left: 15px;
+    padding-top: 20px;
+}
+
+.navigation {
+      min-width: 15vw;
+      border-width: 0px;
+      background-color: transparent;
+      border: none;
+      color: white;   
+      overflow: hidden; 
+}
+
+.layout-container{
+    display: flex;
+    height: 80vh;
+    .sidebar{
+        width: 15vw;
+
+    }
+    .main-content{
+        flex: 1 0 auto;
+    }
+}
+

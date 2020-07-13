@@ -11,6 +11,7 @@ $baloo-font: 'baloo', regular;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-right: 10px;
 }
 
 .flex-card {
@@ -31,9 +32,9 @@ $baloo-font: 'baloo', regular;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     min-width: 95vw;
-    min-height: 5vh;
+    //min-height: 2vh;
     box-shadow: none;
-    padding: 10px;
+    padding: 8px;
 }
 
 .header-text{
@@ -41,6 +42,7 @@ $baloo-font: 'baloo', regular;
     font-size: 25px;
     color: $dark-blue;
     margin-left: 3vw;
+    margin-bottom: -2px;
 }
 
 .header-number{
@@ -55,7 +57,6 @@ $baloo-font: 'baloo', regular;
     font-size: 15px;
     color: $dark-blue;
     margin-left: 1vw;
-    margin-top: 7px;
 }
 
 

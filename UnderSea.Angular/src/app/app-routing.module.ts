@@ -9,9 +9,9 @@ const routes: Routes = [
     loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
   },
   {
-    path: 'buildings',
+    path: 'army',
     component: LayoutComponent,
-    loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule)
+    loadChildren: () => import('./features/army/army.module').then(m => m.ArmyModule)
   },
 ];
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ArmyComponent } from 'src/app/features/army/components/army.component';
@@ -16,65 +17,33 @@ import { UpgradesComponent } from 'src/app/features/upgrades/components/upgrades
 export class MenuComponent implements OnInit {
   animal: string;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
   openArmy(): void{
-    const dialogRef = this.dialog.open(ArmyComponent, {
-      height: '400px',
-      width: '600px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.router.navigate(['army']);
   }
 
   openAttack(): void{
-    const dialogRef = this.dialog.open(AttackComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.router.navigate(['army']);
   }
 
   openBuildings(): void{
-    const dialogRef = this.dialog.open(BuildingsComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.router.navigate(['army']);
   }
 
   openFight(): void{
-    const dialogRef = this.dialog.open(FightComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.router.navigate(['army']);
   }
 
   openScoreBoard(): void{
-    const dialogRef = this.dialog.open(ScoreboardComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.router.navigate(['army']);
   }
 
   openUpgrades(): void{
-    const dialogRef = this.dialog.open(UpgradesComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.router.navigate(['army']);
   }
 }
 

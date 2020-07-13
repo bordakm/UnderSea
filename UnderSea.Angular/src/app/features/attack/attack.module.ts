@@ -9,7 +9,6 @@ import { AttackComponent } from './components/attack.component';
     AttackComponent
   ],
   imports: [
-    CommonModule,
     SharedModule,
     AttackRoutingModule,
   ],

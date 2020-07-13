@@ -16,10 +16,13 @@ h1{
 
 .flex-box {
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    max-width: 10vw;
-    min-height: 20vh;
-    padding-left: 15px;
-    padding-top: 20px;
+    min-height: 70vh;
+}
+
+.flex-card{
+    background-color: #03255F;
+    border-radius: 16px;
+    width: 40vw;
 }

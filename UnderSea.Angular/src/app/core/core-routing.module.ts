@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginComponent } from './components/login/login.component';
-import { MainPageComponent } from './components/main-page/main-page.component';
-
+import { LoginComponent } from './pages/login/login.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -12,13 +10,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forChild(routes),
-    CommonModule
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class CoreRoutingModule { }
