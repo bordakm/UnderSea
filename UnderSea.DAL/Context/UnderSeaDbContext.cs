@@ -35,39 +35,21 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<ReefCastle>();
             modelBuilder.Entity<Alchemy>();
             modelBuilder.Entity<StormSeal>();
-
-          /*  modelBuilder.Entity<Site>().HasOne(e => e.Person)
-                .WithMany(x => x.Sites).Metadata.DeleteBehavior = DeleteBehavior.Restrict;*/
-
-            
+                        
            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.NoAction;
             }
-            
 
-            /* modelBuilder.Entity<UnitType>();
-             modelBuilder.Entity<LaserShark>();*/
-
-            /*modelBuilder.Entity<FlowManager>();
-            modelBuilder.Entity<ReefCastle>();
-            
-            modelBuilder.Entity<Alchemy>();
-            modelBuilder.Entity<CoralWall>();
-            modelBuilder.Entity<MudHarvester>();
-            modelBuilder.Entity<MudTractor>();
-            modelBuilder.Entity<SonarCannon>();
-            modelBuilder.Entity<UnderwaterMartialArts>();*/
-
-            LaserShark laserShark = new LaserShark
+            var laserShark = new LaserShark
             {
                 Id = 1
             };
-            StormSeal stormSeal = new StormSeal
+            var stormSeal = new StormSeal
             {
                 Id = 2
             };
-            CombatSeaHorse combatSeaHorse = new CombatSeaHorse
+            var combatSeaHorse = new CombatSeaHorse
             {
                 Id = 3
             };
@@ -476,31 +458,6 @@ namespace UnderSea.DAL.Context
                     building3,
                     building4
                 });
-
-            
-        }
-
-        protected void SeedData(ModelBuilder builder)
-        {
-            /*var country = new Country
-            {
-                Name = "Atlantisz",
-                BuildingGroup = ,
-                AttackingArmy = ,
-                DefendingArmy = ,
-                Coral = 500,
-                Pearl = 500,
-                Upgrades = ,
-            };
-            builder.Entity<User>()
-                .HasData(new User {
-                    Country = "Atlantisz",
-
-                });*/
-            builder.Entity<User>()
-                .HasData(new User { });
-            builder.Entity<User>()
-                .HasData(new User { });
         }
     }
 }
