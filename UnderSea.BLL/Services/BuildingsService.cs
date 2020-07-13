@@ -16,10 +16,12 @@ namespace UnderSea.BLL.Services
     class BuildingsService : IBuildingsService
     {
         private readonly UnderSeaDbContext db;
+        private readonly ILogger logger;
 
-        public BuildingsService(UnderSeaDbContext db)
+        public BuildingsService(UnderSeaDbContext db, ILogger<BuildingsService> logger)
         {
             this.db = db;
+            this.logger = logger;
         }
 
         public async Task<List<BuildingInfoViewModel>> GetBuildingInfos()

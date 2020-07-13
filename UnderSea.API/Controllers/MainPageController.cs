@@ -8,6 +8,7 @@ using UnderSea.BLL.DTO;
 using UnderSea.BLL.ViewModels;
 using UnderSea.BLL.Services;
 using UnderSea.DAL.Models;
+using Microsoft.Extensions.Logging;
 
 namespace UnderSea.API.Controllers
 {
@@ -16,10 +17,12 @@ namespace UnderSea.API.Controllers
     public class MainPageController : ControllerBase
     {
         private readonly IGameService gameService;
+        private readonly ILogger logger;
 
-        public MainPageController(IGameService gameService)
+        public MainPageController(IGameService gameService, ILogger<MainPageController> logger)
         {
             this.gameService = gameService;
+            this.logger = logger;
         }
 
         [HttpGet]

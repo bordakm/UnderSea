@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using UnderSea.BLL.DTO;
 
 namespace UnderSea.API.Controllers
@@ -12,6 +13,13 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly ILogger logger;
+
+        public AuthController(ILogger<AuthController> logger)
+        {
+            this.logger = logger;
+        }
+
         [HttpPost("/register")]
         public ActionResult<string> Register([FromBody] RegisterDTO registerData)
         {

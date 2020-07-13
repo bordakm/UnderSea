@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
@@ -13,10 +14,13 @@ namespace UnderSea.API.Controllers
     {
         private IArmyService armyService;
         private IGameService gameService;
-        public AttacksController(IArmyService armyService, IGameService gameService)
+        private readonly ILogger logger;
+
+        public AttacksController(IArmyService armyService, IGameService gameService, ILogger<AttacksController> logger)
         {
             this.armyService = armyService;
             this.gameService = gameService;
+            this.logger = logger;
         }
 
         [HttpGet]

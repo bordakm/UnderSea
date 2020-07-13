@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,12 @@ namespace UnderSea.BLL.Services
     class ArmyService: IArmyService
     {
         private readonly UnderSeaDbContext db;
+        private readonly ILogger logger;
 
-        public ArmyService(UnderSeaDbContext db)
+        public ArmyService(UnderSeaDbContext db, ILogger<ArmyService> logger)
         {
             this.db = db;
+            this.logger = logger;
         }
 
         public async Task Attack(int attackeruserid, AttackDTO attack)

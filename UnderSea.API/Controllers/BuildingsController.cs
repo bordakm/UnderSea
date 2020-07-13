@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
@@ -15,10 +16,12 @@ namespace UnderSea.API.Controllers
     public class BuildingsController : ControllerBase
     {
         private readonly IBuildingsService buildingsService;
+        private readonly ILogger logger;
 
-        public BuildingsController(IBuildingsService buildingsService)
+        public BuildingsController(IBuildingsService buildingsService, ILogger<BuildingsController> logger)
         {
             this.buildingsService = buildingsService;
+            this.logger = logger;
         }
 
         [HttpGet]

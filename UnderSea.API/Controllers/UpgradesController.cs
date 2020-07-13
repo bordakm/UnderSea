@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,11 @@ namespace UnderSea.API.Controllers
     public class UpgradesController : ControllerBase
     {
         private IUpgradesService upgradesService;
-        public UpgradesController(IUpgradesService upgradesService)
+        private readonly ILogger logger;
+        public UpgradesController(IUpgradesService upgradesService, ILogger<UpgradesController> logger)
         {
             this.upgradesService = upgradesService;
+            this.logger = logger;
         }
 
         [HttpGet]

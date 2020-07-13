@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace UnderSea.BLL.Services
     class UpgradesService : IUpgradesService
     {
         UnderSeaDbContext db;
-        public UpgradesService(UnderSeaDbContext context)
+        private readonly ILogger logger;
+        public UpgradesService(UnderSeaDbContext context, ILogger<UpgradesService> logger)
         {
             db = context;
+            this.logger = logger;
         }
         public async Task<List<UpgradeViewModel>> GetUpgrades(int userid)
         {

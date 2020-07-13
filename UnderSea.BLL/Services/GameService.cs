@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,12 @@ namespace UnderSea.BLL.Services
     class GameService : IGameService
     {
         private UnderSeaDbContext db;
+        private readonly ILogger logger;
 
-        public GameService(UnderSeaDbContext db)
+        public GameService(UnderSeaDbContext db, ILogger<GameService> logger)
         {
             this.db = db;
+            this.logger = logger;
         }
 
         public async Task<List<string>> AttackSearch (SearchDTO search)
