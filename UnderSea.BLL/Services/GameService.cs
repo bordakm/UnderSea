@@ -75,8 +75,8 @@ namespace UnderSea.BLL.Services
                 },
                 Structures = new StructuresViewModel()
                 {
-                    FlowManager = (user.Country.BuildingGroup.Buildings.Single(y => y is FlowManager).Count != 0),
-                    ReefCastle = (user.Country.BuildingGroup.Buildings.Single(y => y is ReefCastle).Count != 0),
+                    FlowManager = (user.Country.BuildingGroup.Buildings.Single(y => y.Type is FlowManager).Count != 0),
+                    ReefCastle = (user.Country.BuildingGroup.Buildings.Single(y => y.Type is ReefCastle).Count != 0),
 
                     Alchemy = (user.Country.Upgrades.Single(y => y.Type is Alchemy).State != UpgradeState.Unresearched),
                     CoralWall = (user.Country.Upgrades.Single(y => y.Type is CoralWall).State != UpgradeState.Unresearched),

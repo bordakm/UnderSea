@@ -22,7 +22,7 @@ namespace UnderSea.DAL.Models
         {
             get
             {
-                return BuildingGroup.Buildings.Sum(building => building.Count * building.CoralBonus);
+                return BuildingGroup.Buildings.Sum(building => building.Count * building.Type.CoralBonus);
             }
         }
         public int Pearl { get; set; }
@@ -31,10 +31,10 @@ namespace UnderSea.DAL.Models
         public int PearlProduction => Population * taxRate;
 
         [NotMapped]
-        public int Population => BuildingGroup.Buildings.Sum(building => building.PopulationBonus);
+        public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus);
 
         [NotMapped]
-        public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.UnitStorage);
+        public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.Type.UnitStorage);
         
         public User User { get; set; }
         public int UpgradeTimeLeft { get; set; }
