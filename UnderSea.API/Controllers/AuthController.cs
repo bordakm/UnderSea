@@ -29,13 +29,13 @@ namespace UnderSea.API.Controllers
             this.logger = logger;
         }
 
-        [HttpPost("api/[controller]/register")]
+        [HttpPost("register")]
         public Task Register([FromBody] RegisterDTO registerData)
         {
             return null;
         }
 
-        [HttpPost("api/[controller]/login")]
+        [HttpPost("login")]
         public async Task<MainPageViewModel> Login([FromBody] LoginDTO loginData)
         {
             if (ModelState.IsValid)
@@ -51,7 +51,7 @@ namespace UnderSea.API.Controllers
             throw new Exception("Login attempt failed");
         }
 
-        [HttpPost("api/[controller]/logout")]
+        [HttpPost("logout")]
         [Authorize]
         public async Task Logout()
         {
@@ -59,7 +59,7 @@ namespace UnderSea.API.Controllers
             // TODO tokenek
         }
 
-        [HttpPost("api/[controller]/renew")]
+        [HttpPost("renew")]
         public Task RenewToken()
         {
             return null;
