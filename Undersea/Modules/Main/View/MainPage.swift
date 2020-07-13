@@ -11,7 +11,7 @@ import SwiftUI
 struct MainPage: View {
     var body: some View {
         NavigationView {
-            ZStack {
+            ZStack(alignment: .bottom) {
                 VStack {
                     RoundedRectangle(cornerRadius: 5.0)
                         .fill(Color.black)
@@ -24,7 +24,7 @@ struct MainPage: View {
                         .frame(height: geometry.size.height)
                     }
                 }
-                //Gordulo menu
+                SlideInMenuView()
             }
             .background(Image("mainBackground")
                 .resizable()
