@@ -30,7 +30,6 @@ class BaseApiWorker<ApiServiceType: TargetType>: ApiWorkerProtocol {
         
         return Future<ResponseType, Error> { promise in
             self.provider.request(target) { (result: Result<Response, MoyaError>) in
-                sleep(5)
                 switch result {
                     case let .success(response):
                         if (200..<300).contains(response.statusCode) {

@@ -20,7 +20,7 @@ class ServerProxy {
     // MARK: - Constants
     
     struct Constants {
-        static let baseUrl: URL = URL(string: "https://randomuser.me/api/")!
+        static let baseUrl: URL = URL(string: "http://underseaapit2.webtest.encosoft.internal/api")!
     }
     
     // MARK: - Functions

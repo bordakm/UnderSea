@@ -57,13 +57,7 @@ struct SizeModifier: ViewModifier {
 
 struct SlideInMenuView: View {
     
-    private var statList = [Stat(label: "0/5", image: "shark"),
-                            Stat(label: "5/10", image: "seal"),
-                            Stat(label: "5/10", image: "seahorse"),
-                            Stat(label: "230\n3886/kör", image: "pearl"),
-                            Stat(label: "230\n12/kör", image: "coral"),
-                            Stat(label: "1", image: "reefcastle"),
-                            Stat(label: "0", image: "flowcontroller")]
+    private var statList: [StatusBarItem] = [.shark(0, 5), .seal(5, 10), .seahorse(5, 10), .pearl(230, 3886), .coral(230, 12), .reefcastle(1), .flowRegulator(0)]
     
     let action: () -> Void
     
@@ -87,7 +81,7 @@ struct SlideInMenuView: View {
                 HStack(alignment: .top, spacing: 20.0) {
                     ForEach(0 ..< (self.statList.count / 2), id:\.self) { index in
                         VStack {
-                            SVGImage(svgName: self.statList[index].image).scaledToFit().frame(height: 40.0)
+                            SVGImage(svgName: self.statList[index].imageName).scaledToFit().frame(height: 40.0)
                             Text(self.statList[index].label).multilineTextAlignment(TextAlignment.center)
                         }.frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     }
@@ -95,7 +89,7 @@ struct SlideInMenuView: View {
                 HStack(alignment: .top, spacing: 20.0) {
                     ForEach((self.statList.count / 2) ..< self.statList.count, id:\.self) { index in
                         VStack {
-                            SVGImage(svgName: self.statList[index].image).scaledToFit().frame(height: 40.0)
+                            SVGImage(svgName: self.statList[index].imageName).scaledToFit().frame(height: 40.0)
                             Text(self.statList[index].label).multilineTextAlignment(TextAlignment.center)
                         }.frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     }

@@ -11,7 +11,15 @@ import SwiftUI
 
 struct Main {
     
+    typealias DataModelType = MainPageDTO
+    typealias ViewModelType = String
+    
     static func setup() -> MainPage {
+        
+        let Interactor = Interactor()
+        let Presenter = Presenter()
+        
+        var test = ApiWorker().getMain()
         return MainPage()
     }
     

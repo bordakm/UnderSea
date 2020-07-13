@@ -18,6 +18,17 @@
 		7922A9EA24B4CA7C002A7957 /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7922A9E524B4CA7C002A7957 /* Baloo2-Medium.ttf */; };
 		7922A9EB24B4CA7C002A7957 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7922A9E624B4CA7C002A7957 /* Baloo2-Bold.ttf */; };
 		7922A9EC24B4CA7C002A7957 /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7922A9E724B4CA7C002A7957 /* Baloo2-SemiBold.ttf */; };
+		792DE2DD24BC8DE3009D175D /* MainPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */; };
+		792DE2E124BC94EA009D175D /* MainApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2E024BC94EA009D175D /* MainApiService.swift */; };
+		792DE2E324BC962F009D175D /* MainApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2E224BC962F009D175D /* MainApiWorker.swift */; };
+		792DE2E624BC9B37009D175D /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2E524BC9B37009D175D /* MainInteractor.swift */; };
+		792DE2E924BC9C16009D175D /* MainUsecases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2E824BC9C16009D175D /* MainUsecases.swift */; };
+		792DE2EB24BC9C48009D175D /* MainEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2EA24BC9C48009D175D /* MainEvents.swift */; };
+		792DE2EE24BCA3DE009D175D /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2ED24BCA3DE009D175D /* MainPresenter.swift */; };
+		792DE2F124BCA6A4009D175D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2F024BCA6A4009D175D /* MainViewModel.swift */; };
+		792DE2F324BCA76A009D175D /* MainPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2F224BCA76A009D175D /* MainPageViewModel.swift */; };
+		792DE2F524BCAAB4009D175D /* StatusBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2F424BCAAB4009D175D /* StatusBarItem.swift */; };
+		792DE2F724BCAF8B009D175D /* StructureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2F624BCAF8B009D175D /* StructureType.swift */; };
 		7947D99624B84A2700C5306D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947D99524B84A2700C5306D /* UIColor+Extension.swift */; };
 		7947D99924B859F100C5306D /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947D99824B859F100C5306D /* NavigationBarModifier.swift */; };
 		7947D99B24B85A5400C5306D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947D99A24B85A5400C5306D /* View+Extension.swift */; };
@@ -59,7 +70,7 @@
 		799C0DCC24B8B3BC00CEBD2E /* reefcastle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC624B8B3BC00CEBD2E /* reefcastle.svg */; };
 		799C0DCD24B8B3BC00CEBD2E /* pearl.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC724B8B3BC00CEBD2E /* pearl.svg */; };
 		799C0DCE24B8B3BC00CEBD2E /* coral.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC824B8B3BC00CEBD2E /* coral.svg */; };
-		799C0DCF24B8B3BC00CEBD2E /* flowcontroller.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC924B8B3BC00CEBD2E /* flowcontroller.svg */; };
+		799C0DCF24B8B3BC00CEBD2E /* flowRegulator.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC924B8B3BC00CEBD2E /* flowRegulator.svg */; };
 		79C39EEB24B8B11400803C00 /* SlideInMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEA24B8B11400803C00 /* SlideInMenu.swift */; };
 		79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */; };
 		9716A4D8D401F86C5396A3DE /* Pods_Undersea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A22C343B8C5C4E5D915B7CB6 /* Pods_Undersea.framework */; };
@@ -80,6 +91,17 @@
 		7922A9E524B4CA7C002A7957 /* Baloo2-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baloo2-Medium.ttf"; sourceTree = "<group>"; };
 		7922A9E624B4CA7C002A7957 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baloo2-Bold.ttf"; sourceTree = "<group>"; };
 		7922A9E724B4CA7C002A7957 /* Baloo2-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baloo2-SemiBold.ttf"; sourceTree = "<group>"; };
+		792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageDTO.swift; sourceTree = "<group>"; };
+		792DE2E024BC94EA009D175D /* MainApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApiService.swift; sourceTree = "<group>"; };
+		792DE2E224BC962F009D175D /* MainApiWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApiWorker.swift; sourceTree = "<group>"; };
+		792DE2E524BC9B37009D175D /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
+		792DE2E824BC9C16009D175D /* MainUsecases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUsecases.swift; sourceTree = "<group>"; };
+		792DE2EA24BC9C48009D175D /* MainEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEvents.swift; sourceTree = "<group>"; };
+		792DE2ED24BCA3DE009D175D /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		792DE2F024BCA6A4009D175D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		792DE2F224BCA76A009D175D /* MainPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewModel.swift; sourceTree = "<group>"; };
+		792DE2F424BCAAB4009D175D /* StatusBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarItem.swift; sourceTree = "<group>"; };
+		792DE2F624BCAF8B009D175D /* StructureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureType.swift; sourceTree = "<group>"; };
 		7947D99524B84A2700C5306D /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		7947D99824B859F100C5306D /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		7947D99A24B85A5400C5306D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
@@ -121,7 +143,7 @@
 		799C0DC624B8B3BC00CEBD2E /* reefcastle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reefcastle.svg; sourceTree = "<group>"; };
 		799C0DC724B8B3BC00CEBD2E /* pearl.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pearl.svg; sourceTree = "<group>"; };
 		799C0DC824B8B3BC00CEBD2E /* coral.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coral.svg; sourceTree = "<group>"; };
-		799C0DC924B8B3BC00CEBD2E /* flowcontroller.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flowcontroller.svg; sourceTree = "<group>"; };
+		799C0DC924B8B3BC00CEBD2E /* flowRegulator.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flowRegulator.svg; sourceTree = "<group>"; };
 		79C39EEA24B8B11400803C00 /* SlideInMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenu.swift; sourceTree = "<group>"; };
 		79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenuView.swift; sourceTree = "<group>"; };
 		7B2A8D040160C9A807195C73 /* Pods-Undersea.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Undersea.debug.xcconfig"; path = "Target Support Files/Pods-Undersea/Pods-Undersea.debug.xcconfig"; sourceTree = "<group>"; };
@@ -221,6 +243,75 @@
 			path = Baloo;
 			sourceTree = "<group>";
 		};
+		792DE2DA24BC8D89009D175D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				792DE2DB24BC8D97009D175D /* DTO */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		792DE2DB24BC8D97009D175D /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		792DE2DE24BC94B2009D175D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				792DE2EF24BCA671009D175D /* ViewModels */,
+				792DE2E724BC9C00009D175D /* Enums */,
+				792DE2DF24BC94BB009D175D /* Network */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		792DE2DF24BC94BB009D175D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				792DE2E024BC94EA009D175D /* MainApiService.swift */,
+				792DE2E224BC962F009D175D /* MainApiWorker.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		792DE2E424BC9A8F009D175D /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				792DE2E524BC9B37009D175D /* MainInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		792DE2E724BC9C00009D175D /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				792DE2E824BC9C16009D175D /* MainUsecases.swift */,
+				792DE2EA24BC9C48009D175D /* MainEvents.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		792DE2EC24BCA3CE009D175D /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				792DE2ED24BCA3DE009D175D /* MainPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		792DE2EF24BCA671009D175D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				792DE2F024BCA6A4009D175D /* MainViewModel.swift */,
+				792DE2F224BCA76A009D175D /* MainPageViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		7947D99724B859D300C5306D /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +323,7 @@
 		794CAAC524B5C4C8007DC9C7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				792DE2DA24BC8D89009D175D /* Models */,
 				794CAADD24B5EBCD007DC9C7 /* Components */,
 				794CAADA24B5CF11007DC9C7 /* Extensions */,
 				794CAAD724B5CDDC007DC9C7 /* Constants */,
@@ -256,6 +348,8 @@
 			children = (
 				794CAACE24B5C577007DC9C7 /* ApiError.swift */,
 				794C674724B6F8AD006D1F2B /* RootPage.swift */,
+				792DE2F424BCAAB4009D175D /* StatusBarItem.swift */,
+				792DE2F624BCAF8B009D175D /* StructureType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -355,7 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				799C0DC824B8B3BC00CEBD2E /* coral.svg */,
-				799C0DC924B8B3BC00CEBD2E /* flowcontroller.svg */,
+				799C0DC924B8B3BC00CEBD2E /* flowRegulator.svg */,
 				799C0DC724B8B3BC00CEBD2E /* pearl.svg */,
 				799C0DC624B8B3BC00CEBD2E /* reefcastle.svg */,
 				799C0DC424B8B3BB00CEBD2E /* seahorse.svg */,
@@ -388,6 +482,9 @@
 		79820C7224B71D22006D7258 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				792DE2EC24BCA3CE009D175D /* Presenter */,
+				792DE2E424BC9A8F009D175D /* Interactor */,
+				792DE2DE24BC94B2009D175D /* Utilities */,
 				79820C7624B71DD0006D7258 /* View */,
 				79820C7A24B71E01006D7258 /* Main.swift */,
 			);
@@ -547,7 +644,7 @@
 				799C0DCB24B8B3BC00CEBD2E /* seal.svg in Resources */,
 				7922A9EA24B4CA7C002A7957 /* Baloo2-Medium.ttf in Resources */,
 				799C0DCE24B8B3BC00CEBD2E /* coral.svg in Resources */,
-				799C0DCF24B8B3BC00CEBD2E /* flowcontroller.svg in Resources */,
+				799C0DCF24B8B3BC00CEBD2E /* flowRegulator.svg in Resources */,
 				79820C5B24B716C1006D7258 /* attack.svg in Resources */,
 				7922A9EB24B4CA7C002A7957 /* Baloo2-Bold.ttf in Resources */,
 				79820C5A24B716C1006D7258 /* main.svg in Resources */,
@@ -611,13 +708,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792DE2F724BCAF8B009D175D /* StructureType.swift in Sources */,
+				792DE2DD24BC8DE3009D175D /* MainPageDTO.swift in Sources */,
+				792DE2E324BC962F009D175D /* MainApiWorker.swift in Sources */,
 				79820C8724B73A4D006D7258 /* Teams.swift in Sources */,
 				794CAAE724B60764007DC9C7 /* RegisterPage.swift in Sources */,
+				792DE2EE24BCA3DE009D175D /* MainPresenter.swift in Sources */,
 				79820C8924B73A5B006D7258 /* AttackPage.swift in Sources */,
+				792DE2EB24BC9C48009D175D /* MainEvents.swift in Sources */,
 				79820C8124B71E2C006D7258 /* CityPage.swift in Sources */,
 				79820C8D24B7415C006D7258 /* CustomTabBar.swift in Sources */,
 				794CAACF24B5C577007DC9C7 /* ApiError.swift in Sources */,
 				79820C8B24B73A67006D7258 /* TeamsPage.swift in Sources */,
+				792DE2E624BC9B37009D175D /* MainInteractor.swift in Sources */,
 				794CAAD924B5CDF5007DC9C7 /* Colors.swift in Sources */,
 				794CAAD624B5C730007DC9C7 /* LoginPage.swift in Sources */,
 				794CAADF24B5EBEC007DC9C7 /* SeaButton.swift in Sources */,
@@ -628,6 +731,7 @@
 				79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */,
 				794CAACA24B5C51B007DC9C7 /* BaseApiService.swift in Sources */,
 				794CAACC24B5C51B007DC9C7 /* ServerProxy.swift in Sources */,
+				792DE2E924BC9C16009D175D /* MainUsecases.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
 				7947D99D24B8678700C5306D /* HostingController.swift in Sources */,
 				7922A9CD24B4BBB8002A7957 /* SceneDelegate.swift in Sources */,
@@ -639,12 +743,16 @@
 				794CAADC24B5CF38007DC9C7 /* Color+Extension.swift in Sources */,
 				79820C7D24B71E0C006D7258 /* MainPage.swift in Sources */,
 				79820C5024B707F7006D7258 /* RootPageController.swift in Sources */,
+				792DE2F524BCAAB4009D175D /* StatusBarItem.swift in Sources */,
 				794CAAD324B5C6FB007DC9C7 /* Login.swift in Sources */,
+				792DE2F124BCA6A4009D175D /* MainViewModel.swift in Sources */,
 				79820C8F24B76155006D7258 /* SVGImage.swift in Sources */,
 				79C39EEB24B8B11400803C00 /* SlideInMenu.swift in Sources */,
 				794C674824B6F8AD006D1F2B /* RootPage.swift in Sources */,
+				792DE2F324BCA76A009D175D /* MainPageViewModel.swift in Sources */,
 				794CAAE124B5FB61007DC9C7 /* SeaInputField.swift in Sources */,
 				79820C7F24B71E20006D7258 /* City.swift in Sources */,
+				792DE2E124BC94EA009D175D /* MainApiService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
