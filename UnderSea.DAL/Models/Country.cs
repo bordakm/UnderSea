@@ -66,54 +66,81 @@ namespace UnderSea.DAL.Models
             Coral += producedCoral;
         }
 
-        public void FeedUnits()
+        public Dictionary<int, int> FeedUnits()
         {
-            int totalCoralCost = 0;
-            AttackingArmy.ForEach(unit =>
-            {
-                totalCoralCost += unit.Type.CoralCostPerTurn;
-            });
 
-            DefendingArmy.ForEach(unit =>
+            Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
+            int costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
+            costTotal += DefendingArmy.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
+            int difference = Coral - costTotal;
+            if (difference < 0)
             {
-                totalCoralCost += unit.Type.CoralCostPerTurn;
-            });
-
-            if (Coral >= totalCoralCost)
-            {
-                Coral -= totalCoralCost;
+                unitsToRemove = FireUnits(Math.Abs(difference), FireReason.Coral);
+                costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn)
+                          + DefendingArmy.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
             }
-            else
-            {
-                int difference = totalCoralCost - Coral;
+            Coral -= costTotal;
+            return unitsToRemove;
 
-                while (difference > 0)
-                {
-                    foreach (var item in DefendingArmy)
-                    {
-                        if (item.Count > 0)
-                        {
-                            if (difference <= 0)
-                                break;
-                            difference -= item.Type.CoralCostPerTurn;
-                            item.Count--;
-                        }
 
-                    }
+            #region code repeated
+            //int totalCoralCost = 0;
+            //AttackingArmy.ForEach(unit =>
+            //{
+            //    totalCoralCost += unit.Type.CoralCostPerTurn;
+            //});
 
-                    foreach (var item in AttackingArmy)
-                    {
-                        if (item.Count > 0)
-                        {
-                            if (difference <= 0)
-                                break;
-                            difference -= item.Type.CoralCostPerTurn;
-                            item.Count--;
-                        }
+            //DefendingArmy.ForEach(unit =>
+            //{
+            //    totalCoralCost += unit.Type.CoralCostPerTurn;
+            //});
 
-                    }
-                }
-            }
+            //if (Coral >= totalCoralCost)
+            //{
+            //    Coral -= totalCoralCost;
+            //}
+            //else
+            //{
+
+            //int difference = Pearl - costTotal;
+            //if (difference < 0)
+            //{
+            //    unitsToRemove = FireUnits(Math.Abs(difference));
+            //    costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn)
+            //              + DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+            //}
+            //Pearl -= costTotal;
+            //return unitsToRemove;
+
+            //while (difference > 0)
+            //{
+            //    foreach (var item in DefendingArmy)
+            //    {
+            //        if (item.Count > 0)
+            //        {
+            //            if (difference <= 0)
+            //                break;
+            //            difference -= item.Type.CoralCostPerTurn;
+            //            item.Count--;
+            //        }
+
+            //    }
+
+            //    foreach (var item in AttackingArmy)
+            //    {
+            //        if (item.Count > 0)
+            //        {
+            //            if (difference <= 0)
+            //                break;
+            //            difference -= item.Type.CoralCostPerTurn;
+            //            item.Count--;
+            //        }
+
+            //    }
+            //}
+
+            //}
+            #endregion
         }
 
         public Dictionary<int, int> PayUnits()
@@ -124,7 +151,7 @@ namespace UnderSea.DAL.Models
             int difference = Pearl - costTotal;
             if (difference < 0)
             {
-                unitsToRemove = FireUnits(Math.Abs(difference));
+                unitsToRemove = FireUnits(Math.Abs(difference), FireReason.Pearl);
                 costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn)
                           + DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
             }
@@ -132,7 +159,7 @@ namespace UnderSea.DAL.Models
             return unitsToRemove;
         }
 
-        private Dictionary<int, int> FireUnits(int difference)
+        private Dictionary<int, int> FireUnits(int difference, FireReason fireReason)
         {
             Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
             foreach (Unit unit in AttackingArmy)
@@ -147,7 +174,15 @@ namespace UnderSea.DAL.Models
                     if (unit.Count > 0)
                     {
                         unit.Count--;
-                        difference -= unit.Type.PearlCostPerTurn;
+                        switch (fireReason)
+                        {
+                            case FireReason.Coral:
+                                difference -= unit.Type.CoralCostPerTurn;
+                                break;
+                            case FireReason.Pearl:
+                                difference -= unit.Type.PearlCostPerTurn;
+                                break;
+                        }
                         if (difference <= 0)
                         {
                             stop = true;
@@ -165,7 +200,15 @@ namespace UnderSea.DAL.Models
                     {
                         unitsToRemove[unit.Id]++;
                         unit.Count--;
-                        difference -= unit.Type.PearlCostPerTurn;
+                        switch (fireReason)
+                        {
+                            case FireReason.Coral:
+                                difference -= unit.Type.CoralCostPerTurn;
+                                break;
+                            case FireReason.Pearl:
+                                difference -= unit.Type.PearlCostPerTurn;
+                                break;
+                        }
                         if (difference <= 0)
                         {
                             stop = true;
@@ -234,4 +277,6 @@ namespace UnderSea.DAL.Models
         }
 
     }
+
+    enum FireReason { Pearl, Coral}
 }
