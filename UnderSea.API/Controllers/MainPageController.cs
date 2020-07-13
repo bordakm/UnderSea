@@ -28,7 +28,7 @@ namespace UnderSea.API.Controllers
         [HttpGet]
         public Task<MainPageViewModel> Get()
         {
-            int userId = 0;
+            int userId = 1;
             return gameService.GetMainPage(userId);
         }
 

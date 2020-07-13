@@ -185,7 +185,7 @@ namespace UnderSea.DAL.Context
             {
                 Id = 2,
                 CountryId = 1,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 2
             };
             var upgrade3 = new Upgrade
@@ -212,37 +212,51 @@ namespace UnderSea.DAL.Context
             var upgrade6 = new Upgrade
             {
                 Id = 6,
-                CountryId = 2,
+                CountryId = 1,
                 State = UpgradeState.Researched,
-                TypeId = 1
+                TypeId = 6
             };
             var upgrade7 = new Upgrade
             {
                 Id = 7,
                 CountryId = 2,
-                State = UpgradeState.Researched,
-                TypeId = 2
+                State = UpgradeState.Unresearched,
+                TypeId = 1
             };
             var upgrade8 = new Upgrade
             {
                 Id = 8,
                 CountryId = 2,
                 State = UpgradeState.Researched,
-                TypeId = 3
+                TypeId = 2
             };
             var upgrade9 = new Upgrade
             {
                 Id = 9,
                 CountryId = 2,
                 State = UpgradeState.Researched,
-                TypeId = 4
+                TypeId = 3
             };
             var upgrade10 = new Upgrade
             {
                 Id = 10,
                 CountryId = 2,
+                State = UpgradeState.Unresearched,
+                TypeId = 4
+            };
+            var upgrade11 = new Upgrade
+            {
+                Id = 11,
+                CountryId = 2,
                 State = UpgradeState.Researched,
                 TypeId = 5
+            };
+            var upgrade12 = new Upgrade
+            {
+                Id = 12,
+                CountryId = 2,
+                State = UpgradeState.Researched,
+                TypeId = 6
             };
 
             var buildingGroup1 = new BuildingGroup
@@ -443,7 +457,9 @@ namespace UnderSea.DAL.Context
                     upgrade7,
                     upgrade8,
                     upgrade9,
-                    upgrade10
+                    upgrade10,
+                    upgrade11,
+                    upgrade12
                 });
             modelBuilder.Entity<BuildingGroup>()
                 .HasData(new BuildingGroup[]

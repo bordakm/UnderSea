@@ -127,13 +127,13 @@ namespace UnderSea.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AttackerUserId")
+                    b.Property<int>("AttackerUserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DefenderUserId")
+                    b.Property<int>("DefenderUserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GameId")
+                    b.Property<int>("GameId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -145,6 +145,15 @@ namespace UnderSea.DAL.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("Attacks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AttackerUserId = 1,
+                            DefenderUserId = 2,
+                            GameId = 1
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Buildings.Building", b =>
@@ -154,7 +163,7 @@ namespace UnderSea.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BuildingGroupId")
+                    b.Property<int>("BuildingGroupId")
                         .HasColumnType("int");
 
                     b.Property<int>("ConstructionTimeLeft")
@@ -163,7 +172,7 @@ namespace UnderSea.DAL.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeId")
+                    b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<int>("UnderConstructionCount")
@@ -176,6 +185,44 @@ namespace UnderSea.DAL.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("Buildings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BuildingGroupId = 1,
+                            ConstructionTimeLeft = 0,
+                            Count = 1,
+                            TypeId = 1,
+                            UnderConstructionCount = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BuildingGroupId = 1,
+                            ConstructionTimeLeft = 0,
+                            Count = 1,
+                            TypeId = 2,
+                            UnderConstructionCount = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BuildingGroupId = 2,
+                            ConstructionTimeLeft = 0,
+                            Count = 1,
+                            TypeId = 1,
+                            UnderConstructionCount = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BuildingGroupId = 2,
+                            ConstructionTimeLeft = 0,
+                            Count = 1,
+                            TypeId = 2,
+                            UnderConstructionCount = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Buildings.BuildingGroup", b =>
@@ -185,9 +232,27 @@ namespace UnderSea.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryId")
+                        .IsUnique();
+
                     b.ToTable("BuildingGroup");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountryId = 2
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Buildings.BuildingType", b =>
@@ -239,13 +304,16 @@ namespace UnderSea.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BuildingGroupId")
+                    b.Property<int>("AttackingArmyId")
                         .HasColumnType("int");
 
                     b.Property<int>("BuildingTimeLeft")
                         .HasColumnType("int");
 
                     b.Property<int>("Coral")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DefendingArmyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -265,12 +333,42 @@ namespace UnderSea.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BuildingGroupId");
+                    b.HasIndex("AttackingArmyId");
+
+                    b.HasIndex("DefendingArmyId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AttackingArmyId = 1,
+                            BuildingTimeLeft = 0,
+                            Coral = 0,
+                            DefendingArmyId = 2,
+                            Name = "First Country",
+                            Pearl = 0,
+                            Score = 0,
+                            UpgradeTimeLeft = 0,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AttackingArmyId = 3,
+                            BuildingTimeLeft = 0,
+                            Coral = 0,
+                            DefendingArmyId = 4,
+                            Name = "Another Country",
+                            Pearl = 0,
+                            Score = 0,
+                            UpgradeTimeLeft = 0,
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Game", b =>
@@ -296,10 +394,10 @@ namespace UnderSea.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             CoralPictureUrl = "",
                             PearlPictureUrl = "",
-                            Round = 0
+                            Round = 1
                         });
                 });
 
@@ -316,26 +414,140 @@ namespace UnderSea.DAL.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CountryId")
+                    b.Property<int>("TypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CountryId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TypeId")
+                    b.Property<int>("UnitGroupId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AttackId");
 
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("CountryId1");
-
                     b.HasIndex("TypeId");
 
+                    b.HasIndex("UnitGroupId");
+
                     b.ToTable("Units");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AttackId = 1,
+                            Count = 0,
+                            TypeId = 1,
+                            UnitGroupId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AttackId = 1,
+                            Count = 0,
+                            TypeId = 2,
+                            UnitGroupId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AttackId = 1,
+                            Count = 0,
+                            TypeId = 3,
+                            UnitGroupId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Count = 10,
+                            TypeId = 1,
+                            UnitGroupId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Count = 20,
+                            TypeId = 2,
+                            UnitGroupId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Count = 40,
+                            TypeId = 3,
+                            UnitGroupId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Count = 0,
+                            TypeId = 1,
+                            UnitGroupId = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Count = 0,
+                            TypeId = 2,
+                            UnitGroupId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Count = 0,
+                            TypeId = 3,
+                            UnitGroupId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Count = 10,
+                            TypeId = 1,
+                            UnitGroupId = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Count = 20,
+                            TypeId = 2,
+                            UnitGroupId = 4
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Count = 40,
+                            TypeId = 3,
+                            UnitGroupId = 4
+                        });
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Units.UnitGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UnitGroup");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1
+                        },
+                        new
+                        {
+                            Id = 2
+                        },
+                        new
+                        {
+                            Id = 3
+                        },
+                        new
+                        {
+                            Id = 4
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Units.UnitType", b =>
@@ -375,7 +587,7 @@ namespace UnderSea.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UnitTypes");
+                    b.ToTable("UnitType");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("UnitType");
                 });
@@ -387,13 +599,13 @@ namespace UnderSea.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CountryId")
+                    b.Property<int>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeId")
+                    b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -403,6 +615,92 @@ namespace UnderSea.DAL.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("Upgrade");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 1,
+                            State = 3,
+                            TypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountryId = 1,
+                            State = 1,
+                            TypeId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CountryId = 1,
+                            State = 3,
+                            TypeId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CountryId = 1,
+                            State = 3,
+                            TypeId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CountryId = 1,
+                            State = 3,
+                            TypeId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CountryId = 1,
+                            State = 3,
+                            TypeId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CountryId = 2,
+                            State = 1,
+                            TypeId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CountryId = 2,
+                            State = 3,
+                            TypeId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CountryId = 2,
+                            State = 3,
+                            TypeId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CountryId = 2,
+                            State = 1,
+                            TypeId = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CountryId = 2,
+                            State = 3,
+                            TypeId = 5
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CountryId = 2,
+                            State = 3,
+                            TypeId = 6
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.UpgradeType", b =>
@@ -520,6 +818,36 @@ namespace UnderSea.DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c2291df9-42b7-4d62-beeb-cf157ad3c536",
+                            EmailConfirmed = false,
+                            GameId = 1,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            Place = 1,
+                            Score = 100,
+                            TwoFactorEnabled = false,
+                            UserName = "First User"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "58b0c8ab-81ec-4c1b-9b64-68e8dbbeb2bc",
+                            EmailConfirmed = false,
+                            GameId = 1,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            Place = 2,
+                            Score = 50,
+                            TwoFactorEnabled = false,
+                            UserName = "Second User"
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Role", b =>
@@ -556,6 +884,20 @@ namespace UnderSea.DAL.Migrations
                     b.HasBaseType("UnderSea.DAL.Models.Buildings.BuildingType");
 
                     b.HasDiscriminator().HasValue("FlowManager");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            CoralBonus = 200,
+                            Description = "200 egységnek nyújt szállást",
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Áramlásirányító",
+                            PopulationBonus = 50,
+                            Price = 1000,
+                            Score = 0,
+                            UnitStorage = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Buildings.ReefCastle", b =>
@@ -563,27 +905,89 @@ namespace UnderSea.DAL.Migrations
                     b.HasBaseType("UnderSea.DAL.Models.Buildings.BuildingType");
 
                     b.HasDiscriminator().HasValue("ReefCastle");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CoralBonus = 0,
+                            Description = "50 ember-t ad a népességhez, 200 krumplit termel körönként",
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Zátonyvár",
+                            PopulationBonus = 0,
+                            Price = 1000,
+                            Score = 0,
+                            UnitStorage = 200
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Units.CombatSeaHorse", b =>
                 {
                     b.HasBaseType("UnderSea.DAL.Models.Units.UnitType");
 
+                    b.ToTable("UnitType");
+
                     b.HasDiscriminator().HasValue("CombatSeaHorse");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            AttackScore = 2.0,
+                            CoralCostPerTurn = 1,
+                            DefenseScore = 6.0,
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Csatacsikó",
+                            PearlCostPerTurn = 1,
+                            Price = 50,
+                            Score = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Units.LaserShark", b =>
                 {
                     b.HasBaseType("UnderSea.DAL.Models.Units.UnitType");
 
+                    b.ToTable("UnitType");
+
                     b.HasDiscriminator().HasValue("LaserShark");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AttackScore = 5.0,
+                            CoralCostPerTurn = 2,
+                            DefenseScore = 5.0,
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Lézercápa",
+                            PearlCostPerTurn = 3,
+                            Price = 100,
+                            Score = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Units.StormSeal", b =>
                 {
                     b.HasBaseType("UnderSea.DAL.Models.Units.UnitType");
 
+                    b.ToTable("UnitType");
+
                     b.HasDiscriminator().HasValue("StormSeal");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            AttackScore = 6.0,
+                            CoralCostPerTurn = 1,
+                            DefenseScore = 2.0,
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Rohamfóka",
+                            PearlCostPerTurn = 1,
+                            Price = 50,
+                            Score = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.Alchemy", b =>
@@ -591,6 +995,19 @@ namespace UnderSea.DAL.Migrations
                     b.HasBaseType("UnderSea.DAL.Models.Upgrades.UpgradeType");
 
                     b.HasDiscriminator().HasValue("Alchemy");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AttackBonusPercentage = 0,
+                            CoralProductionBonusPercentage = 30,
+                            DefenseBonusPercentage = 0,
+                            Description = "növeli a beszedett adót 30%-kal",
+                            ImageUrl = "majd/kesobb/lesz/kep.jpg",
+                            Name = "Alkímia",
+                            PearlProductionBonusPercentage = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.CoralWall", b =>
@@ -598,6 +1015,19 @@ namespace UnderSea.DAL.Migrations
                     b.HasBaseType("UnderSea.DAL.Models.Upgrades.UpgradeType");
 
                     b.HasDiscriminator().HasValue("CoralWall");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            AttackBonusPercentage = 0,
+                            CoralProductionBonusPercentage = 0,
+                            DefenseBonusPercentage = 20,
+                            Description = "növeli a védelmi pontokat 20%-kal",
+                            ImageUrl = "majd/kesobb/lesz/kep.jpg",
+                            Name = "Korallfal",
+                            PearlProductionBonusPercentage = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.MudHarvester", b =>
@@ -605,6 +1035,19 @@ namespace UnderSea.DAL.Migrations
                     b.HasBaseType("UnderSea.DAL.Models.Upgrades.UpgradeType");
 
                     b.HasDiscriminator().HasValue("MudHarvester");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            AttackBonusPercentage = 0,
+                            CoralProductionBonusPercentage = 15,
+                            DefenseBonusPercentage = 0,
+                            Description = "növeli a korall termesztést 15%-kal",
+                            ImageUrl = "majd/kesobb/lesz/kep.jpg",
+                            Name = "Iszapkombájn",
+                            PearlProductionBonusPercentage = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.MudTractor", b =>
@@ -612,6 +1055,19 @@ namespace UnderSea.DAL.Migrations
                     b.HasBaseType("UnderSea.DAL.Models.Upgrades.UpgradeType");
 
                     b.HasDiscriminator().HasValue("MudTractor");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 4,
+                            AttackBonusPercentage = 0,
+                            CoralProductionBonusPercentage = 10,
+                            DefenseBonusPercentage = 0,
+                            Description = "növeli a krumpli termesztést 10%-kal",
+                            ImageUrl = "majd/kesobb/lesz/kep.jpg",
+                            Name = "Iszaptraktor",
+                            PearlProductionBonusPercentage = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.SonarCannon", b =>
@@ -619,6 +1075,19 @@ namespace UnderSea.DAL.Migrations
                     b.HasBaseType("UnderSea.DAL.Models.Upgrades.UpgradeType");
 
                     b.HasDiscriminator().HasValue("SonarCannon");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 5,
+                            AttackBonusPercentage = 20,
+                            CoralProductionBonusPercentage = 0,
+                            DefenseBonusPercentage = 0,
+                            Description = "növeli a támadópontokat 20%-kal",
+                            ImageUrl = "majd/kesobb/lesz/kep.jpg",
+                            Name = "Szonárágyú",
+                            PearlProductionBonusPercentage = 0
+                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.UnderwaterMartialArts", b =>
@@ -626,6 +1095,19 @@ namespace UnderSea.DAL.Migrations
                     b.HasBaseType("UnderSea.DAL.Models.Upgrades.UpgradeType");
 
                     b.HasDiscriminator().HasValue("UnderwaterMartialArts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 6,
+                            AttackBonusPercentage = 10,
+                            CoralProductionBonusPercentage = 0,
+                            DefenseBonusPercentage = 10,
+                            Description = "növeli a védelmi és támadóerőt 10%-kal",
+                            ImageUrl = "majd/kesobb/lesz/kep.jpg",
+                            Name = "Vízalatti harcművészetek",
+                            PearlProductionBonusPercentage = 0
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -633,7 +1115,7 @@ namespace UnderSea.DAL.Migrations
                     b.HasOne("UnderSea.DAL.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -642,7 +1124,7 @@ namespace UnderSea.DAL.Migrations
                     b.HasOne("UnderSea.DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -651,7 +1133,7 @@ namespace UnderSea.DAL.Migrations
                     b.HasOne("UnderSea.DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -660,13 +1142,13 @@ namespace UnderSea.DAL.Migrations
                     b.HasOne("UnderSea.DAL.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("UnderSea.DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -675,7 +1157,7 @@ namespace UnderSea.DAL.Migrations
                     b.HasOne("UnderSea.DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -683,38 +1165,65 @@ namespace UnderSea.DAL.Migrations
                 {
                     b.HasOne("UnderSea.DAL.Models.User", "AttackerUser")
                         .WithMany()
-                        .HasForeignKey("AttackerUserId");
+                        .HasForeignKey("AttackerUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("UnderSea.DAL.Models.User", "DefenderUser")
                         .WithMany()
-                        .HasForeignKey("DefenderUserId");
+                        .HasForeignKey("DefenderUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("UnderSea.DAL.Models.Game", null)
                         .WithMany("Attacks")
-                        .HasForeignKey("GameId");
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Buildings.Building", b =>
                 {
                     b.HasOne("UnderSea.DAL.Models.Buildings.BuildingGroup", null)
                         .WithMany("Buildings")
-                        .HasForeignKey("BuildingGroupId");
+                        .HasForeignKey("BuildingGroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("UnderSea.DAL.Models.Buildings.BuildingType", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UnderSea.DAL.Models.Buildings.BuildingGroup", b =>
+                {
+                    b.HasOne("UnderSea.DAL.Models.Country", null)
+                        .WithOne("BuildingGroup")
+                        .HasForeignKey("UnderSea.DAL.Models.Buildings.BuildingGroup", "CountryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Country", b =>
                 {
-                    b.HasOne("UnderSea.DAL.Models.Buildings.BuildingGroup", "BuildingGroup")
+                    b.HasOne("UnderSea.DAL.Models.Units.UnitGroup", "AttackingArmy")
                         .WithMany()
-                        .HasForeignKey("BuildingGroupId");
+                        .HasForeignKey("AttackingArmyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("UnderSea.DAL.Models.Units.UnitGroup", "DefendingArmy")
+                        .WithMany()
+                        .HasForeignKey("DefendingArmyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("UnderSea.DAL.Models.User", "User")
                         .WithOne("Country")
                         .HasForeignKey("UnderSea.DAL.Models.Country", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -722,30 +1231,35 @@ namespace UnderSea.DAL.Migrations
                 {
                     b.HasOne("UnderSea.DAL.Models.Attack", null)
                         .WithMany("UnitList")
-                        .HasForeignKey("AttackId");
-
-                    b.HasOne("UnderSea.DAL.Models.Country", null)
-                        .WithMany("AttackingArmy")
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("UnderSea.DAL.Models.Country", null)
-                        .WithMany("DefendingArmy")
-                        .HasForeignKey("CountryId1");
+                        .HasForeignKey("AttackId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("UnderSea.DAL.Models.Units.UnitType", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("UnderSea.DAL.Models.Units.UnitGroup", null)
+                        .WithMany("Units")
+                        .HasForeignKey("UnitGroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Upgrades.Upgrade", b =>
                 {
                     b.HasOne("UnderSea.DAL.Models.Country", null)
                         .WithMany("Upgrades")
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("UnderSea.DAL.Models.Upgrades.UpgradeType", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.User", b =>
@@ -753,7 +1267,7 @@ namespace UnderSea.DAL.Migrations
                     b.HasOne("UnderSea.DAL.Models.Game", null)
                         .WithMany("Users")
                         .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

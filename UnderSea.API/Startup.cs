@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using UnderSea.API.Controllers;
 using UnderSea.BLL.Services;
 using UnderSea.DAL;
 using UnderSea.DAL.Context;
@@ -42,6 +43,7 @@ namespace UnderSea.API
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
+
 
             services.AddSwaggerGen(c =>
             {
