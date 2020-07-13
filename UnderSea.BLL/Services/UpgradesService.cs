@@ -11,7 +11,7 @@ using UnderSea.DAL.Models.Upgrades;
 
 namespace UnderSea.BLL.Services
 {
-    class UpgradesService : IUpgradesService
+    public class UpgradesService : IUpgradesService
     {
         UnderSeaDbContext db;
         private readonly ILogger logger;

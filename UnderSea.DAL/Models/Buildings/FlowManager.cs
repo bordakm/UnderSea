@@ -8,7 +8,9 @@ namespace UnderSea.DAL.Models.Buildings
     {
         public FlowManager()
         {
-            Name = "folyamirányító";
+            Name = "Áramlásirányító";
+            Description = "200 egységnek nyújt szállást";
+            ImageUrl = "majd/lesz/kep.jpeg";
             Price = 1000;
             PopulationBonus = 50;
             CoralBonus = 200;

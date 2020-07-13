@@ -15,7 +15,7 @@ using UnderSea.DAL.Models.Units;
 
 namespace UnderSea.BLL.Services
 {
-    class ArmyService: IArmyService
+    public class ArmyService : IArmyService
     {
         private readonly UnderSeaDbContext db;
         private readonly ILogger logger;

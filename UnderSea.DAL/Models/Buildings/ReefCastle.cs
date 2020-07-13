@@ -8,7 +8,9 @@ namespace UnderSea.DAL.Models.Buildings
     {
         public ReefCastle()
         {
-            Name = "zátonyvár";
+            Name = "Zátonyvár";
+            Description = "50 ember-t ad a népességhez, 200 krumplit termel körönként";
+            ImageUrl = "majd/lesz/kep.jpeg";
             Price = 1000;
             PopulationBonus = 0;
             CoralBonus = 0;

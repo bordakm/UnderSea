@@ -377,7 +377,8 @@ namespace UnderSea.DAL.Context
             {
                 Id = 1,
                 AttackerUserId = 1,
-                DefenderUserId = 2
+                DefenderUserId = 2,
+                GameId = 1
             };
 
             modelBuilder.Entity<LaserShark>()
