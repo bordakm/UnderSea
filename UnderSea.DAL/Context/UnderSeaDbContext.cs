@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Units;
@@ -28,6 +30,25 @@ namespace UnderSea.DAL.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<FlowManager>();
+            modelBuilder.Entity<ReefCastle>();
+            modelBuilder.Entity<Alchemy>();
+            modelBuilder.Entity<StormSeal>();
+
+          /*  modelBuilder.Entity<Site>().HasOne(e => e.Person)
+                .WithMany(x => x.Sites).Metadata.DeleteBehavior = DeleteBehavior.Restrict;*/
+
+            
+           foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.NoAction;
+            }
+            
+
+            /* modelBuilder.Entity<UnitType>();
+             modelBuilder.Entity<LaserShark>();*/
+
             /*modelBuilder.Entity<FlowManager>();
             modelBuilder.Entity<ReefCastle>();
             
@@ -38,15 +59,15 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<SonarCannon>();
             modelBuilder.Entity<UnderwaterMartialArts>();*/
 
-            var laserShark = new LaserShark
+            LaserShark laserShark = new LaserShark
             {
                 Id = 1
             };
-            var stormSeal = new StormSeal
+            StormSeal stormSeal = new StormSeal
             {
                 Id = 2
             };
-            var combatSeaHorse = new CombatSeaHorse
+            CombatSeaHorse combatSeaHorse = new CombatSeaHorse
             {
                 Id = 3
             };
@@ -309,7 +330,8 @@ namespace UnderSea.DAL.Context
                 Name = "First Country",
                 Pearl = 0,
                 Score = 0,
-                UpgradeTimeLeft = 0
+                UpgradeTimeLeft = 0,
+                UserId = 1
             };
             var country2 = new Country
             {
@@ -318,10 +340,11 @@ namespace UnderSea.DAL.Context
                 DefendingArmyId = 4,
                 BuildingTimeLeft = 0,
                 Coral = 0,
-                Name = "First Country",
+                Name = "Another Country",
                 Pearl = 0,
                 Score = 0,
-                UpgradeTimeLeft = 0
+                UpgradeTimeLeft = 0,
+                UserId = 2
             };
 
             var game = new Game
@@ -358,29 +381,47 @@ namespace UnderSea.DAL.Context
             };
 
             modelBuilder.Entity<LaserShark>()
-                .HasData(laserShark/*new UnitType[]
-                {
-                    laserShark,
-                    stormSeal,
-                    combatSeaHorse
-                }*/);
-            modelBuilder.Entity<BuildingType>()
-                .HasData(new BuildingType[]
-                {
-                    reefCastle,
-                    flowManager
-                });
-            modelBuilder.Entity<UpgradeType>()
-                .HasData(new UpgradeType[]
-                {
-                    alchemy,
-                    mudTractor,
-                    mudHarvester,
-                    coralWall,
-                    sonarCannon,
-                    underwaterMartialArts
-                });
-            modelBuilder.Entity<UnitGroup>()
+                .HasData(laserShark);
+            modelBuilder.Entity<StormSeal>()
+                .HasData(stormSeal);
+            modelBuilder.Entity<CombatSeaHorse>()
+                .HasData(combatSeaHorse);
+
+
+            modelBuilder.Entity<ReefCastle>()
+                .HasData(reefCastle);
+            modelBuilder.Entity<FlowManager>()
+                .HasData(flowManager);
+
+
+            modelBuilder.Entity<Alchemy>()
+                .HasData(alchemy);
+            modelBuilder.Entity<MudTractor>()
+                .HasData(mudTractor);
+            modelBuilder.Entity<MudHarvester>()
+                .HasData(mudHarvester);
+            modelBuilder.Entity<CoralWall>()
+                .HasData(coralWall);
+            modelBuilder.Entity<SonarCannon>()
+                .HasData(sonarCannon);
+            modelBuilder.Entity<UnderwaterMartialArts>()
+                .HasData(underwaterMartialArts);
+
+
+            //modelBuilder.Entity<UpgradeType>()
+            //    .HasData(new UpgradeType[]
+            //    {
+            //        alchemy,
+            //        mudTractor,
+            //        mudHarvester,
+            //        coralWall,
+            //        sonarCannon,
+            //        underwaterMartialArts
+            //    });
+
+            
+           
+           modelBuilder.Entity<UnitGroup>()
                 .HasData(new UnitGroup[]
                 {
                     unitGroup1,
@@ -435,6 +476,8 @@ namespace UnderSea.DAL.Context
                     building3,
                     building4
                 });
+
+            
         }
 
         protected void SeedData(ModelBuilder builder)

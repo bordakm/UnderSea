@@ -59,12 +59,12 @@ namespace UnderSea.DAL.Models
 
         public int Score { get; set; }
 
-        public List<Upgrade> Upgrades { get; set; } = new List<Upgrade>() { new Upgrade() { Type=new Alchemy(),State = UpgradeState.Unresearched},
+        public List<Upgrade> Upgrades { get; set; }/* = new List<Upgrade>() { new Upgrade() { Type=new Alchemy(),State = UpgradeState.Unresearched},
                                                                             new Upgrade() { Type=new CoralWall(),State = UpgradeState.Unresearched},
                                                                             new Upgrade() { Type=new MudHarvester(),State = UpgradeState.Unresearched},
                                                                             new Upgrade() { Type=new SonarCannon(),State = UpgradeState.Unresearched},
                                                                             new Upgrade() { Type=new UnderwaterMartialArts(),State = UpgradeState.Unresearched},
-        };
+        };*/
 
         private readonly int taxRate = 25;
 
