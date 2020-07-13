@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UnderSea.DAL.Migrations
 {
-    public partial class init : Migration
+    public partial class asd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -465,8 +465,8 @@ namespace UnderSea.DAL.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "GameId", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Place", "Score", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "abf14cd5-4241-4550-97d5-3920dfc3c2c4", null, false, 1, false, null, null, null, null, null, false, 1, 100, null, false, "First User" },
-                    { 2, 0, "ffb2288c-eecb-42ac-838d-08d92fc34913", null, false, 1, false, null, null, null, null, null, false, 2, 50, null, false, "Second User" }
+                    { 1, 0, "797571f0-c01b-49d4-9c93-4f3bca5b2e36", null, false, 1, false, null, null, null, null, null, false, 1, 100, null, false, "First User" },
+                    { 2, 0, "44198220-1473-4451-a606-4f50d88e6c70", null, false, 1, false, null, null, null, null, null, false, 2, 50, null, false, "Second User" }
                 });
 
             migrationBuilder.InsertData(

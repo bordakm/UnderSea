@@ -10,8 +10,8 @@ using UnderSea.DAL.Context;
 namespace UnderSea.DAL.Migrations
 {
     [DbContext(typeof(UnderSeaDbContext))]
-    [Migration("20200713133402_init")]
-    partial class init
+    [Migration("20200713133905_asd")]
+    partial class asd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -811,7 +811,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "abf14cd5-4241-4550-97d5-3920dfc3c2c4",
+                            ConcurrencyStamp = "797571f0-c01b-49d4-9c93-4f3bca5b2e36",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
@@ -825,7 +825,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ffb2288c-eecb-42ac-838d-08d92fc34913",
+                            ConcurrencyStamp = "44198220-1473-4451-a606-4f50d88e6c70",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
