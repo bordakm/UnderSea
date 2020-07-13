@@ -37,6 +37,8 @@ namespace UnderSea.DAL.Models
         public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.Type.UnitStorage);
         
         public User User { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
         public int UpgradeTimeLeft { get; set; }
         public int BuildingTimeLeft { get; set; }
         public int Score { get; set; }

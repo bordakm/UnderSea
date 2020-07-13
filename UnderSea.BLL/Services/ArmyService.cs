@@ -86,20 +86,25 @@ namespace UnderSea.BLL.Services
 
             var units = user.Country.DefendingArmy.ToList();
 
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Unit, AvailableUnitViewModel>()
-                .ForMember(destination => destination,
-               opts => opts.MapFrom(
-                  source => new AvailableUnitViewModel
-                  {
-                      Name = source.Type.Name,
-                      ImageUrl = source.Type.ImageUrl,
-                      AvailableCount = source.Count,
-                      Id = source.Type.Id
-                  }));
-            });
 
-            IMapper iMapper = config.CreateMapper();
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Unit, AvailableUnitViewModel>()
+                    .ForMember(dest => dest.AvailableCount, opt => opt.MapFrom(src => src.Count))
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name));
+
+                //var config = new MapperConfiguration(cfg => {
+                //    cfg.CreateMap<Unit, AvailableUnitViewModel>()
+                //    .ForMember(destination => destination,
+                //   opts => opts.MapFrom(
+                //      source => new AvailableUnitViewModel
+                //      {
+                //          Name = source.Type.Name,
+                //          ImageUrl = source.Type.ImageUrl,
+                //          AvailableCount = source.Count,
+                //          Id = source.Type.Id
+                //      }));
+                //});
+
+                IMapper iMapper = config.CreateMapper();
 
             List<AvailableUnitViewModel> res = new List<AvailableUnitViewModel>();
 
