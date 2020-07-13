@@ -133,7 +133,7 @@ namespace UnderSea.DAL.Migrations
                     b.Property<int>("DefenderUserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GameId")
+                    b.Property<int>("GameId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -151,7 +151,8 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 1,
                             AttackerUserId = 1,
-                            DefenderUserId = 2
+                            DefenderUserId = 2,
+                            GameId = 1
                         });
                 });
 
@@ -627,7 +628,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 2,
                             CountryId = 1,
-                            State = 3,
+                            State = 1,
                             TypeId = 2
                         },
                         new
@@ -654,37 +655,51 @@ namespace UnderSea.DAL.Migrations
                         new
                         {
                             Id = 6,
-                            CountryId = 2,
+                            CountryId = 1,
                             State = 3,
-                            TypeId = 1
+                            TypeId = 6
                         },
                         new
                         {
                             Id = 7,
                             CountryId = 2,
-                            State = 3,
-                            TypeId = 2
+                            State = 1,
+                            TypeId = 1
                         },
                         new
                         {
                             Id = 8,
                             CountryId = 2,
                             State = 3,
-                            TypeId = 3
+                            TypeId = 2
                         },
                         new
                         {
                             Id = 9,
                             CountryId = 2,
                             State = 3,
-                            TypeId = 4
+                            TypeId = 3
                         },
                         new
                         {
                             Id = 10,
                             CountryId = 2,
+                            State = 1,
+                            TypeId = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CountryId = 2,
                             State = 3,
                             TypeId = 5
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CountryId = 2,
+                            State = 3,
+                            TypeId = 6
                         });
                 });
 
@@ -809,7 +824,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "797571f0-c01b-49d4-9c93-4f3bca5b2e36",
+                            ConcurrencyStamp = "c2291df9-42b7-4d62-beeb-cf157ad3c536",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
@@ -823,7 +838,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "44198220-1473-4451-a606-4f50d88e6c70",
+                            ConcurrencyStamp = "58b0c8ab-81ec-4c1b-9b64-68e8dbbeb2bc",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
@@ -875,7 +890,9 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 2,
                             CoralBonus = 200,
-                            Name = "folyamirányító",
+                            Description = "200 egységnek nyújt szállást",
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Áramlásirányító",
                             PopulationBonus = 50,
                             Price = 1000,
                             Score = 0,
@@ -894,7 +911,9 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 1,
                             CoralBonus = 0,
-                            Name = "zátonyvár",
+                            Description = "50 ember-t ad a népességhez, 200 krumplit termel körönként",
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Zátonyvár",
                             PopulationBonus = 0,
                             Price = 1000,
                             Score = 0,
@@ -917,6 +936,8 @@ namespace UnderSea.DAL.Migrations
                             AttackScore = 2.0,
                             CoralCostPerTurn = 1,
                             DefenseScore = 6.0,
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Csatacsikó",
                             PearlCostPerTurn = 1,
                             Price = 50,
                             Score = 0
@@ -938,6 +959,8 @@ namespace UnderSea.DAL.Migrations
                             AttackScore = 5.0,
                             CoralCostPerTurn = 2,
                             DefenseScore = 5.0,
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Lézercápa",
                             PearlCostPerTurn = 3,
                             Price = 100,
                             Score = 0
@@ -959,6 +982,8 @@ namespace UnderSea.DAL.Migrations
                             AttackScore = 6.0,
                             CoralCostPerTurn = 1,
                             DefenseScore = 2.0,
+                            ImageUrl = "majd/lesz/kep.jpeg",
+                            Name = "Rohamfóka",
                             PearlCostPerTurn = 1,
                             Price = 50,
                             Score = 0
@@ -1153,7 +1178,8 @@ namespace UnderSea.DAL.Migrations
                     b.HasOne("UnderSea.DAL.Models.Game", null)
                         .WithMany("Attacks")
                         .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Buildings.Building", b =>
