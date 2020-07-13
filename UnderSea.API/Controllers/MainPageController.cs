@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.ViewModels;
+using UnderSea.BLL.Services;
+using UnderSea.DAL.Models;
 
 namespace UnderSea.API.Controllers
 {
@@ -13,16 +15,24 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class MainPageController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<MainPageViewModel> Get()
+        private readonly IGameService gameService;
+
+        public MainPageController(IGameService gameService)
         {
-            return NotFound(new MainPageViewModel());
+            this.gameService = gameService;
+        }
+
+        [HttpGet]
+        public Task<MainPageViewModel> Get()
+        {
+            int userId = 0;
+            return gameService.GetMainPage(userId);
         }
 
         [HttpPost]
-        public ActionResult<string> NewRound([FromBody] int rounds)
+        public Task NewRound([FromBody] int rounds)
         {
-            return BadRequest("Not implemented");
+            return gameService.NewRound(rounds);
         }
     }
 }
