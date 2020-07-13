@@ -18,12 +18,10 @@ namespace UnderSea.BLL.Services
     class ArmyService: IArmyService
     {
         private readonly UnderSeaDbContext db;
-        private readonly IMapper mapper;
 
-        public ArmyService(UnderSeaDbContext db, IMapper mapper)
+        public ArmyService(UnderSeaDbContext db)
         {
             this.db = db;
-            this.mapper = mapper;
         }
 
         public async Task Attack(int attackeruserid, AttackDTO attack)
@@ -88,7 +86,30 @@ namespace UnderSea.BLL.Services
 
             var units = user.Country.DefendingArmy.ToList();
 
-            return mapper.Map<List<AvailableUnitViewModel>>(units);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Unit, AvailableUnitViewModel>()
+                .ForMember(destination => destination,
+               opts => opts.MapFrom(
+                  source => new AvailableUnitViewModel
+                  {
+                      Name = source.Type.Name,
+                      ImageUrl = source.Type.ImageUrl,
+                      AvailableCount = source.Count,
+                      Id = source.Type.Id
+                  }));
+            });
+
+            IMapper iMapper = config.CreateMapper();
+
+            List<AvailableUnitViewModel> res = new List<AvailableUnitViewModel>();
+
+            foreach (var unit in units)
+            {
+                var destination = iMapper.Map<Unit, AvailableUnitViewModel>(unit);
+                res.Add(destination);
+            }
+
+            return res;
         }
 
         public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks(int userId)
