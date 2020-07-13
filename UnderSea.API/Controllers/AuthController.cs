@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using UnderSea.BLL.DTO;
+using UnderSea.BLL.Services;
+using UnderSea.BLL.ViewModels;
+using UnderSea.DAL.Models;
 
 namespace UnderSea.API.Controllers
 {
@@ -13,29 +18,51 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly SignInManager<User> signInManager;
+        private readonly IGameService gameService;
         private readonly ILogger logger;
 
-        public AuthController(ILogger<AuthController> logger)
+        public AuthController(SignInManager<User> signInManager, IGameService gameService, ILogger<AuthController> logger)
         {
+            this.signInManager = signInManager;
+            this.gameService = gameService;
             this.logger = logger;
         }
 
-        [HttpPost("/register")]
-        public ActionResult<string> Register([FromBody] RegisterDTO registerData)
+        [HttpPost("api/[controller]/register")]
+        public Task Register([FromBody] RegisterDTO registerData)
         {
-            return NotFound("post error");
+            return null;
         }
 
-        [HttpPost("/login")]
-        public ActionResult<string> Login([FromBody] LoginDTO loginData)
+        [HttpPost("api/[controller]/login")]
+        public async Task<MainPageViewModel> Login([FromBody] LoginDTO loginData)
         {
-            return NotFound("post error");
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(loginData.UserName, loginData.Password, false, false);
+                if (result.Succeeded)
+                {
+                    // TODO tokenek
+                    var user = signInManager.UserManager.GetUserAsync(HttpContext.User);
+                    return await gameService.GetMainPage(user.Id);
+                }
+            }
+            throw new Exception("Login attempt failed");
         }
 
-        [HttpPost("/logout")]
-        public ActionResult Logout()
+        [HttpPost("api/[controller]/logout")]
+        [Authorize]
+        public async Task Logout()
         {
-            return BadRequest("Not implemented");
+            await signInManager.SignOutAsync();
+            // TODO tokenek
+        }
+
+        [HttpPost("api/[controller]/renew")]
+        public Task RenewToken()
+        {
+            return null;
         }
     }
 }

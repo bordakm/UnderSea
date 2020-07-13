@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Units;
@@ -173,6 +169,52 @@ namespace UnderSea.DAL.Context
                 State = UpgradeState.Researched,
                 Type = new UnderwaterMartialArts()
             };
+            var upgrade6 = new Upgrade
+            {
+                Id = 6,
+                CountryId = 2,
+                State = UpgradeState.Researched,
+                Type = new Alchemy()
+            };
+            var upgrade7 = new Upgrade
+            {
+                Id = 7,
+                CountryId = 2,
+                State = UpgradeState.Researched,
+                Type = new CoralWall()
+            };
+            var upgrade8 = new Upgrade
+            {
+                Id = 8,
+                CountryId = 2,
+                State = UpgradeState.Researched,
+                Type = new MudHarvester()
+            };
+            var upgrade9 = new Upgrade
+            {
+                Id = 9,
+                CountryId = 2,
+                State = UpgradeState.Researched,
+                Type = new SonarCannon()
+            };
+            var upgrade10 = new Upgrade
+            {
+                Id = 10,
+                CountryId = 2,
+                State = UpgradeState.Researched,
+                Type = new UnderwaterMartialArts()
+            };
+
+            var buildingGroup1 = new BuildingGroup
+            {
+                Id = 1,
+                CountryId = 1
+            };
+            var buildingGroup2 = new BuildingGroup
+            {
+                Id = 2,
+                CountryId = 2
+            };
 
             var building1 = new Building
             {
@@ -188,11 +230,20 @@ namespace UnderSea.DAL.Context
                 Count = 1,
                 Type = new ReefCastle()
             };
-            var buildingGroup1 = new BuildingGroup
+            var building3 = new Building
             {
-                Id = 1,
-                CountryId = 1
+                Id = 3,
+                BuildingGroupId = 2,
+                Count = 1,
+                Type = new FlowManager()
             };
+            var building4 = new Building
+            {
+                Id = 4,
+                BuildingGroupId = 2,
+                Count = 1,
+                Type = new ReefCastle()
+            };            
 
             var unitGroup1 = new UnitGroup
             {
@@ -269,6 +320,61 @@ namespace UnderSea.DAL.Context
                 DefenderUserId = 2
             };
 
+            modelBuilder.Entity<UnitGroup>()
+                .HasData(new UnitGroup[]
+                {
+                    unitGroup1,
+                    unitGroup2,
+                    unitGroup3,
+                    unitGroup4
+                });
+            modelBuilder.Entity<Game>().HasData(game);
+            modelBuilder.Entity<User>()
+               .HasData(new User[]
+               {
+                    user1,
+                    user2
+               });
+            modelBuilder.Entity<Attack>().HasData(attack1);
+            modelBuilder.Entity<Unit>()
+                .HasData(new Unit[]
+                {
+                    unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8, unit9, unit10, unit11, unit12
+                });
+            modelBuilder.Entity<Country>()
+                .HasData(new Country[]
+                { 
+                    country1,
+                    country2
+                });
+            modelBuilder.Entity<Upgrade>()
+                .HasData(new Upgrade[]
+                {
+                    upgrade1,
+                    upgrade2,
+                    upgrade3,
+                    upgrade4,
+                    upgrade5,
+                    upgrade6,
+                    upgrade7,
+                    upgrade8,
+                    upgrade9,
+                    upgrade10
+                });
+            modelBuilder.Entity<BuildingGroup>()
+                .HasData(new BuildingGroup[]
+                {
+                    buildingGroup1,
+                    buildingGroup2
+                });
+            modelBuilder.Entity<Building>()
+                .HasData(new Building[]
+                {
+                    building1,
+                    building2,
+                    building3,
+                    building4
+                });
         }
 
         protected void SeedData(ModelBuilder builder)
