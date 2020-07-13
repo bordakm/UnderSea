@@ -34,13 +34,18 @@ struct SizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
 
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
+        if nextValue() != .zero {
+            value = nextValue()
+        }
     }
+    
+    typealias Value = CGSize
 }
 
 struct SizeModifier: ViewModifier {
     private var sizeView: some View {
         GeometryReader { geometry in
+            //print(geometry.size)
             Color.clear.preference(key: SizePreferenceKey.self, value: geometry.size)
         }
     }
@@ -60,13 +65,15 @@ struct SlideInMenuView: View {
                             Stat(label: "1", image: "reefcastle"),
                             Stat(label: "0", image: "flowcontroller")]
     
+    let action: () -> Void
     
+    init(action: @escaping () -> Void) {
+        self.action = action
+    }
     
     var body: some View {
         VStack(spacing: 0) {
-            Button(action: {
-                
-                }) {
+            Button(action: action) {
                 ZStack {
                     Rectangle()
                         .fill(Color.white)
@@ -94,19 +101,16 @@ struct SlideInMenuView: View {
                     }
                 }
             }
-            .modifier(SizeModifier())
             .padding(20)
             .clipped()
-            .onPreferenceChange(SizePreferenceKey.self, perform: {_ in
-                
-            })
+            .modifier(SizeModifier())
         }
         .background(Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.5))
     }
 }
 
-struct SlideInMenuView_Previews: PreviewProvider {
+/*struct SlideInMenuView_Previews: PreviewProvider {
     static var previews: some View {
         SlideInMenuView()
     }
-}
+}*/

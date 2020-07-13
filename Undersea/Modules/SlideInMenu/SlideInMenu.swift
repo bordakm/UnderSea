@@ -11,8 +11,8 @@ import SwiftUI
 
 struct SlideInMenu {
     
-    static func setup() -> SlideInMenuView {
-        return SlideInMenuView()
+    static func setup(action: @escaping () -> Void) -> SlideInMenuView {
+        return SlideInMenuView(action: action)
     }
     
 }

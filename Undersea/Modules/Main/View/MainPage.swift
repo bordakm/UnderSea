@@ -9,6 +9,22 @@
 import SwiftUI
 
 struct MainPage: View {
+    
+    @State private var slideInSize: CGSize = .zero
+    @State private var slideInOffset: CGFloat = 0.0
+    
+    var slideInMenu: some View {
+        SlideInMenu.setup(action: {
+            withAnimation(.easeInOut) {
+                if self.slideInOffset == 0.0 {
+                    self.slideInOffset = self.slideInSize.height
+                } else {
+                    self.slideInOffset = 0.0
+                }
+            }
+        })
+    }
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
@@ -24,7 +40,14 @@ struct MainPage: View {
                         .frame(height: geometry.size.height)
                     }
                 }
-                SlideInMenuView()
+                
+                slideInMenu
+                    .onPreferenceChange(SizePreferenceKey.self, perform: {
+                        self.slideInSize = $0
+                        self.slideInOffset = $0.height
+                    })
+                    .offset(y: self.slideInOffset)
+                
             }
             .background(Image("mainBackground")
                 .resizable()
@@ -37,8 +60,8 @@ struct MainPage: View {
     }
 }
 
-struct MainPage_Previews: PreviewProvider {
+/*struct MainPage_Previews: PreviewProvider {
     static var previews: some View {
         MainPage()
     }
-}
+}*/
