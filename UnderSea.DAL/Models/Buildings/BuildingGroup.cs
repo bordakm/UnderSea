@@ -12,7 +12,6 @@ namespace UnderSea.DAL.Models.Buildings
         [ForeignKey("Country")]
         public int CountryId { get; set; }
 
-        public List<Building> Buildings { get; set; }/* = new List<Building> { new Building{ Type = new FlowManager()},
-                                                                             new Building{ Type = new ReefCastle()}}; TODO*/
+        public List<Building> Buildings { get; set; }
     }
 }

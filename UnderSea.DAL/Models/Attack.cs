@@ -19,5 +19,7 @@ namespace UnderSea.DAL.Models
         public User DefenderUser { get; set; }
 
         public List<Unit> UnitList { get; set; }
+        [ForeignKey("Game")]
+        public int GameId { get; set; }
     }
 }

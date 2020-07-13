@@ -13,7 +13,7 @@ using UnderSea.DAL.Models.Buildings;
 
 namespace UnderSea.BLL.Services
 {
-    class BuildingsService : IBuildingsService
+    public class BuildingsService : IBuildingsService
     {
         private readonly UnderSeaDbContext db;
         private readonly ILogger logger;

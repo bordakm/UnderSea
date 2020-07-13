@@ -35,6 +35,11 @@ namespace UnderSea.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<IArmyService, ArmyService>();
+            services.AddTransient<IBuildingsService, BuildingsService>();
+            services.AddTransient<IGameService, GameService>();
+            services.AddTransient<IUpgradesService, UpgradesService>();
+
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
