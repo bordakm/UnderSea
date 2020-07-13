@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,9 @@ using UnderSea.DAL.Models.Upgrades;
 
 namespace UnderSea.DAL.Context
 {
-    public class UnderSeaDbContext : DbContext
+    public class UnderSeaDbContext : IdentityDbContext<User, Role, int>
     {
         public DbSet<Game> Game { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<Country> Countries { get; set; }
@@ -257,9 +257,27 @@ namespace UnderSea.DAL.Context
             );
         }
 
-        protected void SeedData()
+        protected void SeedData(ModelBuilder builder)
         {
+            /*var country = new Country
+            {
+                Name = "Atlantisz",
+                BuildingGroup = ,
+                AttackingArmy = ,
+                DefendingArmy = ,
+                Coral = 500,
+                Pearl = 500,
+                Upgrades = ,
+            };
+            builder.Entity<User>()
+                .HasData(new User {
+                    Country = "Atlantisz",
 
+                });*/
+            builder.Entity<User>()
+                .HasData(new User { });
+            builder.Entity<User>()
+                .HasData(new User { });
         }
     }
 }
