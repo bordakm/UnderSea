@@ -24,16 +24,27 @@ namespace UnderSea.BLL.Services
             this.logger = logger;
         }
 
-        public async Task<List<BuildingInfoViewModel>> GetBuildingInfos()
+        public async Task<List<BuildingInfoViewModel>> GetBuildingInfos(int userId)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<Building, BuildingInfoViewModel>()
                                                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))
                                                         .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Type.Price))
+                                                        .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Type.Description))
                                                         .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))
                                                         );
             var mapper = new Mapper(config);
             var buildingInfos = new List<BuildingInfoViewModel>();
-            await db.Buildings.ForEachAsync(building => buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building)));
+            var userbuildings = await db.Users
+                .Include(u=>u.Country)
+                .ThenInclude(c=>c.BuildingGroup)
+                .ThenInclude(bg=>bg.Buildings)
+                .ThenInclude...
+                // TODO holnap befejezni
+                
+                .SingleAsync(u => u.Id == userId).Country.BuildingGroup.Buildings;
+            
+            //await db.Buildings.Include(b=>b.Type)
+            userbuildings.ForEach(building => buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building)));
             return buildingInfos;
         }
 

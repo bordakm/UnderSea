@@ -28,18 +28,6 @@ namespace UnderSea.BLL.Services
             this.logger = logger;
         }
 
-        public async Task<List<string>> AttackSearch (SearchDTO search)
-        {
-            var users = await db.Users
-                                .Where(users => users.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
-                                .Skip(search.ItemPerPage * (search.Page - 1))
-                                .Take(search.ItemPerPage)
-                                .Select(users => users.UserName)
-                                .ToListAsync();
-
-            return users;
-        }
-
         public async Task<MainPageViewModel> GetMainPage(int userId)
         {
             var game = await db.Game.SingleAsync();

@@ -131,6 +131,8 @@ namespace UnderSea.BLL.Services
             var user = await db.Users
                                .Include(user => user.Country)
                                .ThenInclude(country => country.DefendingArmy)
+                               .ThenInclude(def=>def.Units)
+                               .ThenInclude(unit => unit.Type)
                                .SingleAsync(user => user.Id == userId);
 
             var units = user.Country.DefendingArmy.Units;
