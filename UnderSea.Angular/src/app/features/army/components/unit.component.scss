@@ -1,0 +1,27 @@
+
+.flex-box{
+    height: fit-content;
+    flex-direction: column;
+}
+
+.unit-card{
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 16px;
+}
+
+.plus-minus{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.data-holder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 20vw;
+    margin-bottom: 5vh;
+}

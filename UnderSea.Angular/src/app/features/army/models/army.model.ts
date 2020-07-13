@@ -6,4 +6,5 @@ export interface IUnitViewModel {
     defenseScore: number;
     pearlCostPerTurn: number;
     coralCostPerTurn: number;
+    buyNumber?: number;
 }

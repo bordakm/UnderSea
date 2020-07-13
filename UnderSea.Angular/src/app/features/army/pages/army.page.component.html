@@ -5,93 +5,18 @@
             <h3>Kattints rá, amelyiket szeretnéd megvenni</h3>
 
             <div class="flex-box">
-                <mat-card class="flex-box unit-card">
-                    <div class="rectangle-big">
-                        <img src="../../../../../assets/images/007-shark.svg" alt="">
-                    </div>
-                    <h3 class="main-name">Lézercápa</h3>
-                    <div class="data-holder">
-                        <div class="data">
-                            Birtokodban: <br>
-                            Támadás/Védekezés <br>
-                            Zsold ( /kör/példány) <br>
-                            Ellátmány ( /kör/példány) <br>
-                            Ár
-                        </div>
-                        <div class="numbers">
-                            db <br>
-                            / <br>
-                            Gyöngy <br>
-                            Korall <br>
-                            Gyöngy
-                        </div>
-                    </div>
-                    <div class="plus-minus">
-                        <button class="color-button-small">-</button>
-                        <h3 class="main-name">3</h3>
-                        <button class="color-button-small">+</button>
-                    </div>
-                </mat-card>
-                <mat-card class="flex-box unit-card">
-                    <div class="rectangle-big">
-                        <img src="../../../../../assets/images/025-seal.svg" alt="">
-                    </div>
-                    <h3 class="main-name">Rohamfóka</h3>
-                    <div class="data-holder">
-                        <div class="data">
-                            Birtokodban: <br>
-                            Támadás/Védekezés <br>
-                            Zsold ( /kör/példány) <br>
-                            Ellátmány ( /kör/példány) <br>
-                            Ár
-                        </div>
-                        <div class="numbers">
-                            db <br>
-                            / <br>
-                            Gyöngy <br>
-                            Korall <br>
-                            Gyöngy
-                        </div>
-                    </div>
-                    
-                    <div class="plus-minus">
-                        <button class="color-button-small">-</button>
-                        <h3 class="main-name">3</h3>
-                        <button class="color-button-small">+</button>
-                    </div>
-                </mat-card>
-                <mat-card class="flex-box unit-card">
-                    <div class="rectangle-big">
-                        <img src="../../../../../assets/images/013-seahorse.svg" alt="">
-                    </div>
-                    <h3 class="main-name">Csatacsikó</h3>
-                    <div class="data-holder">
-                        <div class="data">
-                            Birtokodban: <br>
-                            Támadás/Védekezés <br>
-                            Zsold ( /kör/példány) <br>
-                            Ellátmány ( /kör/példány) <br>
-                            Ár
-                        </div>
-                        <div class="numbers">
-                            db <br>
-                            / <br>
-                            Gyöngy <br>
-                            Korall <br>
-                            Gyöngy
-                        </div>
-                    </div>
-                    
-                    <div class="plus-minus">
-                        <button class="color-button-small">-</button>
-                        <h3 class="main-name">3</h3>
-                        <button class="color-button-small">+</button>
-                    </div>
-                </mat-card>
+                <app-unit [unit]="laserSharkModel" (clickDecrease)="deleteOneLasersharkFromCart()" (clickAdd)="addOneLasersharkToCart()"></app-unit>
+                <app-unit [unit]="stormSealModel" (clickDecrease)="deleteOneStormsealFromCart()" (clickAdd)="addOneStormsealToCart()"></app-unit>
+                <app-unit [unit]="combatSeaHorseModel" (clickDecrease)="deleteOneCombatSeahorseFromCart()" (clickAdd)="addOneCombatSeahorseToCart()"></app-unit>
+                
+                   
             </div>
-            <mat-divider class="my-divider"></mat-divider>
+            <div class="divider">
+                <mat-divider class="my-divider"></mat-divider>
+            </div>
+            
             <div class="button">
-                <button class="color-button">Megveszem</button>
+                <button mat-flat-button class="color-button">Megveszem</button>
             </div>
         </mat-card-content>
     </mat-card>

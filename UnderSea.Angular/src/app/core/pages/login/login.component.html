@@ -31,10 +31,10 @@
             </form>
         </mat-card-content>
         <mat-card-actions>
-            <button type="submit" class="color-button" (click)="login()" mat-raised-button>Belépés</button>
+            <button mat-flat-button type="submit" class="color-button" (click)="login()" >Belépés</button>
         </mat-card-actions>
         <mat-card-actions>
-            <button class="transp-button" (click)="_true()" mat-raised-button>Regisztráció</button>
+            <button mat-flat-button class="transp-button" (click)="_true()" >Regisztráció</button>
         </mat-card-actions>
     </mat-card>
 
@@ -86,10 +86,10 @@
 
         
         <mat-card-actions class="input-line">
-            <button class="color-button" (click)="signup()" mat-raised-button>Regisztráció</button>
+            <button class="color-button" (click)="signup()" mat-flat-button>Regisztráció</button>
         </mat-card-actions>
         <mat-card-actions>
-            <button class="transp-button" (click)="_false()" mat-raised-button >Bejelentkezés</button>
+            <button class="transp-button" (click)="_false()" mat-flat-button >Bejelentkezés</button>
         </mat-card-actions>
     </mat-card>
 </div>

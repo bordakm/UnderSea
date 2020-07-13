@@ -23,13 +23,6 @@
     justify-content: space-evenly;
 }
 
-div.button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 8vh;
-}
-
 .data-holder{
     display: flex;
     flex-direction: row;
@@ -38,3 +31,21 @@ div.button{
     min-width: 20vw;
     margin-bottom: 5vh;
 }
+
+div.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8vh;
+}
+
+.divider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-divider.my-divider{
+    width: 65vw;
+}
+

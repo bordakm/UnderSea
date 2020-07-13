@@ -5,6 +5,11 @@ $dark-blue: #1C3E76;
 $dark-dark-blue: #001234;
 $baloo-font: 'baloo', regular;
 
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button{
+    border-radius: 90px !important;
+}
+
+
 .color-button{
     border: none;
     border-radius: 90px;

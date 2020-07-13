@@ -41,11 +41,12 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     // todo the username and password validation and stuff
-    if (this.reg === false) {
+    /* if (this.reg === false) {
         this.router.navigate(['main']);
     } else {
       alert('Invalid credentials');
-    }
+    } */
+    this.router.navigate(['main']);
   }
 
   signup(): void {

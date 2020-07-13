@@ -12,9 +12,10 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -38,6 +39,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatDialogModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatButtonModule,
   ],
   exports: [
     SharedModule

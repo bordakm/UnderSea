@@ -2,12 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { ArmyComponent } from 'src/app/features/army/components/army.component';
-import { AttackComponent } from 'src/app/features/attack/components/attack.component';
-import { BuildingsComponent } from 'src/app/features/buildings/components/buildings.component';
-import { FightComponent } from 'src/app/features/fight/components/fight.component';
-import { ScoreboardComponent } from 'src/app/features/scoreboard/components/scoreboard.component';
-import { UpgradesComponent } from 'src/app/features/upgrades/components/upgrades.component';
 
 @Component({
   selector: 'app-menu',

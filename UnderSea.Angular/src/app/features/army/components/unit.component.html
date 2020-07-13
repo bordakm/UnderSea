@@ -1,0 +1,27 @@
+<mat-card class="flex-box unit-card">
+    <div class="rectangle-big">
+        <img src="../../../../../assets/images/007-shark.svg" alt="">
+    </div>
+    <h3 class="main-name">{{ unit.name }}</h3>
+    <div class="data-holder">
+        <div class="data">
+            Birtokodban: <br>
+            Támadás/Védekezés <br>
+            Zsold ( /kör/példány) <br>
+            Ellátmány ( /kör/példány) <br>
+            Ár
+        </div>
+        <div class="numbers">
+            {{ unit.count }} db <br>
+            {{ unit.attackScore }} / {{ unit.defenseScore }}<br>
+            {{ unit.pearlCostPerTurn }} Gyöngy <br>
+            {{ unit.coralCostPerTurn }} Korall <br>
+            {{ unit.price }} Gyöngy
+        </div>
+    </div>
+    <div class="plus-minus">
+        <button mat-flat-button class="color-button-small" (click)="clickDecrease.emit()">-</button>
+        <h3 class="main-name">{{ unit.buyNumber }}</h3>
+        <button mat-flat-button class="color-button-small" (click)="clickAdd.emit()">+</button>
+    </div>
+</mat-card>
