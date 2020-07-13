@@ -27,23 +27,23 @@ export class MenuComponent implements OnInit {
   }
 
   openAttack(): void{
-    this.router.navigate(['army']);
+    this.router.navigate(['attack']);
   }
 
   openBuildings(): void{
-    this.router.navigate(['army']);
+    this.router.navigate(['buildings']);
   }
 
   openFight(): void{
-    this.router.navigate(['army']);
+    this.router.navigate(['fight']);
   }
 
   openScoreBoard(): void{
-    this.router.navigate(['army']);
+    this.router.navigate(['scoreboard']);
   }
 
   openUpgrades(): void{
-    this.router.navigate(['army']);
+    this.router.navigate(['upgrades']);
   }
 }
 

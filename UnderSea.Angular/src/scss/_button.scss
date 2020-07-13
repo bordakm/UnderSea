@@ -12,19 +12,21 @@ $baloo-font: 'baloo', regular;
     background-image: linear-gradient(258deg, $light-blue 0%, $second-blue 36%, $third-blue 100%);
     font-family: $baloo-font;
     color: $dark-dark-blue;
-    font-size: 18px;
+    font-size: 2.5vh;
     
 }
 
-.color-button{
-    
+.color-button-small{
     border: none;
-    border-radius: 90px;
-    background: transparent;
-    background-image: linear-gradient(258deg, $light-blue 0%, $second-blue 36%, $third-blue 100%);
-    font-family: $baloo-font;
+    border-radius: 50%;
+    background-color: $light-blue;
+    font-family: 'open-sans', sans-serif;
     color: $dark-dark-blue;
-    font-size: 18px;
+    font-size: 3vh;
+    height: 25px;
+    width: 25px;
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 .transp-button{

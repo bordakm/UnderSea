@@ -1,0 +1,32 @@
+
+.flex-box{
+    height: 80vh;
+    flex-direction: row;
+    .flex-box{
+        height: fit-content;
+        flex-direction: row;
+        
+    }
+}
+
+.flex-box .unit-card{
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.plus-minus{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.animal{
+    display: flex;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    align-items: center;
+    justify-content: space-between;
+}

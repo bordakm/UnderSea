@@ -13,6 +13,31 @@ const routes: Routes = [
     component: LayoutComponent,
     loadChildren: () => import('./features/army/army.module').then(m => m.ArmyModule)
   },
+  {
+    path: 'attack',
+    component: LayoutComponent,
+    loadChildren: () => import('./features/attack/attack.module').then(m => m.AttackModule)
+  },
+  {
+    path: 'buildings',
+    component: LayoutComponent,
+    loadChildren: () => import('./features/buildings/buildings.module').then(m => m.BuildingsModule)
+  },
+  {
+    path: 'fight',
+    component: LayoutComponent,
+    loadChildren: () => import('./features/fight/fight.module').then(m => m.FightModule)
+  },
+  {
+    path: 'scoreboard',
+    component: LayoutComponent,
+    loadChildren: () => import('./features/scoreboard/scoreboard.module').then(m => m.ScoreboardModule)
+  },
+  {
+    path: 'upgrades',
+    component: LayoutComponent,
+    loadChildren: () => import('./features/upgrades/upgrades.module').then(m => m.UpgradesModule)
+  },
 ];
 
 @NgModule({

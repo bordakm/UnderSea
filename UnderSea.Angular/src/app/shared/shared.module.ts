@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -13,7 +14,8 @@ import {MatInputModule} from '@angular/material/input';
   ],
   exports: [
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    MatDividerModule,
   ]
 })
 export class SharedModule { }

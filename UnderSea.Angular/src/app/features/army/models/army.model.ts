@@ -1,4 +1,9 @@
 export interface IUnitViewModel {
     name: string;
-    number: number;
+    count: number;
+    price: number;
+    attackScore: number;
+    defenseScore: number;
+    pearlCostPerTurn: number;
+    coralCostPerTurn: number;
 }

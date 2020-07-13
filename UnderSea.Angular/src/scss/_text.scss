@@ -3,6 +3,31 @@ $light-blue: #9FFFF0;
 
 h1{
     color: $light-blue;
-    font-family: $baloo-font;
+    font-family: $baloo-font !important;
     text-align: center;
+}
+
+.main-card-title{
+    color: white;
+    font-family: $baloo-font;
+    text-align: left;
+    font-size: 32px;
+}
+
+.main-name{
+    font-family: 'open-sans', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0px !important;
+}
+
+.main-text{
+    font-family: 'open-sans', sans-serif;
+    font-weight: regular;
+    margin-bottom: 0px;
+}
+
+.my-divider{
+    margin: 1vw !important;
+    width: 60%;
 }

@@ -18,20 +18,13 @@ h1{
     padding-top: 20px;
 }
 
-.navigation {
-      min-width: 15vw;
-      border-width: 0px;
-      background-color: transparent;
-      border: none;
-      color: white;   
-      overflow: hidden; 
-}
+
 
 .layout-container{
     display: flex;
     height: 80vh;
     .sidebar{
-        width: 15vw;
+        width: fit-content;
 
     }
     .main-content{

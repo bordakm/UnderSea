@@ -1,28 +1,13 @@
-$light-blue: #9FFFF0;
-$second-blue: #6BEEE9;
-$third-blue: #0FCFDE;
-$dark-blue: #1C3E76;
-$dark-dark-blue: #001234;
-$baloo-font: 'baloo', regular;
-
-h1{
-    color: $light-blue;
-    font-family: $baloo-font;
-    font-size: 33px;
-    text-align: center;
-    height: 5vw;
-
-}
-
 .flex-box {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 70vh;
+    height: 80vh;
+    padding: 0px;
 }
 
-.flex-card{
-    background-color: #03255F;
-    border-radius: 16px;
-    width: 40vw;
+img{
+    height: 45vh;
+    width: auto;
+    padding-right: 10vw;
 }

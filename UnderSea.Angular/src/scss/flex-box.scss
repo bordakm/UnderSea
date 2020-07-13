@@ -1,4 +1,4 @@
-.flex-box {
+.flex-box, .unit-card, .plus-minus{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -21,7 +21,18 @@
 .mat-card{
     border-radius: 16px;
     background-color: rgba(white, 0.3);
-    
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: rgba(#03255F, 34) ;
+    padding: 10px;
+}
+
+.mat-card-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    background-color: #03255F;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     box-shadow: none;
@@ -37,3 +48,4 @@
 ::ng-deep .mat-card-content{
     margin-bottom: 0px !important;
 }
+
