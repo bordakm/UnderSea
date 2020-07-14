@@ -33,9 +33,12 @@ namespace UnderSea.BLL.Services
             var game = await db.Game.SingleAsync();
             var user = await db.Users
                                 .Include(users => users.Country)
-                                .Include(users => users.Country.DefendingArmy)
+                                .ThenInclude(country => country.DefendingArmy)
+                                .ThenInclude(da => da.Units)
+                                .ThenInclude(units => units.Type)
                                 .Include(users => users.Country.BuildingGroup)
-                                .Include(users => users.Country.BuildingGroup.Buildings)
+                                .ThenInclude(bGroup => bGroup.Buildings)
+                                .ThenInclude(buildings => buildings.Type)
                                 .Include(users => users.Country.Upgrades)
                                 .ThenInclude(u=>u.Type)
                                 .SingleAsync(user => user.Id == userId);

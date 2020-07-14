@@ -60,21 +60,39 @@ namespace UnderSea.BLL.Services
 
         public async Task BuyUnits(int userId, List<UnitPurchaseDTO> purchases)
         {
+            //TODO optimalizálás
             var user = await db.Users.Include(user => user.Country)
-                .FirstAsync(user => user.Id == userId);
-            var units = await db.Units.Include(u=>u.Type).ToListAsync();
-            int currentSupplyDemand = units.Sum(unit => unit.Count);
-            int newSupplyDemand = purchases.Sum(purchase => purchase.Count);
-            if (user.Country.Population < currentSupplyDemand + newSupplyDemand)
+                                    .ThenInclude(country => country.BuildingGroup)
+                                    .ThenInclude(bg => bg.Buildings)
+                                    .ThenInclude(buildings => buildings.Type)
+                                    .Include(user => user.Country)
+                                    .ThenInclude(country => country.AttackingArmy)
+                                    .ThenInclude(aa => aa.Units)
+                                    .ThenInclude(units => units.Type)
+                                    .Include(user => user.Country)
+                                    .ThenInclude(country => country.DefendingArmy)
+                                    .ThenInclude(da => da.Units)
+                                    .ThenInclude(units => units.Type)
+                                    .Include(user => user.Country)
+                                    .ThenInclude(country => country.Upgrades)
+                                    .ThenInclude(upgrades => upgrades.Type)
+                                    .FirstAsync(user => user.Id == userId);
+
+            var attackingUnits = user.Country.AttackingArmy.Units;
+            var defendingUnits = user.Country.DefendingArmy.Units;
+            int currentUnitCount = attackingUnits.Sum(unit => unit.Count) + defendingUnits.Sum(unit => unit.Count);
+            int plusUnitCount = purchases.Sum(purchase => purchase.Count);
+            if (user.Country.UnitStorage < currentUnitCount + plusUnitCount)
             {
                 throw new Exception("More barracks are needed.");
             }
-            int priceTotal = purchases.Sum(purchase => purchase.Count * units.Single(unit => unit.Id == purchase.Id).Type.Price);
+            int priceTotal = purchases.Sum(purchase => purchase.Count * defendingUnits.Single(unit => unit.Type.Id  == purchase.TypeId).Type.Price);
             if (priceTotal > user.Country.Pearl)
             {
                 throw new Exception("Not enough pearls.");
             }
-            units.ForEach(unit => unit.Count += purchases.Single(purchase => purchase.Id == unit.Id).Count);
+            user.Country.Pearl -= priceTotal;
+            purchases.ForEach(pur => defendingUnits.Single(units => units.Type.Id == pur.TypeId).Count += pur.Count);
             await db.SaveChangesAsync();
         }
 

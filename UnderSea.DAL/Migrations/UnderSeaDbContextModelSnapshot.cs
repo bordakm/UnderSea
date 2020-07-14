@@ -192,7 +192,7 @@ namespace UnderSea.DAL.Migrations
                             Id = 1,
                             BuildingGroupId = 1,
                             ConstructionTimeLeft = 0,
-                            Count = 1,
+                            Count = 4,
                             TypeId = 1,
                             UnderConstructionCount = 0
                         },
@@ -210,7 +210,7 @@ namespace UnderSea.DAL.Migrations
                             Id = 3,
                             BuildingGroupId = 2,
                             ConstructionTimeLeft = 0,
-                            Count = 1,
+                            Count = 4,
                             TypeId = 1,
                             UnderConstructionCount = 0
                         },
@@ -346,10 +346,10 @@ namespace UnderSea.DAL.Migrations
                             AttackingArmyId = 1,
                             BuildingGroupId = 1,
                             BuildingTimeLeft = 0,
-                            Coral = 0,
+                            Coral = 100000,
                             DefendingArmyId = 2,
                             Name = "First Country",
-                            Pearl = 0,
+                            Pearl = 100000,
                             Score = 0,
                             UpgradeTimeLeft = 0,
                             UserId = 1
@@ -360,10 +360,10 @@ namespace UnderSea.DAL.Migrations
                             AttackingArmyId = 3,
                             BuildingGroupId = 2,
                             BuildingTimeLeft = 0,
-                            Coral = 0,
+                            Coral = 100000,
                             DefendingArmyId = 4,
                             Name = "Another Country",
-                            Pearl = 0,
+                            Pearl = 100000,
                             Score = 0,
                             UpgradeTimeLeft = 0,
                             UserId = 2
@@ -823,7 +823,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a246080b-e1f6-4a40-b37f-6ea5bda56239",
+                            ConcurrencyStamp = "31ff7eae-6b19-448a-a8fa-939b129ae35a",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
@@ -837,7 +837,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5c2c453b-053e-400d-b243-b7bea4ec72ab",
+                            ConcurrencyStamp = "2649e0b6-56dc-4df6-ad97-41c6491e58f0",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,

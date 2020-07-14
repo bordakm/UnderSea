@@ -272,7 +272,7 @@ namespace UnderSea.DAL.Context
             {
                 Id = 1,
                 BuildingGroupId = 1,
-                Count = 1,
+                Count = 4,
                 TypeId = 1
             };
             var building2 = new Building
@@ -286,7 +286,7 @@ namespace UnderSea.DAL.Context
             {
                 Id = 3,
                 BuildingGroupId = 2,
-                Count = 1,
+                Count = 4,
                 TypeId = 1
             };
             var building4 = new Building
@@ -320,9 +320,9 @@ namespace UnderSea.DAL.Context
                 AttackingArmyId = 1,
                 DefendingArmyId = 2,
                 BuildingTimeLeft = 0,
-                Coral = 0,
+                Coral = 100000,
                 Name = "First Country",
-                Pearl = 0,
+                Pearl = 100000,
                 Score = 0,
                 UpgradeTimeLeft = 0,
                 UserId = 1,
@@ -335,9 +335,9 @@ namespace UnderSea.DAL.Context
                 AttackingArmyId = 3,
                 DefendingArmyId = 4,
                 BuildingTimeLeft = 0,
-                Coral = 0,
+                Coral = 100000,
                 Name = "Another Country",
-                Pearl = 0,
+                Pearl = 100000,
                 Score = 0,
                 UpgradeTimeLeft = 0,
                 UserId = 2,
@@ -360,6 +360,7 @@ namespace UnderSea.DAL.Context
                 Place = 1,
                 Score = 100,
                 UserName = "First User"
+
             };
 
             var user2 = new User
