@@ -8,7 +8,7 @@ namespace UnderSea.DAL.Models
     public class Game
     {
         public int Id { get; set; }
-        public List<User> Users { get; set; }
+        public IEnumerable<User> Users { get; set; }
         public List<Attack> Attacks { get; set; }
         public int Round { get; set; }
         public string CoralPictureUrl { get; set; }

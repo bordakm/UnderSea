@@ -9,6 +9,6 @@ namespace UnderSea.BLL.ViewModels
     public class OutgoingAttackViewModel
     {
         public string CountryName { get; set; }
-        public List<SimpleUnitViewModel> Units { get; set; }
+        public IEnumerable<SimpleUnitViewModel> Units { get; set; }
     }
 }

@@ -83,7 +83,6 @@ namespace UnderSea.DAL.Models
 
         public Dictionary<int, int> FeedUnits()
         {
-
             Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
             int costTotal = AttackingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
             costTotal += DefendingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
@@ -96,7 +95,6 @@ namespace UnderSea.DAL.Models
             }
             Coral -= costTotal;
             return unitsToRemove;
-
         }
 
         public Dictionary<int, int> PayUnits()

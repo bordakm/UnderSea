@@ -38,10 +38,13 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(bg => bg.Buildings)
                 .ThenInclude(b => b.Type)
                 .SingleAsync(u => u.Id == userId);
-            var userbuildings = user.Country.BuildingGroup.Buildings;
+            var userBuildings = user.Country.BuildingGroup.Buildings;
 
             var buildingInfos = new List<BuildingInfoViewModel>();
-            userbuildings.ForEach(building => buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building)));
+            foreach (var building in userBuildings)
+            {
+                buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building));
+            }
             return buildingInfos;
         }
 
@@ -69,7 +72,8 @@ namespace UnderSea.BLL.Services
 
             user.Country.Pearl -= building.Type.Price;
             await db.SaveChangesAsync();
-            return GetBuildingInfosAsync(userId).Result.Single(x => x.Id == buildingId);
+            var buildingInfos = await GetBuildingInfosAsync(userId);
+            return buildingInfos.Single(bi => bi.Id == buildingId);
         }
     }
 }
