@@ -34,11 +34,10 @@ namespace UnderSea.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public Task<string> Buy([FromBody]List<UnitPurchaseDTO> purchases)
+        public Task Buy([FromBody]List<UnitPurchaseDTO> purchases)
         {
             int userId = 1;
-            armyService.BuyUnits(userId, purchases);
-            return Task.Run(() => { return "TODO"; }); // TODO
+            return armyService.BuyUnits(userId, purchases);
         }
     }
 }
