@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -35,7 +36,7 @@ namespace UnderSea.API.Controllers
         {
             int userId = 1;
             armyService.Attack(userId, attack);
-            return "TODO"; // TODO ??
+            return Task.Run(()=> { return "todo"; }); // TODO ??
         }
 
         [HttpGet("searchtargets")]
