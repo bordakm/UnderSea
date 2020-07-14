@@ -109,13 +109,17 @@ namespace UnderSea.BLL.Services
             purchases.ForEach(pur => defendingUnits.Single(units => units.Type.Id == pur.TypeId).Count += pur.Count);
             await db.SaveChangesAsync();
 
-            List<SimpleUntiViewModel> list = new List<SimpleUnitViewModel>();
-            foreach (var item in purchases)
+            List<SimpleUnitViewModel> resultList = new List<SimpleUnitViewModel>();
+            foreach (var unit in purchases)
             {
-               
+                resultList.Add(new SimpleUnitViewModel()
+                {
+                    Count = unit.Count,
+                    TypeId = unit.TypeId
+                });
             }
 
-            return purchases;
+            return resultList;
         }
 
         public async Task<List<AvailableUnitViewModel>> GetAvailableUnits(int userId)
