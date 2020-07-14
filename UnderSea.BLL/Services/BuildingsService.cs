@@ -45,7 +45,7 @@ namespace UnderSea.BLL.Services
             return buildingInfos;
         }
 
-        public async Task<List<BuildingInfoViewModel>> PurchaseBuildingById(int userId, int buildingId)
+        public async Task<BuildingInfoViewModel> PurchaseBuildingById(int userId, int buildingId)
         {
             // TODO authentication
             var user = await db.Users.Include(ent => ent.Country)
@@ -69,7 +69,7 @@ namespace UnderSea.BLL.Services
 
             user.Country.Pearl -= building.Type.Price;
             await db.SaveChangesAsync();
-            return await GetBuildingInfos(userId);
+            return GetBuildingInfos(userId).Result.Single(x => x.Id == buildingId);
         }
     }
 }

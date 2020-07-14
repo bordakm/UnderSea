@@ -32,7 +32,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("purchase")]
-        public Task<List<BuildingInfoViewModel>> PurchaseBuilding([FromBody] int buildingId)
+        public Task<BuildingInfoViewModel> PurchaseBuilding([FromBody] int buildingId)
         {
             int userId = 1; // TODO
             return buildingsService.PurchaseBuildingById(userId, buildingId);
