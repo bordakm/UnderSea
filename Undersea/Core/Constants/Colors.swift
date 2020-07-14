@@ -23,5 +23,6 @@ struct Colors {
     static let textFieldColor = Color(hex: "#1C3E76")
     static let tabTintColor = Color(hex: "#001234")
     static let navBarTintColor = UIColor(hex: "#1C3E76")
+    static let backgroundColor = Color(hex: "#03255F")
     
 }

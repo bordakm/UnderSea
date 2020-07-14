@@ -36,6 +36,7 @@ extension Main {
                 .sink(receiveCompletion: { (result) in
                     switch result {
                     case .failure(_):
+                        self.sendTestData()
                         self.dataSubject.send(completion: result)
                     default:
                         print("-- Interactor: load data finished")
@@ -44,6 +45,20 @@ extension Main {
                 }, receiveValue: { data in
                     self.dataSubject.send(data)
                 })
+            
+        }
+        
+        private func sendTestData() {
+            
+            let resources = MainPageDTO.StatusBarDTO.ResourcesDTO(pearlCount: 230, pearlProductionCount: 3886, coralCount: 230, coralProductionCount: 12)
+            
+            let structures = MainPageDTO.StructuresDTO(flowManager: true, reefCastle: true, mudTractor: false, mudHarvester: false, coralWall: false, sonarCannon: false, underwaterMartialArts: false, alchemy: false)
+            
+            let statusBar = MainPageDTO.StatusBarDTO(combatSeaHorseCount: 5, laserSharkCount: 0, stromSealCount: 5, flowManagerCount: 0, reefCastleCount: 1, roundCount: 4, scoreboardPosition: 23, resources: resources)
+            
+            let testData: DataModelType = MainPageDTO(statusBar: statusBar, countryName: "Teszt varos", structures: structures)
+            
+            dataSubject.send(testData)
             
         }
         

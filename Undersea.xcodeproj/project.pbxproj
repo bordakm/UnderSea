@@ -53,7 +53,6 @@
 		79820C5B24B716C1006D7258 /* attack.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5724B716C1006D7258 /* attack.svg */; };
 		79820C6C24B716E5006D7258 /* userImage.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6A24B716E5006D7258 /* userImage.svg */; };
 		79820C6D24B716E5006D7258 /* underseaLogo.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C6B24B716E5006D7258 /* underseaLogo.svg */; };
-		79820C7124B71D08006D7258 /* TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C7024B71D08006D7258 /* TabController.swift */; };
 		79820C7B24B71E01006D7258 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C7A24B71E01006D7258 /* Main.swift */; };
 		79820C7D24B71E0C006D7258 /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C7C24B71E0C006D7258 /* MainPage.swift */; };
 		79820C7F24B71E20006D7258 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C7E24B71E20006D7258 /* City.swift */; };
@@ -71,8 +70,8 @@
 		799C0DCD24B8B3BC00CEBD2E /* pearl.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC724B8B3BC00CEBD2E /* pearl.svg */; };
 		799C0DCE24B8B3BC00CEBD2E /* coral.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC824B8B3BC00CEBD2E /* coral.svg */; };
 		799C0DCF24B8B3BC00CEBD2E /* flowRegulator.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC924B8B3BC00CEBD2E /* flowRegulator.svg */; };
-		79C39EEB24B8B11400803C00 /* SlideInMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEA24B8B11400803C00 /* SlideInMenu.swift */; };
 		79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */; };
+		79E4868024BDB38C00A0EB3B /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4867F24BDB38C00A0EB3B /* Fonts.swift */; };
 		9716A4D8D401F86C5396A3DE /* Pods_Undersea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A22C343B8C5C4E5D915B7CB6 /* Pods_Undersea.framework */; };
 /* End PBXBuildFile section */
 
@@ -126,7 +125,6 @@
 		79820C5724B716C1006D7258 /* attack.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = attack.svg; sourceTree = "<group>"; };
 		79820C6A24B716E5006D7258 /* userImage.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = userImage.svg; sourceTree = "<group>"; };
 		79820C6B24B716E5006D7258 /* underseaLogo.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = underseaLogo.svg; sourceTree = "<group>"; };
-		79820C7024B71D08006D7258 /* TabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabController.swift; sourceTree = "<group>"; };
 		79820C7A24B71E01006D7258 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		79820C7C24B71E0C006D7258 /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
 		79820C7E24B71E20006D7258 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
@@ -144,8 +142,8 @@
 		799C0DC724B8B3BC00CEBD2E /* pearl.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pearl.svg; sourceTree = "<group>"; };
 		799C0DC824B8B3BC00CEBD2E /* coral.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coral.svg; sourceTree = "<group>"; };
 		799C0DC924B8B3BC00CEBD2E /* flowRegulator.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flowRegulator.svg; sourceTree = "<group>"; };
-		79C39EEA24B8B11400803C00 /* SlideInMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenu.swift; sourceTree = "<group>"; };
 		79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenuView.swift; sourceTree = "<group>"; };
+		79E4867F24BDB38C00A0EB3B /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		7B2A8D040160C9A807195C73 /* Pods-Undersea.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Undersea.debug.xcconfig"; path = "Target Support Files/Pods-Undersea/Pods-Undersea.debug.xcconfig"; sourceTree = "<group>"; };
 		A22C343B8C5C4E5D915B7CB6 /* Pods_Undersea.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Undersea.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -357,7 +355,6 @@
 		794CAAD024B5C697007DC9C7 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				79C39EE824B8B0C200803C00 /* SlideInMenu */,
 				79820C7524B71DC1006D7258 /* Teams */,
 				79820C7424B71D4A006D7258 /* Attack */,
 				79820C7324B71D43006D7258 /* City */,
@@ -389,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				794CAAD824B5CDF5007DC9C7 /* Colors.swift */,
+				79E4867F24BDB38C00A0EB3B /* Fonts.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -410,7 +408,6 @@
 				794CAADE24B5EBEC007DC9C7 /* SeaButton.swift */,
 				794CAAE024B5FB61007DC9C7 /* SeaInputField.swift */,
 				79820C4F24B707F7006D7258 /* RootPageController.swift */,
-				79820C7024B71D08006D7258 /* TabController.swift */,
 				79820C8C24B7415C006D7258 /* CustomTabBar.swift */,
 				79820C8E24B76155006D7258 /* SVGImage.swift */,
 				7947D99C24B8678700C5306D /* HostingController.swift */,
@@ -522,6 +519,7 @@
 			isa = PBXGroup;
 			children = (
 				79820C7C24B71E0C006D7258 /* MainPage.swift */,
+				79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -546,23 +544,6 @@
 			isa = PBXGroup;
 			children = (
 				79820C8A24B73A67006D7258 /* TeamsPage.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		79C39EE824B8B0C200803C00 /* SlideInMenu */ = {
-			isa = PBXGroup;
-			children = (
-				79C39EE924B8B0E800803C00 /* View */,
-				79C39EEA24B8B11400803C00 /* SlideInMenu.swift */,
-			);
-			path = SlideInMenu;
-			sourceTree = "<group>";
-		};
-		79C39EE924B8B0E800803C00 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -716,6 +697,7 @@
 				792DE2EE24BCA3DE009D175D /* MainPresenter.swift in Sources */,
 				79820C8924B73A5B006D7258 /* AttackPage.swift in Sources */,
 				792DE2EB24BC9C48009D175D /* MainEvents.swift in Sources */,
+				79E4868024BDB38C00A0EB3B /* Fonts.swift in Sources */,
 				79820C8124B71E2C006D7258 /* CityPage.swift in Sources */,
 				79820C8D24B7415C006D7258 /* CustomTabBar.swift in Sources */,
 				794CAACF24B5C577007DC9C7 /* ApiError.swift in Sources */,
@@ -726,7 +708,6 @@
 				794CAADF24B5EBEC007DC9C7 /* SeaButton.swift in Sources */,
 				794CAAE524B60753007DC9C7 /* Register.swift in Sources */,
 				7922A9CB24B4BBB8002A7957 /* AppDelegate.swift in Sources */,
-				79820C7124B71D08006D7258 /* TabController.swift in Sources */,
 				794CAACB24B5C51B007DC9C7 /* BaseApiWorker.swift in Sources */,
 				79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */,
 				794CAACA24B5C51B007DC9C7 /* BaseApiService.swift in Sources */,
@@ -747,7 +728,6 @@
 				794CAAD324B5C6FB007DC9C7 /* Login.swift in Sources */,
 				792DE2F124BCA6A4009D175D /* MainViewModel.swift in Sources */,
 				79820C8F24B76155006D7258 /* SVGImage.swift in Sources */,
-				79C39EEB24B8B11400803C00 /* SlideInMenu.swift in Sources */,
 				794C674824B6F8AD006D1F2B /* RootPage.swift in Sources */,
 				792DE2F324BCA76A009D175D /* MainPageViewModel.swift in Sources */,
 				794CAAE124B5FB61007DC9C7 /* SeaInputField.swift in Sources */,

@@ -45,7 +45,6 @@ struct SizePreferenceKey: PreferenceKey {
 struct SizeModifier: ViewModifier {
     private var sizeView: some View {
         GeometryReader { geometry in
-            //print(geometry.size)
             Color.clear.preference(key: SizePreferenceKey.self, value: geometry.size)
         }
     }
@@ -57,13 +56,8 @@ struct SizeModifier: ViewModifier {
 
 struct SlideInMenuView: View {
     
-    private var statList: [StatusBarItem] = [.shark(0, 5), .seal(5, 10), .seahorse(5, 10), .pearl(230, 3886), .coral(230, 12), .reefcastle(1), .flowRegulator(0)]
-    
+    let statList: [StatusBarItem]
     let action: () -> Void
-    
-    init(action: @escaping () -> Void) {
-        self.action = action
-    }
     
     var body: some View {
         VStack(spacing: 0) {

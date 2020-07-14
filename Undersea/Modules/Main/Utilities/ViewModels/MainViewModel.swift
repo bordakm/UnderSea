@@ -23,7 +23,7 @@ extension Main {
         }
         
         func set(alertMessage: String) {
-            mainPageModel = nil
+            //mainPageModel = nil
             self.alertMessage = alertMessage
             objectWillChange.send()
         }
