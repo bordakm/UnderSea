@@ -30,7 +30,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("research")]
-        public Task<List<UpgradeViewModel>> Research([FromBody]int id)
+        public Task<UpgradeViewModel> Research([FromBody]int id)
         {
             int userId = 1;
             return upgradesService.ResearchById(userId, id);

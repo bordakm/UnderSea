@@ -7,6 +7,6 @@ namespace UnderSea.BLL.Services
     public interface IUpgradesService
     {
         Task<List<UpgradeViewModel>> GetUpgrades(int userid);
-        Task<List<UpgradeViewModel>> ResearchById(int userid, int upgradeid);
+        Task<UpgradeViewModel> ResearchById(int userid, int upgradeid);
     }
 }

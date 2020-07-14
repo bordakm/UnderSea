@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace UnderSea.BLL.Services
             .ToList();
         }
 
-        public async Task<List<UpgradeViewModel>> ResearchById(int userId, int upgradetypeid)
+        public async Task<UpgradeViewModel> ResearchById(int userId, int upgradetypeid)
         {
             var user = await db.Users
                 .Include(u => u.Country)
@@ -55,7 +56,7 @@ namespace UnderSea.BLL.Services
                 user.Country.UpgradeTimeLeft = 15;
                 upgrade.State = UpgradeState.InProgress;
                 await db.SaveChangesAsync();
-                return await GetUpgrades(userId);
+                return GetUpgrades(userId).Result.Single(u => u.Id == upgradetypeid);
             }
             else
             {
