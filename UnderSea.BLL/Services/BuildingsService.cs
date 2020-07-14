@@ -69,7 +69,7 @@ namespace UnderSea.BLL.Services
 
             user.Country.Pearl -= building.Type.Price;
             await db.SaveChangesAsync();
-            return GetBuildingInfos(userId).Result.Single(x => x.Id == buildingId);
+            return GetBuildingInfosAsync(userId).Result.Single(x => x.Id == buildingId);
         }
     }
 }

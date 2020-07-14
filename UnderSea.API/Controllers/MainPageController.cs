@@ -29,13 +29,13 @@ namespace UnderSea.API.Controllers
         public Task<MainPageViewModel> GetMainPage()
         {
             int userId = 1;
-            return gameService.GetMainPage(userId);
+            return gameService.GetMainPageAsync(userId);
         }
 
         [HttpPost("newround")]
         public Task NewRound([FromQuery] int rounds)
         {
-            return gameService.NewRound(rounds);
+            return gameService.NewRoundAsync(rounds);
         }
     }
 }

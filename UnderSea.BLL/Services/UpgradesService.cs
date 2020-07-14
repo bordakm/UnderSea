@@ -56,7 +56,7 @@ namespace UnderSea.BLL.Services
                 user.Country.UpgradeTimeLeft = 15;
                 upgrade.State = UpgradeState.InProgress;
                 await db.SaveChangesAsync();
-                var upgrades = await GetUpgrades(userId);
+                var upgrades = await GetUpgradesAsync(userId);
                 return upgrades.Single(u => u.Id == upgradetypeid);
             }
             else
