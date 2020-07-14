@@ -21,7 +21,17 @@ $baloo-font: 'baloo', regular;
     
 }
 
-.color-button-small{
+.color-button:disabled,
+.color-button[disabled]{
+    border: none;
+    border-radius: 90px;
+    background: transparent;
+    font-family: $baloo-font;
+    color: $dark-dark-blue !important;
+    font-size: 2.5vh;
+}
+
+.mat-mini-fab.color-button-small{
     border: none;
     border-radius: 50%;
     background-color: $light-blue;
@@ -32,6 +42,8 @@ $baloo-font: 'baloo', regular;
     width: 25px;
     margin-left: 1vw;
     margin-right: 1vw;
+    padding: 0px;
+    line-height:0;
 }
 
 .transp-button{
@@ -39,4 +51,9 @@ $baloo-font: 'baloo', regular;
     background: transparent;
     font-family: $baloo-font;
     font-size: 18px;
+}
+
+.mat-mini-fab .mat-button-wrapper {
+    line-height: unset !important;
+    padding: 0px;
 }

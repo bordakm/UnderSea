@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IUnitViewModel } from '../models/army.model'
+import { IUnitViewModel } from '../models/army.model';
 
 @Component({
   selector: 'app-army-page',
@@ -40,6 +40,8 @@ export class ArmyPageComponent implements OnInit {
     coralCostPerTurn: null,
     buyNumber: 0
   };
+
+
 
   constructor() { }
 

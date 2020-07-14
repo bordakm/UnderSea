@@ -1,6 +1,6 @@
 <mat-card class="flex-box unit-card">
     <div class="rectangle-big">
-        <img src="../../../../../assets/images/007-shark.svg" alt="">
+        <img [src]="image" alt="">
     </div>
     <h3 class="main-name">{{ unit.name }}</h3>
     <div class="data-holder">
@@ -20,8 +20,8 @@
         </div>
     </div>
     <div class="plus-minus">
-        <button mat-flat-button class="color-button-small" (click)="clickDecrease.emit()">-</button>
+        <button mat-mini-fab class="color-button-small" (click)="clickDecrease.emit()">-</button>
         <h3 class="main-name">{{ unit.buyNumber }}</h3>
-        <button mat-flat-button class="color-button-small" (click)="clickAdd.emit()">+</button>
+        <button mat-mini-fab class="color-button-small" (click)="clickAdd.emit()">+</button>
     </div>
 </mat-card>

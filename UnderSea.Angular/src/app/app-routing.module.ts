@@ -12,7 +12,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
   },
   {
     path: 'army',

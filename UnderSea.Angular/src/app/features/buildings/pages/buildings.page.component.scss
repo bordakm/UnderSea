@@ -5,6 +5,7 @@
     .flex-box{
         height: fit-content;
         flex-direction: row;
+        align-items: flex-start;
         
     }
 }
@@ -49,8 +50,34 @@ div.button{
     width: 65vw;
 }
 
-.mat-mini-fab .mat-button-wrapper {
-    line-height: unset;
-    padding: 0px;
+h3{
+    margin: 0 0 0 0;
 }
 
+.mat-card > h3{
+    text-align: center;
+}
+
+h4{
+    font-weight: lighter;
+}
+
+.mat-card > h4{
+    text-align: center;
+}
+
+.color1{
+    background-color: rgba(white, 0.3);
+}
+
+.color2{
+    background-color: rgba(white, 0.3);
+}
+
+img{
+    height: 10vh;
+    width: auto;
+}
+.img-container{
+    text-align: center;
+}

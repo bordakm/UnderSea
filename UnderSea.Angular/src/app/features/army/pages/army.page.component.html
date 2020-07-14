@@ -5,9 +5,9 @@
             <h3>Kattints rá, amelyiket szeretnéd megvenni</h3>
 
             <div class="flex-box">
-                <app-unit [unit]="laserSharkModel" (clickDecrease)="deleteOneLasersharkFromCart()" (clickAdd)="addOneLasersharkToCart()"></app-unit>
-                <app-unit [unit]="stormSealModel" (clickDecrease)="deleteOneStormsealFromCart()" (clickAdd)="addOneStormsealToCart()"></app-unit>
-                <app-unit [unit]="combatSeaHorseModel" (clickDecrease)="deleteOneCombatSeahorseFromCart()" (clickAdd)="addOneCombatSeahorseToCart()"></app-unit>
+                <app-unit [unit]="laserSharkModel" [image]="'../../../../../assets/images/007-shark.svg'"(clickDecrease)="deleteOneLasersharkFromCart()" (clickAdd)="addOneLasersharkToCart()"></app-unit>
+                <app-unit [unit]="stormSealModel" [image]="'../../../../../assets/images/013-seahorse.svg'" (clickDecrease)="deleteOneStormsealFromCart()" (clickAdd)="addOneStormsealToCart()"></app-unit>
+                <app-unit [unit]="combatSeaHorseModel" [image]="'../../../../../assets/images/025-seal.svg'" (clickDecrease)="deleteOneCombatSeahorseFromCart()" (clickAdd)="addOneCombatSeahorseToCart()"></app-unit>
                 
                    
             </div>

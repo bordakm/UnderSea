@@ -1,0 +1,30 @@
+<div class="flex-box">
+    <mat-card class="mat-card-main">
+        <mat-card-content>
+            <h1 class="main-card-title">Ranglista</h1>
+            <div class="slider">
+                <mat-list>
+                    <mat-list-item class="list-item">
+                        <form class="search-form">
+                            <mat-form-field class="search-full-width">
+                                <mat-label>Felhasználónév</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </form>
+                    </mat-list-item>
+
+                    <mat-list-item class="list-item">
+                        <app-scoreboard [user]="user"></app-scoreboard>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item class="list-item">2</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item class="list-item">3</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item class="list-item">4</mat-list-item>
+                    <mat-divider></mat-divider>
+                </mat-list>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

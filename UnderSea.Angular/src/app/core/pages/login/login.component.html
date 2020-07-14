@@ -12,8 +12,7 @@
             <form class="login-form">
                 <mat-form-field class="login-full-width">
                     <mat-label>Felhasználónév</mat-label>
-                    <input matInput [formControl]="userFormControl" [errorStateMatcher]="matcher"
-                        placeholder="username" [(ngModel)]="username">
+                    <input matInput [formControl]="userFormControl" [errorStateMatcher]="matcher" [(ngModel)]="username">
                     <mat-error *ngIf="userFormControl.hasError('required')">
                         <strong>Kötelező</strong> tartomány
                     </mat-error>
@@ -26,7 +25,7 @@
             <form class="login-form">
                 <mat-form-field class="login-full-width">  
                     <mat-label>Jelszó</mat-label>
-                    <input type="password" matInput placeholder="*********" [(ngModel)]="password">
+                    <input type="Jelszó" matInput [(ngModel)]="password">
                 </mat-form-field>
             </form>
         </mat-card-content>
@@ -45,8 +44,7 @@
             <form class="login-form">
                 <mat-form-field class="login-full-width">
                     <mat-label>Felhasználónév</mat-label>
-                    <input matInput [formControl]="userFormControl" [errorStateMatcher]="matcher"
-                        placeholder="Példa Béla">
+                    <input matInput [formControl]="userFormControl" [errorStateMatcher]="matcher">
                     <mat-error *ngIf="userFormControl.hasError('required')">
                         <strong>Kötelező</strong> tartomány
                     </mat-error>
@@ -61,7 +59,7 @@
             <form class="login-form">
                 <mat-form-field class="login-full-width">  
                     <mat-label>Jelszó</mat-label>
-                    <input matInput placeholder="*********">
+                    <input matInput>
                 </mat-form-field>
             </form>
         </mat-card-content>
@@ -70,7 +68,7 @@
             <form class="login-form">
                 <mat-form-field class="login-full-width">  
                     <mat-label>Jelszó megerősítése</mat-label>
-                    <input matInput placeholder="*********">
+                    <input matInput>
                 </mat-form-field>
             </form>
         </mat-card-content>
@@ -79,7 +77,7 @@
             <form class="login-form">
                 <mat-form-field class="login-full-width">  
                     <mat-label>A városod neve amit építesz</mat-label>
-                    <input matInput placeholder="KirályVáros">
+                    <input matInput>
                 </mat-form-field>
             </form>
         </mat-card-content>

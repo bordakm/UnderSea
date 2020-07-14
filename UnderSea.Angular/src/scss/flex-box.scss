@@ -33,6 +33,18 @@
     background-color: #03255F;
     box-shadow: none;
     padding: 30px;
+    max-height: 70vh;
+}
+
+.mat-card.building-card-in-main-page{
+    background-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    margin: 20px;
+    border-radius: 16px; 
+    justify-content: center;
+    height: 30vh;
 }
 
 .mat-card-title{
@@ -45,3 +57,29 @@
     margin-bottom: 0px !important;
 }
 
+.divider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.attack-parts{
+    padding: 10px;
+}
+
+.attack-one-unit{
+    display: flex;
+    direction: row;
+}
+
+.slider {
+    width: 300px;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;  
+    padding-right: 5px;
+    position: relative;
+}

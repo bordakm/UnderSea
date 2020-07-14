@@ -9,6 +9,7 @@ import { IUnitViewModel } from '../models/army.model';
 export class UnitComponent implements OnInit {
 
   @Input() unit: IUnitViewModel;
+  @Input() image: string;
 
   @Output() clickAdd = new EventEmitter();
   @Output() clickDecrease = new EventEmitter();

@@ -1,0 +1,63 @@
+
+.flex-box{
+    height: 80vh;
+    flex-direction: row;
+    .flex-box{
+        height: fit-content;
+        flex-direction: row;
+        
+    }
+}
+
+div.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8vh;
+}
+
+.divider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-divider.my-divider{
+    width: 65vw;
+}
+
+
+.slider {
+    width: 50vw;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;  
+    padding-right: 5px;
+    position: relative;
+}
+
+.list-item{
+    margin-top: 10px;
+
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+  
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #3F68AE;
+    border-radius: 5px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #1C3E76;
+}
+
