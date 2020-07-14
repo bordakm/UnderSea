@@ -30,22 +30,22 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("register")]
-        public Task Register([FromBody] RegisterDTO registerData)
+        public Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
         {
-            return null;
+            Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
         }
 
         [HttpPost("login")]
-        public async Task<MainPageViewModel> Login([FromBody] LoginDTO loginData)
+        public async Task<TokensViewModel> Login([FromBody] LoginDTO loginData)
         {
             if (ModelState.IsValid)
             {
                 var result = await signInManager.PasswordSignInAsync(loginData.UserName, loginData.Password, false, false);
                 if (result.Succeeded)
                 {
-                    // TODO tokenek
                     var user = await signInManager.UserManager.GetUserAsync(HttpContext.User);
-                    return await gameService.GetMainPageAsync(user.Id);
+                    // sikeres login, mehetnek a tokenek //TODO tokenek
+                    return await Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
                 }
             }
             throw new Exception("Login attempt failed");
@@ -53,16 +53,17 @@ namespace UnderSea.API.Controllers
 
         [HttpPost("logout")]
         [Authorize]
-        public async Task Logout()
+        public Task Logout()
         {
-            await signInManager.SignOutAsync();
-            // TODO tokenek
+            return signInManager.SignOutAsync();
+            // TODO tokenek törlése
         }
 
         [HttpPost("renew")]
-        public Task RenewToken()
+        public Task<TokensViewModel> RenewToken()
         {
-            return null;
+            // TODO tokenek
+            return Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
         }
     }
 }
