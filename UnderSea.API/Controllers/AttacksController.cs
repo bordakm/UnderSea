@@ -35,12 +35,13 @@ namespace UnderSea.API.Controllers
         {
             int userId = 1;
             armyService.Attack(userId, attack);
-            return Task.Run( () => { return "TODO"; }); // TODO ??
+            return "TODO"; // TODO ??
         }
 
         [HttpGet("searchtargets")]
         public Task<List<ScoreboardViewModel>> SearchTargets([FromQuery] SearchDTO search)
-        { // ha egy usernek több countryja lesz, itt majd ScoreboardViewModel helyett olyat kell odaadni ami country nevet ad, nem usert
+        { 
+            // ha egy usernek több countryja lesz, itt majd ScoreboardViewModel helyett olyat kell odaadni ami country nevet ad, nem usert
             return gameService.SearchScoreboard(search);
         }
 

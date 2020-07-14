@@ -1,20 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using UnderSea.API.Controllers;
 using UnderSea.BLL.Services;
 using UnderSea.DAL;
 using UnderSea.DAL.Context;
@@ -42,6 +35,7 @@ namespace UnderSea.API
 
 
             services.AddAutoMapper(typeof(Startup));
+
             services.AddControllersWithViews();
 
 
@@ -49,10 +43,17 @@ namespace UnderSea.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UnderSea", Version = "v1" });
             });
+
             services.AddDbContext<UnderSeaDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<UnderSeaDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IArmyService, ArmyService>();
+            services.AddScoped<IBuildingsService, BuildingsService>();
+            services.AddScoped<IUpgradesService, UpgradesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

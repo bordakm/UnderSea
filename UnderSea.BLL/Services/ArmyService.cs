@@ -1,11 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.ViewModels;
@@ -28,37 +26,53 @@ namespace UnderSea.BLL.Services
 
         public async Task Attack(int attackeruserid, AttackDTO attack)
         { // TODO: majd ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
-            var game = await db.Game.FirstAsync();
-            var unittypes = await db.UnitTypes.ToListAsync();            
-            var attackinguser = await db.Users.Include(u=>u.Country).SingleAsync(u => u.Id == attackeruserid);
-            var defendingcountry = await db.Countries.SingleAsync(c => c.Id == attack.DefenderUserId);
-            var defendinguser = defendingcountry.User;
+            var game = await db.Game
+                .Include(game => game.Attacks)
+                .SingleAsync();
+            var unitTypes = await db.UnitTypes.ToListAsync();            
+            var attackingUser = await db.Users
+                .Include(u=>u.Country)
+                .ThenInclude(country => country.DefendingArmy)
+                .ThenInclude(defendingArmy => defendingArmy.Units)
+                .ThenInclude(unit => unit.Type)
+                .Include(u => u.Country)
+                .ThenInclude(country => country.AttackingArmy)
+                .ThenInclude(attackingArmy => attackingArmy.Units)
+                .ThenInclude(unit => unit.Type)
+                .SingleAsync(u => u.Id == attackeruserid);
+            var defendingCountry = await db.Countries
+                .Include(country => country.User)
+                .SingleAsync(c => c.UserId == attack.DefenderUserId);
+            var defendingUser = defendingCountry.User;
 
-            var sentunits = new List<Unit>();
+            var sentUnits = new List<Unit>();
 
-            foreach (SendUnitDTO sendunit in attack.AttackingUnits) {
-                UnitType type = unittypes.Single(ut => ut.Id == sendunit.Id);
-                int ownedcount = attackinguser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;
-                if (sendunit.SendCount > ownedcount)
+            foreach (var sendUnit in attack.AttackingUnits) {
+                UnitType type = unitTypes.Single(ut => ut.Id == sendUnit.Id);
+                int ownedCount = attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;
+                if (sendUnit.SendCount > ownedCount)
                     throw new Exception("Nem küldhetsz több egységet, mint amennyid van!");
                 else
                 {                    
-                    attackinguser.Country.AttackingArmy.Units.Single(u => u.Type == type).Count += sendunit.SendCount;
-                    attackinguser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendunit.SendCount;
-                    sentunits.Add(new Unit() {Count = sendunit.SendCount, Type = type});
+                    attackingUser.Country.AttackingArmy.Units.Single(u => u.Type == type).Count += sendUnit.SendCount;
+                    attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendUnit.SendCount;
+                    sentUnits.Add(new Unit() {Count = sendUnit.SendCount, Type = type, UnitGroupId = attackingUser.Country.AttackingArmyId});
                 }
             }
 
             game.Attacks.Add(new Attack
             {
-                AttackerUser = attackinguser,
-                DefenderUser = defendinguser,
-                UnitList = sentunits
+                AttackerUserId = attackingUser.Id,
+                AttackerUser = attackingUser,
+                DefenderUserId = defendingUser.Id,
+                DefenderUser = defendingUser,
+                GameId = game.Id,
+                UnitList = sentUnits
             });
             await db.SaveChangesAsync();
         }
 
-        public async Task BuyUnits(int userId, List<UnitPurchaseDTO> purchases)
+        public async Task<List<SimpleUnitViewModel>> BuyUnits(int userId, List<UnitPurchaseDTO> purchases)
         {
             //TODO optimalizálás
             var user = await db.Users.Include(user => user.Country)
@@ -94,6 +108,14 @@ namespace UnderSea.BLL.Services
             user.Country.Pearl -= priceTotal;
             purchases.ForEach(pur => defendingUnits.Single(units => units.Type.Id == pur.TypeId).Count += pur.Count);
             await db.SaveChangesAsync();
+
+            List<SimpleUntiViewModel> list = new List<SimpleUnitViewModel>();
+            foreach (var item in purchases)
+            {
+               
+            }
+
+            return purchases;
         }
 
         public async Task<List<AvailableUnitViewModel>> GetAvailableUnits(int userId)
@@ -102,6 +124,8 @@ namespace UnderSea.BLL.Services
             var user = await db.Users
                                .Include(user => user.Country)
                                .ThenInclude(country => country.DefendingArmy)
+                               .ThenInclude(army => army.Units)
+                               .ThenInclude(unit => unit.Type)
                                .SingleAsync(user => user.Id == userId);
 
             var units = user.Country.DefendingArmy.Units;
@@ -126,17 +150,27 @@ namespace UnderSea.BLL.Services
         public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks(int userId)
         {
             var attacks = await db.Attacks
-                               .Include(attacks => attacks.UnitList)
+                               .Include(attack => attack.UnitList)
+                               .Include(attack => attack.AttackerUser)
+                               .ThenInclude(attacker => attacker.Country)
+                               .Include(attack => attack.DefenderUser)
                                .Where(attacks => attacks.AttackerUser.Id == userId)
                                .ToListAsync();
 
             var res = new List<OutgoingAttackViewModel>();
-            foreach (var item in attacks)
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Unit, SimpleUnitViewModel>());
+            var mapper = new Mapper(config);
+            foreach (var attack in attacks)
             {
+                var units = new List<SimpleUnitViewModel>();
+                foreach (var unit in attack.UnitList)
+                {
+                    units.Add(mapper.Map<SimpleUnitViewModel>(unit));
+                }
                 res.Add(new OutgoingAttackViewModel
                 {
-                    CountryName = item.AttackerUser.Country.Name,
-                    Units = item.UnitList
+                    CountryName = attack.AttackerUser.Country.Name,
+                    Units = units
                 });
             }
 

@@ -89,7 +89,6 @@ namespace UnderSea.DAL.Context
             var unit1 = new Unit
             {
                 Id = 1,
-                AttackId = 1,
                 UnitGroupId = 1,
                 Count = 0,
                 TypeId = 1
@@ -97,7 +96,6 @@ namespace UnderSea.DAL.Context
             var unit2 = new Unit
             {
                 Id = 2,
-                AttackId = 1,
                 UnitGroupId = 1,
                 Count = 0,
                 TypeId = 2
@@ -105,7 +103,6 @@ namespace UnderSea.DAL.Context
             var unit3 = new Unit
             {
                 Id = 3,
-                AttackId = 1,
                 UnitGroupId = 1,
                 Count = 0,
                 TypeId = 3
@@ -114,7 +111,7 @@ namespace UnderSea.DAL.Context
             {
                 Id = 4,
                 UnitGroupId = 2,
-                Count = 10,
+                Count = 20,
                 TypeId = 1
             };
             var unit5 = new Unit
@@ -128,7 +125,7 @@ namespace UnderSea.DAL.Context
             {
                 Id = 6,
                 UnitGroupId = 2,
-                Count = 40,
+                Count = 20,
                 TypeId = 3
             };
             var unit7 = new Unit
@@ -372,14 +369,6 @@ namespace UnderSea.DAL.Context
                 UserName = "Second User"
             };
 
-            var attack1 = new Attack
-            {
-                Id = 1,
-                AttackerUserId = 1,
-                DefenderUserId = 2,
-                GameId = 1
-            };
-
             modelBuilder.Entity<LaserShark>()
                 .HasData(laserShark);
             modelBuilder.Entity<StormSeal>()
@@ -387,12 +376,10 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<CombatSeaHorse>()
                 .HasData(combatSeaHorse);
 
-
             modelBuilder.Entity<ReefCastle>()
                 .HasData(reefCastle);
             modelBuilder.Entity<FlowManager>()
                 .HasData(flowManager);
-
 
             modelBuilder.Entity<Alchemy>()
                 .HasData(alchemy);
@@ -405,21 +392,7 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<SonarCannon>()
                 .HasData(sonarCannon);
             modelBuilder.Entity<UnderwaterMartialArts>()
-                .HasData(underwaterMartialArts);
-
-
-            //modelBuilder.Entity<UpgradeType>()
-            //    .HasData(new UpgradeType[]
-            //    {
-            //        alchemy,
-            //        mudTractor,
-            //        mudHarvester,
-            //        coralWall,
-            //        sonarCannon,
-            //        underwaterMartialArts
-            //    });
-
-            
+                .HasData(underwaterMartialArts);     
            
            modelBuilder.Entity<UnitGroup>()
                 .HasData(new UnitGroup[]
@@ -436,7 +409,6 @@ namespace UnderSea.DAL.Context
                     user1,
                     user2
                });
-            modelBuilder.Entity<Attack>().HasData(attack1);
             modelBuilder.Entity<Unit>()
                 .HasData(new Unit[]
                 {
