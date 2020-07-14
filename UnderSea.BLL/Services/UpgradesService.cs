@@ -46,8 +46,8 @@ namespace UnderSea.BLL.Services
         {
             var user = await db.Users
                 .Include(u => u.Country)
-                .ThenInclude(c => c.Upgrades)
-                .ThenInclude(u => u.State)
+                .ThenInclude(c => c.Upgrades)     
+                .ThenInclude(u => u.Type)
                 .SingleAsync(u => u.Id == userid);
 
             var upgrade = user.Country.Upgrades.Single(u => u.Type.Id == upgradetypeid);
