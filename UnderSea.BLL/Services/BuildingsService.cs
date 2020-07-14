@@ -15,7 +15,6 @@ namespace UnderSea.BLL.Services
     {
         private readonly UnderSeaDbContext db;
         private readonly ILogger logger;
-
         public BuildingsService(UnderSeaDbContext db, ILogger<BuildingsService> logger)
         {
             this.db = db;

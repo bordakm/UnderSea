@@ -18,7 +18,6 @@ namespace UnderSea.BLL.Services
     {
         private UnderSeaDbContext db;
         private readonly ILogger logger;
-
         public GameService(UnderSeaDbContext db, ILogger<GameService> logger)
         {
             this.db = db;

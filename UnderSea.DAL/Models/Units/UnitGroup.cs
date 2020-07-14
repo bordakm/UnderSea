@@ -15,7 +15,6 @@ namespace UnderSea.DAL.Models.Units
 
         [Key]
         public int Id { get; set; }
-
         public List<Unit> Units { get; set; }
     }
 }

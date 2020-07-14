@@ -10,27 +10,33 @@ namespace UnderSea.DAL.Models
 {
     public class Country
     {
+        private readonly int taxRate = 25;
         public int Id { get; set; }
-
         public string Name { get; set; }
-
-        public BuildingGroup BuildingGroup { get; set; }
-
         [ForeignKey("BuildingGroup")]
         public int BuildingGroupId { get; set; }
-
+        public BuildingGroup BuildingGroup { get; set; }
         [ForeignKey("UnitGroup")]
         public int AttackingArmyId { get; set; }
-
         public UnitGroup AttackingArmy { get; set; }
-
         [ForeignKey("UnitGroup")]
         public int DefendingArmyId { get; set; }
-
         public UnitGroup DefendingArmy { get; set; }
-
         public int Coral { get; set; }
-
+        public int Pearl { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public int UpgradeTimeLeft { get; set; }
+        public int BuildingTimeLeft { get; set; }
+        public int Score { get; set; }
+        public List<Upgrade> Upgrades { get; set; }
+        [NotMapped]
+        public int PearlProduction => Population * taxRate;
+        [NotMapped]
+        public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus);
+        [NotMapped]
+        public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.Type.UnitStorage);        
         [NotMapped]
         public int CoralProduction
         {
@@ -39,33 +45,6 @@ namespace UnderSea.DAL.Models
                 return BuildingGroup.Buildings.Sum(building => building.Count * building.Type.CoralBonus);
             }
         }
-
-        public int Pearl { get; set; }
-
-        [NotMapped]
-        public int PearlProduction => Population * taxRate;
-
-        [NotMapped]
-        public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus);
-
-        [NotMapped]
-        public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.Type.UnitStorage);
-        
-        public User User { get; set; }
-
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-
-        public int UpgradeTimeLeft { get; set; }
-
-        public int BuildingTimeLeft { get; set; }
-
-        public int Score { get; set; }
-
-        public List<Upgrade> Upgrades { get; set; }
-
-        private readonly int taxRate = 25;
-
         public void AddTaxes()
         {
             Pearl += PearlProduction;
@@ -232,5 +211,5 @@ namespace UnderSea.DAL.Models
 
     }
 
-    enum FireReason { Pearl, Coral}
+    enum FireReason { Pearl, Coral }
 }
