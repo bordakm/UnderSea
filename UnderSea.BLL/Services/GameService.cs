@@ -120,7 +120,11 @@ namespace UnderSea.BLL.Services
 
         private async Task AddTaxes()
         {
-            var users = db.Users.Include(user => user.Country);
+            var users = db.Users
+                .Include(user => user.Country)
+                .ThenInclude(c => c.BuildingGroup)
+                .ThenInclude(bg => bg.Buildings)
+                .ThenInclude(b => b.Type);
             await users.ForEachAsync(user => user.Country.AddTaxes());
             await db.SaveChangesAsync();
         }
@@ -139,7 +143,7 @@ namespace UnderSea.BLL.Services
             var users = db.Users
                 .Include(u => u.Country)
                 .ThenInclude(c => c.Upgrades);
-            await db.Countries.ForEachAsync(country => country.DoUpgrades());
+            await db.Countries.Include(c=>c.Upgrades).ForEachAsync(country => country.DoUpgrades());
             await db.SaveChangesAsync();
         }
 
