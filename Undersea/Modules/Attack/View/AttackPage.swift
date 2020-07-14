@@ -28,14 +28,18 @@ struct AttackPage: View {
     var body: some View {
         NavigationView {
             VStack {
-                SeaInputField(placeholder: "Jatekos keresese", inputText: $userName)
+                Text("1. Lépés")
+                Text("Jelöld ki, kit szeretnél megtámadni:")
+                SeaInputField(placeholder: "Felhasznalonev", inputText: $userName)
                 List(userList) { item in
-                    Text(item.name).foregroundColor(Color.black)
+                    Text(item.name)
+                        .foregroundColor(Color.black)
+                        .listRowBackground(Color.black)
                 }
-                .background(Colors.darkBlue)
+                .background(Colors.backgroundColor)
             }
-            .navigationBarTitle("Attack", displayMode: .inline)
-            .background(Colors.darkBlue)
+            .navigationBarTitle("Támadás", displayMode: .inline)
+            .background(Colors.backgroundColor)
             .navigationBarColor(Colors.navBarTintColor)
         }
     }

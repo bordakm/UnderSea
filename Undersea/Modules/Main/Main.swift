@@ -11,8 +11,24 @@ import SwiftUI
 
 struct Main {
     
+    typealias DataModelType = MainPageDTO
+    typealias ViewModelType = ViewModel
+    
     static func setup() -> MainPage {
-        return MainPage()
+        
+        let interactor = Interactor()
+        let presenter = Presenter()
+        
+        var view = MainPage(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
+        
+        interactor.setPresenter = { return presenter }
+        
+        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
+        
+        view.setInteractor = { return interactor }
+        
+        return view
+        
     }
     
 }
