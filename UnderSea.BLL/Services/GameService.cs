@@ -81,7 +81,7 @@ namespace UnderSea.BLL.Services
             {
                 await AddTaxes();
                 await AddCoral();
-                await PayUnits();
+                PayUnits();
                 await FeedUnits();
                 await DoUpgrades();
                 await Build();
@@ -186,18 +186,18 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        private async Task PayUnits()
+        private void PayUnits()
         {
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.AttackingArmy)
                 .Include(user => user.Country)
                 .ThenInclude(country => country.DefendingArmy);
-            await users.ForEachAsync(user =>
+             users.ForEachAsync(user =>
             {
                 var removeUnits = user.Country.PayUnits();
                 RemoveUnitsFromAttackingList(removeUnits, user);
             });
-            await db.SaveChangesAsync();
+             db.SaveChangesAsync();
         }
 
         private void RemoveUnitsFromAttackingList(Dictionary<int, int> removeUnits, User user)
