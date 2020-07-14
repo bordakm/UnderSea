@@ -516,7 +516,7 @@ namespace UnderSea.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UnitGroup");
+                    b.ToTable("UnitGroups");
 
                     b.HasData(
                         new
@@ -811,7 +811,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "edd19a93-c394-4c49-9e7f-52ac0e7ee2e8",
+                            ConcurrencyStamp = "45207876-4538-4b20-abbd-1073d203166b",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
@@ -825,7 +825,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b4706c5-8201-4c12-99ac-3c382c511a59",
+                            ConcurrencyStamp = "16e267ab-5b15-4614-9121-66dce9b641a1",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
