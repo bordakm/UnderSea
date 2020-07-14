@@ -48,7 +48,8 @@ namespace UnderSea.BLL.Services
             var sentUnits = new List<Unit>();
             var newUnitGroup = new UnitGroup();
             db.UnitGroups.Add(newUnitGroup);
-            
+            await db.SaveChangesAsync();
+
             foreach (var sendUnit in attack.AttackingUnits) {
                 UnitType type = unitTypes.Single(ut => ut.Id == sendUnit.Id);
                 int ownedCount = attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;

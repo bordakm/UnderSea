@@ -192,12 +192,12 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(country => country.AttackingArmy)
                 .Include(user => user.Country)
                 .ThenInclude(country => country.DefendingArmy);
-             users.ForEachAsync(user =>
-            {
-                var removeUnits = user.Country.PayUnits();
-                RemoveUnitsFromAttackingList(removeUnits, user);
-            });
-             db.SaveChangesAsync();
+            users.ForEachAsync(user =>
+               {
+                   var removeUnits = user.Country.PayUnits();
+                   RemoveUnitsFromAttackingList(removeUnits, user);
+               });
+            db.SaveChanges();
         }
 
         private void RemoveUnitsFromAttackingList(Dictionary<int, int> removeUnits, User user)
