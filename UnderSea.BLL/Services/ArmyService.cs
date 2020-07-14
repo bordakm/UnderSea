@@ -58,7 +58,7 @@ namespace UnderSea.BLL.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task BuyUnits(int userId, List<UnitPurchaseDTO> purchases)
+        public async Task<List<SimpleUnitViewModel>> BuyUnits(int userId, List<UnitPurchaseDTO> purchases)
         {
             //TODO optimalizálás
             var user = await db.Users.Include(user => user.Country)
@@ -94,6 +94,14 @@ namespace UnderSea.BLL.Services
             user.Country.Pearl -= priceTotal;
             purchases.ForEach(pur => defendingUnits.Single(units => units.Type.Id == pur.TypeId).Count += pur.Count);
             await db.SaveChangesAsync();
+
+            List<SimpleUntiViewModel> list = new List<SimpleUnitViewModel>();
+            foreach (var item in purchases)
+            {
+               
+            }
+
+            return purchases;
         }
 
         public async Task<List<AvailableUnitViewModel>> GetAvailableUnits(int userId)
