@@ -32,7 +32,7 @@ namespace UnderSea.API.Controllers
         [HttpPost("register")]
         public Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
         {
-            Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
+            return Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
         }
 
         [HttpPost("login")]
