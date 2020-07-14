@@ -97,65 +97,6 @@ namespace UnderSea.DAL.Models
             Coral -= costTotal;
             return unitsToRemove;
 
-
-            #region code repeated
-            //int totalCoralCost = 0;
-            //AttackingArmy.ForEach(unit =>
-            //{
-            //    totalCoralCost += unit.Type.CoralCostPerTurn;
-            //});
-
-            //DefendingArmy.ForEach(unit =>
-            //{
-            //    totalCoralCost += unit.Type.CoralCostPerTurn;
-            //});
-
-            //if (Coral >= totalCoralCost)
-            //{
-            //    Coral -= totalCoralCost;
-            //}
-            //else
-            //{
-
-            //int difference = Pearl - costTotal;
-            //if (difference < 0)
-            //{
-            //    unitsToRemove = FireUnits(Math.Abs(difference));
-            //    costTotal = AttackingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn)
-            //              + DefendingArmy.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
-            //}
-            //Pearl -= costTotal;
-            //return unitsToRemove;
-
-            //while (difference > 0)
-            //{
-            //    foreach (var item in DefendingArmy)
-            //    {
-            //        if (item.Count > 0)
-            //        {
-            //            if (difference <= 0)
-            //                break;
-            //            difference -= item.Type.CoralCostPerTurn;
-            //            item.Count--;
-            //        }
-
-            //    }
-
-            //    foreach (var item in AttackingArmy)
-            //    {
-            //        if (item.Count > 0)
-            //        {
-            //            if (difference <= 0)
-            //                break;
-            //            difference -= item.Type.CoralCostPerTurn;
-            //            item.Count--;
-            //        }
-
-            //    }
-            //}
-
-            //}
-            #endregion
         }
 
         public Dictionary<int, int> PayUnits()

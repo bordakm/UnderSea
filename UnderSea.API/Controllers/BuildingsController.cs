@@ -35,7 +35,9 @@ namespace UnderSea.API.Controllers
         public Task<BuildingInfoViewModel> PurchaseBuilding([FromBody] int buildingId)
         {
             int userId = 1; // TODO
-            return buildingsService.PurchaseBuildingByIdAsync(userId, buildingId);
+            buildingsService.PurchaseBuildingById(userId, buildingId);
+
+            return GetBuildingInfos();
         }
     }
 }
