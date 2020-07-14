@@ -52,6 +52,7 @@ struct RegisterPage: View {
                     }
                 
                 }
+                .frame(width: 280.0)
                 .padding()
                 .background(Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.65))
                 .cornerRadius(16.0)

@@ -13,12 +13,11 @@ struct SeaInputField: View {
     let placeholder: String
     @Binding var inputText: String
     
+    var backgroundColor = Color.white
+    
     var body: some View {
         ZStack {
             GeometryReader() { geometry in
-                Rectangle()
-                    .fill(Color.white)
-                    .clipShape(Capsule())
                 // TODO: Placeholder szinenek beallitasara nincs beepitett megoldas meg SwiftUI-ban
                 TextField(self.placeholder, text: self.$inputText)
                     .padding(Edge.Set.horizontal, 16.0)
@@ -26,8 +25,13 @@ struct SeaInputField: View {
                     .font(Font.system(size: 15.0))
             }
         }
-        .frame(width: 250.0, height: 40.0, alignment: .leading)
+        .frame(height: 40.0, alignment: .leading)
+        .background(backgroundColor)
+        .clipShape(Capsule())
     }
+    
+    
+    
 }
 
 struct SeaInputField_Previews: PreviewProvider {

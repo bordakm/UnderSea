@@ -37,11 +37,12 @@ struct LoginPage: View {
                             ObservableRootPage.shared.currentPage = RootPage.register
                         }) {
                             Text("Regisztracio")
-                                .font(Font.custom("Baloo2-Regular", size: 16))
+                                .font(Fonts.get(.bRegular))
                                 .foregroundColor(Colors.loginBtnTextColor)
                         }
                         
                     }
+                    .frame(width: 280.0)
                     .padding()
                     .background(Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.65))
                     .cornerRadius(16.0)
