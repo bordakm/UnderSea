@@ -26,32 +26,48 @@ namespace UnderSea.BLL.Services
 
         public async Task Attack(int attackeruserid, AttackDTO attack)
         { // TODO: majd ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
-            var game = await db.Game.SingleAsync();
-            var unittypes = await db.UnitTypes.ToListAsync();            
-            var attackinguser = await db.Users.Include(u=>u.Country).SingleAsync(u => u.Id == attackeruserid);
-            var defendingcountry = await db.Countries.SingleAsync(c => c.Id == attack.DefenderUserId);
-            var defendinguser = defendingcountry.User;
+            var game = await db.Game
+                .Include(game => game.Attacks)
+                .SingleAsync();
+            var unitTypes = await db.UnitTypes.ToListAsync();            
+            var attackingUser = await db.Users
+                .Include(u=>u.Country)
+                .ThenInclude(country => country.DefendingArmy)
+                .ThenInclude(defendingArmy => defendingArmy.Units)
+                .ThenInclude(unit => unit.Type)
+                .Include(u => u.Country)
+                .ThenInclude(country => country.AttackingArmy)
+                .ThenInclude(attackingArmy => attackingArmy.Units)
+                .ThenInclude(unit => unit.Type)
+                .SingleAsync(u => u.Id == attackeruserid);
+            var defendingCountry = await db.Countries
+                .Include(country => country.User)
+                .SingleAsync(c => c.UserId == attack.DefenderUserId);
+            var defendingUser = defendingCountry.User;
 
-            var sentunits = new List<Unit>();
+            var sentUnits = new List<Unit>();
 
-            foreach (SendUnitDTO sendunit in attack.AttackingUnits) {
-                UnitType type = unittypes.Single(ut => ut.Id == sendunit.Id);
-                int ownedcount = attackinguser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;
-                if (sendunit.SendCount > ownedcount)
+            foreach (var sendUnit in attack.AttackingUnits) {
+                UnitType type = unitTypes.Single(ut => ut.Id == sendUnit.Id);
+                int ownedCount = attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;
+                if (sendUnit.SendCount > ownedCount)
                     throw new Exception("Nem küldhetsz több egységet, mint amennyid van!");
                 else
                 {                    
-                    attackinguser.Country.AttackingArmy.Units.Single(u => u.Type == type).Count += sendunit.SendCount;
-                    attackinguser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendunit.SendCount;
-                    sentunits.Add(new Unit() {Count = sendunit.SendCount, Type = type});
+                    attackingUser.Country.AttackingArmy.Units.Single(u => u.Type == type).Count += sendUnit.SendCount;
+                    attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendUnit.SendCount;
+                    sentUnits.Add(new Unit() {Count = sendUnit.SendCount, Type = type, UnitGroupId = attackingUser.Country.AttackingArmyId});
                 }
             }
 
             game.Attacks.Add(new Attack
             {
-                AttackerUser = attackinguser,
-                DefenderUser = defendinguser,
-                UnitList = sentunits
+                AttackerUserId = attackingUser.Id,
+                AttackerUser = attackingUser,
+                DefenderUserId = defendingUser.Id,
+                DefenderUser = defendingUser,
+                GameId = game.Id,
+                UnitList = sentUnits
             });
             await db.SaveChangesAsync();
         }
