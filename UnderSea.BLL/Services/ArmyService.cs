@@ -196,17 +196,10 @@ namespace UnderSea.BLL.Services
 
         public async Task<List<UnitViewModel>> GetUnitsAsync(int userId)
         {
-            var user = await db.Users
-                               .Include(user => user.Country)
-                               .ThenInclude(country => country.DefendingArmy)
-                               .ThenInclude(def=>def.Units)
-                               .ThenInclude(unit => unit.Type)
-                               .SingleAsync(user => user.Id == userId);
-
-            var units = user.Country.DefendingArmy.Units;
+            var country = await db.Countries.SingleAsync(c => c.UserId == userId);
+            var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId).Include(u=>u.Type);
 
             List<UnitViewModel> res = new List<UnitViewModel>();
-
             foreach (var unit in units)
             {
                 var localres = new UnitViewModel
@@ -223,7 +216,6 @@ namespace UnderSea.BLL.Services
                 };
                 res.Add(localres);
             }
-
             return res;
         }
     }
