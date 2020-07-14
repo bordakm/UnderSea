@@ -19,7 +19,7 @@ namespace UnderSea.BLL.Services
             db = context;
             this.logger = logger;
         }
-        public async Task<List<UpgradeViewModel>> GetUpgrades(int userid)
+        public async Task<List<UpgradeViewModel>> GetUpgradesAsync(int userid)
         {
             var user = await db.Users
                 .Include(u => u.Country)
@@ -41,7 +41,7 @@ namespace UnderSea.BLL.Services
             .ToList();
         }
 
-        public async Task<UpgradeViewModel> ResearchById(int userId, int upgradetypeid)
+        public async Task<UpgradeViewModel> ResearchByIdAsync(int userId, int upgradetypeid)
         {
             var user = await db.Users
                 .Include(u => u.Country)
@@ -56,7 +56,8 @@ namespace UnderSea.BLL.Services
                 user.Country.UpgradeTimeLeft = 15;
                 upgrade.State = UpgradeState.InProgress;
                 await db.SaveChangesAsync();
-                return GetUpgrades(userId).Result.Single(u => u.Id == upgradetypeid);
+                var upgrades = await GetUpgrades(userId);
+                return upgrades.Single(u => u.Id == upgradetypeid);
             }
             else
             {

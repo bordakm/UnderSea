@@ -23,7 +23,7 @@ namespace UnderSea.BLL.Services
             this.logger = logger;
         }
 
-        public async Task<MainPageViewModel> GetMainPage(int userId)
+        public async Task<MainPageViewModel> GetMainPageAsync(int userId)
         {
             var game = await db.Game.SingleAsync();
             var user = await db.Users
@@ -75,7 +75,7 @@ namespace UnderSea.BLL.Services
             return res;
         }
 
-        public async Task NewRound(int rounds = 1)
+        public async Task NewRoundAsync(int rounds = 1)
         {
             for (int i = 0; i < rounds; ++i)
             {
@@ -90,7 +90,7 @@ namespace UnderSea.BLL.Services
             }
         }
 
-        public async Task<List<ScoreboardViewModel>> SearchScoreboard(SearchDTO search)
+        public async Task<List<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
         {
             int perpage = search.ItemPerPage ?? 10;
             int pagenum = search.Page ?? 1;

@@ -22,7 +22,7 @@ namespace UnderSea.BLL.Services
             this.logger = logger;
         }
 
-        public async Task<List<BuildingInfoViewModel>> GetBuildingInfos(int userId)
+        public async Task<List<BuildingInfoViewModel>> GetBuildingInfosAsync(int userId)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<Building, BuildingInfoViewModel>()
                                                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))
@@ -45,7 +45,7 @@ namespace UnderSea.BLL.Services
             return buildingInfos;
         }
 
-        public async Task<BuildingInfoViewModel> PurchaseBuildingById(int userId, int buildingId)
+        public async Task<BuildingInfoViewModel> PurchaseBuildingByIdAsync(int userId, int buildingId)
         {
             // TODO authentication
             var user = await db.Users.Include(ent => ent.Country)
