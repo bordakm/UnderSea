@@ -16,6 +16,9 @@ namespace UnderSea.DAL.Models
 
         public BuildingGroup BuildingGroup { get; set; }
 
+        [ForeignKey("BuildingGroup")]
+        public int BuildingGroupId { get; set; }
+
         [ForeignKey("UnitGroup")]
         public int AttackingArmyId { get; set; }
 

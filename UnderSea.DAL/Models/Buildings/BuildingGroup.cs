@@ -8,10 +8,6 @@ namespace UnderSea.DAL.Models.Buildings
     public class BuildingGroup
     {
         public int Id { get; set; }
-
-        [ForeignKey("Country")]
-        public int CountryId { get; set; }
-
         public List<Building> Buildings { get; set; }
     }
 }

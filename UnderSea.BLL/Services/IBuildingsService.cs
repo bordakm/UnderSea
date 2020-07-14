@@ -9,7 +9,7 @@ namespace UnderSea.BLL.Services
 {
     public interface IBuildingsService
     {
-        public Task<List<BuildingInfoViewModel>> GetBuildingInfos();
+        public Task<List<BuildingInfoViewModel>> GetBuildingInfos(int userId);
 
         public Task PurchaseBuildingById(int userId, int buildingId);        
     }

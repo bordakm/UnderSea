@@ -261,13 +261,11 @@ namespace UnderSea.DAL.Context
 
             var buildingGroup1 = new BuildingGroup
             {
-                Id = 1,
-                CountryId = 1
+                Id = 1
             };
             var buildingGroup2 = new BuildingGroup
             {
-                Id = 2,
-                CountryId = 2
+                Id = 2
             };
 
             var building1 = new Building
@@ -327,7 +325,9 @@ namespace UnderSea.DAL.Context
                 Pearl = 0,
                 Score = 0,
                 UpgradeTimeLeft = 0,
-                UserId = 1
+                UserId = 1,
+                BuildingGroupId = 1,
+                
             };
             var country2 = new Country
             {
@@ -340,7 +340,9 @@ namespace UnderSea.DAL.Context
                 Pearl = 0,
                 Score = 0,
                 UpgradeTimeLeft = 0,
-                UserId = 2
+                UserId = 2,
+                BuildingGroupId = 2
+                
             };
 
             var game = new Game

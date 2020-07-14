@@ -34,17 +34,21 @@ namespace UnderSea.BLL.Services
                                                         );
             var mapper = new Mapper(config);
             var buildingInfos = new List<BuildingInfoViewModel>();
-            var userbuildings = await db.Users
-                .Include(u=>u.Country)
-                .ThenInclude(c=>c.BuildingGroup)
-                .ThenInclude(bg=>bg.Buildings)
-                .ThenInclude...
-                // TODO holnap befejezni
+            ///
+            ///For testing pourpuses
+            ///
+
+            //var userbuildings = await db.Users
+            //    .Include(u=>u.Country)
+            //    .ThenInclude(c=>c.BuildingGroup)
+            //    .ThenInclude(bg=>bg.Buildings)
+            //    .ThenInclude.
+            //    // TODO holnap befejezni
                 
-                .SingleAsync(u => u.Id == userId).Country.BuildingGroup.Buildings;
+            //    .SingleAsync(u => u.Id == userId).Country.BuildingGroup.Buildings;
             
-            //await db.Buildings.Include(b=>b.Type)
-            userbuildings.ForEach(building => buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building)));
+            ////await db.Buildings.Include(b=>b.Type)
+            //userbuildings.ForEach(building => buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building)));
             return buildingInfos;
         }
 

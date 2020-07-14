@@ -232,26 +232,18 @@ namespace UnderSea.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CountryId")
-                        .IsUnique();
 
                     b.ToTable("BuildingGroup");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            CountryId = 1
+                            Id = 1
                         },
                         new
                         {
-                            Id = 2,
-                            CountryId = 2
+                            Id = 2
                         });
                 });
 
@@ -307,6 +299,9 @@ namespace UnderSea.DAL.Migrations
                     b.Property<int>("AttackingArmyId")
                         .HasColumnType("int");
 
+                    b.Property<int>("BuildingGroupId")
+                        .HasColumnType("int");
+
                     b.Property<int>("BuildingTimeLeft")
                         .HasColumnType("int");
 
@@ -335,6 +330,8 @@ namespace UnderSea.DAL.Migrations
 
                     b.HasIndex("AttackingArmyId");
 
+                    b.HasIndex("BuildingGroupId");
+
                     b.HasIndex("DefendingArmyId");
 
                     b.HasIndex("UserId")
@@ -347,6 +344,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 1,
                             AttackingArmyId = 1,
+                            BuildingGroupId = 1,
                             BuildingTimeLeft = 0,
                             Coral = 0,
                             DefendingArmyId = 2,
@@ -360,6 +358,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 2,
                             AttackingArmyId = 3,
+                            BuildingGroupId = 2,
                             BuildingTimeLeft = 0,
                             Coral = 0,
                             DefendingArmyId = 4,
@@ -824,7 +823,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c2291df9-42b7-4d62-beeb-cf157ad3c536",
+                            ConcurrencyStamp = "a246080b-e1f6-4a40-b37f-6ea5bda56239",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
@@ -838,7 +837,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "58b0c8ab-81ec-4c1b-9b64-68e8dbbeb2bc",
+                            ConcurrencyStamp = "5c2c453b-053e-400d-b243-b7bea4ec72ab",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
@@ -1197,20 +1196,17 @@ namespace UnderSea.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UnderSea.DAL.Models.Buildings.BuildingGroup", b =>
-                {
-                    b.HasOne("UnderSea.DAL.Models.Country", null)
-                        .WithOne("BuildingGroup")
-                        .HasForeignKey("UnderSea.DAL.Models.Buildings.BuildingGroup", "CountryId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("UnderSea.DAL.Models.Country", b =>
                 {
                     b.HasOne("UnderSea.DAL.Models.Units.UnitGroup", "AttackingArmy")
                         .WithMany()
                         .HasForeignKey("AttackingArmyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("UnderSea.DAL.Models.Buildings.BuildingGroup", "BuildingGroup")
+                        .WithMany()
+                        .HasForeignKey("BuildingGroupId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
