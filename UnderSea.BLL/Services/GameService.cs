@@ -190,7 +190,7 @@ namespace UnderSea.BLL.Services
             {
                 var removeUnits = user.Country.FeedUnits();
                 //RemoveUnitsFromAttackingList(removeUnits, user);
-                var userAttacks = game.Attacks.FindAll(attack => attack.AttackerUser.Id == user.Id);
+                var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop)
                 {
@@ -251,7 +251,7 @@ namespace UnderSea.BLL.Services
             {
                 var removeUnits = user.Country.PayUnits();
                 //RemoveUnitsFromAttackingList(removeUnits, user);
-                var userAttacks = game.Attacks.FindAll(attack => attack.AttackerUser.Id == user.Id);
+                var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop)
                 {
@@ -280,7 +280,7 @@ namespace UnderSea.BLL.Services
         private void RemoveUnitsFromAttackingList(Dictionary<int, int> removeUnits, User user)
         {
             var game = db.Game.Single();
-            var userAttacks = game.Attacks.FindAll(attack => attack.AttackerUser.Id == user.Id);
+            var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
             bool stop = false;
             while (!stop)
             {
