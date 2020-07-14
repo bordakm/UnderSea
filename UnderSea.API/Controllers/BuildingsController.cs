@@ -27,14 +27,14 @@ namespace UnderSea.API.Controllers
         [HttpGet]
         public Task<List<BuildingInfoViewModel>> GetBuildingInfos()
         {
-            int userId = 1;
+            int userId = 1; // TODO
             return buildingsService.GetBuildingInfos(userId);
         }
 
         [HttpPost]
         public Task PurchaseBuilding([FromBody] int buildingId)
         {
-            int userId = 0;
+            int userId = 1; // TODO
             return buildingsService.PurchaseBuildingById(userId, buildingId);
         }
     }
