@@ -29,7 +29,7 @@ namespace UnderSea.API.Controllers
             return upgradesService.GetUpgrades(userId);
         }
 
-        [HttpPost]
+        [HttpPost("research")]
         public Task<string> Research([FromBody]int id)
         {
             int userId = 1;

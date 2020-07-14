@@ -25,8 +25,8 @@ namespace UnderSea.API.Controllers
             this.logger = logger;
         }
 
-        [HttpPost]
-        public Task<List<ScoreboardViewModel>> Search([FromBody] SearchDTO search)
+        [HttpGet]
+        public Task<List<ScoreboardViewModel>> Search([FromQuery] SearchDTO search)
         {
             return gameService.SearchScoreboard(search);
         }

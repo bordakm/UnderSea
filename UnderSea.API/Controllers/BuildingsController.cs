@@ -31,7 +31,7 @@ namespace UnderSea.API.Controllers
             return buildingsService.GetBuildingInfos(userId);
         }
 
-        [HttpPost]
+        [HttpPost("purchase")]
         public Task PurchaseBuilding([FromBody] int buildingId)
         {
             int userId = 0;
