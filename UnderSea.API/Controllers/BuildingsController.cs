@@ -32,12 +32,12 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("purchase")]
-        public Task<BuildingInfoViewModel> PurchaseBuilding([FromBody] int buildingId)
+        public async Task<BuildingInfoViewModel> PurchaseBuilding([FromBody] int buildingId)
         {
             int userId = 1; // TODO
-            buildingsService.PurchaseBuildingById(userId, buildingId);
-
-            return GetBuildingInfos();
+            await buildingsService.PurchaseBuildingByIdAsync(userId, buildingId);
+            var buildings = await GetBuildingInfos();
+            return buildings.Single(b=>b.Id == buildingId);
         }
     }
 }
