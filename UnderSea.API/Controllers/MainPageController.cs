@@ -33,7 +33,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("newround")]
-        public Task NewRound([FromBody] int rounds)
+        public Task NewRound([FromQuery] int rounds)
         {
             return gameService.NewRound(rounds);
         }

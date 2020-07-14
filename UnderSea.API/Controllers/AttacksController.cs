@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
+using UnderSea.DAL.Models.Units;
 
 namespace UnderSea.API.Controllers
 {
@@ -32,11 +33,10 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("send")]
-        public Task<string> Attack([FromBody] AttackDTO attack)
+        public Task<List<SimpleUnitViewModel>> Attack([FromBody] AttackDTO attack)
         {
             int userId = 1;
-            armyService.Attack(userId, attack);
-            return Task.Run(()=> { return "todo"; }); // TODO ??
+            return armyService.Attack(userId, attack);
         }
 
         [HttpGet("searchtargets")]

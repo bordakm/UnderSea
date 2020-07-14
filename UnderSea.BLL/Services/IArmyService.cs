@@ -13,6 +13,6 @@ namespace UnderSea.BLL.Services
         public Task<List<SimpleUnitViewModel>> BuyUnits(int userId, List<UnitPurchaseDTO> purchases);
         public Task<List<AvailableUnitViewModel>> GetAvailableUnits(int userId);
         public Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks(int userId);
-        public Task Attack(int attackeruserid, AttackDTO attack);
+        public Task<List<SimpleUnitViewModel>> Attack(int attackeruserid, AttackDTO attack);
     }
 }
