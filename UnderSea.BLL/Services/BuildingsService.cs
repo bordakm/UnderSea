@@ -38,10 +38,13 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(bg => bg.Buildings)
                 .ThenInclude(b => b.Type)
                 .SingleAsync(u => u.Id == userId);
-            var userbuildings = user.Country.BuildingGroup.Buildings;
+            var userBuildings = user.Country.BuildingGroup.Buildings;
 
             var buildingInfos = new List<BuildingInfoViewModel>();
-            userbuildings.ForEach(building => buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building)));
+            foreach (var building in userBuildings)
+            {
+                buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building));
+            }
             return buildingInfos;
         }
 
