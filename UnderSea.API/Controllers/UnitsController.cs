@@ -28,7 +28,7 @@ namespace UnderSea.API.Controllers
         public Task<List<UnitViewModel>> Get()
         {
             int userId = 1; // TODO
-            return armyService.GetUnits(userId);
+            return armyService.GetUnitsAsync(userId);
         }
 
         [HttpPost]
@@ -37,7 +37,7 @@ namespace UnderSea.API.Controllers
         public Task<List<SimpleUnitViewModel>> Buy([FromBody]List<UnitPurchaseDTO> purchases)
         {
             int userId = 1;
-            return armyService.BuyUnits(userId, purchases);
+            return armyService.BuyUnitsAsync(userId, purchases);
         }
     }
 }

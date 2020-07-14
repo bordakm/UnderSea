@@ -44,8 +44,8 @@ namespace UnderSea.API.Controllers
                 if (result.Succeeded)
                 {
                     // TODO tokenek
-                    var user = signInManager.UserManager.GetUserAsync(HttpContext.User);
-                    return await gameService.GetMainPage(user.Id);
+                    var user = await signInManager.UserManager.GetUserAsync(HttpContext.User);
+                    return await gameService.GetMainPageAsync(user.Id);
                 }
             }
             throw new Exception("Login attempt failed");

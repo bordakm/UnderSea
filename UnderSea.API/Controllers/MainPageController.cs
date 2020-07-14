@@ -28,14 +28,14 @@ namespace UnderSea.API.Controllers
         [HttpGet]
         public Task<MainPageViewModel> GetMainPage()
         {
-            int userId = 2;
-            return gameService.GetMainPage(userId);
+            int userId = 1;
+            return gameService.GetMainPageAsync(userId);
         }
 
         [HttpPost("newround")]
         public Task NewRound([FromQuery] int rounds)
         {
-            return Task.Run(() => gameService.NewRound(rounds));
+            return gameService.NewRound(rounds);
         }
     }
 }

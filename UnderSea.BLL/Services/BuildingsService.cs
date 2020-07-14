@@ -22,16 +22,16 @@ namespace UnderSea.BLL.Services
             this.logger = logger;
         }
 
-        public async Task<List<BuildingInfoViewModel>> GetBuildingInfos(int userId)
+        public async Task<List<BuildingInfoViewModel>> GetBuildingInfosAsync(int userId)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<Building, BuildingInfoViewModel>()
                                                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))
                                                         .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Type.Price))
                                                         .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Type.Description))
                                                         .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))
+                                                        .ForMember(dest => dest.RemainingRounds, opt => opt.MapFrom(src => src.ConstructionTimeLeft))
                                                         );
-            var mapper = new Mapper(config);
-            var buildingInfos = new List<BuildingInfoViewModel>();
+            var mapper = new Mapper(config);            
             var user = await db.Users
                 .Include(u => u.Country)
                 .ThenInclude(c => c.BuildingGroup)
@@ -39,12 +39,13 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(b => b.Type)
                 .SingleAsync(u => u.Id == userId);
             var userbuildings = user.Country.BuildingGroup.Buildings;
-            
+
+            var buildingInfos = new List<BuildingInfoViewModel>();
             userbuildings.ForEach(building => buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building)));
             return buildingInfos;
         }
 
-        public async Task PurchaseBuildingById(int userId, int buildingId)
+        public async Task<BuildingInfoViewModel> PurchaseBuildingByIdAsync(int userId, int buildingId)
         {
             // TODO authentication
             var user = await db.Users.Include(ent => ent.Country)
@@ -63,9 +64,12 @@ namespace UnderSea.BLL.Services
                 throw new Exception("Nincs elég gyöngyöd az építéshez!");
             }
             building.UnderConstructionCount++;
-            user.Country.BuildingTimeLeft = 5;
+            user.Country.BuildingTimeLeft = 5; // TODO ezt nem is kéne használni, countryban majd csak az épülő épületek darabszámára lesz szükség
+            building.ConstructionTimeLeft = 5;
+
             user.Country.Pearl -= building.Type.Price;
             await db.SaveChangesAsync();
+            return GetBuildingInfosAsync(userId).Result.Single(x => x.Id == buildingId);
         }
     }
 }

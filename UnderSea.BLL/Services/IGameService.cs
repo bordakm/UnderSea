@@ -9,8 +9,8 @@ namespace UnderSea.BLL.Services
 {
     public interface IGameService
     {
-        public Task<MainPageViewModel> GetMainPage(int userId);
-        public Task NewRound(int rounds);
-        public Task<List<ScoreboardViewModel>> SearchScoreboard(SearchDTO search);
+        public Task<MainPageViewModel> GetMainPageAsync(int userId);
+        public Task NewRoundAsync(int rounds);
+        public Task<List<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search);
     }
 }

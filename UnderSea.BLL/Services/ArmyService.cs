@@ -24,7 +24,7 @@ namespace UnderSea.BLL.Services
             this.logger = logger;
         }
 
-        public async Task Attack(int attackeruserid, AttackDTO attack)
+        public async Task<List<SimpleUnitViewModel>> AttackAsync(int attackeruserid, AttackDTO attack)
         { // TODO: majd ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
             var game = await db.Game
                 .Include(game => game.Attacks)
@@ -46,7 +46,9 @@ namespace UnderSea.BLL.Services
             var defendingUser = defendingCountry.User;
 
             var sentUnits = new List<Unit>();
-
+            var newUnitGroup = new UnitGroup();
+            db.UnitGroups.Add(newUnitGroup);
+            
             foreach (var sendUnit in attack.AttackingUnits) {
                 UnitType type = unitTypes.Single(ut => ut.Id == sendUnit.Id);
                 int ownedCount = attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;
@@ -56,7 +58,7 @@ namespace UnderSea.BLL.Services
                 {                    
                     attackingUser.Country.AttackingArmy.Units.Single(u => u.Type == type).Count += sendUnit.SendCount;
                     attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendUnit.SendCount;
-                    sentUnits.Add(new Unit() {Count = sendUnit.SendCount, Type = type, UnitGroupId = attackingUser.Country.AttackingArmyId});
+                    sentUnits.Add(new Unit() {Count = sendUnit.SendCount, Type = type, UnitGroupId = newUnitGroup.Id});
                 }
             }
 
@@ -70,9 +72,18 @@ namespace UnderSea.BLL.Services
                 UnitList = sentUnits
             });
             await db.SaveChangesAsync();
+
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Unit, SimpleUnitViewModel>());
+            var mapper = new Mapper(config);
+            var simpleUnits = new List<SimpleUnitViewModel>();
+            foreach (var unit in sentUnits)
+            {
+                simpleUnits.Add(mapper.Map<SimpleUnitViewModel>(unit));
+            }
+            return simpleUnits;
         }
 
-        public async Task<List<SimpleUnitViewModel>> BuyUnits(int userId, List<UnitPurchaseDTO> purchases)
+        public async Task<List<SimpleUnitViewModel>> BuyUnitsAsync(int userId, List<UnitPurchaseDTO> purchases)
         {
             //TODO optimalizálás
             var user = await db.Users.Include(user => user.Country)
@@ -122,7 +133,7 @@ namespace UnderSea.BLL.Services
             return resultList;
         }
 
-        public async Task<List<AvailableUnitViewModel>> GetAvailableUnits(int userId)
+        public async Task<List<AvailableUnitViewModel>> GetAvailableUnitsAsync(int userId)
         {
 
             var user = await db.Users
@@ -151,7 +162,7 @@ namespace UnderSea.BLL.Services
             return res;
         }
 
-        public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks(int userId)
+        public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacksAsync(int userId)
         {
             var attacks = await db.Attacks
                                .Include(attack => attack.UnitList)
@@ -182,7 +193,7 @@ namespace UnderSea.BLL.Services
 
         }
 
-        public async Task<List<UnitViewModel>> GetUnits(int userId)
+        public async Task<List<UnitViewModel>> GetUnitsAsync(int userId)
         {
             var user = await db.Users
                                .Include(user => user.Country)

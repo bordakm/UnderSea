@@ -145,15 +145,6 @@ namespace UnderSea.DAL.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("Attacks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AttackerUserId = 1,
-                            DefenderUserId = 2,
-                            GameId = 1
-                        });
                 });
 
             modelBuilder.Entity("UnderSea.DAL.Models.Buildings.Building", b =>
@@ -433,7 +424,6 @@ namespace UnderSea.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            AttackId = 1,
                             Count = 0,
                             TypeId = 1,
                             UnitGroupId = 1
@@ -441,7 +431,6 @@ namespace UnderSea.DAL.Migrations
                         new
                         {
                             Id = 2,
-                            AttackId = 1,
                             Count = 0,
                             TypeId = 2,
                             UnitGroupId = 1
@@ -449,7 +438,6 @@ namespace UnderSea.DAL.Migrations
                         new
                         {
                             Id = 3,
-                            AttackId = 1,
                             Count = 0,
                             TypeId = 3,
                             UnitGroupId = 1
@@ -457,7 +445,7 @@ namespace UnderSea.DAL.Migrations
                         new
                         {
                             Id = 4,
-                            Count = 10,
+                            Count = 20,
                             TypeId = 1,
                             UnitGroupId = 2
                         },
@@ -471,7 +459,7 @@ namespace UnderSea.DAL.Migrations
                         new
                         {
                             Id = 6,
-                            Count = 40,
+                            Count = 20,
                             TypeId = 3,
                             UnitGroupId = 2
                         },
@@ -823,7 +811,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "31ff7eae-6b19-448a-a8fa-939b129ae35a",
+                            ConcurrencyStamp = "edd19a93-c394-4c49-9e7f-52ac0e7ee2e8",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,
@@ -837,7 +825,7 @@ namespace UnderSea.DAL.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2649e0b6-56dc-4df6-ad97-41c6491e58f0",
+                            ConcurrencyStamp = "8b4706c5-8201-4c12-99ac-3c382c511a59",
                             EmailConfirmed = false,
                             GameId = 1,
                             LockoutEnabled = false,

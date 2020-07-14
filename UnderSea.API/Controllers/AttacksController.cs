@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
+using UnderSea.DAL.Models.Units;
 
 namespace UnderSea.API.Controllers
 {
@@ -28,29 +29,28 @@ namespace UnderSea.API.Controllers
         public Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
         {
             int userId = 1;
-            return armyService.GetOutgoingAttacks(userId); // TODO userid
+            return armyService.GetOutgoingAttacksAsync(userId); // TODO userid
         }
 
         [HttpPost("send")]
-        public Task<string> Attack([FromBody] AttackDTO attack)
+        public Task<List<SimpleUnitViewModel>> Attack([FromBody] AttackDTO attack)
         {
             int userId = 1;
-            armyService.Attack(userId, attack);
-            return Task.Run(()=> { return "todo"; }); // TODO ??
+            return armyService.AttackAsync(userId, attack);
         }
 
         [HttpGet("searchtargets")]
         public Task<List<ScoreboardViewModel>> SearchTargets([FromQuery] SearchDTO search)
         { 
             // ha egy usernek több countryja lesz, itt majd ScoreboardViewModel helyett olyat kell odaadni ami country nevet ad, nem usert
-            return gameService.SearchScoreboard(search);
+            return gameService.SearchScoreboardAsync(search);
         }
 
         [HttpGet("getunits")]
         public Task<List<AvailableUnitViewModel>> GetAvailableUnits()
         {
             int userId = 1; // TODO userid
-            return armyService.GetAvailableUnits(userId);
+            return armyService.GetAvailableUnitsAsync(userId);
         }
     }
 }

@@ -28,11 +28,11 @@ namespace UnderSea.API.Controllers
         public Task<List<BuildingInfoViewModel>> GetBuildingInfos()
         {
             int userId = 1; // TODO
-            return buildingsService.GetBuildingInfos(userId);
+            return buildingsService.GetBuildingInfosAsync(userId);
         }
 
         [HttpPost("purchase")]
-        public Task<List<BuildingInfoViewModel>> PurchaseBuilding([FromBody] int buildingId)
+        public Task<BuildingInfoViewModel> PurchaseBuilding([FromBody] int buildingId)
         {
             int userId = 1; // TODO
             buildingsService.PurchaseBuildingById(userId, buildingId);
