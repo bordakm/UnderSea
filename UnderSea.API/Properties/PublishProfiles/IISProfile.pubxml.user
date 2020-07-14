@@ -13,4 +13,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <Value>Server=10.240.1.4\SQLE2012%3bDatabase=UnderSeaT2FinalDb%3bTrusted_Connection=True%3b</Value>
     </DestinationConnectionStrings>
   </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="UnderSea.DAL.Context.UnderSeaDbContext">
+      <Value>Server=10.240.1.4\SQLE2012%3bDatabase=UnderSeaT2FinalDb%3bTrusted_Connection=True%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
 </Project>
