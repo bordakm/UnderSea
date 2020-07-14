@@ -58,14 +58,14 @@ namespace UnderSea.BLL.Services
             var underConstructionCount = user.Country.BuildingGroup.Buildings.Sum(building => building.UnderConstructionCount);
             if (underConstructionCount > 0)
             {
-                throw new Exception("A building is already under construction.");
+                throw new Exception("Már épül egy épületed, nem kezdhetsz újat építeni.");
             }
             if (building.Type.Price > user.Country.Pearl)
             {
-                throw new Exception("Not enough pearls.");
+                throw new Exception("Nincs elég gyöngyöd az építéshez!");
             }
             building.UnderConstructionCount++;
-            user.Country.BuildingTimeLeft = 15;
+            user.Country.BuildingTimeLeft = 5;
             user.Country.Pearl -= building.Type.Price;
             await db.SaveChangesAsync();
         }

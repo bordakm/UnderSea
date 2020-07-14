@@ -97,10 +97,12 @@ namespace UnderSea.BLL.Services
 
         public async Task<List<ScoreboardViewModel>> SearchScoreboard(SearchDTO search)
         {
+            int perpage = search.ItemPerPage ?? 10;
+            int pagenum = search.Page ?? 1;
             var users = await db.Users
                                .Where(users => users.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
-                               .Skip(search.ItemPerPage * (search.Page - 1))
-                               .Take(search.ItemPerPage)
+                               .Skip(perpage * (pagenum - 1))
+                               .Take(perpage)
                                .ToListAsync();
 
             List<ScoreboardViewModel> res = new List<ScoreboardViewModel>();

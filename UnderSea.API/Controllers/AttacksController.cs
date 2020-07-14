@@ -23,14 +23,14 @@ namespace UnderSea.API.Controllers
             this.logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("getoutgoing")]
         public Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
         {
             int userId = 1;
             return armyService.GetOutgoingAttacks(userId); // TODO userid
         }
 
-        [HttpPost]
+        [HttpPost("send")]
         public Task<string> Attack([FromBody] AttackDTO attack)
         {
             int userId = 1;
@@ -38,17 +38,16 @@ namespace UnderSea.API.Controllers
             return Task.Run( () => { return "TODO"; }); // TODO ??
         }
 
-        [HttpGet("search")]
+        [HttpGet("searchtargets")]
         public Task<List<ScoreboardViewModel>> SearchTargets([FromQuery] SearchDTO search)
-        { 
-            // ha egy usernek több countryja lesz, itt majd ScoreboardViewModel helyett olyat kell odaadni ami country nevet ad, nem usert
+        { // ha egy usernek több countryja lesz, itt majd ScoreboardViewModel helyett olyat kell odaadni ami country nevet ad, nem usert
             return gameService.SearchScoreboard(search);
         }
 
-        [HttpGet("units")]
+        [HttpGet("getunits")]
         public Task<List<AvailableUnitViewModel>> GetAvailableUnits()
         {
-            int userId = 1;
+            int userId = 1; // TODO userid
             return armyService.GetAvailableUnits(userId);
         }
     }
