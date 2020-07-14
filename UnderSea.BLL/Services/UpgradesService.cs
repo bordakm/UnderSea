@@ -40,13 +40,13 @@ namespace UnderSea.BLL.Services
             .ToList();
         }
 
-        public async Task<string> ResearchById(int userid, int upgradetypeid)
+        public async Task<List<UpgradeViewModel>> ResearchById(int userId, int upgradetypeid)
         {
             var user = await db.Users
                 .Include(u => u.Country)
                 .ThenInclude(c => c.Upgrades)     
                 .ThenInclude(u => u.Type)
-                .SingleAsync(u => u.Id == userid);
+                .SingleAsync(u => u.Id == userId);
 
             var upgrade = user.Country.Upgrades.Single(u => u.Type.Id == upgradetypeid);
             if (upgrade.State == UpgradeState.Unresearched && !user.Country.Upgrades.Any(u => u.State == UpgradeState.InProgress))
@@ -55,11 +55,11 @@ namespace UnderSea.BLL.Services
                 user.Country.UpgradeTimeLeft = 15;
                 upgrade.State = UpgradeState.InProgress;
                 await db.SaveChangesAsync();
-                return ""; // TODO?
+                return await GetUpgrades(userId);
             }
             else
             {
-                return "Most nem indíthatod el ezt a fejlesztést!";
+                throw new Exception("Most nem indíthatod el ezt a fejlesztést!");
             }
         }
     }
