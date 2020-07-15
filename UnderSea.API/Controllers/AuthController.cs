@@ -30,9 +30,9 @@ namespace UnderSea.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
+        public async Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
         {
-            return Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
+            return await Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
         }
 
         [AllowAnonymous]
@@ -57,7 +57,7 @@ namespace UnderSea.API.Controllers
 
         [HttpPost("logout")]
         [Authorize]
-        public async Task Logout()
+        public async void Logout() // TODO adjunk vissza valamit?
         {
             /*var user = HttpContext.User;
             tokenService.RemoveRefreshTokenAsync(user);
@@ -65,10 +65,10 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("renew")]
-        public Task<TokensViewModel> RenewToken()
+        public async Task<TokensViewModel> RenewToken()
         {
             // TODO tokenek
-            return Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
+            return await Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
         }
     }
 }

@@ -26,16 +26,16 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet]
-        public Task<MainPageViewModel> GetMainPage()
+        public async Task<MainPageViewModel> GetMainPage()
         {
             int userId = 1;
-            return gameService.GetMainPageAsync(userId);
+            return await gameService.GetMainPageAsync(userId);
         }
 
         [HttpPost("newround")]
-        public Task NewRound([FromQuery] int rounds)
+        public async void NewRound([FromQuery] int rounds)
         {
-            return gameService.NewRoundAsync(rounds);
+            await gameService.NewRoundAsync(rounds);
         }
     }
 }

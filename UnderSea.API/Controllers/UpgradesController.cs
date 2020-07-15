@@ -23,17 +23,17 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet]
-        public Task<IEnumerable<UpgradeViewModel>> Get()
+        public async Task<IEnumerable<UpgradeViewModel>> Get()
         {
             int userId = 1;
-            return upgradesService.GetUpgradesAsync(userId);
+            return await upgradesService.GetUpgradesAsync(userId);
         }
 
         [HttpPost("research")]
-        public Task<UpgradeViewModel> Research([FromBody] int id)
+        public async Task<UpgradeViewModel> Research([FromBody] int id)
         {
             int userId = 1;
-            return upgradesService.ResearchByIdAsync(userId, id);
+            return await upgradesService.ResearchByIdAsync(userId, id);
         }
     }
 }
