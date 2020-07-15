@@ -30,7 +30,9 @@ namespace UnderSea.API
             services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
-
+            
+            services.AddAuthorization();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UnderSea", Version = "v1" });
