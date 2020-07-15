@@ -1,5 +1,5 @@
 //
-//  RegisterDTO.swift
+//  LoginEvents.swift
 //  Undersea
 //
 //  Created by Vekety Robin on 2020. 07. 15..
@@ -8,10 +8,11 @@
 
 import Foundation
 
-struct RegisterDTO: Encodable {
+extension Login {
     
-    let userName: String
-    let countryName: String
-    let password: String
+    enum Event {
+        case loggedIn
+        case fail
+    }
     
 }

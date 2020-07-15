@@ -87,6 +87,11 @@
 		799C0DCD24B8B3BC00CEBD2E /* pearl.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC724B8B3BC00CEBD2E /* pearl.svg */; };
 		799C0DCE24B8B3BC00CEBD2E /* coral.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC824B8B3BC00CEBD2E /* coral.svg */; };
 		799C0DCF24B8B3BC00CEBD2E /* flowRegulator.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC924B8B3BC00CEBD2E /* flowRegulator.svg */; };
+		79A5B52424BF0DD6009D5AC6 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52324BF0DD6009D5AC6 /* LoginInteractor.swift */; };
+		79A5B52724BF0F04009D5AC6 /* LoginUsecases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52624BF0F04009D5AC6 /* LoginUsecases.swift */; };
+		79A5B52924BF0F16009D5AC6 /* LoginEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52824BF0F16009D5AC6 /* LoginEvents.swift */; };
+		79A5B52B24BF40B2009D5AC6 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52A24BF40B2009D5AC6 /* LoginPresenter.swift */; };
+		79A5B52D24BF4193009D5AC6 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52C24BF4193009D5AC6 /* LoginViewModel.swift */; };
 		79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */; };
 		79E4868024BDB38C00A0EB3B /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4867F24BDB38C00A0EB3B /* Fonts.swift */; };
 		79E4868C24BDE10900A0EB3B /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79E4868824BDD0B200A0EB3B /* OpenSans-Bold.ttf */; };
@@ -187,6 +192,11 @@
 		799C0DC724B8B3BC00CEBD2E /* pearl.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pearl.svg; sourceTree = "<group>"; };
 		799C0DC824B8B3BC00CEBD2E /* coral.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coral.svg; sourceTree = "<group>"; };
 		799C0DC924B8B3BC00CEBD2E /* flowRegulator.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flowRegulator.svg; sourceTree = "<group>"; };
+		79A5B52324BF0DD6009D5AC6 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		79A5B52624BF0F04009D5AC6 /* LoginUsecases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUsecases.swift; sourceTree = "<group>"; };
+		79A5B52824BF0F16009D5AC6 /* LoginEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEvents.swift; sourceTree = "<group>"; };
+		79A5B52A24BF40B2009D5AC6 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		79A5B52C24BF4193009D5AC6 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenuView.swift; sourceTree = "<group>"; };
 		79E4867F24BDB38C00A0EB3B /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		79E4868224BDD0B100A0EB3B /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -428,6 +438,9 @@
 		794CAAD124B5C6A9007DC9C7 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				79A5B52124BF0DB5009D5AC6 /* Utilities */,
+				79A5B52024BF0DA6009D5AC6 /* Presenter */,
+				79A5B51F24BF0D95009D5AC6 /* Interactor */,
 				794CAAD424B5C707007DC9C7 /* View */,
 				794CAAD224B5C6FB007DC9C7 /* Login.swift */,
 			);
@@ -703,6 +716,48 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		79A5B51F24BF0D95009D5AC6 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B52324BF0DD6009D5AC6 /* LoginInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		79A5B52024BF0DA6009D5AC6 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B52A24BF40B2009D5AC6 /* LoginPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		79A5B52124BF0DB5009D5AC6 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B52524BF0EEC009D5AC6 /* Enums */,
+				79A5B52224BF0DC1009D5AC6 /* ViewModels */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		79A5B52224BF0DC1009D5AC6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B52C24BF4193009D5AC6 /* LoginViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		79A5B52524BF0EEC009D5AC6 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B52624BF0F04009D5AC6 /* LoginUsecases.swift */,
+				79A5B52824BF0F16009D5AC6 /* LoginEvents.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		79E4868124BDD09F00A0EB3B /* OpenSans */ = {
 			isa = PBXGroup;
 			children = (
@@ -913,6 +968,7 @@
 				794CAAD624B5C730007DC9C7 /* LoginPage.swift in Sources */,
 				7956490C24BEE24D003D6D16 /* AttackApiWorker.swift in Sources */,
 				794CAADF24B5EBEC007DC9C7 /* SeaButton.swift in Sources */,
+				79A5B52924BF0F16009D5AC6 /* LoginEvents.swift in Sources */,
 				794CAAE524B60753007DC9C7 /* Register.swift in Sources */,
 				7956491A24BEE54B003D6D16 /* AttackPageDTO.swift in Sources */,
 				7922A9CB24B4BBB8002A7957 /* AppDelegate.swift in Sources */,
@@ -921,6 +977,7 @@
 				794CAACA24B5C51B007DC9C7 /* BaseApiService.swift in Sources */,
 				794CAACC24B5C51B007DC9C7 /* ServerProxy.swift in Sources */,
 				7956491F24BEF79D003D6D16 /* UserManager.swift in Sources */,
+				79A5B52D24BF4193009D5AC6 /* LoginViewModel.swift in Sources */,
 				792DE2E924BC9C16009D175D /* MainUsecases.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
 				7956492124BEF831003D6D16 /* UserDTO.swift in Sources */,
@@ -931,8 +988,11 @@
 				7947D99B24B85A5400C5306D /* View+Extension.swift in Sources */,
 				7947D99924B859F100C5306D /* NavigationBarModifier.swift in Sources */,
 				7922A9CF24B4BBB8002A7957 /* ContentView.swift in Sources */,
+				79A5B52424BF0DD6009D5AC6 /* LoginInteractor.swift in Sources */,
 				7956490E24BEE328003D6D16 /* AttackUsecases.swift in Sources */,
 				7956491024BEE338003D6D16 /* AttackEvents.swift in Sources */,
+				79A5B52B24BF40B2009D5AC6 /* LoginPresenter.swift in Sources */,
+				79A5B52724BF0F04009D5AC6 /* LoginUsecases.swift in Sources */,
 				7956492524BEFD54003D6D16 /* UserManagerApiService.swift in Sources */,
 				794CAADC24B5CF38007DC9C7 /* Color+Extension.swift in Sources */,
 				7956492D24BF04EB003D6D16 /* Encodable+Extension.swift in Sources */,

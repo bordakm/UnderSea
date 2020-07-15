@@ -15,6 +15,7 @@ extension UserManager {
         case login(_ data: LoginDTO)
         case register(_ data: RegisterDTO)
         case logout
+        case renew
     }
     
 }
@@ -24,11 +25,13 @@ extension UserManager.ApiService: BaseApiService {
     var path: String {
         switch self {
         case .login:
-            return "/Login"
+            return "/Auth/login"
         case .register:
-            return "/Register"
+            return "/Auth/register"
         case .logout:
-            return "/Logout"
+            return "/Auth/logout"
+        case .renew:
+            return "/Auth/renew"
         }
     }
     
@@ -36,7 +39,8 @@ extension UserManager.ApiService: BaseApiService {
         switch self {
         case .login,
              .register,
-             .logout:
+             .logout,
+             .renew:
             return .post
         }
     }
@@ -48,6 +52,8 @@ extension UserManager.ApiService: BaseApiService {
         case .register(let data):
             return data.getDictionary()
         case .logout:
+            return [:]
+        case .renew:
             return [:]
         }
     }

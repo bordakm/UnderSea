@@ -15,12 +15,14 @@ class UserManager {
     private let worker = BaseApiWorker<UserManager.ApiService>()
     private var subscription: AnyCancellable?
     
+    
     static let shared: UserManager = UserManager()
     private init() {}
     
-    func login(_ data: LoginDTO) {
+    func login(_ data: LoginDTO) -> AnyPublisher<UserDTO, Error> {
         
-        subscription = worker.execute(target: .login(data))
+        let publisher: AnyPublisher<UserDTO, Error> = worker.execute(target: .login(data))
+        subscription = publisher
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
                 switch result {
@@ -33,6 +35,8 @@ class UserManager {
             }, receiveValue: { (data: UserDTO) in
                 self.loggedInUser.send(data)
             })
+        
+        return publisher
         
     }
     

@@ -10,7 +10,7 @@ import Foundation
 
 struct LoginDTO: Encodable {
     
-    let username: String
+    let userName: String
     let password: String
     
 }
