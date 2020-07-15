@@ -6,7 +6,7 @@ namespace UnderSea.DAL.Models.Upgrades
 {
     public class UnderwaterMartialArts : UpgradeType
     {
-        public UnderwaterMartialArts() 
+        public UnderwaterMartialArts()
         {
             Name = "Vízalatti harcművészetek";
             Description = "növeli a védelmi és támadóerőt 10%-kal";

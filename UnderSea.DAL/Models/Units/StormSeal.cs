@@ -6,7 +6,7 @@ namespace UnderSea.DAL.Models.Units
 {
     public class StormSeal : UnitType
     {
-        public StormSeal() 
+        public StormSeal()
         {
             Name = "Rohamfóka";
             ImageUrl = "majd/lesz/kep.jpeg";

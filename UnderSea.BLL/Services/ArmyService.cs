@@ -28,9 +28,9 @@ namespace UnderSea.BLL.Services
             var game = await db.Game
                 .Include(game => game.Attacks)
                 .SingleAsync();
-            var unitTypes = await db.UnitTypes.ToListAsync();            
+            var unitTypes = await db.UnitTypes.ToListAsync();
             var attackingUser = await db.Users
-                .Include(u=>u.Country)
+                .Include(u => u.Country)
                 .ThenInclude(country => country.DefendingArmy)
                 .ThenInclude(defendingArmy => defendingArmy.Units)
                 .ThenInclude(unit => unit.Type)
@@ -49,16 +49,17 @@ namespace UnderSea.BLL.Services
             db.UnitGroups.Add(newUnitGroup);
             await db.SaveChangesAsync();
 
-            foreach (var sendUnit in attack.AttackingUnits) {
+            foreach (var sendUnit in attack.AttackingUnits)
+            {
                 UnitType type = unitTypes.Single(ut => ut.Id == sendUnit.Id);
                 int ownedCount = attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;
                 if (sendUnit.SendCount > ownedCount)
                     throw new Exception("Nem küldhetsz több egységet, mint amennyid van!");
                 else
-                {                    
+                {
                     attackingUser.Country.AttackingArmy.Units.Single(u => u.Type == type).Count += sendUnit.SendCount;
                     attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendUnit.SendCount;
-                    sentUnits.Add(new Unit() {Count = sendUnit.SendCount, Type = type, UnitGroupId = newUnitGroup.Id});
+                    sentUnits.Add(new Unit() { Count = sendUnit.SendCount, Type = type, UnitGroupId = newUnitGroup.Id });
                 }
             }
 
@@ -111,7 +112,7 @@ namespace UnderSea.BLL.Services
             {
                 throw new Exception("More barracks are needed.");
             }
-            int priceTotal = purchases.Sum(purchase => purchase.Count * defendingUnits.Single(unit => unit.Type.Id  == purchase.TypeId).Type.Price);
+            int priceTotal = purchases.Sum(purchase => purchase.Count * defendingUnits.Single(unit => unit.Type.Id == purchase.TypeId).Type.Price);
             if (priceTotal > user.Country.Pearl)
             {
                 throw new Exception("Not enough pearls.");
@@ -196,7 +197,7 @@ namespace UnderSea.BLL.Services
         public async Task<List<UnitViewModel>> GetUnitsAsync(int userId)
         {
             var country = await db.Countries.SingleAsync(c => c.UserId == userId);
-            var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId).Include(u=>u.Type);
+            var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId).Include(u => u.Type);
 
             List<UnitViewModel> res = new List<UnitViewModel>();
             foreach (var unit in units)

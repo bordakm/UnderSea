@@ -12,7 +12,7 @@ namespace UnderSea.BLL.ViewModels
         public IEnumerable<Unit> Units { get; set; }
         public BuildingGroup Buildings { get; set; }
         public int RoundCount { get; set; }
-        public int ScoreboardPosition { get; set; }        
+        public int ScoreboardPosition { get; set; }
         public StatusBarResource Resources { get; set; }
 
         public class StatusBarBuilding

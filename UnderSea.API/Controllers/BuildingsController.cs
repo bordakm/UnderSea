@@ -37,7 +37,7 @@ namespace UnderSea.API.Controllers
             int userId = 1; // TODO
             await buildingsService.PurchaseBuildingByIdAsync(userId, buildingId);
             var buildings = await GetBuildingInfos();
-            return buildings.Single(b=>b.Id == buildingId);
+            return buildings.Single(b => b.Id == buildingId);
         }
     }
 }

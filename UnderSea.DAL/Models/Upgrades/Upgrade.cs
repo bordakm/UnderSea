@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UnderSea.DAL.Models.Upgrades
-{ 
+{
     public class Upgrade
     {
         public int Id { get; set; }

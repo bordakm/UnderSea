@@ -36,7 +36,7 @@ namespace UnderSea.DAL.Models
         [NotMapped]
         public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus);
         [NotMapped]
-        public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.Type.UnitStorage);        
+        public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.Type.UnitStorage);
         [NotMapped]
         public int CoralProduction
         {
@@ -119,7 +119,7 @@ namespace UnderSea.DAL.Models
                         if (difference <= 0)
                         {
                             stop = true;
-                            break;                            
+                            break;
                         }
                     }
                 }
@@ -166,7 +166,7 @@ namespace UnderSea.DAL.Models
                         building.Count++;
                         building.UnderConstructionCount--;
                     }
-                }                
+                }
             }
         }
 

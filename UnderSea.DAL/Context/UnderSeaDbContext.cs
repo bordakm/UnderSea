@@ -25,7 +25,7 @@ namespace UnderSea.DAL.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,8 +36,8 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<ReefCastle>();
             modelBuilder.Entity<Alchemy>();
             modelBuilder.Entity<StormSeal>();
-                        
-           foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.NoAction;
             }
@@ -293,7 +293,7 @@ namespace UnderSea.DAL.Context
                 BuildingGroupId = 2,
                 Count = 1,
                 TypeId = 2
-            };            
+            };
 
             var unitGroup1 = new UnitGroup
             {
@@ -325,7 +325,7 @@ namespace UnderSea.DAL.Context
                 UpgradeTimeLeft = 0,
                 UserId = 1,
                 BuildingGroupId = 1,
-                
+
             };
             var country2 = new Country
             {
@@ -340,7 +340,7 @@ namespace UnderSea.DAL.Context
                 UpgradeTimeLeft = 0,
                 UserId = 2,
                 BuildingGroupId = 2
-                
+
             };
 
             var game = new Game
@@ -393,16 +393,16 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<SonarCannon>()
                 .HasData(sonarCannon);
             modelBuilder.Entity<UnderwaterMartialArts>()
-                .HasData(underwaterMartialArts);     
-           
-           modelBuilder.Entity<UnitGroup>()
-                .HasData(new UnitGroup[]
-                {
+                .HasData(underwaterMartialArts);
+
+            modelBuilder.Entity<UnitGroup>()
+                 .HasData(new UnitGroup[]
+                 {
                     unitGroup1,
                     unitGroup2,
                     unitGroup3,
                     unitGroup4
-                });
+                 });
             modelBuilder.Entity<Game>().HasData(game);
             modelBuilder.Entity<User>()
                .HasData(new User[]
@@ -417,7 +417,7 @@ namespace UnderSea.DAL.Context
                 });
             modelBuilder.Entity<Country>()
                 .HasData(new Country[]
-                { 
+                {
                     country1,
                     country2
                 });

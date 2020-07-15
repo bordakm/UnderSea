@@ -34,7 +34,7 @@ namespace UnderSea.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public Task<List<SimpleUnitViewModel>> Buy([FromBody]List<UnitPurchaseDTO> purchases)
+        public Task<List<SimpleUnitViewModel>> Buy([FromBody] List<UnitPurchaseDTO> purchases)
         {
             int userId = 1;
             return armyService.BuyUnitsAsync(userId, purchases);

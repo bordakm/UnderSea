@@ -8,7 +8,7 @@ namespace UnderSea.DAL.Models.Units
     {
         public LaserShark()
         {
-            Name = "Lézercápa";            
+            Name = "Lézercápa";
             ImageUrl = "majd/lesz/kep.jpeg";
             Price = 100;
             AttackScore = 5.0;

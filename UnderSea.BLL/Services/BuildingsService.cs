@@ -30,7 +30,7 @@ namespace UnderSea.BLL.Services
                                                         .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))
                                                         .ForMember(dest => dest.RemainingRounds, opt => opt.MapFrom(src => src.ConstructionTimeLeft))
                                                         );
-            var mapper = new Mapper(config);            
+            var mapper = new Mapper(config);
             var user = await db.Users
                 .Include(u => u.Country)
                 .ThenInclude(c => c.BuildingGroup)

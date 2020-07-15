@@ -24,7 +24,7 @@ namespace UnderSea.BLL.Services
             var user = await db.Users
                 .Include(u => u.Country)
                 .ThenInclude(c => c.Upgrades)
-                .ThenInclude(u=>u.Type)
+                .ThenInclude(u => u.Type)
                 .SingleAsync(u => u.Id == userid);
             int roundsLeft = user.Country.UpgradeTimeLeft;
             return user.Country
@@ -45,7 +45,7 @@ namespace UnderSea.BLL.Services
         {
             var user = await db.Users
                 .Include(u => u.Country)
-                .ThenInclude(c => c.Upgrades)     
+                .ThenInclude(c => c.Upgrades)
                 .ThenInclude(u => u.Type)
                 .SingleAsync(u => u.Id == userId);
 

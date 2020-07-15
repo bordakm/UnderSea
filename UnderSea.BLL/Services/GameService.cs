@@ -36,7 +36,7 @@ namespace UnderSea.BLL.Services
                                 .ThenInclude(bGroup => bGroup.Buildings)
                                 .ThenInclude(buildings => buildings.Type)
                                 .Include(users => users.Country.Upgrades)
-                                .ThenInclude(u=>u.Type)
+                                .ThenInclude(u => u.Type)
                                 .SingleAsync(user => user.Id == userId);
 
 
@@ -71,7 +71,7 @@ namespace UnderSea.BLL.Services
                     MudTractor = (user.Country.Upgrades.Single(y => y.Type is MudTractor).State != UpgradeState.Unresearched),
                     SonarCannon = (user.Country.Upgrades.Single(y => y.Type is SonarCannon).State != UpgradeState.Unresearched),
                     UnderwaterMartialArts = (user.Country.Upgrades.Single(y => y.Type is UnderwaterMartialArts).State != UpgradeState.Unresearched),
-                }                
+                }
             };
             return res;
         }
@@ -90,7 +90,7 @@ namespace UnderSea.BLL.Services
             //    await CalculateRankings();
             //}
 
-           await Task.Run(() => { return "TODO"; });
+            await Task.Run(() => { return "TODO"; });
         }
 
         public async Task<List<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
@@ -326,7 +326,7 @@ namespace UnderSea.BLL.Services
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
                 .ThenInclude(buildingGroup => buildingGroup.Buildings)
-                .ThenInclude(b=>b.Type)
+                .ThenInclude(b => b.Type)
                 .Include(user => user.Country)
                 .ThenInclude(country => country.Upgrades);
             foreach (var user in users)
@@ -339,7 +339,7 @@ namespace UnderSea.BLL.Services
             {
                 user.Place = ++rank;
             }
-            await  db.SaveChangesAsync();
+            await db.SaveChangesAsync();
         }
     }
 }

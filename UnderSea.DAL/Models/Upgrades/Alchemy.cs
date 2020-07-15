@@ -6,7 +6,7 @@ namespace UnderSea.DAL.Models.Upgrades
 {
     public class Alchemy : UpgradeType
     {
-        public Alchemy() 
+        public Alchemy()
         {
             Name = "Alkímia";
             Description = "növeli a beszedett adót 30%-kal";

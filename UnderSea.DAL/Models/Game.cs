@@ -66,7 +66,7 @@ namespace UnderSea.DAL.Models
                 attackerScore *= 1 + rand.Next(-5, 5) / 100;
 
                 //if the defender wins
-                if(defenderScore > attackerScore)
+                if (defenderScore > attackerScore)
                 {
                     //levonjuk az egységeket az attacking armyból
                     foreach (var unit in attack.UnitList)
