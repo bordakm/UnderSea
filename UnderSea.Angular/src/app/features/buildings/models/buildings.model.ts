@@ -2,9 +2,9 @@ export interface IBuildingsViewModel {
     name: string;
     count: number;
     price: number;
-    givenMembers?: number;
-    bearedFood?: number;
-    givenShelter?: number;
+    description?: string | undefined;
+    imageUrl?: string | undefined;
+    remainingRounds?: number;
 }
 
 export interface ICatsViewModel{

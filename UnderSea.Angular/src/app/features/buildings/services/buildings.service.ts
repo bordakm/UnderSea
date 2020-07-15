@@ -20,7 +20,8 @@ export class BuildingsService {
                  dtos.map(dto => ({
                     name: dto.name,
                     count: dto.count,
-                    price: dto.price
+                    price: dto.price,
+                    description: dto.description,
                 }))
         )
     );

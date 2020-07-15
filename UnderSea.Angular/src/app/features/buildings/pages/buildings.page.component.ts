@@ -18,15 +18,12 @@ export class BuildingsPageComponent implements OnInit {
     name: 'Zátonyvár',
     count: 1,
     price: 45,
-    givenMembers: 50,
-    bearedFood: 200
   };
 
   streamManager: IBuildingsViewModel = {
     name: 'Áramlásirányító',
     count: 0,
     price: 35,
-    givenShelter: 200
   };
 
   bossCat: ICatsViewModel = {
@@ -35,13 +32,13 @@ export class BuildingsPageComponent implements OnInit {
     status: null,
   };
 
+  buildings: IBuildingsViewModel[];
+
   constructor(private service: BuildingsService) { }
 
   ngOnInit(): void {
     this.service.getBuildings().pipe(
-      tap(res => {
-        
-      }),
+      tap(res => this.buildings = res),
       catchError(error => console.assert)
     ).subscribe();
 
