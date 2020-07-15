@@ -1,5 +1,5 @@
 //
-//  LoginInteractor.swift
+//  RegisterInteractor.swift
 //  Undersea
 //
 //  Created by Vekety Robin on 2020. 07. 15..
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-extension Login {
+extension Register {
     
     class Interactor {
         
@@ -19,18 +19,18 @@ extension Login {
         let dataSubject = CurrentValueSubject<DataModelType?, Error>(nil)
         private var subscription: AnyCancellable?
      
-        func handleUsecase(_ event: Login.Usecase) {
+        func handleUsecase(_ event: Register.Usecase) {
             
             switch event {
-            case .login(let username, let password):
-                login(LoginDTO(userName: username, password: password))
+            case .register(let username,let countryName, let password):
+                register(RegisterDTO(userName: username, countryName: countryName, password: password))
             }
             
         }
         
-        private func login(_ data: LoginDTO) {
+        private func register(_ data: RegisterDTO) {
             
-            subscription = UserManager.shared.login(data)
+            subscription = UserManager.shared.register(data)
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { (result) in
                     switch result {
@@ -56,4 +56,3 @@ extension Login {
     }
     
 }
-

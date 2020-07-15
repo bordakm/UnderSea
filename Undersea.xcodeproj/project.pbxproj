@@ -92,6 +92,11 @@
 		79A5B52924BF0F16009D5AC6 /* LoginEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52824BF0F16009D5AC6 /* LoginEvents.swift */; };
 		79A5B52B24BF40B2009D5AC6 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52A24BF40B2009D5AC6 /* LoginPresenter.swift */; };
 		79A5B52D24BF4193009D5AC6 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52C24BF4193009D5AC6 /* LoginViewModel.swift */; };
+		79A5B53524BF5303009D5AC6 /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B53424BF5303009D5AC6 /* RegisterPresenter.swift */; };
+		79A5B53724BF5316009D5AC6 /* RegisterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B53624BF5316009D5AC6 /* RegisterInteractor.swift */; };
+		79A5B53B24BF5343009D5AC6 /* RegisterUsecases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B53A24BF5343009D5AC6 /* RegisterUsecases.swift */; };
+		79A5B53D24BF5357009D5AC6 /* RegisterEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B53C24BF5357009D5AC6 /* RegisterEvents.swift */; };
+		79A5B53F24BF538B009D5AC6 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B53E24BF538B009D5AC6 /* RegisterViewModel.swift */; };
 		79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */; };
 		79E4868024BDB38C00A0EB3B /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4867F24BDB38C00A0EB3B /* Fonts.swift */; };
 		79E4868C24BDE10900A0EB3B /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79E4868824BDD0B200A0EB3B /* OpenSans-Bold.ttf */; };
@@ -197,6 +202,11 @@
 		79A5B52824BF0F16009D5AC6 /* LoginEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEvents.swift; sourceTree = "<group>"; };
 		79A5B52A24BF40B2009D5AC6 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		79A5B52C24BF4193009D5AC6 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		79A5B53424BF5303009D5AC6 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
+		79A5B53624BF5316009D5AC6 /* RegisterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInteractor.swift; sourceTree = "<group>"; };
+		79A5B53A24BF5343009D5AC6 /* RegisterUsecases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUsecases.swift; sourceTree = "<group>"; };
+		79A5B53C24BF5357009D5AC6 /* RegisterEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEvents.swift; sourceTree = "<group>"; };
+		79A5B53E24BF538B009D5AC6 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenuView.swift; sourceTree = "<group>"; };
 		79E4867F24BDB38C00A0EB3B /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		79E4868224BDD0B100A0EB3B /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -493,6 +503,9 @@
 		794CAAE224B60728007DC9C7 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				79A5B53324BF52EB009D5AC6 /* Interactor */,
+				79A5B53224BF52E1009D5AC6 /* Presenter */,
+				79A5B53124BF52D0009D5AC6 /* Utilities */,
 				794CAAE324B60735007DC9C7 /* View */,
 				794CAAE424B60753007DC9C7 /* Register.swift */,
 			);
@@ -758,6 +771,48 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		79A5B53124BF52D0009D5AC6 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B53924BF5328009D5AC6 /* ViewModels */,
+				79A5B53824BF531F009D5AC6 /* Enums */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		79A5B53224BF52E1009D5AC6 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B53424BF5303009D5AC6 /* RegisterPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		79A5B53324BF52EB009D5AC6 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B53624BF5316009D5AC6 /* RegisterInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		79A5B53824BF531F009D5AC6 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B53A24BF5343009D5AC6 /* RegisterUsecases.swift */,
+				79A5B53C24BF5357009D5AC6 /* RegisterEvents.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		79A5B53924BF5328009D5AC6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				79A5B53E24BF538B009D5AC6 /* RegisterViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		79E4868124BDD09F00A0EB3B /* OpenSans */ = {
 			isa = PBXGroup;
 			children = (
@@ -943,6 +998,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				792DE2F724BCAF8B009D175D /* StructureType.swift in Sources */,
+				79A5B53B24BF5343009D5AC6 /* RegisterUsecases.swift in Sources */,
 				792DE2DD24BC8DE3009D175D /* MainPageDTO.swift in Sources */,
 				792DE2E324BC962F009D175D /* MainApiWorker.swift in Sources */,
 				79E4869B24BDF52300A0EB3B /* AttackDetailPage.swift in Sources */,
@@ -963,6 +1019,7 @@
 				79820C8D24B7415C006D7258 /* CustomTabBar.swift in Sources */,
 				794CAACF24B5C577007DC9C7 /* ApiError.swift in Sources */,
 				79820C8B24B73A67006D7258 /* TeamsPage.swift in Sources */,
+				79A5B53724BF5316009D5AC6 /* RegisterInteractor.swift in Sources */,
 				792DE2E624BC9B37009D175D /* MainInteractor.swift in Sources */,
 				794CAAD924B5CDF5007DC9C7 /* Colors.swift in Sources */,
 				794CAAD624B5C730007DC9C7 /* LoginPage.swift in Sources */,
@@ -983,6 +1040,7 @@
 				7956492124BEF831003D6D16 /* UserDTO.swift in Sources */,
 				7947D99D24B8678700C5306D /* HostingController.swift in Sources */,
 				7922A9CD24B4BBB8002A7957 /* SceneDelegate.swift in Sources */,
+				79A5B53F24BF538B009D5AC6 /* RegisterViewModel.swift in Sources */,
 				79820C7B24B71E01006D7258 /* Main.swift in Sources */,
 				7947D99624B84A2700C5306D /* UIColor+Extension.swift in Sources */,
 				7947D99B24B85A5400C5306D /* View+Extension.swift in Sources */,
@@ -997,7 +1055,9 @@
 				794CAADC24B5CF38007DC9C7 /* Color+Extension.swift in Sources */,
 				7956492D24BF04EB003D6D16 /* Encodable+Extension.swift in Sources */,
 				7956491D24BEF588003D6D16 /* RootPageManager.swift in Sources */,
+				79A5B53524BF5303009D5AC6 /* RegisterPresenter.swift in Sources */,
 				79820C7D24B71E0C006D7258 /* MainPage.swift in Sources */,
+				79A5B53D24BF5357009D5AC6 /* RegisterEvents.swift in Sources */,
 				79820C5024B707F7006D7258 /* RootPageController.swift in Sources */,
 				792DE2F524BCAAB4009D175D /* StatusBarItem.swift in Sources */,
 				794CAAD324B5C6FB007DC9C7 /* Login.swift in Sources */,
