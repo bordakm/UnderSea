@@ -95,30 +95,24 @@ namespace UnderSea.BLL.Services
 
         public async Task<IEnumerable<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
         {
-            int perpage = search.ItemPerPage ?? 10;
-            int pagenum = search.Page ?? 1;
+            int perPage = search.ItemPerPage ?? 10;
+            int pageNum = search.Page ?? 1;
+            string searchPhrase = search.SearchPhrase ?? "";
             var users = await db.Users
-                               .Where(users => users.UserName.ToUpper().Contains(search.SearchPhrase.ToUpper()))
-                               .Skip(perpage * (pagenum - 1))
-                               .Take(perpage)
+                               .Where(users => searchPhrase.ToUpper().Contains(searchPhrase.ToUpper()))
+                               .Skip(perPage * (pageNum - 1))
+                               .Take(perPage)
                                .ToListAsync();
 
-            List<ScoreboardViewModel> response = new List<ScoreboardViewModel>();
-
-            foreach (var user in users)
-            {
-                var localres = new ScoreboardViewModel
+            return users.Select(user =>
+                new ScoreboardViewModel
                 {
                     Id = user.Id,
                     Place = user.Place,
                     Score = user.Score,
                     UserName = user.UserName
-                };
-
-                response.Add(localres);
-            }
-
-            return response;
+                }
+            );
         }
 
         private async Task AddTaxes()

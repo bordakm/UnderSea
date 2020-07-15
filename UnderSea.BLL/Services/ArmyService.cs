@@ -199,27 +199,7 @@ namespace UnderSea.BLL.Services
             var country = await db.Countries.SingleAsync(c => c.UserId == userId);
             var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId).Include(u => u.Type);
 
-
-
-          /*  List<UnitViewModel> response = new List<UnitViewModel>();
-            foreach (var unit in units)
-            {
-                var localres = new UnitViewModel
-                {
-                    AttackScore = unit.Type.AttackScore,
-                    CoralCostPerTurn = unit.Type.CoralCostPerTurn,
-                    Count = unit.Count,
-                    DefenseScore = unit.Type.DefenseScore,
-                    ImageUrl = unit.Type.ImageUrl,
-                    Name = unit.Type.Name,
-                    PearlCostPerTurn = unit.Type.PearlCostPerTurn,
-                    Price = unit.Type.Price,
-                    Id = unit.Type.Id
-                };
-                response.Add(localres);
-            }*/
-            //return response;
-
+            // TODO automapper?
             return units.Select(unit =>            
                 new UnitViewModel
                 {
@@ -234,6 +214,7 @@ namespace UnderSea.BLL.Services
                     Id = unit.Type.Id
                 }
             );
+
         }
     }
 }
