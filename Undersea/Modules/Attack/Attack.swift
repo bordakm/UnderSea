@@ -11,8 +11,24 @@ import SwiftUI
 
 struct Attack {
     
+    typealias DataModelType = AttackPageDTO
+    typealias ViewModelType = ViewModel
+    
     static func setup() -> AttackPage {
-        return AttackPage()
+        
+        let interactor = Interactor()
+        let presenter = Presenter()
+        
+        var view = AttackPage(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
+        
+        interactor.setPresenter = { return presenter }
+        
+        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
+        
+        view.setInteractor = { return interactor }
+        
+        return view
+        
     }
     
 }

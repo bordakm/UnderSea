@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         coloredAppearance.configureWithTransparentBackground()
         coloredAppearance.backgroundColor = .clear
         coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: Colors.navBarTintColor]
+        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         
         UINavigationBar.appearance().standardAppearance = coloredAppearance
         UINavigationBar.appearance().compactAppearance = coloredAppearance
@@ -41,6 +41,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UINavigationBar.appearance().tintColor = .white
         
         UITableView.appearance().tableFooterView = UIView()
+        UITableView.appearance().backgroundColor = Colors.backgroundUIColor
+        UITableViewCell.appearance().backgroundColor = Colors.backgroundUIColor
+        UITableView.appearance().separatorColor = Colors.separatorColor
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

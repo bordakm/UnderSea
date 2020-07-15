@@ -77,7 +77,7 @@ extension Main {
                 .navigationBarTitle("", displayMode: .inline)
                 .navigationBarItems(leading: SVGImage(svgName: "underseaLogo").frame(width: 70.0, height: 40.0),
                                     trailing: SVGImage(svgName: "userImage").frame(width: 30.0, height: 30.0))
-                .navigationBarColor(Colors.navBarTintColor)
+                .navigationBarColor(Colors.navBarBackgroundColor)
             }.onAppear {
                 self.usecaseHandler?(.load)
             }
