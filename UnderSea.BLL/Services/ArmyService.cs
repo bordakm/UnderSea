@@ -75,13 +75,7 @@ namespace UnderSea.BLL.Services
                 UnitList = sentUnits
             });
             await db.SaveChangesAsync();
-
-            var simpleUnits = new List<SimpleUnitViewModel>();
-            foreach (var unit in sentUnits)
-            {
-                simpleUnits.Add(mapper.Map<SimpleUnitViewModel>(unit));
-            }
-            return simpleUnits;
+            return mapper.Map<IEnumerable<SimpleUnitViewModel>>(sentUnits);
         }
 
         public async Task<IEnumerable<SimpleUnitViewModel>> BuyUnitsAsync(int userId, List<UnitPurchaseDTO> purchases)
@@ -150,11 +144,7 @@ namespace UnderSea.BLL.Services
             var response = new List<OutgoingAttackViewModel>();           
             foreach (var attack in attacks)
             {
-                var units = new List<SimpleUnitViewModel>();
-                foreach (var unit in attack.UnitList)
-                {
-                    units.Add(mapper.Map<SimpleUnitViewModel>(unit));
-                }
+                var units = mapper.Map<List<SimpleUnitViewModel>>(attack.UnitList); 
                 response.Add(new OutgoingAttackViewModel
                 {
                     CountryName = attack.AttackerUser.Country.Name,
