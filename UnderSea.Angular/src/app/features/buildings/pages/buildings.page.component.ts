@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IBuildingsViewModel } from '../models/buildings.model';
+import { IBuildingsViewModel, ICatsViewModel } from '../models/buildings.model';
+import { BuildingsService } from '../services/buildings.service';
+import { tap, catchError } from 'rxjs/operators';
+import { ICatsDto } from '../models/buildings.dto';
 
 @Component({
   selector: 'app-buildings-page',
@@ -25,9 +28,27 @@ export class BuildingsPageComponent implements OnInit {
     price: 35,
     givenShelter: 200
   };
-  constructor() { }
+
+  bossCat: ICatsViewModel = {
+    type: null,
+    text: null,
+    status: null,
+  };
+
+  constructor(private service: BuildingsService) { }
 
   ngOnInit(): void {
+    this.service.getBuildings().pipe(
+      tap(res => {
+        
+      }),
+      catchError(error => console.assert)
+    ).subscribe();
+
+    this.service.getCats().pipe(
+      tap(res => this.bossCat = res),
+      catchError(error => console.assert)
+    ).subscribe();
   }
 
   enableButton(value): void{

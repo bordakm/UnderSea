@@ -16,6 +16,9 @@ import { BuildingsPageComponent } from './pages/buildings.page.component';
     BuildingsRoutingModule,
   ],
   exports: [
+  ],
+  providers: [
+    
   ]
 })
 export class BuildingsModule { }

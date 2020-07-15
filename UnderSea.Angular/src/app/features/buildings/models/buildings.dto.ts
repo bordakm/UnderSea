@@ -1,13 +1,14 @@
-export interface IBuildingsViewModel {
+export interface IBuildingsDto{
+    id: number;
     name: string;
+    description: string;
     count: number;
     price: number;
-    givenMembers?: number;
-    bearedFood?: number;
-    givenShelter?: number;
+    imageUrl: string;
+    remainingRounds: number;
 }
 
-export interface ICatsViewModel{
+export interface ICatsDto{
     type: string;
     text: string;
     status: {
