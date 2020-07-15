@@ -81,19 +81,17 @@ namespace UnderSea.BLL.Services
 
         public async Task NewRoundAsync(int rounds = 1)
         {
-            //for (int i = 0; i < rounds; ++i)
-            //{
-            //    await AddTaxes();
-            //    await AddCoral();
-            //    await PayUnits();
-            //    await FeedUnits();
-            //    await DoUpgrades();
-            //    await Build();
-            //    await CalculateAttacks();
-            //    await CalculateRankings();
-            //}
-
-            await Task.Run(() => { return "TODO"; });
+            for (int i = 0; i < rounds; ++i)
+            {
+                await AddTaxes();
+                await AddCoral();
+                await PayUnits();
+                await FeedUnits();
+                await DoUpgrades();
+                await Build();
+                await CalculateAttacks();
+                await CalculateRankings();
+            }
         }
 
         public async Task<IEnumerable<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
@@ -212,7 +210,7 @@ namespace UnderSea.BLL.Services
 
         private async Task PayUnits()
         {
-            var game = db.Game
+            var game = await db.Game
                 .Include(game => game.Attacks)
                 .ThenInclude(attacks => attacks.AttackerUser)
                 .Include(game => game.Attacks)
@@ -228,7 +226,7 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(country => country.DefendingArmy)
                 .ThenInclude(da => da.Units)
                 .ThenInclude(units => units.Type)
-                .Single();
+                .SingleAsync();
 
             //var users =
             //    db.Users.Include(user => user.Country)
@@ -246,6 +244,7 @@ namespace UnderSea.BLL.Services
                 //RemoveUnitsFromAttackingList(removeUnits, user);
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
+                if (userAttacks.ToList().Count == 0) stop = true;
                 while (!stop)
                 {
                     foreach (Attack attack in userAttacks)
