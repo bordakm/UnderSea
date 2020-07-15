@@ -1,0 +1,96 @@
+
+/*.flex-box{
+    height: 80vh;
+    flex-direction: row;
+    .flex-box{
+        height: fit-content;
+        flex-direction: row;
+        align-items: flex-start;
+        
+    }
+}*/
+
+.flex-box{
+    height: fit-content;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    
+}
+
+.flex-box .unit-card{
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 16px;
+}
+
+.plus-minus{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.data-holder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 20vw;
+    margin-bottom: 5vh;
+}
+
+div.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8vh;
+}
+
+.divider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-divider.my-divider{
+    width: 65vw;
+}
+
+h3{
+    margin: 0 0 0 0;
+}
+
+.mat-card > h3{
+    text-align: center;
+}
+
+h4{
+    font-weight: lighter;
+}
+
+.mat-card > h4{
+    text-align: center;
+}
+
+.color1, .color2, .color3, .color4, .color5, .color6{
+    background-color: rgba(white, 0.3);
+}
+  
+
+img{
+    width: auto;
+    height: 8vh;
+}
+
+img .wide{
+  
+}
+
+img .high{
+   
+}
+.img-container{
+    text-align: center;
+}

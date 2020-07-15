@@ -11,6 +11,16 @@
     }
 }
 
+.flex-box-features{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    min-height: 80vh;
+}
+
 .flex-card {
     display: flex;
     flex-direction: row;
@@ -33,10 +43,10 @@
     background-color: #03255F;
     box-shadow: none;
     padding: 30px;
-    max-height: 70vh;
+    max-width: 70vw;
 }
 
-.mat-card.building-card-in-main-page{
+.mat-card.building-card-in-main-page, .mat-card.upgrade-card-in-upgrades-page{
     background-color: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -45,6 +55,12 @@
     border-radius: 16px; 
     justify-content: center;
     height: 30vh;
+}
+.mat-card.upgrade-card-in-upgrades-page{
+    max-height: 20vh;
+    max-width: 10vw;
+    margin-left: 45px;
+    margin-right: 45px;
 }
 
 .mat-card-title{

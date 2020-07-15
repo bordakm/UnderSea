@@ -14,10 +14,11 @@ export class FightPageComponent implements OnInit {
     sealCount: 30,
     seahorseCount: 45
   };
-
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  
 
 }
