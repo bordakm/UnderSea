@@ -25,19 +25,19 @@ namespace UnderSea.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public Task<IEnumerable<UnitViewModel>> Get()
+        public async Task<IEnumerable<UnitViewModel>> Get()
         {
             int userId = 1; // TODO
-            return armyService.GetUnitsAsync(userId);
+            return await armyService.GetUnitsAsync(userId);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public Task<IEnumerable<SimpleUnitViewModel>> Buy([FromBody] List<UnitPurchaseDTO> purchases)
+        public async Task<IEnumerable<SimpleUnitViewModel>> Buy([FromBody] List<UnitPurchaseDTO> purchases)
         {
             int userId = 1;
-            return armyService.BuyUnitsAsync(userId, purchases);
+            return await armyService.BuyUnitsAsync(userId, purchases);
         }
     }
 }

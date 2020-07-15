@@ -26,31 +26,31 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet("getoutgoing")]
-        public Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacks()
+        public async Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacks()
         {
             int userId = 1;
-            return armyService.GetOutgoingAttacksAsync(userId); // TODO userid
+            return await armyService.GetOutgoingAttacksAsync(userId); // TODO userid
         }
 
         [HttpPost("send")]
-        public Task<IEnumerable<SimpleUnitViewModel>> Attack([FromBody] AttackDTO attack)
+        public async Task<IEnumerable<SimpleUnitViewModel>> Attack([FromBody] AttackDTO attack)
         {
             int userId = 1;
-            return armyService.AttackAsync(userId, attack);
+            return await armyService.AttackAsync(userId, attack);
         }
 
         [HttpGet("searchtargets")]
-        public Task<IEnumerable<ScoreboardViewModel>> SearchTargets([FromQuery] SearchDTO search)
+        public async Task<IEnumerable<ScoreboardViewModel>> SearchTargets([FromQuery] SearchDTO search)
         {
             // ha egy usernek több countryja lesz, itt majd ScoreboardViewModel helyett olyat kell odaadni ami country nevet ad, nem usert
-            return gameService.SearchScoreboardAsync(search);
+            return await gameService.SearchScoreboardAsync(search);
         }
 
         [HttpGet("getunits")]
-        public Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnits()
+        public async Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnits()
         {
             int userId = 1; // TODO userid
-            return armyService.GetAvailableUnitsAsync(userId);
+            return await armyService.GetAvailableUnitsAsync(userId);
         }
     }
 }

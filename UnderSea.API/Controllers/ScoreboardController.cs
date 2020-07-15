@@ -26,9 +26,9 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet]
-        public Task<IEnumerable<ScoreboardViewModel>> Search([FromQuery] SearchDTO search)
+        public async Task<IEnumerable<ScoreboardViewModel>> Search([FromQuery] SearchDTO search)
         {
-            return gameService.SearchScoreboardAsync(search);
+            return await gameService.SearchScoreboardAsync(search);
         }
     }
 }
