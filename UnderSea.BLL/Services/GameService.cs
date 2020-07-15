@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,12 @@ namespace UnderSea.BLL.Services
     {
         private UnderSeaDbContext db;
         private readonly ILogger logger;
-        public GameService(UnderSeaDbContext db, ILogger<GameService> logger)
+        private readonly IMapper mapper;
+        public GameService(UnderSeaDbContext db, ILogger<GameService> logger, IMapper mapper)
         {
             this.db = db;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         public async Task<MainPageViewModel> GetMainPageAsync(int userId)
@@ -40,7 +43,7 @@ namespace UnderSea.BLL.Services
                                 .SingleAsync(user => user.Id == userId);
 
 
-            MainPageViewModel res = new MainPageViewModel()
+            MainPageViewModel response = new MainPageViewModel()
             {
                 CountryName = user.Country.Name,
                 StatusBar = new StatusBarViewModel
@@ -73,7 +76,7 @@ namespace UnderSea.BLL.Services
                     UnderwaterMartialArts = (user.Country.Upgrades.Single(y => y.Type is UnderwaterMartialArts).State != UpgradeState.Unresearched),
                 }
             };
-            return res;
+            return response;
         }
 
         public async Task NewRoundAsync(int rounds = 1)
@@ -103,16 +106,7 @@ namespace UnderSea.BLL.Services
                                .Skip(perPage * (pageNum - 1))
                                .Take(perPage)
                                .ToListAsync();
-
-            return users.Select(user =>
-                new ScoreboardViewModel
-                {
-                    Id = user.Id,
-                    Place = user.Place,
-                    Score = user.Score,
-                    UserName = user.UserName
-                }
-            );
+            return mapper.Map<IEnumerable<ScoreboardViewModel>>(users);
         }
 
         private async Task AddTaxes()

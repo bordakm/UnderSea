@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.ViewModels;
+using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Units;
 using UnderSea.DAL.Models.Upgrades;
@@ -46,6 +47,7 @@ namespace UnderSea.BLL
                         .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))
                         .ForMember(dest => dest.IsPurchased, opt => opt.MapFrom(src => src.State == UpgradeState.Researched))
                         .ForMember(dest => dest.RemainingRounds, opt => opt.MapFrom(src => src.State == UpgradeState.Researched));
+            CreateMap<User, ScoreboardViewModel>();
         }
     }
 }
