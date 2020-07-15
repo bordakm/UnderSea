@@ -30,11 +30,11 @@ struct LoginPage: View {
                         SeaInputField(placeholder: "Jelszo", inputText: self.$userPassword)
                         
                         SeaButton(title: "Belepes", action: {
-                            ObservableRootPage.shared.currentPage = RootPage.main
+                            RootPageManager.shared.currentPage = RootPage.main
                         })
                             
                         Button(action: {
-                            ObservableRootPage.shared.currentPage = RootPage.register
+                            RootPageManager.shared.currentPage = RootPage.register
                         }) {
                             Text("Regisztracio")
                                 .font(Fonts.get(.bRegular))

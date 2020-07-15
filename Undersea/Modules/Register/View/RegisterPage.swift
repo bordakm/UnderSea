@@ -44,7 +44,7 @@ struct RegisterPage: View {
                     })
                         
                     Button(action: {
-                        ObservableRootPage.shared.currentPage = RootPage.login
+                        RootPageManager.shared.currentPage = RootPage.login
                     }) {
                         Text("Belepes")
                             .font(Font.custom("Baloo2-Regular", size: 16))
