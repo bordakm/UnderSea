@@ -6,6 +6,7 @@ using UnderSea.BLL.DTO;
 using UnderSea.BLL.ViewModels;
 using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Units;
+using UnderSea.DAL.Models.Upgrades;
 
 namespace UnderSea.BLL
 {
@@ -35,10 +36,16 @@ namespace UnderSea.BLL
                         .ForMember(dest => dest.PearlCostPerTurn, opt => opt.MapFrom(src => src.Type.PearlCostPerTurn))                                           
                         .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Type.Price))                                           
                         .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Type.Id));
-
             CreateMap<UnitPurchaseDTO, SimpleUnitViewModel>()
                         .ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.Count))
                         .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId));
+            CreateMap<Upgrade, UpgradeViewModel>()
+                        .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Type.Id))
+                        .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))
+                        .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Type.Description))
+                        .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))
+                        .ForMember(dest => dest.IsPurchased, opt => opt.MapFrom(src => src.State == UpgradeState.Researched))
+                        .ForMember(dest => dest.RemainingRounds, opt => opt.MapFrom(src => src.State == UpgradeState.Researched));
         }
     }
 }
