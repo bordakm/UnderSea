@@ -1,6 +1,6 @@
 export interface IUnitViewModel {
     name: string;
-    count: number;
+    // count: number;
     price: number;
     attackScore: number;
     defenseScore: number;
@@ -8,3 +8,4 @@ export interface IUnitViewModel {
     coralCostPerTurn: number;
     buyNumber?: number;
 }
+

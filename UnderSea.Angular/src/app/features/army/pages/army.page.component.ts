@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IUnitViewModel } from '../models/army.model';
 
+import { ArmyService } from '../services/army.service';
+import { tap, catchError } from 'rxjs/operators';
+import { IUserViewModel } from '../../scoreboard/models/scoreboard.model';
+
 @Component({
   selector: 'app-army-page',
   templateUrl: './army.page.component.html',
@@ -10,7 +14,6 @@ export class ArmyPageComponent implements OnInit {
 
   laserSharkModel: IUnitViewModel = {
     name: 'Lézercápa',
-    count: 1,
     price: null,
     attackScore: null,
     defenseScore: null,
@@ -21,7 +24,6 @@ export class ArmyPageComponent implements OnInit {
 
   stormSealModel: IUnitViewModel = {
     name: 'Rohamfóka',
-    count: 1,
     price: null,
     attackScore: null,
     defenseScore: null,
@@ -32,7 +34,6 @@ export class ArmyPageComponent implements OnInit {
 
   combatSeaHorseModel: IUnitViewModel = {
     name: 'Csatacsikó',
-    count: 1,
     price: null,
     attackScore: null,
     defenseScore: null,
@@ -41,12 +42,18 @@ export class ArmyPageComponent implements OnInit {
     buyNumber: 0
   };
 
+  unitsModel: IUnitViewModel[];
 
-
-  constructor() { }
+  constructor(private service: ArmyService) { }
 
   ngOnInit(): void {
+    this.service.getUnits().pipe(
+      tap(res => this.unitsModel = res),
+      catchError(error => console.assert)
+    ).subscribe();
   }
+
+
 
   deleteOneLasersharkFromCart(): void{
     if ( this.laserSharkModel.buyNumber > 0 ){
