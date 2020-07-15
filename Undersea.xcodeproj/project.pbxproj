@@ -46,6 +46,15 @@
 		794CAAE124B5FB61007DC9C7 /* SeaInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794CAAE024B5FB61007DC9C7 /* SeaInputField.swift */; };
 		794CAAE524B60753007DC9C7 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794CAAE424B60753007DC9C7 /* Register.swift */; };
 		794CAAE724B60764007DC9C7 /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794CAAE624B60764007DC9C7 /* RegisterPage.swift */; };
+		7956490A24BEE23F003D6D16 /* AttackApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956490924BEE23F003D6D16 /* AttackApiService.swift */; };
+		7956490C24BEE24D003D6D16 /* AttackApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956490B24BEE24D003D6D16 /* AttackApiWorker.swift */; };
+		7956490E24BEE328003D6D16 /* AttackUsecases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956490D24BEE328003D6D16 /* AttackUsecases.swift */; };
+		7956491024BEE338003D6D16 /* AttackEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956490F24BEE338003D6D16 /* AttackEvents.swift */; };
+		7956491224BEE3AB003D6D16 /* AttackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491124BEE3AB003D6D16 /* AttackInteractor.swift */; };
+		7956491424BEE401003D6D16 /* AttackPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491324BEE401003D6D16 /* AttackPresenter.swift */; };
+		7956491624BEE4B9003D6D16 /* AttackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491524BEE4B9003D6D16 /* AttackViewModel.swift */; };
+		7956491824BEE4EF003D6D16 /* AttackPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491724BEE4EF003D6D16 /* AttackPageViewModel.swift */; };
+		7956491A24BEE54B003D6D16 /* AttackPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491924BEE54B003D6D16 /* AttackPageDTO.swift */; };
 		79820C5024B707F7006D7258 /* RootPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C4F24B707F7006D7258 /* RootPageController.swift */; };
 		79820C5824B716C1006D7258 /* teams.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5424B716C1006D7258 /* teams.svg */; };
 		79820C5924B716C1006D7258 /* city.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5524B716C1006D7258 /* city.svg */; };
@@ -129,6 +138,15 @@
 		794CAAE024B5FB61007DC9C7 /* SeaInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeaInputField.swift; sourceTree = "<group>"; };
 		794CAAE424B60753007DC9C7 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		794CAAE624B60764007DC9C7 /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
+		7956490924BEE23F003D6D16 /* AttackApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackApiService.swift; sourceTree = "<group>"; };
+		7956490B24BEE24D003D6D16 /* AttackApiWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackApiWorker.swift; sourceTree = "<group>"; };
+		7956490D24BEE328003D6D16 /* AttackUsecases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackUsecases.swift; sourceTree = "<group>"; };
+		7956490F24BEE338003D6D16 /* AttackEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackEvents.swift; sourceTree = "<group>"; };
+		7956491124BEE3AB003D6D16 /* AttackInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackInteractor.swift; sourceTree = "<group>"; };
+		7956491324BEE401003D6D16 /* AttackPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPresenter.swift; sourceTree = "<group>"; };
+		7956491524BEE4B9003D6D16 /* AttackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackViewModel.swift; sourceTree = "<group>"; };
+		7956491724BEE4EF003D6D16 /* AttackPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPageViewModel.swift; sourceTree = "<group>"; };
+		7956491924BEE54B003D6D16 /* AttackPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPageDTO.swift; sourceTree = "<group>"; };
 		79820C4F24B707F7006D7258 /* RootPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPageController.swift; sourceTree = "<group>"; };
 		79820C5424B716C1006D7258 /* teams.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teams.svg; sourceTree = "<group>"; };
 		79820C5524B716C1006D7258 /* city.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = city.svg; sourceTree = "<group>"; };
@@ -276,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */,
+				7956491924BEE54B003D6D16 /* AttackPageDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -456,6 +475,59 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7956490324BEE193003D6D16 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7956491324BEE401003D6D16 /* AttackPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7956490424BEE1A3003D6D16 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				7956491124BEE3AB003D6D16 /* AttackInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		7956490524BEE1B5003D6D16 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7956490824BEE1DE003D6D16 /* Network */,
+				7956490724BEE1D4003D6D16 /* Enums */,
+				7956490624BEE1C1003D6D16 /* ViewModels */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		7956490624BEE1C1003D6D16 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7956491524BEE4B9003D6D16 /* AttackViewModel.swift */,
+				7956491724BEE4EF003D6D16 /* AttackPageViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7956490724BEE1D4003D6D16 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				7956490D24BEE328003D6D16 /* AttackUsecases.swift */,
+				7956490F24BEE338003D6D16 /* AttackEvents.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		7956490824BEE1DE003D6D16 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7956490924BEE23F003D6D16 /* AttackApiService.swift */,
+				7956490B24BEE24D003D6D16 /* AttackApiWorker.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		79820C5124B71685006D7258 /* SVG */ = {
 			isa = PBXGroup;
 			children = (
@@ -524,6 +596,9 @@
 		79820C7424B71D4A006D7258 /* Attack */ = {
 			isa = PBXGroup;
 			children = (
+				7956490524BEE1B5003D6D16 /* Utilities */,
+				7956490424BEE1A3003D6D16 /* Interactor */,
+				7956490324BEE193003D6D16 /* Presenter */,
 				79820C7824B71DE1006D7258 /* View */,
 				79820C8424B73A43006D7258 /* Attack.swift */,
 			);
@@ -761,20 +836,26 @@
 				792DE2E324BC962F009D175D /* MainApiWorker.swift in Sources */,
 				79E4869B24BDF52300A0EB3B /* AttackDetailPage.swift in Sources */,
 				79820C8724B73A4D006D7258 /* Teams.swift in Sources */,
+				7956490A24BEE23F003D6D16 /* AttackApiService.swift in Sources */,
+				7956491224BEE3AB003D6D16 /* AttackInteractor.swift in Sources */,
+				7956491824BEE4EF003D6D16 /* AttackPageViewModel.swift in Sources */,
 				794CAAE724B60764007DC9C7 /* RegisterPage.swift in Sources */,
 				792DE2EE24BCA3DE009D175D /* MainPresenter.swift in Sources */,
 				79820C8924B73A5B006D7258 /* AttackPage.swift in Sources */,
 				792DE2EB24BC9C48009D175D /* MainEvents.swift in Sources */,
 				79E4868024BDB38C00A0EB3B /* Fonts.swift in Sources */,
 				79820C8124B71E2C006D7258 /* CityPage.swift in Sources */,
+				7956491424BEE401003D6D16 /* AttackPresenter.swift in Sources */,
 				79820C8D24B7415C006D7258 /* CustomTabBar.swift in Sources */,
 				794CAACF24B5C577007DC9C7 /* ApiError.swift in Sources */,
 				79820C8B24B73A67006D7258 /* TeamsPage.swift in Sources */,
 				792DE2E624BC9B37009D175D /* MainInteractor.swift in Sources */,
 				794CAAD924B5CDF5007DC9C7 /* Colors.swift in Sources */,
 				794CAAD624B5C730007DC9C7 /* LoginPage.swift in Sources */,
+				7956490C24BEE24D003D6D16 /* AttackApiWorker.swift in Sources */,
 				794CAADF24B5EBEC007DC9C7 /* SeaButton.swift in Sources */,
 				794CAAE524B60753007DC9C7 /* Register.swift in Sources */,
+				7956491A24BEE54B003D6D16 /* AttackPageDTO.swift in Sources */,
 				7922A9CB24B4BBB8002A7957 /* AppDelegate.swift in Sources */,
 				794CAACB24B5C51B007DC9C7 /* BaseApiWorker.swift in Sources */,
 				79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */,
@@ -789,11 +870,14 @@
 				7947D99B24B85A5400C5306D /* View+Extension.swift in Sources */,
 				7947D99924B859F100C5306D /* NavigationBarModifier.swift in Sources */,
 				7922A9CF24B4BBB8002A7957 /* ContentView.swift in Sources */,
+				7956490E24BEE328003D6D16 /* AttackUsecases.swift in Sources */,
+				7956491024BEE338003D6D16 /* AttackEvents.swift in Sources */,
 				794CAADC24B5CF38007DC9C7 /* Color+Extension.swift in Sources */,
 				79820C7D24B71E0C006D7258 /* MainPage.swift in Sources */,
 				79820C5024B707F7006D7258 /* RootPageController.swift in Sources */,
 				792DE2F524BCAAB4009D175D /* StatusBarItem.swift in Sources */,
 				794CAAD324B5C6FB007DC9C7 /* Login.swift in Sources */,
+				7956491624BEE4B9003D6D16 /* AttackViewModel.swift in Sources */,
 				792DE2F124BCA6A4009D175D /* MainViewModel.swift in Sources */,
 				79820C8F24B76155006D7258 /* SVGImage.swift in Sources */,
 				794C674824B6F8AD006D1F2B /* RootPage.swift in Sources */,
