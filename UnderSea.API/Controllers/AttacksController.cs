@@ -31,7 +31,7 @@ namespace UnderSea.API.Controllers
         public async Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacks()
         {
             int userId = 1; //User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return armyService.GetOutgoingAttacksAsync(userId); // TODO userid
+            return await armyService.GetOutgoingAttacksAsync(userId); // TODO userid
         }
 
         [HttpPost("send")]
@@ -54,7 +54,7 @@ namespace UnderSea.API.Controllers
         {
             // int userId = int.Parse(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
             int userId = 1;
-            return armyService.GetAvailableUnitsAsync(userId);
+            return await armyService.GetAvailableUnitsAsync(userId);
         }
     }
 }
