@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
-using UnderSea.DAL.Models.Units;
 
 namespace UnderSea.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AttacksController : ControllerBase
     {
         private IArmyService armyService;
@@ -28,7 +30,7 @@ namespace UnderSea.API.Controllers
         [HttpGet("getoutgoing")]
         public Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacks()
         {
-            int userId = 1;
+            int userId = 1; //User.FindFirstValue(ClaimTypes.NameIdentifier);
             return armyService.GetOutgoingAttacksAsync(userId); // TODO userid
         }
 
@@ -46,10 +48,12 @@ namespace UnderSea.API.Controllers
             return gameService.SearchScoreboardAsync(search);
         }
 
+        [Authorize]
         [HttpGet("getunits")]
         public Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnits()
         {
-            int userId = 1; // TODO userid
+            // int userId = int.Parse(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+            int userId = 1;
             return armyService.GetAvailableUnitsAsync(userId);
         }
     }

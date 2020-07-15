@@ -10,5 +10,6 @@ namespace UnderSea.DAL.Models
         public int Score { get; set; }
         [ForeignKey("Game")]
         public int GameId { get; set; }
+        public string RefreshToken { get; set; }
     }
 }
