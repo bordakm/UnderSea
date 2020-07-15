@@ -19,7 +19,7 @@ namespace UnderSea.BLL.Services
             db = context;
             this.logger = logger;
         }
-        public async Task<List<UpgradeViewModel>> GetUpgradesAsync(int userid)
+        public async Task<IEnumerable<UpgradeViewModel>> GetUpgradesAsync(int userid)
         {
             var user = await db.Users
                 .Include(u => u.Country)

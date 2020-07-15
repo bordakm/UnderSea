@@ -25,7 +25,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet]
-        public Task<List<BuildingInfoViewModel>> GetBuildingInfos()
+        public Task<IEnumerable<BuildingInfoViewModel>> GetBuildingInfos()
         {
             int userId = 1; // TODO
             return buildingsService.GetBuildingInfosAsync(userId);

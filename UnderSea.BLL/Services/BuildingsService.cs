@@ -21,7 +21,7 @@ namespace UnderSea.BLL.Services
             this.logger = logger;
         }
 
-        public async Task<List<BuildingInfoViewModel>> GetBuildingInfosAsync(int userId)
+        public async Task<IEnumerable<BuildingInfoViewModel>> GetBuildingInfosAsync(int userId)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<Building, BuildingInfoViewModel>()
                                                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))

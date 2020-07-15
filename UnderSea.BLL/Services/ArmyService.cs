@@ -23,7 +23,7 @@ namespace UnderSea.BLL.Services
             this.logger = logger;
         }
 
-        public async Task<List<SimpleUnitViewModel>> AttackAsync(int attackeruserid, AttackDTO attack)
+        public async Task<IEnumerable<SimpleUnitViewModel>> AttackAsync(int attackerUserId, AttackDTO attack)
         { // TODO: majd ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
             var game = await db.Game
                 .Include(game => game.Attacks)
@@ -38,7 +38,7 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(country => country.AttackingArmy)
                 .ThenInclude(attackingArmy => attackingArmy.Units)
                 .ThenInclude(unit => unit.Type)
-                .SingleAsync(u => u.Id == attackeruserid);
+                .SingleAsync(u => u.Id == attackerUserId);
             var defendingCountry = await db.Countries
                 .Include(country => country.User)
                 .SingleAsync(c => c.UserId == attack.DefenderUserId);
@@ -84,7 +84,7 @@ namespace UnderSea.BLL.Services
             return simpleUnits;
         }
 
-        public async Task<List<SimpleUnitViewModel>> BuyUnitsAsync(int userId, List<UnitPurchaseDTO> purchases)
+        public async Task<IEnumerable<SimpleUnitViewModel>> BuyUnitsAsync(int userId, List<UnitPurchaseDTO> purchases)
         {
             //TODO optimalizálás
             var user = await db.Users.Include(user => user.Country)
@@ -134,7 +134,7 @@ namespace UnderSea.BLL.Services
             return resultList;
         }
 
-        public async Task<List<AvailableUnitViewModel>> GetAvailableUnitsAsync(int userId)
+        public async Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnitsAsync(int userId)
         {
 
             var user = await db.Users
@@ -146,7 +146,7 @@ namespace UnderSea.BLL.Services
 
             var units = user.Country.DefendingArmy.Units;
 
-            List<AvailableUnitViewModel> res = new List<AvailableUnitViewModel>();
+            List<AvailableUnitViewModel> results = new List<AvailableUnitViewModel>();
 
             foreach (var unit in units)
             {
@@ -157,13 +157,13 @@ namespace UnderSea.BLL.Services
                     AvailableCount = unit.Count,
                     Id = unit.Type.Id
                 };
-                res.Add(localres);
+                results.Add(localres);
             }
 
-            return res;
+            return results;
         }
 
-        public async Task<List<OutgoingAttackViewModel>> GetOutgoingAttacksAsync(int userId)
+        public async Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacksAsync(int userId)
         {
             var attacks = await db.Attacks
                                .Include(attack => attack.UnitList)
@@ -194,12 +194,14 @@ namespace UnderSea.BLL.Services
 
         }
 
-        public async Task<List<UnitViewModel>> GetUnitsAsync(int userId)
+        public async Task<IEnumerable<UnitViewModel>> GetUnitsAsync(int userId)
         {
             var country = await db.Countries.SingleAsync(c => c.UserId == userId);
             var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId).Include(u => u.Type);
 
-            List<UnitViewModel> res = new List<UnitViewModel>();
+
+
+          /*  List<UnitViewModel> response = new List<UnitViewModel>();
             foreach (var unit in units)
             {
                 var localres = new UnitViewModel
@@ -214,9 +216,24 @@ namespace UnderSea.BLL.Services
                     Price = unit.Type.Price,
                     Id = unit.Type.Id
                 };
-                res.Add(localres);
-            }
-            return res;
+                response.Add(localres);
+            }*/
+            //return response;
+
+            return units.Select(unit =>            
+                new UnitViewModel
+                {
+                    AttackScore = unit.Type.AttackScore,
+                    CoralCostPerTurn = unit.Type.CoralCostPerTurn,
+                    Count = unit.Count,
+                    DefenseScore = unit.Type.DefenseScore,
+                    ImageUrl = unit.Type.ImageUrl,
+                    Name = unit.Type.Name,
+                    PearlCostPerTurn = unit.Type.PearlCostPerTurn,
+                    Price = unit.Type.Price,
+                    Id = unit.Type.Id
+                }
+            );
         }
     }
 }

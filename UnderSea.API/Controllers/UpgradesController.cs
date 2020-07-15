@@ -23,7 +23,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet]
-        public Task<List<UpgradeViewModel>> Get()
+        public Task<IEnumerable<UpgradeViewModel>> Get()
         {
             int userId = 1;
             return upgradesService.GetUpgradesAsync(userId);

@@ -26,28 +26,28 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet("getoutgoing")]
-        public Task<List<OutgoingAttackViewModel>> GetOutgoingAttacks()
+        public Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacks()
         {
             int userId = 1;
             return armyService.GetOutgoingAttacksAsync(userId); // TODO userid
         }
 
         [HttpPost("send")]
-        public Task<List<SimpleUnitViewModel>> Attack([FromBody] AttackDTO attack)
+        public Task<IEnumerable<SimpleUnitViewModel>> Attack([FromBody] AttackDTO attack)
         {
             int userId = 1;
             return armyService.AttackAsync(userId, attack);
         }
 
         [HttpGet("searchtargets")]
-        public Task<List<ScoreboardViewModel>> SearchTargets([FromQuery] SearchDTO search)
+        public Task<IEnumerable<ScoreboardViewModel>> SearchTargets([FromQuery] SearchDTO search)
         {
             // ha egy usernek több countryja lesz, itt majd ScoreboardViewModel helyett olyat kell odaadni ami country nevet ad, nem usert
             return gameService.SearchScoreboardAsync(search);
         }
 
         [HttpGet("getunits")]
-        public Task<List<AvailableUnitViewModel>> GetAvailableUnits()
+        public Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnits()
         {
             int userId = 1; // TODO userid
             return armyService.GetAvailableUnitsAsync(userId);

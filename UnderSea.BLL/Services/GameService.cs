@@ -93,7 +93,7 @@ namespace UnderSea.BLL.Services
             await Task.Run(() => { return "TODO"; });
         }
 
-        public async Task<List<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
+        public async Task<IEnumerable<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
         {
             int perpage = search.ItemPerPage ?? 10;
             int pagenum = search.Page ?? 1;
@@ -103,7 +103,7 @@ namespace UnderSea.BLL.Services
                                .Take(perpage)
                                .ToListAsync();
 
-            List<ScoreboardViewModel> res = new List<ScoreboardViewModel>();
+            List<ScoreboardViewModel> response = new List<ScoreboardViewModel>();
 
             foreach (var user in users)
             {
@@ -115,10 +115,10 @@ namespace UnderSea.BLL.Services
                     UserName = user.UserName
                 };
 
-                res.Add(localres);
+                response.Add(localres);
             }
 
-            return res;
+            return response;
         }
 
         private async Task AddTaxes()
