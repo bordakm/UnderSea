@@ -78,8 +78,8 @@ namespace UnderSea.BLL.Services
 
         public async Task NewRoundAsync(int rounds = 1)
         {
-            //for (int i = 0; i < rounds; ++i)
-            //{
+            for (int i = 0; i < rounds; ++i)
+            {
             //    await AddTaxes();
             //    await AddCoral();
             //    await PayUnits();
@@ -88,9 +88,7 @@ namespace UnderSea.BLL.Services
             //    await Build();
             //    await CalculateAttacks();
             //    await CalculateRankings();
-            //}
-
-            await Task.Run(() => { return "TODO"; });
+            }
         }
 
         public async Task<IEnumerable<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
@@ -252,7 +250,7 @@ namespace UnderSea.BLL.Services
                 //RemoveUnitsFromAttackingList(removeUnits, user);
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
-                while (!stop)
+                while (!stop && (userAttacks.Count() != 0))
                 {
                     foreach (Attack attack in userAttacks)
                     {
@@ -281,7 +279,7 @@ namespace UnderSea.BLL.Services
             var game = db.Game.Single();
             var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
             bool stop = false;
-            while (!stop)
+            while (!stop && (userAttacks.Count() != 0))
             {
                 foreach (Attack attack in userAttacks)
                 {
@@ -317,12 +315,23 @@ namespace UnderSea.BLL.Services
 
         private async Task CalculateRankings()
         {
+            //TODO optimalization
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
                 .ThenInclude(buildingGroup => buildingGroup.Buildings)
                 .ThenInclude(b => b.Type)
                 .Include(user => user.Country)
-                .ThenInclude(country => country.Upgrades);
+                .ThenInclude(country => country.Upgrades)
+                .ThenInclude(upgrades => upgrades.Type)
+                .Include(user => user.Country)
+                .ThenInclude(country => country.AttackingArmy)
+                .ThenInclude(aa => aa.Units)
+                .ThenInclude(units => units.Type)
+                .Include(user => user.Country)
+                .ThenInclude(country => country.DefendingArmy)
+                .ThenInclude(da => da.Units)
+                .ThenInclude(units => units.Type);
+
             foreach (var user in users)
             {
                 user.Score = user.Country.CalculateScore();
@@ -331,7 +340,7 @@ namespace UnderSea.BLL.Services
             int rank = 1;
             foreach (var user in users)
             {
-                user.Place = ++rank;
+                user.Place = rank++;
             }
             await db.SaveChangesAsync();
         }
