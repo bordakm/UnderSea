@@ -71,20 +71,20 @@ namespace UnderSea.DAL.Models
                     //levonjuk az egységeket az attacking armyból
                     foreach (var unit in attack.UnitList)
                     {
-                        foreach (var attunit in attUserCountry.AttackingArmy.Units)
+                        foreach (var attackingUnit in attUserCountry.AttackingArmy.Units)
                         {
-                            if (unit.Type.Id == attunit.Type.Id)
-                                attunit.Count -= unit.Count;
+                            if (unit.Type.Id == attackingUnit.Type.Id)
+                                attackingUnit.Count -= unit.Count;
                         }
                     }
 
                     //hozzáadjuk a defender armyhoz 10%osan csökkentve
                     foreach (var unit in attack.UnitList)
                     {
-                        foreach (var defunit in attUserCountry.DefendingArmy.Units)
+                        foreach (var defendingUnit in attUserCountry.DefendingArmy.Units)
                         {
-                            if (unit.Type.Id == defunit.Type.Id)
-                                defunit.Count += Convert.ToInt32(Math.Floor(unit.Count * 0.9));
+                            if (unit.Type.Id == defendingUnit.Type.Id)
+                                defendingUnit.Count += Convert.ToInt32(Math.Floor(unit.Count * 0.9));
                         }
                     }
                 }
@@ -93,27 +93,27 @@ namespace UnderSea.DAL.Models
                     //levonjuk az egységeket az attacking armyból
                     foreach (var unit in attack.UnitList)
                     {
-                        foreach (var attunit in attUserCountry.AttackingArmy.Units)
+                        foreach (var attackingUnit in attUserCountry.AttackingArmy.Units)
                         {
-                            if (unit.Type.Id == attunit.Type.Id)
-                                attunit.Count -= unit.Count;
+                            if (unit.Type.Id == attackingUnit.Type.Id)
+                                attackingUnit.Count -= unit.Count;
                         }
                     }
 
                     //hozzáadjuk a defender armyhoz
                     foreach (var unit in attack.UnitList)
                     {
-                        foreach (var defunit in attUserCountry.DefendingArmy.Units)
+                        foreach (var defendingunit in attUserCountry.DefendingArmy.Units)
                         {
-                            if (unit.Type.Id == defunit.Type.Id)
-                                defunit.Count += unit.Count;
+                            if (unit.Type.Id == defendingunit.Type.Id)
+                                defendingunit.Count += unit.Count;
                         }
                     }
 
                     //csökkentjük a deffender armyját 10%al
-                    foreach (var defunit in defUserCountry.DefendingArmy.Units)
+                    foreach (var defendingUnit in defUserCountry.DefendingArmy.Units)
                     {
-                        defunit.Count = Convert.ToInt32(Math.Floor(defunit.Count * 0.9));
+                        defendingUnit.Count = Convert.ToInt32(Math.Floor(defendingUnit.Count * 0.9));
                     }
 
                     //nyereség jóváírása

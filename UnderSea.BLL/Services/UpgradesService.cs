@@ -41,7 +41,7 @@ namespace UnderSea.BLL.Services
             .ToList();
         }
 
-        public async Task<UpgradeViewModel> ResearchByIdAsync(int userId, int upgradetypeid)
+        public async Task<UpgradeViewModel> ResearchByIdAsync(int userId, int upgradeTypeId)
         {
             var user = await db.Users
                 .Include(u => u.Country)
@@ -49,7 +49,7 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(u => u.Type)
                 .SingleAsync(u => u.Id == userId);
 
-            var upgrade = user.Country.Upgrades.Single(u => u.Type.Id == upgradetypeid);
+            var upgrade = user.Country.Upgrades.Single(u => u.Type.Id == upgradeTypeId);
             if (upgrade.State == UpgradeState.Unresearched && !user.Country.Upgrades.Any(u => u.State == UpgradeState.InProgress))
             {
                 // can upgrade, starting upgrade
@@ -57,7 +57,7 @@ namespace UnderSea.BLL.Services
                 upgrade.State = UpgradeState.InProgress;
                 await db.SaveChangesAsync();
                 var upgrades = await GetUpgradesAsync(userId);
-                return upgrades.Single(u => u.Id == upgradetypeid);
+                return upgrades.Single(u => u.Id == upgradeTypeId);
             }
             else
             {
