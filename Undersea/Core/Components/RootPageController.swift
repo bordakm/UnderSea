@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RootPageController: View {
     
-    @ObservedObject var observedPages = ObservableRootPage.shared
+    @ObservedObject var observedPages = RootPageManager.shared
     
     private let tabs: [CustomTabItem] = [
         CustomTabItem(view: AnyView(Main.setup()), title: "Kezdőlap", imageName: "main"),

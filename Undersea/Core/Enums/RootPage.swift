@@ -13,10 +13,3 @@ enum RootPage {
     case register
     case main
 }
-
-class ObservableRootPage : ObservableObject {
-    @Published var currentPage = RootPage.login
-    static let shared: ObservableRootPage = {
-        return ObservableRootPage()
-    }()
-}

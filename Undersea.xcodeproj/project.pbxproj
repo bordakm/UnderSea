@@ -55,6 +55,14 @@
 		7956491624BEE4B9003D6D16 /* AttackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491524BEE4B9003D6D16 /* AttackViewModel.swift */; };
 		7956491824BEE4EF003D6D16 /* AttackPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491724BEE4EF003D6D16 /* AttackPageViewModel.swift */; };
 		7956491A24BEE54B003D6D16 /* AttackPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491924BEE54B003D6D16 /* AttackPageDTO.swift */; };
+		7956491D24BEF588003D6D16 /* RootPageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491C24BEF588003D6D16 /* RootPageManager.swift */; };
+		7956491F24BEF79D003D6D16 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491E24BEF79D003D6D16 /* UserManager.swift */; };
+		7956492124BEF831003D6D16 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492024BEF831003D6D16 /* UserDTO.swift */; };
+		7956492524BEFD54003D6D16 /* UserManagerApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492424BEFD54003D6D16 /* UserManagerApiService.swift */; };
+		7956492924BEFDEF003D6D16 /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492824BEFDEF003D6D16 /* LoginDTO.swift */; };
+		7956492B24BF0159003D6D16 /* RegisterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492A24BF0159003D6D16 /* RegisterDTO.swift */; };
+		7956492D24BF04EB003D6D16 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492C24BF04EB003D6D16 /* Encodable+Extension.swift */; };
+		7956492F24BF056B003D6D16 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492E24BF056B003D6D16 /* Dictionary+Extension.swift */; };
 		79820C5024B707F7006D7258 /* RootPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C4F24B707F7006D7258 /* RootPageController.swift */; };
 		79820C5824B716C1006D7258 /* teams.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5424B716C1006D7258 /* teams.svg */; };
 		79820C5924B716C1006D7258 /* city.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5524B716C1006D7258 /* city.svg */; };
@@ -147,6 +155,14 @@
 		7956491524BEE4B9003D6D16 /* AttackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackViewModel.swift; sourceTree = "<group>"; };
 		7956491724BEE4EF003D6D16 /* AttackPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPageViewModel.swift; sourceTree = "<group>"; };
 		7956491924BEE54B003D6D16 /* AttackPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPageDTO.swift; sourceTree = "<group>"; };
+		7956491C24BEF588003D6D16 /* RootPageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPageManager.swift; sourceTree = "<group>"; };
+		7956491E24BEF79D003D6D16 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		7956492024BEF831003D6D16 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		7956492424BEFD54003D6D16 /* UserManagerApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerApiService.swift; sourceTree = "<group>"; };
+		7956492824BEFDEF003D6D16 /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
+		7956492A24BF0159003D6D16 /* RegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDTO.swift; sourceTree = "<group>"; };
+		7956492C24BF04EB003D6D16 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
+		7956492E24BF056B003D6D16 /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		79820C4F24B707F7006D7258 /* RootPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPageController.swift; sourceTree = "<group>"; };
 		79820C5424B716C1006D7258 /* teams.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teams.svg; sourceTree = "<group>"; };
 		79820C5524B716C1006D7258 /* city.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = city.svg; sourceTree = "<group>"; };
@@ -293,8 +309,8 @@
 		792DE2DB24BC8D97009D175D /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */,
-				7956491924BEE54B003D6D16 /* AttackPageDTO.swift */,
+				7956492724BEFDD4003D6D16 /* Decodable */,
+				7956492624BEFDCB003D6D16 /* Encodable */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -363,6 +379,7 @@
 		794CAAC524B5C4C8007DC9C7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7956491B24BEF534003D6D16 /* Shared */,
 				792DE2DA24BC8D89009D175D /* Models */,
 				794CAADD24B5EBCD007DC9C7 /* Components */,
 				794CAADA24B5CF11007DC9C7 /* Extensions */,
@@ -440,6 +457,8 @@
 				794CAADB24B5CF38007DC9C7 /* Color+Extension.swift */,
 				7947D99524B84A2700C5306D /* UIColor+Extension.swift */,
 				7947D99A24B85A5400C5306D /* View+Extension.swift */,
+				7956492C24BF04EB003D6D16 /* Encodable+Extension.swift */,
+				7956492E24BF056B003D6D16 /* Dictionary+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -526,6 +545,43 @@
 				7956490B24BEE24D003D6D16 /* AttackApiWorker.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		7956491B24BEF534003D6D16 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				7956492224BEFD0E003D6D16 /* UserManager */,
+				7956491C24BEF588003D6D16 /* RootPageManager.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		7956492224BEFD0E003D6D16 /* UserManager */ = {
+			isa = PBXGroup;
+			children = (
+				7956491E24BEF79D003D6D16 /* UserManager.swift */,
+				7956492424BEFD54003D6D16 /* UserManagerApiService.swift */,
+			);
+			path = UserManager;
+			sourceTree = "<group>";
+		};
+		7956492624BEFDCB003D6D16 /* Encodable */ = {
+			isa = PBXGroup;
+			children = (
+				7956492824BEFDEF003D6D16 /* LoginDTO.swift */,
+				7956492A24BF0159003D6D16 /* RegisterDTO.swift */,
+			);
+			path = Encodable;
+			sourceTree = "<group>";
+		};
+		7956492724BEFDD4003D6D16 /* Decodable */ = {
+			isa = PBXGroup;
+			children = (
+				792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */,
+				7956491924BEE54B003D6D16 /* AttackPageDTO.swift */,
+				7956492024BEF831003D6D16 /* UserDTO.swift */,
+			);
+			path = Decodable;
 			sourceTree = "<group>";
 		};
 		79820C5124B71685006D7258 /* SVG */ = {
@@ -839,8 +895,11 @@
 				7956490A24BEE23F003D6D16 /* AttackApiService.swift in Sources */,
 				7956491224BEE3AB003D6D16 /* AttackInteractor.swift in Sources */,
 				7956491824BEE4EF003D6D16 /* AttackPageViewModel.swift in Sources */,
+				7956492B24BF0159003D6D16 /* RegisterDTO.swift in Sources */,
+				7956492F24BF056B003D6D16 /* Dictionary+Extension.swift in Sources */,
 				794CAAE724B60764007DC9C7 /* RegisterPage.swift in Sources */,
 				792DE2EE24BCA3DE009D175D /* MainPresenter.swift in Sources */,
+				7956492924BEFDEF003D6D16 /* LoginDTO.swift in Sources */,
 				79820C8924B73A5B006D7258 /* AttackPage.swift in Sources */,
 				792DE2EB24BC9C48009D175D /* MainEvents.swift in Sources */,
 				79E4868024BDB38C00A0EB3B /* Fonts.swift in Sources */,
@@ -861,8 +920,10 @@
 				79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */,
 				794CAACA24B5C51B007DC9C7 /* BaseApiService.swift in Sources */,
 				794CAACC24B5C51B007DC9C7 /* ServerProxy.swift in Sources */,
+				7956491F24BEF79D003D6D16 /* UserManager.swift in Sources */,
 				792DE2E924BC9C16009D175D /* MainUsecases.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
+				7956492124BEF831003D6D16 /* UserDTO.swift in Sources */,
 				7947D99D24B8678700C5306D /* HostingController.swift in Sources */,
 				7922A9CD24B4BBB8002A7957 /* SceneDelegate.swift in Sources */,
 				79820C7B24B71E01006D7258 /* Main.swift in Sources */,
@@ -872,7 +933,10 @@
 				7922A9CF24B4BBB8002A7957 /* ContentView.swift in Sources */,
 				7956490E24BEE328003D6D16 /* AttackUsecases.swift in Sources */,
 				7956491024BEE338003D6D16 /* AttackEvents.swift in Sources */,
+				7956492524BEFD54003D6D16 /* UserManagerApiService.swift in Sources */,
 				794CAADC24B5CF38007DC9C7 /* Color+Extension.swift in Sources */,
+				7956492D24BF04EB003D6D16 /* Encodable+Extension.swift in Sources */,
+				7956491D24BEF588003D6D16 /* RootPageManager.swift in Sources */,
 				79820C7D24B71E0C006D7258 /* MainPage.swift in Sources */,
 				79820C5024B707F7006D7258 /* RootPageController.swift in Sources */,
 				792DE2F524BCAAB4009D175D /* StatusBarItem.swift in Sources */,
