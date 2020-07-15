@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -19,22 +16,26 @@ namespace UnderSea.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly SignInManager<User> signInManager;
+        private readonly ITokenService tokenService;
         private readonly IGameService gameService;
         private readonly ILogger logger;
 
-        public AuthController(SignInManager<User> signInManager, IGameService gameService, ILogger<AuthController> logger)
+        public AuthController(SignInManager<User> signInManager, ITokenService tokenService, IGameService gameService, ILogger<AuthController> logger)
         {
             this.signInManager = signInManager;
+            this.tokenService = tokenService;
             this.gameService = gameService;
             this.logger = logger;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
         {
             return Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<TokensViewModel> Login([FromBody] LoginDTO loginData)
         {
@@ -43,9 +44,12 @@ namespace UnderSea.API.Controllers
                 var result = await signInManager.PasswordSignInAsync(loginData.UserName, loginData.Password, false, false);
                 if (result.Succeeded)
                 {
-                    var user = await signInManager.UserManager.GetUserAsync(HttpContext.User);
-                    // sikeres login, mehetnek a tokenek //TODO tokenek
-                    return await Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
+                    var user = await signInManager.UserManager.FindByNameAsync(loginData.UserName);
+                    return new TokensViewModel()
+                    {
+                        AccessToken = tokenService.CreateAccessToken(user),
+                        RefreshToken = await tokenService.CreateRefreshTokenAsync(user)
+                    };
                 }
             }
             throw new Exception("Login attempt failed");
@@ -53,10 +57,11 @@ namespace UnderSea.API.Controllers
 
         [HttpPost("logout")]
         [Authorize]
-        public Task Logout()
+        public async Task Logout()
         {
-            return signInManager.SignOutAsync();
-            // TODO tokenek törlése
+            /*var user = HttpContext.User;
+            tokenService.RemoveRefreshTokenAsync(user);
+            signInManager.SignOutAsync();*/ 
         }
 
         [HttpPost("renew")]

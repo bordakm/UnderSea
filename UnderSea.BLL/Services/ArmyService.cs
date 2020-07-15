@@ -17,10 +17,12 @@ namespace UnderSea.BLL.Services
     {
         private readonly UnderSeaDbContext db;
         private readonly ILogger logger;
-        public ArmyService(UnderSeaDbContext db, ILogger<ArmyService> logger)
+        private readonly IMapper mapper;
+        public ArmyService(UnderSeaDbContext db, ILogger<ArmyService> logger, IMapper mapper)
         {
             this.db = db;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<SimpleUnitViewModel>> AttackAsync(int attackerUserId, AttackDTO attack)
@@ -73,15 +75,7 @@ namespace UnderSea.BLL.Services
                 UnitList = sentUnits
             });
             await db.SaveChangesAsync();
-
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Unit, SimpleUnitViewModel>());
-            var mapper = new Mapper(config);
-            var simpleUnits = new List<SimpleUnitViewModel>();
-            foreach (var unit in sentUnits)
-            {
-                simpleUnits.Add(mapper.Map<SimpleUnitViewModel>(unit));
-            }
-            return simpleUnits;
+            return mapper.Map<IEnumerable<SimpleUnitViewModel>>(sentUnits);
         }
 
         public async Task<IEnumerable<SimpleUnitViewModel>> BuyUnitsAsync(int userId, List<UnitPurchaseDTO> purchases)
@@ -120,18 +114,7 @@ namespace UnderSea.BLL.Services
             user.Country.Pearl -= priceTotal;
             purchases.ForEach(pur => defendingUnits.Single(units => units.Type.Id == pur.TypeId).Count += pur.Count);
             await db.SaveChangesAsync();
-
-            List<SimpleUnitViewModel> resultList = new List<SimpleUnitViewModel>();
-            foreach (var unit in purchases)
-            {
-                resultList.Add(new SimpleUnitViewModel()
-                {
-                    Count = unit.Count,
-                    TypeId = unit.TypeId
-                });
-            }
-
-            return resultList;
+            return mapper.Map<List<UnitPurchaseDTO>,IEnumerable<SimpleUnitViewModel>>(purchases);
         }
 
         public async Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnitsAsync(int userId)
@@ -145,22 +128,7 @@ namespace UnderSea.BLL.Services
                                .SingleAsync(user => user.Id == userId);
 
             var units = user.Country.DefendingArmy.Units;
-
-            List<AvailableUnitViewModel> results = new List<AvailableUnitViewModel>();
-
-            foreach (var unit in units)
-            {
-                var localres = new AvailableUnitViewModel
-                {
-                    Name = unit.Type.Name,
-                    ImageUrl = unit.Type.ImageUrl,
-                    AvailableCount = unit.Count,
-                    Id = unit.Type.Id
-                };
-                results.Add(localres);
-            }
-
-            return results;
+            return mapper.Map<IEnumerable<Unit>, IEnumerable<AvailableUnitViewModel>>(units);
         }
 
         public async Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacksAsync(int userId)
@@ -173,48 +141,24 @@ namespace UnderSea.BLL.Services
                                .Where(attacks => attacks.AttackerUser.Id == userId)
                                .ToListAsync();
 
-            var res = new List<OutgoingAttackViewModel>();
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Unit, SimpleUnitViewModel>());
-            var mapper = new Mapper(config);
+            var response = new List<OutgoingAttackViewModel>();           
             foreach (var attack in attacks)
             {
-                var units = new List<SimpleUnitViewModel>();
-                foreach (var unit in attack.UnitList)
-                {
-                    units.Add(mapper.Map<SimpleUnitViewModel>(unit));
-                }
-                res.Add(new OutgoingAttackViewModel
+                var units = mapper.Map<List<SimpleUnitViewModel>>(attack.UnitList); 
+                response.Add(new OutgoingAttackViewModel
                 {
                     CountryName = attack.AttackerUser.Country.Name,
                     Units = units
                 });
             }
-
-            return res;
-
+            return response;
         }
 
         public async Task<IEnumerable<UnitViewModel>> GetUnitsAsync(int userId)
         {
             var country = await db.Countries.SingleAsync(c => c.UserId == userId);
             var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId).Include(u => u.Type);
-
-            // TODO automapper?
-            return units.Select(unit =>            
-                new UnitViewModel
-                {
-                    AttackScore = unit.Type.AttackScore,
-                    CoralCostPerTurn = unit.Type.CoralCostPerTurn,
-                    Count = unit.Count,
-                    DefenseScore = unit.Type.DefenseScore,
-                    ImageUrl = unit.Type.ImageUrl,
-                    Name = unit.Type.Name,
-                    PearlCostPerTurn = unit.Type.PearlCostPerTurn,
-                    Price = unit.Type.Price,
-                    Id = unit.Type.Id
-                }
-            );
-
+            return mapper.Map<IEnumerable<Unit>, IEnumerable<UnitViewModel>>(units);
         }
     }
 }

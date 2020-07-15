@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace UnderSea.BLL.Services
     {
         UnderSeaDbContext db;
         private readonly ILogger logger;
-        public UpgradesService(UnderSeaDbContext context, ILogger<UpgradesService> logger)
+        private readonly IMapper mapper;
+        public UpgradesService(UnderSeaDbContext context, ILogger<UpgradesService> logger, IMapper mapper)
         {
             db = context;
             this.logger = logger;
+            this.mapper = mapper;
         }
         public async Task<IEnumerable<UpgradeViewModel>> GetUpgradesAsync(int userid)
         {
@@ -26,19 +29,8 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(c => c.Upgrades)
                 .ThenInclude(u => u.Type)
                 .SingleAsync(u => u.Id == userid);
-            int roundsLeft = user.Country.UpgradeTimeLeft;
-            return user.Country
-            .Upgrades.Select(u =>
-                        new UpgradeViewModel
-                        {
-                            Id = u.Type.Id,
-                            Name = u.Type.Name,
-                            Description = u.Type.Description,
-                            ImageUrl = u.Type.ImageUrl,
-                            IsPurchased = u.State == UpgradeState.Researched,
-                            RemainingRounds = u.State == UpgradeState.Researched ? 0 : roundsLeft
-                        })
-            .ToList();
+            int roundsLeft = user.Country.UpgradeTimeLeft;           
+            return mapper.Map<IEnumerable<Upgrade>, IEnumerable<UpgradeViewModel>>(user.Country.Upgrades);
         }
 
         public async Task<UpgradeViewModel> ResearchByIdAsync(int userId, int upgradeTypeId)

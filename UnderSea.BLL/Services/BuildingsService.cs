@@ -15,22 +15,16 @@ namespace UnderSea.BLL.Services
     {
         private readonly UnderSeaDbContext db;
         private readonly ILogger logger;
-        public BuildingsService(UnderSeaDbContext db, ILogger<BuildingsService> logger)
+        private readonly IMapper mapper;
+        public BuildingsService(UnderSeaDbContext db, ILogger<BuildingsService> logger, IMapper mapper)
         {
             this.db = db;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<BuildingInfoViewModel>> GetBuildingInfosAsync(int userId)
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Building, BuildingInfoViewModel>()
-                                                        .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))
-                                                        .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Type.Price))
-                                                        .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Type.Description))
-                                                        .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))
-                                                        .ForMember(dest => dest.RemainingRounds, opt => opt.MapFrom(src => src.ConstructionTimeLeft))
-                                                        );
-            var mapper = new Mapper(config);
             var user = await db.Users
                 .Include(u => u.Country)
                 .ThenInclude(c => c.BuildingGroup)

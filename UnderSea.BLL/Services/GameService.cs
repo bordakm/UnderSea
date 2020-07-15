@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,12 @@ namespace UnderSea.BLL.Services
     {
         private UnderSeaDbContext db;
         private readonly ILogger logger;
-        public GameService(UnderSeaDbContext db, ILogger<GameService> logger)
+        private readonly IMapper mapper;
+        public GameService(UnderSeaDbContext db, ILogger<GameService> logger, IMapper mapper)
         {
             this.db = db;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         public async Task<MainPageViewModel> GetMainPageAsync(int userId)
@@ -40,7 +43,7 @@ namespace UnderSea.BLL.Services
                                 .SingleAsync(user => user.Id == userId);
 
 
-            MainPageViewModel res = new MainPageViewModel()
+            MainPageViewModel response = new MainPageViewModel()
             {
                 CountryName = user.Country.Name,
                 StatusBar = new StatusBarViewModel
@@ -73,21 +76,21 @@ namespace UnderSea.BLL.Services
                     UnderwaterMartialArts = (user.Country.Upgrades.Single(y => y.Type is UnderwaterMartialArts).State != UpgradeState.Unresearched),
                 }
             };
-            return res;
+            return response;
         }
 
         public async Task NewRoundAsync(int rounds = 1)
         {
             for (int i = 0; i < rounds; ++i)
             {
-            //    await AddTaxes();
-            //    await AddCoral();
-            //    await PayUnits();
-            //    await FeedUnits();
-            //    await DoUpgrades();
-            //    await Build();
-            //    await CalculateAttacks();
-            //    await CalculateRankings();
+                await AddTaxes();
+                await AddCoral();
+                await PayUnits();
+                await FeedUnits();
+                await DoUpgrades();
+                await Build();
+                await CalculateAttacks();
+                await CalculateRankings();
             }
         }
 
@@ -95,22 +98,13 @@ namespace UnderSea.BLL.Services
         {
             int perPage = search.ItemPerPage ?? 10;
             int pageNum = search.Page ?? 1;
-            string searchPhrase = search.SearchPhrase ?? "";
+            string searchWord = search.SearchPhrase ?? "";
             var users = await db.Users
-                               .Where(users => searchPhrase.ToUpper().Contains(searchPhrase.ToUpper()))
+                               .Where(users => searchWord.ToUpper().Contains(searchWord.ToUpper()))
                                .Skip(perPage * (pageNum - 1))
                                .Take(perPage)
                                .ToListAsync();
-
-            return users.Select(user =>
-                new ScoreboardViewModel
-                {
-                    Id = user.Id,
-                    Place = user.Place,
-                    Score = user.Score,
-                    UserName = user.UserName
-                }
-            );
+            return mapper.Map<IEnumerable<ScoreboardViewModel>>(users);
         }
 
         private async Task AddTaxes()
@@ -216,7 +210,7 @@ namespace UnderSea.BLL.Services
 
         private async Task PayUnits()
         {
-            var game = db.Game
+            var game = await db.Game
                 .Include(game => game.Attacks)
                 .ThenInclude(attacks => attacks.AttackerUser)
                 .Include(game => game.Attacks)
@@ -232,7 +226,7 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(country => country.DefendingArmy)
                 .ThenInclude(da => da.Units)
                 .ThenInclude(units => units.Type)
-                .Single();
+                .SingleAsync();
 
             //var users =
             //    db.Users.Include(user => user.Country)
@@ -250,7 +244,7 @@ namespace UnderSea.BLL.Services
                 //RemoveUnitsFromAttackingList(removeUnits, user);
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
-                while (!stop && (userAttacks.Count() != 0))
+                while (!stop)
                 {
                     foreach (Attack attack in userAttacks)
                     {
