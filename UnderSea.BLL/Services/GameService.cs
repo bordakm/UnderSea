@@ -244,7 +244,6 @@ namespace UnderSea.BLL.Services
                 //RemoveUnitsFromAttackingList(removeUnits, user);
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
-                if (userAttacks.ToList().Count == 0) stop = true;
                 while (!stop)
                 {
                     foreach (Attack attack in userAttacks)
@@ -274,7 +273,7 @@ namespace UnderSea.BLL.Services
             var game = db.Game.Single();
             var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
             bool stop = false;
-            while (!stop)
+            while (!stop && (userAttacks.Count() != 0))
             {
                 foreach (Attack attack in userAttacks)
                 {
@@ -310,12 +309,23 @@ namespace UnderSea.BLL.Services
 
         private async Task CalculateRankings()
         {
+            //TODO optimalization
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
                 .ThenInclude(buildingGroup => buildingGroup.Buildings)
                 .ThenInclude(b => b.Type)
                 .Include(user => user.Country)
-                .ThenInclude(country => country.Upgrades);
+                .ThenInclude(country => country.Upgrades)
+                .ThenInclude(upgrades => upgrades.Type)
+                .Include(user => user.Country)
+                .ThenInclude(country => country.AttackingArmy)
+                .ThenInclude(aa => aa.Units)
+                .ThenInclude(units => units.Type)
+                .Include(user => user.Country)
+                .ThenInclude(country => country.DefendingArmy)
+                .ThenInclude(da => da.Units)
+                .ThenInclude(units => units.Type);
+
             foreach (var user in users)
             {
                 user.Score = user.Country.CalculateScore();
@@ -324,7 +334,7 @@ namespace UnderSea.BLL.Services
             int rank = 1;
             foreach (var user in users)
             {
-                user.Place = ++rank;
+                user.Place = rank++;
             }
             await db.SaveChangesAsync();
         }

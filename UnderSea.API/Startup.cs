@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,13 +7,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using UnderSea.BLL;
 using UnderSea.BLL.Services;
 using UnderSea.DAL;
 using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace UnderSea.API
 {
@@ -28,7 +30,21 @@ namespace UnderSea.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(MapperProfile));
+            services.AddAutoMapper(typeof(Startup));            
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = "me",
+                        ValidAudience = "you",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("123451234512345123451234512345"))
+                    };
+                });
+            services.AddAuthorization();
 
             services.AddControllers();
             
@@ -49,6 +65,7 @@ namespace UnderSea.API
             services.AddScoped<IArmyService, ArmyService>();
             services.AddScoped<IBuildingsService, BuildingsService>();
             services.AddScoped<IUpgradesService, UpgradesService>();
+            services.AddScoped<ITokenService, TokenService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

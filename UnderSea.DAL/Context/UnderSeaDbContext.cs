@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -351,15 +352,18 @@ namespace UnderSea.DAL.Context
                 PearlPictureUrl = "",
             };
 
+            var passwordHasher = new PasswordHasher<User>();
             var user1 = new User
             {
                 Id = 1,
                 GameId = 1,
                 Place = 1,
                 Score = 100,
-                UserName = "First User"
-
+                UserName = "first",
+                NormalizedUserName = "FIRST",
+                SecurityStamp = Guid.NewGuid().ToString()
             };
+            user1.PasswordHash = passwordHasher.HashPassword(user1, "undersea");
 
             var user2 = new User
             {
@@ -367,8 +371,11 @@ namespace UnderSea.DAL.Context
                 GameId = 1,
                 Place = 2,
                 Score = 50,
-                UserName = "Second User"
+                UserName = "second",
+                NormalizedUserName = "SECOND",
+                SecurityStamp = Guid.NewGuid().ToString()
             };
+            user2.PasswordHash = passwordHasher.HashPassword(user2, "undersea");
 
             modelBuilder.Entity<LaserShark>()
                 .HasData(laserShark);

@@ -176,8 +176,9 @@ namespace UnderSea.DAL.Models
             score += Population;
             foreach (Building building in BuildingGroup.Buildings)
             {
-                score += building.Type.Score;
+                score += building.Type.Score * building.Count;
             }
+
             foreach (Unit unit in AttackingArmy.Units)
             {
                 score += unit.CalculateScore();

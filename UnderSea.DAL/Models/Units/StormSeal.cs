@@ -15,6 +15,7 @@ namespace UnderSea.DAL.Models.Units
             DefenseScore = 2.0;
             PearlCostPerTurn = 1;
             CoralCostPerTurn = 1;
+            Score = 5;
         }
     }
 }
