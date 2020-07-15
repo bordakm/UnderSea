@@ -11,8 +11,23 @@ import SwiftUI
 
 struct Login {
     
+    typealias DataModelType = UserDTO
+    typealias ViewModelType = ViewModel
+    
     static func setup() -> LoginPage {
-        return LoginPage();
+        
+        let interactor = Interactor()
+        let presenter = Presenter()
+        
+        var view = LoginPage(usecaseHandler: interactor.handleUsecase(_:))
+        
+        interactor.setPresenter = { return presenter }
+        
+        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
+        
+        view.setInteractor = { return interactor }
+        
+        return view;
     }
     
 }

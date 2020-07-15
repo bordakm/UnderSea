@@ -10,9 +10,7 @@ import Foundation
 
 struct UserDTO: Decodable {
     
-    let id: Int
-    let name: String
-    let city: String
-    let token: String
+    let refreshToken: String
+    let accessToken: String
     
 }
