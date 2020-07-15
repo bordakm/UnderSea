@@ -97,9 +97,9 @@ namespace UnderSea.BLL.Services
         {
             int perPage = search.ItemPerPage ?? 10;
             int pageNum = search.Page ?? 1;
-            string searchPhrase = search.SearchPhrase ?? "";
+            string searchWord = search.SearchPhrase ?? "";
             var users = await db.Users
-                               .Where(users => searchPhrase.ToUpper().Contains(searchPhrase.ToUpper()))
+                               .Where(users => searchWord.ToUpper().Contains(searchWord.ToUpper()))
                                .Skip(perPage * (pageNum - 1))
                                .Take(perPage)
                                .ToListAsync();
