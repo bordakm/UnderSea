@@ -48,6 +48,7 @@ namespace UnderSea.API.Controllers
                     RefreshToken = await tokenService.CreateRefreshTokenAsync(user)
                 };
             }
+
             throw new Exception("Login attempt failed");
         }
 
