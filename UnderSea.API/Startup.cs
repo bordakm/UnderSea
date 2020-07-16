@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using UnderSea.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using UnderSea.DAL;
+using UnderSea.BLL.Hubs;
 
 namespace UnderSea.API
 {
@@ -32,6 +33,8 @@ namespace UnderSea.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+
             services.AddAutoMapper(typeof(MapperProfile));
 
             services.AddDbContext<UnderSeaDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -109,6 +112,7 @@ namespace UnderSea.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MyHub>("/api/newround");
             });
         }
     }

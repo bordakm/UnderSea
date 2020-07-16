@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.ViewModels;
@@ -12,6 +11,7 @@ using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Upgrades;
+using UnderSea.BLL.Hubs;
 
 namespace UnderSea.BLL.Services
 {
@@ -20,11 +20,13 @@ namespace UnderSea.BLL.Services
         private UnderSeaDbContext db;
         private readonly ILogger logger;
         private readonly IMapper mapper;
-        public GameService(UnderSeaDbContext db, ILogger<GameService> logger, IMapper mapper)
+        private readonly IHubContext<MyHub> hubContext;
+        public GameService(UnderSeaDbContext db, ILogger<GameService> logger, IMapper mapper, IHubContext<MyHub> hubContext)
         {
             this.db = db;
             this.logger = logger;
             this.mapper = mapper;
+            this.hubContext = hubContext;
         }
 
         public async Task<MainPageViewModel> GetMainPageAsync(int userId)
@@ -92,6 +94,7 @@ namespace UnderSea.BLL.Services
                 await CalculateAttacks();
                 await CalculateRankingsAsync();
             }
+            await hubContext.Clients.All.SendAsync("NewRound");
         }
 
         public async Task<IEnumerable<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
