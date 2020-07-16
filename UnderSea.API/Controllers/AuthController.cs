@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using UnderSea.BLL.DTO;
+using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
 using UnderSea.DAL.Models;
 
@@ -18,16 +18,19 @@ namespace UnderSea.API.Controllers
     {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
-        private readonly IConfiguration configuration;
         private readonly ITokenService tokenService;
+        private readonly IUserService userService;
+        private readonly IGameService gameService;
         private readonly ILogger logger;
 
-        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, IConfiguration configuration, ITokenService tokenService, ILogger<AuthController> logger)
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, ITokenService tokenService,
+            IUserService userService, IGameService gameService, ILogger<AuthController> logger)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
-            this.configuration = configuration;
             this.tokenService = tokenService;
+            this.userService = userService;
+            this.gameService = gameService;
             this.logger = logger;
         }        
 
@@ -52,13 +55,11 @@ namespace UnderSea.API.Controllers
         [HttpPost("register")]
         public async Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
         {
-            var user = new User
-            {
-                UserName = registerData.UserName
-            };
+            var user = await userService.CreateUserAsync(registerData);
             var result = await userManager.CreateAsync(user, registerData.Password);            
             if (result.Succeeded)
             {
+                await gameService.CalculateRankingsAsync();
                 await signInManager.SignInAsync(user, false);
                 return new TokensViewModel()
                 {
@@ -79,7 +80,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("renew")]
-        public async Task<TokensViewModel> RenewToken()
+        public async Task<TokensViewModel> RenewToken([FromBody] string refreshToken)
         {
             // TODO tokenek
             return await Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });

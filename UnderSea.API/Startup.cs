@@ -36,7 +36,13 @@ namespace UnderSea.API
 
             services.AddDbContext<UnderSeaDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, Role>()
+            services.AddIdentity<User, Role>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequiredLength = 4;
+                })
                 .AddEntityFrameworkStores<UnderSeaDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -72,6 +78,7 @@ namespace UnderSea.API
             services.AddScoped<IBuildingsService, BuildingsService>();
             services.AddScoped<IUpgradesService, UpgradesService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
