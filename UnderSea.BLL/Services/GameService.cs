@@ -160,7 +160,8 @@ namespace UnderSea.BLL.Services
             var users =
                 db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
-                .ThenInclude(buildingGroup => buildingGroup.Buildings);
+                .ThenInclude(buildingGroup => buildingGroup.Buildings)
+                .ThenInclude(buildig => buildig.Type);
 
             foreach (var user in users)
             {

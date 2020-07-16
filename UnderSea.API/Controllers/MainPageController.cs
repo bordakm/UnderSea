@@ -30,7 +30,7 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("newround")]
-        public async void NewRound([FromQuery] int rounds)
+        public async Task NewRound([FromQuery] int rounds)
         {
             await gameService.NewRoundAsync(rounds);
         }

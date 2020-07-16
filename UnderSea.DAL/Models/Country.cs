@@ -53,7 +53,10 @@ namespace UnderSea.DAL.Models
         public void AddCoral()
         {
             int producedCoral = 0;
-            BuildingGroup.Buildings.Select(building => producedCoral += building.CoralBonusTotal);
+            BuildingGroup.Buildings.ForEach(building =>
+            {
+                producedCoral += building.CoralBonusTotal;
+            });            
             Coral += producedCoral;
         }
 
