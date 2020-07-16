@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UnderSea.DAL.Models.Upgrades
 {
-    public abstract class Upgrade
+    public class Upgrade
     {
         public int Id { get; set; }
-        public int CoralProductionBonusPercentage { get; set; }
-        public int DefenseBonusPercentage { get; set; }
-        public int AttackBonusPercentage { get; set; }
-        public int AttackAndDefenseBonusPercentage { get; set; }
-        public int PearlProductionBonusPercentage { get; set; }
-        public UpgradeState State { get; set; }
+        [ForeignKey("Country")]
+        public int CountryId { get; set; }
+        [ForeignKey("UpgradeType")]
+        public int TypeId { get; set; }
+        public UpgradeType Type { get; set; }
+        public UpgradeState State { get; set; } = UpgradeState.Unresearched;
     }
 }

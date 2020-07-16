@@ -4,11 +4,15 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Upgrades
 {
-    class UnderwaterMartialArts : Upgrade
+    public class UnderwaterMartialArts : UpgradeType
     {
-        public UnderwaterMartialArts() 
+        public UnderwaterMartialArts()
         {
-            AttackAndDefenseBonusPercentage = 10;
+            Name = "Vízalatti harcművészetek";
+            Description = "növeli a védelmi és támadóerőt 10%-kal";
+            ImageUrl = "majd/kesobb/lesz/kep.jpg";
+            AttackBonusPercentage = 10;
+            DefenseBonusPercentage = 10;
         }
     }
 }

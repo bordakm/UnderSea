@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using UnderSea.API.DTO;
-using UnderSea.API.ViewModels;
+using UnderSea.BLL.ViewModels;
+using UnderSea.BLL.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace UnderSea.API.Controllers
 {
@@ -13,16 +12,27 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class MainPageController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<MainPageViewModel> Get()
+        private readonly IGameService gameService;
+        private readonly ILogger logger;
+
+        public MainPageController(IGameService gameService, ILogger<MainPageController> logger)
         {
-            return NotFound(new MainPageViewModel());
+            this.gameService = gameService;
+            this.logger = logger;
         }
 
-        [HttpPost]
-        public ActionResult<string> NewRound([FromBody] int rounds)
+        [HttpGet]
+        [Authorize]
+        public async Task<MainPageViewModel> GetMainPage()
         {
-            return BadRequest("Not implemented");
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return await gameService.GetMainPageAsync(userId);
+        }
+
+        [HttpPost("newround")]
+        public async void NewRound([FromQuery] int rounds)
+        {
+            await gameService.NewRoundAsync(rounds);
         }
     }
 }

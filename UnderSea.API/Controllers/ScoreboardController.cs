@@ -1,23 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UnderSea.API.DTO;
-using UnderSea.API.ViewModels;
+using Microsoft.Extensions.Logging;
+using UnderSea.BLL.DTO;
+using UnderSea.BLL.Services;
+using UnderSea.BLL.ViewModels;
 
 namespace UnderSea.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ScoreboardController : ControllerBase
     {
 
-        [HttpPost]
-        public ActionResult<List<ScoreboardViewModel>> Search([FromBody] SearchDTO search)
+        private readonly IGameService gameService;
+        private readonly ILogger logger;
+
+        public ScoreboardController(IGameService gameService, ILogger<ScoreboardController> logger)
         {
-            return NotFound(new List<ScoreboardViewModel>());
+            this.gameService = gameService;
+            this.logger = logger;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<ScoreboardViewModel>> Search([FromQuery] SearchDTO search)
+        {
+            return await gameService.SearchScoreboardAsync(search);
         }
     }
 }

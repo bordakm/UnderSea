@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UnderSea.DAL.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
         public Country Country { get; set; }
-        public string UserName { get; set; }
+        public int Place { get; set; }
+        public int Score { get; set; }
+        [ForeignKey("Game")]
+        public int GameId { get; set; }
+        public string RefreshToken { get; set; }
     }
 }

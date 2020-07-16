@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UnderSea.DAL.Models.Buildings
 {
-    public abstract class Building
+    public class Building
     {
         public int Id { get; set; }
+        [ForeignKey("BuildingGroup")]
+        public int BuildingGroupId { get; set; }
+        [ForeignKey("BuildingType")]
+        public int TypeId { get; set; }
+        public BuildingType Type { get; set; }
         public int Count { get; set; }
-        public int Price { get; set; }
-        public int PopulationBonus { get; set; }
-        public int CoralBonus { get; set; }
-        public int UnitStorage { get; set; }
-        public bool UnderConstructionCount { get; set; }
+        public int UnderConstructionCount { get; set; }
+        public int ConstructionTimeLeft { get; set; }
+        [NotMapped]
+        public int CoralBonusTotal => Type.CoralBonus * (Count - UnderConstructionCount);
     }
 }

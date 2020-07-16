@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace UnderSea.API
 {
@@ -13,6 +14,13 @@ namespace UnderSea.API
     {
         public static void Main(string[] args)
         {
+            IConfigurationRoot configuration = new
+            ConfigurationBuilder().AddJsonFile("appsettings.json",
+            optional: false, reloadOnChange: true).Build();
+
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration
+            (configuration).CreateLogger();
+
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -21,6 +29,7 @@ namespace UnderSea.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .UseSerilog();
     }
 }

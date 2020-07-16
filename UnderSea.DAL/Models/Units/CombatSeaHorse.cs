@@ -4,16 +4,18 @@ using System.Text;
 
 namespace UnderSea.DAL.Models.Units
 {
-    public class CombatSeaHorse : Unit
+    public class CombatSeaHorse : UnitType
     {
         public CombatSeaHorse()
         {
-            Count = 0;
+            Name = "Csatacsikó";
+            ImageUrl = "majd/lesz/kep.jpeg";
             Price = 50;
             AttackScore = 2.0;
             DefenseScore = 6.0;
             PearlCostPerTurn = 1;
             CoralCostPerTurn = 1;
+            Score = 5;
         }
     }
 }

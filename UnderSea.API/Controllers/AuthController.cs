@@ -1,10 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using UnderSea.API.DTO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using UnderSea.BLL.DTO;
+using UnderSea.BLL.Services;
+using UnderSea.BLL.ViewModels;
+using UnderSea.DAL.Models;
 
 namespace UnderSea.API.Controllers
 {
@@ -12,25 +18,80 @@ namespace UnderSea.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        [HttpPost]
-        [Route("/register")]
-        public ActionResult<string> Register([FromBody] RegisterDTO registerData)
+        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<User> userManager;
+        private readonly ITokenService tokenService;
+        private readonly IUserService userService;
+        private readonly IGameService gameService;
+        private readonly ILogger logger;
+
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, ITokenService tokenService,
+            IUserService userService, IGameService gameService, ILogger<AuthController> logger)
         {
-            return NotFound("post error");
+            this.signInManager = signInManager;
+            this.userManager = userManager;
+            this.tokenService = tokenService;
+            this.userService = userService;
+            this.gameService = gameService;
+            this.logger = logger;
+        }        
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<TokensViewModel> Login([FromBody] LoginDTO loginData)
+        {
+            var result = await signInManager.PasswordSignInAsync(loginData.UserName, loginData.Password, false, false);
+            if (result.Succeeded)
+            {
+                var user = userManager.Users.SingleOrDefault(user => user.UserName == loginData.UserName);
+                return new TokensViewModel()
+                {
+                    AccessToken = tokenService.CreateAccessToken(user),
+                    RefreshToken = await tokenService.CreateRefreshTokenAsync(user)
+                };
+            }
+
+            throw new Exception("Login attempt failed");
         }
 
-        [HttpPost]
-        [Route("/login")]
-        public ActionResult<string> Login([FromBody] LoginDTO loginData)
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
         {
-            return NotFound("post error");
+            var user = await userService.CreateUserAsync(registerData);
+            var result = await userManager.CreateAsync(user, registerData.Password);            
+            if (result.Succeeded)
+            {
+                await gameService.CalculateRankingsAsync();
+                await signInManager.SignInAsync(user, false);
+                return new TokensViewModel()
+                {
+                    AccessToken = tokenService.CreateAccessToken(user),
+                    RefreshToken = await tokenService.CreateRefreshTokenAsync(user)
+                };
+            }
+            throw new Exception("Registration failed");
         }
 
-        [HttpPost]
-        [Route("/logout")]
-        public ActionResult Logout()
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task Logout() // TODO adjunk vissza valamit?
         {
-            return BadRequest("Not implemented");
+            var user = await userManager.GetUserAsync(User);
+            await signInManager.SignOutAsync();
+            await tokenService.RemoveRefreshTokenAsync(user);
+        }
+
+        [HttpPost("renew")]
+        [AllowAnonymous]
+        public async Task<TokensViewModel> RenewToken([FromBody] RefreshTokenDTO tokenDTO)
+        {
+            var user = await userManager.Users.SingleAsync(user => user.RefreshToken == tokenDTO.RefreshToken);
+            return new TokensViewModel
+            {
+                AccessToken = tokenService.CreateAccessToken(user),
+                RefreshToken = await tokenService.CreateRefreshTokenAsync(user)
+            };
         }
     }
 }
