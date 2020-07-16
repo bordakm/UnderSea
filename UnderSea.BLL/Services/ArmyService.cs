@@ -135,6 +135,7 @@ namespace UnderSea.BLL.Services
         {
             var attacks = await db.Attacks
                                .Include(attack => attack.UnitList)
+                               .ThenInclude(u=>u.Type)
                                .Include(attack => attack.AttackerUser)
                                .ThenInclude(attacker => attacker.Country)
                                .Include(attack => attack.DefenderUser)
@@ -144,7 +145,7 @@ namespace UnderSea.BLL.Services
             var response = new List<OutgoingAttackViewModel>();           
             foreach (var attack in attacks)
             {
-                var units = mapper.Map<List<SimpleUnitViewModel>>(attack.UnitList); 
+                var units = mapper.Map<List<SimpleUnitWithNameViewModel>>(attack.UnitList); 
                 response.Add(new OutgoingAttackViewModel
                 {
                     CountryName = attack.AttackerUser.Country.Name,
