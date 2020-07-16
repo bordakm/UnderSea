@@ -278,7 +278,7 @@ namespace UnderSea.DAL.Context
             {
                 Id = 2,
                 BuildingGroupId = 1,
-                Count = 1,
+                Count = 0,
                 TypeId = 2
             };
             var building3 = new Building
@@ -321,7 +321,7 @@ namespace UnderSea.DAL.Context
                 BuildingTimeLeft = 0,
                 Coral = 100000,
                 Name = "First Country",
-                Pearl = 100000,
+                Pearl = 250,
                 Score = 0,
                 UpgradeTimeLeft = 0,
                 UserId = 1,

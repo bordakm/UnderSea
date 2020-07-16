@@ -34,9 +34,9 @@ namespace UnderSea.DAL.Models
         [NotMapped]
         public int PearlProduction => Population * taxRate;
         [NotMapped]
-        public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus);
+        public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus * building.Count);
         [NotMapped]
-        public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.Type.UnitStorage);
+        public int UnitStorage => BuildingGroup.Buildings.Sum(building => building.Type.UnitStorage * building.Count);
         [NotMapped]
         public int CoralProduction
         {

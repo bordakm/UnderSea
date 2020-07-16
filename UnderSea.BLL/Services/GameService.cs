@@ -184,7 +184,7 @@ namespace UnderSea.BLL.Services
                 //RemoveUnitsFromAttackingList(removeUnits, user);
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
-                while (!stop)
+                while (!stop && userAttacks.Count() != 0)
                 {
                     foreach (Attack attack in userAttacks)
                     {
@@ -244,7 +244,7 @@ namespace UnderSea.BLL.Services
                 //RemoveUnitsFromAttackingList(removeUnits, user);
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
-                while (!stop)
+                while (!stop && userAttacks.Count() != 0)
                 {
                     foreach (Attack attack in userAttacks)
                     {
