@@ -35,6 +35,13 @@ namespace UnderSea.API
         {
             services.AddAutoMapper(typeof(MapperProfile));
 
+            services.AddCors(o => o.AddPolicy("AllowAllOriginsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddDbContext<UnderSeaDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, Role>(options =>
@@ -107,7 +114,7 @@ namespace UnderSea.API
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
+            app.UseCors("AllowAllOriginsPolicy");
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
