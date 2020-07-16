@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +31,7 @@ namespace UnderSea.API.Controllers
             this.tokenService = tokenService;
             this.userService = userService;
             this.gameService = gameService;
-        }        
+        }
 
         [AllowAnonymous]
         [HttpPost("login")]
@@ -41,14 +40,13 @@ namespace UnderSea.API.Controllers
             var result = await signInManager.PasswordSignInAsync(loginData.UserName, loginData.Password, false, false);
             if (result.Succeeded)
             {
-                var user = userManager.Users.SingleOrDefault(user => user.UserName == loginData.UserName);
+                var user = await userManager.Users.SingleAsync(user => user.UserName == loginData.UserName);
                 return new TokensViewModel()
                 {
                     AccessToken = tokenService.CreateAccessToken(user),
                     RefreshToken = await tokenService.CreateRefreshTokenAsync(user)
                 };
             }
-
             throw new HttpResponseException { Status = 400, Value = "Login failed" };
         }
 
@@ -57,7 +55,7 @@ namespace UnderSea.API.Controllers
         public async Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
         {
             var user = await userService.CreateUserAsync(registerData);
-            var result = await userManager.CreateAsync(user, registerData.Password);            
+            var result = await userManager.CreateAsync(user, registerData.Password);
             if (result.Succeeded)
             {
                 await gameService.CalculateRankingsAsync();
@@ -68,12 +66,12 @@ namespace UnderSea.API.Controllers
                     RefreshToken = await tokenService.CreateRefreshTokenAsync(user)
                 };
             }
-            throw new Exception("Registration failed");
+            throw new HttpResponseException { Status = 400, Value = result.Errors };
         }
 
         [HttpPost("logout")]
         [Authorize]
-        public async Task Logout() // TODO adjunk vissza valamit?
+        public async Task Logout()
         {
             var user = await userManager.GetUserAsync(User);
             await signInManager.SignOutAsync();

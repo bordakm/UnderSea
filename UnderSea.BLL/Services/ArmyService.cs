@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +23,7 @@ namespace UnderSea.BLL.Services
         }
 
         public async Task<IEnumerable<SimpleUnitViewModel>> AttackAsync(int attackerUserId, AttackDTO attack)
-        { // TODO: majd ha egy játékosnak több országa lesz majd, akk itt az attackeruserid-ből attacking country id-t kéne csinálni
+        {
             var game = await db.Game
                 .Include(game => game.Attacks)
                 .SingleAsync();
@@ -54,7 +53,7 @@ namespace UnderSea.BLL.Services
                 UnitType type = unitTypes.Single(ut => ut.Id == sendUnit.Id);
                 int ownedCount = attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;
                 if (sendUnit.SendCount > ownedCount)
-                    throw new Exception("Nem küldhetsz több egységet, mint amennyid van!");
+                    throw new HttpResponseException { Status = 400, Value = "Nem küldhetsz több egységet, mint amennyid van!" };
                 else
                 {
                     attackingUser.Country.AttackingArmy.Units.Single(u => u.Type == type).Count += sendUnit.SendCount;
@@ -102,17 +101,17 @@ namespace UnderSea.BLL.Services
             int plusUnitCount = purchases.Sum(purchase => purchase.Count);
             if (user.Country.UnitStorage < currentUnitCount + plusUnitCount)
             {
-                throw new Exception("Nincs elég helyed a barrakkodban!");
+                throw new HttpResponseException { Status = 400, Value = "Nincs elég helyed a barrakkodban!" };
             }
             int priceTotal = purchases.Sum(purchase => purchase.Count * defendingUnits.Single(unit => unit.Type.Id == purchase.TypeId).Type.Price);
             if (priceTotal > user.Country.Pearl)
             {
-                throw new Exception("Nincs eléd gyöngyöd!");
+                throw new HttpResponseException { Status = 400, Value = "Nincs eléd gyöngyöd!" };
             }
             user.Country.Pearl -= priceTotal;
             purchases.ForEach(pur => defendingUnits.Single(units => units.Type.Id == pur.TypeId).Count += pur.Count);
             await db.SaveChangesAsync();
-            return mapper.Map<List<UnitPurchaseDTO>,IEnumerable<SimpleUnitViewModel>>(purchases);
+            return mapper.Map<List<UnitPurchaseDTO>, IEnumerable<SimpleUnitViewModel>>(purchases);
         }
 
         public async Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnitsAsync(int userId)
@@ -132,17 +131,17 @@ namespace UnderSea.BLL.Services
         {
             var attacks = await db.Attacks
                                .Include(attack => attack.UnitList)
-                               .ThenInclude(u=>u.Type)
+                               .ThenInclude(u => u.Type)
                                .Include(attack => attack.AttackerUser)
                                .ThenInclude(attacker => attacker.Country)
                                .Include(attack => attack.DefenderUser)
                                .Where(attacks => attacks.AttackerUser.Id == userId)
                                .ToListAsync();
 
-            var response = new List<OutgoingAttackViewModel>();           
+            var response = new List<OutgoingAttackViewModel>();
             foreach (var attack in attacks)
             {
-                var units = mapper.Map<List<SimpleUnitWithNameViewModel>>(attack.UnitList); 
+                var units = mapper.Map<List<SimpleUnitWithNameViewModel>>(attack.UnitList);
                 response.Add(new OutgoingAttackViewModel
                 {
                     CountryName = attack.AttackerUser.Country.Name,

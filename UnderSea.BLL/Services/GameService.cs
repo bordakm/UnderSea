@@ -83,14 +83,18 @@ namespace UnderSea.BLL.Services
         {
             for (int i = 0; i < rounds; ++i)
             {
-                await AddTaxes();
-                await AddCoral();
-                await PayUnits();
-                await FeedUnits();
-                await DoUpgrades();
-                await Build();
-                await CalculateAttacks();
-                await CalculateRankingsAsync();
+                using (var tran = db.Database.BeginTransaction())
+                {
+                    await AddTaxes();
+                    await AddCoral();
+                    await PayUnits();
+                    await FeedUnits();
+                    await DoUpgrades();
+                    await Build();
+                    await CalculateAttacks();
+                    await CalculateRankingsAsync();
+                    tran.Commit();
+                }
             }
             await hubContext.Clients.All.SendAsync("NewRound");
         }
@@ -214,7 +218,6 @@ namespace UnderSea.BLL.Services
             foreach (var user in users)
             {
                 var removeUnits = user.Country.FeedUnits();
-                //RemoveUnitsFromAttackingList(removeUnits, user);
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop && userAttacks.Count() != 0)
@@ -264,7 +267,6 @@ namespace UnderSea.BLL.Services
             foreach (var user in game.Users)
             {
                 var removeUnits = user.Country.PayUnits();
-                //RemoveUnitsFromAttackingList(removeUnits, user);
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop && userAttacks.Count() != 0)
@@ -289,33 +291,6 @@ namespace UnderSea.BLL.Services
                 }
             }
             await db.SaveChangesAsync();
-        }
-
-        private void RemoveUnitsFromAttackingList(Dictionary<int, int> removeUnits, User user)
-        {
-            var game = db.Game.Single();
-            var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
-            bool stop = false;
-            while (!stop && (userAttacks.Count() != 0))
-            {
-                foreach (Attack attack in userAttacks)
-                {
-                    foreach (int unitId in removeUnits.Keys)
-                    {
-                        var unitToRemove = attack.UnitList.Find(unit => unit.Id == unitId);
-                        if (unitToRemove.Count > 0 && removeUnits[unitId] > 0)
-                        {
-                            removeUnits[unitId]--;
-                            unitToRemove.Count--;
-                        }
-                    }
-                    stop = removeUnits.Values.All(count => count == 0);
-                    if (stop)
-                    {
-                        break;
-                    }
-                }
-            }
         }
 
         private async Task Build()

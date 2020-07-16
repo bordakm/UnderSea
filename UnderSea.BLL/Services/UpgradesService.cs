@@ -51,7 +51,7 @@ namespace UnderSea.BLL.Services
             }
             else
             {
-                throw new Exception("Most nem indíthatod el ezt a fejlesztést!");
+                throw new HttpResponseException { Status = 400, Value = "Most nem indíthatod el ezt a fejlesztést!" };
             }
         }
     }
