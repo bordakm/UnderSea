@@ -23,18 +23,10 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UpgradeViewModel>>> Get()
+        public async Task<IEnumerable<UpgradeViewModel>> Get()
         {
-            try
-            {
-                int userId = 1;
-                return Ok(await upgradesService.GetUpgradesAsync(userId));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-
+            int userId = 1;
+            return await upgradesService.GetUpgradesAsync(userId);
         }
 
         [HttpPost("research")]
