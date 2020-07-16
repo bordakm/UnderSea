@@ -22,6 +22,7 @@ class UserManager {
     func login(_ data: LoginDTO) -> AnyPublisher<UserDTO, Error> {
         
         let publisher: AnyPublisher<UserDTO, Error> = worker.execute(target: .login(data))
+        
         subscription = publisher
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
@@ -40,9 +41,11 @@ class UserManager {
         
     }
     
-    func register(_ data: RegisterDTO) {
+    func register(_ data: RegisterDTO) -> AnyPublisher<UserDTO, Error> {
         
-        subscription = worker.execute(target: .register(data))
+        let publisher: AnyPublisher<UserDTO, Error> = worker.execute(target: .register(data))
+        
+        subscription = publisher
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
                 switch result {
@@ -56,6 +59,17 @@ class UserManager {
                 self.loggedInUser.send(data)
             })
         
+        return publisher
+        
     }
+    
+    func logout() {
+        
+        let _: AnyPublisher<EmptyResponse, Error> = worker.execute(target: .logout)
+        loggedInUser.send(nil)
+        
+    }
+    
+    
     
 }
