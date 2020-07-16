@@ -77,7 +77,8 @@ namespace UnderSea.API
             });
             services.AddAuthorization();
 
-            services.AddControllers();
+            services.AddControllers(options =>
+                options.Filters.Add(new HttpResponseExceptionFilter()));
 
             services.AddSwaggerGen(c =>
             {
@@ -125,10 +126,7 @@ namespace UnderSea.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseExceptionHandler("/error");
 
             app.UseHttpsRedirection();
 
