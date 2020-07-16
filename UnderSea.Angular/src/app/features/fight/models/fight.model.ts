@@ -1,6 +1,11 @@
 export interface IFightUnitsViewModel{
     cityName: string;
-    sharkCount: number;
-    sealCount: number;
-    seahorseCount: number;
+    units: ISimpleUnitViewModel[];
 }
+
+export interface ISimpleUnitViewModel{
+    type: number;
+    count: number;
+}
+
+

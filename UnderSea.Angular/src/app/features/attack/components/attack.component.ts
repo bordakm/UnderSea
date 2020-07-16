@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IAttackUnitViewModel } from '../models/attack.model';
+import { AvailableUnitViewModel } from 'src/app/shared';
 
 @Component({
   selector: 'app-attack',
@@ -8,7 +9,7 @@ import { IAttackUnitViewModel } from '../models/attack.model';
 })
 export class AttackComponent implements OnInit {
 
-  @Input() unit: IAttackUnitViewModel;
+  @Input() unit: AvailableUnitViewModel;
   @Input() image: string;
 
   constructor() { }

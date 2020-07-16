@@ -16,22 +16,17 @@
                                     </mat-form-field>
                                 </form>
                             </mat-list-item>
-    
-                            <mat-list-item class="list-item">1</mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item class="list-item">2</mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item class="list-item">3</mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item class="list-item">4</mat-list-item>
-                            <mat-divider></mat-divider>
+                            <div *ngFor="let country of countries">
+                                <mat-divider></mat-divider>
+                                <mat-list-item  class="list-item">{{ country.name }}</mat-list-item>
+                            </div>
                         </mat-list>
                     </div>
                 </div>
 
                 <div class="attack-parts">
                     <h3>2. Állítsd be, kiket küldesz harcba:</h3>
-                    <app-attack [unit]="laserSharkModel" [image]="'../../../../../assets/images/007-shark.svg'"></app-attack>
+                    <app-attack [unit]="availableUnits" [image]="'../../../../../assets/images/007-shark.svg'"></app-attack>
                     <app-attack [unit]="stormSealModel" [image]="'../../../../../assets/images/025-seal.svg'"></app-attack>
                     <app-attack [unit]="combatSeaHorseModel" [image]="'../../../../../assets/images/013-seahorse.svg'"></app-attack>
                 </div>

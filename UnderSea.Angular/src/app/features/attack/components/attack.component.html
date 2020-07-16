@@ -1,9 +1,9 @@
 <div class="attack-one-unit">
-    <div class="rectangle">
-        <img [src]="image" alt="">
+    <div class="rectangle attack">
+        <img [src]="unit.imageUrl" alt="">
     </div>
     <div>
         <h4 class="attack-unit-name">{{ unit.name }} : példány</h4>
-        <mat-slider [max]="unit.count"></mat-slider>
+        <mat-slider [max]="unit.availableCount"></mat-slider>
     </div>
 </div>

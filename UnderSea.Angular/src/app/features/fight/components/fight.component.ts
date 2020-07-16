@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IFightUnitsViewModel } from '../models/fight.model';
+import { OutgoingAttackViewModel } from 'src/app/shared';
 
 @Component({
   selector: 'app-fight',
@@ -8,7 +9,8 @@ import { IFightUnitsViewModel } from '../models/fight.model';
 })
 export class FightComponent implements OnInit {
 
-  @Input() units: IFightUnitsViewModel;
+  @Input() units: OutgoingAttackViewModel;
+
   constructor() { }
 
   ngOnInit(): void {

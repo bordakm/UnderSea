@@ -11,6 +11,7 @@ import { AttackPageComponent } from './pages/attack.page.component';
     AttackComponent,
   ],
   imports: [
+    CommonModule,
     SharedModule,
     AttackRoutingModule,
   ],
