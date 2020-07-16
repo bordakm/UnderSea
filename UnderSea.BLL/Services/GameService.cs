@@ -51,7 +51,7 @@ namespace UnderSea.BLL.Services
                     Buildings = user.Country.BuildingGroup,
                     RoundCount = game.Round,
                     ScoreboardPosition = user.Place,
-                    Units = user.Country.DefendingArmy.Units,
+                    Units = mapper.Map<IEnumerable<AvailableUnitViewModel>>(user.Country.DefendingArmy.Units),
                     Resources = new StatusBarViewModel.StatusBarResource()
                     {
                         CoralCount = user.Country.Coral,
