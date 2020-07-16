@@ -63,4 +63,13 @@ class UserManager {
         
     }
     
+    func logout() {
+        
+        let _: AnyPublisher<EmptyResponse, Error> = worker.execute(target: .logout)
+        loggedInUser.send(nil)
+        
+    }
+    
+    
+    
 }

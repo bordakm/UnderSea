@@ -27,6 +27,10 @@ extension BaseApiService {
         buffer["Content-Type"] = "application/json"
         buffer["Accept"] = "application/json"
         
+        if let accessToken = UserManager.shared.loggedInUser.value?.accessToken {
+            buffer["Authorization"] = "Bearer \(accessToken)"
+        }
+        
         return buffer
     }
     

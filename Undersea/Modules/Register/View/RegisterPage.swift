@@ -30,14 +30,8 @@ extension Register {
             
             GeometryReader { geometry in
                 VStack {
-                    VStack(spacing: 0) {
-                        Rectangle()
-                            .fill(Colors.underseaTitleColor)
-                            .frame(height: 10)
-                        Text("UNDERSEA")
-                            .font(Font.custom("Baloo2-Regular", size: 37))
-                            .foregroundColor(Colors.underseaTitleColor)
-                    }
+                    SVGImage(svgName: "underseaLogo")
+                        .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.15)
                     VStack {
                         
                         Text("Belepes")
@@ -72,10 +66,13 @@ extension Register {
                     .padding()
                     .background(Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.65))
                     .cornerRadius(16.0)
-                    Spacer()
-                }.padding(Edge.Set.top, geometry.safeAreaInsets.top)
+                    
+                }
+                
             }
-            .background(Colors.darkBlue)
+            .background(Image("loginBackground")
+                .resizable()
+                .scaledToFill())
             .edgesIgnoringSafeArea(.vertical)
         }
     }
