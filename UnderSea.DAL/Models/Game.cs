@@ -118,10 +118,10 @@ namespace UnderSea.DAL.Models
 
                     //nyereség jóváírása
                     attUserCountry.Pearl += Convert.ToInt32(Math.Ceiling(defUserCountry.Pearl * 0.5));
-                    defUserCountry.Pearl = Convert.ToInt32(Math.Ceiling(defUserCountry.Pearl * 0.5));
+                    defUserCountry.Pearl -= Convert.ToInt32(Math.Ceiling(defUserCountry.Pearl * 0.5));
 
                     attUserCountry.Coral += Convert.ToInt32(Math.Ceiling(defUserCountry.Coral * 0.5));
-                    defUserCountry.Coral = Convert.ToInt32(Math.Ceiling(defUserCountry.Coral * 0.5));
+                    defUserCountry.Coral -= Convert.ToInt32(Math.Ceiling(defUserCountry.Coral * 0.5));
                 }
             }
 

@@ -104,12 +104,12 @@ namespace UnderSea.BLL.Services
             int plusUnitCount = purchases.Sum(purchase => purchase.Count);
             if (user.Country.UnitStorage < currentUnitCount + plusUnitCount)
             {
-                throw new Exception("More barracks are needed.");
+                throw new Exception("Nincs elég helyed a barrakkodban!");
             }
             int priceTotal = purchases.Sum(purchase => purchase.Count * defendingUnits.Single(unit => unit.Type.Id == purchase.TypeId).Type.Price);
             if (priceTotal > user.Country.Pearl)
             {
-                throw new Exception("Not enough pearls.");
+                throw new Exception("Nincs eléd gyöngyöd!");
             }
             user.Country.Pearl -= priceTotal;
             purchases.ForEach(pur => defendingUnits.Single(units => units.Type.Id == pur.TypeId).Count += pur.Count);
