@@ -51,7 +51,7 @@ namespace UnderSea.API.Controllers
                 };
             }
 
-            throw new Exception("Login attempt failed");
+            throw new HttpResponseException { Status = 400, Value = "Login failed" };
         }
 
         [AllowAnonymous]
