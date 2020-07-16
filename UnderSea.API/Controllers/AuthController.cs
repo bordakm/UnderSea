@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using UnderSea.BLL.DTO;
 using UnderSea.BLL.Services;
@@ -73,18 +75,23 @@ namespace UnderSea.API.Controllers
 
         [HttpPost("logout")]
         [Authorize]
-        public async void Logout() // TODO adjunk vissza valamit?
+        public async Task Logout() // TODO adjunk vissza valamit?
         {
-            /*var user = HttpContext.User;
-            tokenService.RemoveRefreshTokenAsync(user);
-            signInManager.SignOutAsync();*/
+            var user = await userManager.GetUserAsync(User);
+            await signInManager.SignOutAsync();
+            await tokenService.RemoveRefreshTokenAsync(user);
         }
 
         [HttpPost("renew")]
-        public async Task<TokensViewModel> RenewToken([FromBody] string refreshToken)
+        [AllowAnonymous]
+        public async Task<TokensViewModel> RenewToken([FromBody] RefreshTokenDTO tokenDTO)
         {
-            // TODO tokenek
-            return await Task.Run(() => new TokensViewModel { AccessToken = "én vagyok az access token", RefreshToken = "én vagyok a refresh token" });
+            var user = await userManager.Users.SingleAsync(user => user.RefreshToken == tokenDTO.RefreshToken);
+            return new TokensViewModel
+            {
+                AccessToken = tokenService.CreateAccessToken(user),
+                RefreshToken = await tokenService.CreateRefreshTokenAsync(user)
+            };
         }
     }
 }
