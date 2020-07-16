@@ -15,7 +15,7 @@ extension UserManager {
         case login(_ data: LoginDTO)
         case register(_ data: RegisterDTO)
         case logout
-        case renew
+        case renew(_ data: RenewDTO)
     }
     
 }
@@ -53,8 +53,8 @@ extension UserManager.ApiService: BaseApiService {
             return data.getDictionary()
         case .logout:
             return [:]
-        case .renew:
-            return [:]
+        case .renew(let data):
+            return data.getDictionary()
         }
     }
     
