@@ -42,7 +42,8 @@ namespace UnderSea.API
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
-                       .AllowAnyHeader();
+                       .AllowAnyHeader()
+                       .AllowCredentials();
             }));
 
             services.AddDbContext<UnderSeaDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
