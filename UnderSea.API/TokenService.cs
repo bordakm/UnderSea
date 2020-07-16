@@ -6,18 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace UnderSea.API
 {
     public class TokenService : ITokenService
     {
-        private readonly string signingKey = "123451234512345123451234512345";
         private readonly UnderSeaDbContext db;
+        private readonly IConfiguration configuration;
         private readonly Random random;
 
-        public TokenService(UnderSeaDbContext db)
+        public TokenService(UnderSeaDbContext db, IConfiguration configuration)
         {
             this.db = db;
+            this.configuration = configuration;
             random = new Random();
         }
 
@@ -25,14 +27,15 @@ namespace UnderSea.API
         {
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Sub, Convert.ToString(user.Id)),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, Convert.ToString(user.Id)),                
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken("me",
-               "you",
+            var token = new JwtSecurityToken(
+               configuration["JwtIssuer"],
+               configuration["JwtIssuer"],
                claims,
                expires: DateTime.Now.AddMinutes(5),
                signingCredentials: creds

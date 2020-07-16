@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -30,14 +29,14 @@ namespace UnderSea.API.Controllers
         [HttpGet("getoutgoing")]
         public async Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacks()
         {
-            int userId = 1; //User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return await armyService.GetOutgoingAttacksAsync(userId); // TODO userid
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return await armyService.GetOutgoingAttacksAsync(userId);
         }
 
         [HttpPost("send")]
         public async Task<IEnumerable<SimpleUnitViewModel>> Attack([FromBody] AttackDTO attack)
         {
-            int userId = 1;
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await armyService.AttackAsync(userId, attack);
         }
 
@@ -48,12 +47,10 @@ namespace UnderSea.API.Controllers
             return await gameService.SearchScoreboardAsync(search);
         }
 
-        [Authorize]
         [HttpGet("getunits")]
         public async Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnits()
         {
-            // int userId = int.Parse(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
-            int userId = 1;
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await armyService.GetAvailableUnitsAsync(userId);
         }
     }

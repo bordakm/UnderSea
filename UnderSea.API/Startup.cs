@@ -2,19 +2,21 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using UnderSea.BLL;
 using UnderSea.BLL.Services;
-using UnderSea.DAL;
-using UnderSea.DAL.Context;
-using UnderSea.DAL.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System;
+using UnderSea.BLL;
+using UnderSea.DAL.Context;
+using Microsoft.EntityFrameworkCore;
+using UnderSea.DAL.Models;
+using Microsoft.AspNetCore.Identity;
+using UnderSea.DAL;
 
 namespace UnderSea.API
 {
@@ -30,30 +32,7 @@ namespace UnderSea.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(MapperProfile));            
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidIssuer = "me",
-                        ValidAudience = "you",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("123451234512345123451234512345"))
-                    };
-                });
-            services.AddAuthorization();
-
-            services.AddControllers();
-            
-            services.AddAuthorization();
-            
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UnderSea", Version = "v1" });
-            });
+            services.AddAutoMapper(typeof(MapperProfile));
 
             services.AddDbContext<UnderSeaDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -61,6 +40,33 @@ namespace UnderSea.API
                 .AddEntityFrameworkStores<UnderSeaDbContext>()
                 .AddDefaultTokenProviders();
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = Configuration["JwtIssuer"],
+                    ValidAudience = Configuration["JwtIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+            services.AddAuthorization();
+
+            services.AddControllers();           
+            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UnderSea", Version = "v1" });
+            });
+                  
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IArmyService, ArmyService>();
             services.AddScoped<IBuildingsService, BuildingsService>();

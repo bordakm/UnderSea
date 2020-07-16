@@ -119,7 +119,6 @@ namespace UnderSea.BLL.Services
 
         public async Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnitsAsync(int userId)
         {
-
             var user = await db.Users
                                .Include(user => user.Country)
                                .ThenInclude(country => country.DefendingArmy)

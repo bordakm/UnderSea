@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,10 +13,12 @@ namespace UnderSea.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UnitsController : ControllerBase
     {
         private IArmyService armyService;
         private readonly ILogger logger;
+
         public UnitsController(IArmyService armyService, ILogger<UnitsController> logger)
         {
             this.armyService = armyService;
@@ -27,7 +29,7 @@ namespace UnderSea.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<UnitViewModel>> Get()
         {
-            int userId = 1; // TODO
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await armyService.GetUnitsAsync(userId);
         }
 
@@ -36,7 +38,7 @@ namespace UnderSea.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IEnumerable<SimpleUnitViewModel>> Buy([FromBody] List<UnitPurchaseDTO> purchases)
         {
-            int userId = 1;
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await armyService.BuyUnitsAsync(userId, purchases);
         }
     }

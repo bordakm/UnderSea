@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using UnderSea.BLL.DTO;
 using UnderSea.BLL.ViewModels;
 using UnderSea.BLL.Services;
-using UnderSea.DAL.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace UnderSea.API.Controllers
 {
@@ -26,9 +22,10 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<MainPageViewModel> GetMainPage()
         {
-            int userId = 1;
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await gameService.GetMainPageAsync(userId);
         }
 
