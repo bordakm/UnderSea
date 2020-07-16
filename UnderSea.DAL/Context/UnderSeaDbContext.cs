@@ -17,6 +17,8 @@ namespace UnderSea.DAL.Context
         public DbSet<Unit> Units { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<UnitType> UnitTypes { get; set; }
+        public DbSet<BuildingType> BuildingTypes { get; set; }
+        public DbSet<UpgradeType> UpgradeTypes { get; set; }
         public DbSet<Attack> Attacks { get; set; }
         public DbSet<UnitGroup> UnitGroups { get; set; }
         public UnderSeaDbContext(DbContextOptions<UnderSeaDbContext> options) : base(options)
@@ -278,7 +280,7 @@ namespace UnderSea.DAL.Context
             {
                 Id = 2,
                 BuildingGroupId = 1,
-                Count = 0,
+                Count = 1,
                 TypeId = 2
             };
             var building3 = new Building
@@ -321,7 +323,7 @@ namespace UnderSea.DAL.Context
                 BuildingTimeLeft = 0,
                 Coral = 100000,
                 Name = "First Country",
-                Pearl = 250,
+                Pearl = 100000,
                 Score = 0,
                 UpgradeTimeLeft = 0,
                 UserId = 1,

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace UnderSea.API
 {
@@ -47,7 +48,7 @@ namespace UnderSea.API
         {
             string charPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 20; ++i)
+            for (int i = 0; i < 30; ++i)
             {
                 int index = (int)(random.NextDouble() * charPool.Length);
                 if (index == charPool.Length)
