@@ -11,7 +11,7 @@ import SwiftUI
 
 struct Login {
     
-    typealias DataModelType = UserDTO
+    typealias DataModelType = TokenDTO
     typealias ViewModelType = ViewModel
     
     static func setup() -> LoginPage {

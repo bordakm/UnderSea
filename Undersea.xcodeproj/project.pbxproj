@@ -59,7 +59,7 @@
 		7956491A24BEE54B003D6D16 /* AttackPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491924BEE54B003D6D16 /* AttackPageDTO.swift */; };
 		7956491D24BEF588003D6D16 /* RootPageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491C24BEF588003D6D16 /* RootPageManager.swift */; };
 		7956491F24BEF79D003D6D16 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491E24BEF79D003D6D16 /* UserManager.swift */; };
-		7956492124BEF831003D6D16 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492024BEF831003D6D16 /* UserDTO.swift */; };
+		7956492124BEF831003D6D16 /* TokenDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492024BEF831003D6D16 /* TokenDTO.swift */; };
 		7956492524BEFD54003D6D16 /* UserManagerApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492424BEFD54003D6D16 /* UserManagerApiService.swift */; };
 		7956492924BEFDEF003D6D16 /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492824BEFDEF003D6D16 /* LoginDTO.swift */; };
 		7956492B24BF0159003D6D16 /* RegisterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492A24BF0159003D6D16 /* RegisterDTO.swift */; };
@@ -173,7 +173,7 @@
 		7956491924BEE54B003D6D16 /* AttackPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPageDTO.swift; sourceTree = "<group>"; };
 		7956491C24BEF588003D6D16 /* RootPageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPageManager.swift; sourceTree = "<group>"; };
 		7956491E24BEF79D003D6D16 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		7956492024BEF831003D6D16 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		7956492024BEF831003D6D16 /* TokenDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDTO.swift; sourceTree = "<group>"; };
 		7956492424BEFD54003D6D16 /* UserManagerApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerApiService.swift; sourceTree = "<group>"; };
 		7956492824BEFDEF003D6D16 /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
 		7956492A24BF0159003D6D16 /* RegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDTO.swift; sourceTree = "<group>"; };
@@ -616,7 +616,7 @@
 			children = (
 				792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */,
 				7956491924BEE54B003D6D16 /* AttackPageDTO.swift */,
-				7956492024BEF831003D6D16 /* UserDTO.swift */,
+				7956492024BEF831003D6D16 /* TokenDTO.swift */,
 				794EDCBA24C03B7700D8AA9E /* EmptyResponse.swift */,
 			);
 			path = Decodable;
@@ -1052,7 +1052,7 @@
 				792DE2E924BC9C16009D175D /* MainUsecases.swift in Sources */,
 				7914335B24C07F6000BC4755 /* RenewDTO.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
-				7956492124BEF831003D6D16 /* UserDTO.swift in Sources */,
+				7956492124BEF831003D6D16 /* TokenDTO.swift in Sources */,
 				7947D99D24B8678700C5306D /* HostingController.swift in Sources */,
 				7922A9CD24B4BBB8002A7957 /* SceneDelegate.swift in Sources */,
 				79A5B53F24BF538B009D5AC6 /* RegisterViewModel.swift in Sources */,

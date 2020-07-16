@@ -11,7 +11,7 @@ import SwiftUI
 
 struct Register {
     
-    typealias DataModelType = UserDTO
+    typealias DataModelType = TokenDTO
     typealias ViewModelType = ViewModel
     
     static func setup() -> RegisterPage {

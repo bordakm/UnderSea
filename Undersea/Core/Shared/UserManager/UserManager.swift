@@ -13,19 +13,18 @@ import SwiftJWT
 
 class UserManager {
     
-    let loggedInUser = CurrentValueSubject<UserDTO?, Never>(nil)
+    private(set) var refreshSubject: PassthroughSubject<TokenDTO, Error>?
+    
+    let loggedInUser = CurrentValueSubject<TokenDTO?, Never>(nil)
     private let worker = BaseApiWorker<UserManager.ApiService>()
     private var subscription: AnyCancellable?
-    
-    private(set) var accessToken: JWT<UnderseaClaim>?
-    //private var date: Date = Date().addingTimeInterval(-3600000000)
     
     static let shared: UserManager = UserManager()
     private init() {}
     
-    func login(_ data: LoginDTO) -> AnyPublisher<UserDTO, Error> {
+    func login(_ data: LoginDTO) -> AnyPublisher<TokenDTO, Error> {
         
-        let publisher: AnyPublisher<UserDTO, Error> = worker.execute(target: .login(data))
+        let publisher: AnyPublisher<TokenDTO, Error> = worker.execute(target: .login(data))
         
         subscription = publisher
             .receive(on: DispatchQueue.global())
@@ -37,18 +36,8 @@ class UserManager {
                     print("-- UserManager: load data finished")
                     break
                 }
-            }, receiveValue: { (data: UserDTO) in
+            }, receiveValue: { (data: TokenDTO) in
                 
-                guard let accessToken: JWT<UnderseaClaim> = try? JWT(jwtString: data.accessToken) else {
-                    print("Access token decode failure")
-                    return
-                }
-                
-                print(data)
-                
-                self.accessToken = accessToken
-                //self.date = accessToken.claims.exp
-                //print(self.date)
                 let keychain = Keychain(service: "hu.encosoft.Undersea")
                 keychain["accessToken"] = data.accessToken
                 keychain["refreshToken"] = data.refreshToken
@@ -61,9 +50,9 @@ class UserManager {
         
     }
     
-    func register(_ data: RegisterDTO) -> AnyPublisher<UserDTO, Error> {
+    func register(_ data: RegisterDTO) -> AnyPublisher<TokenDTO, Error> {
         
-        let publisher: AnyPublisher<UserDTO, Error> = worker.execute(target: .register(data))
+        let publisher: AnyPublisher<TokenDTO, Error> = worker.execute(target: .register(data))
         
         subscription = publisher
             .receive(on: DispatchQueue.global())
@@ -75,7 +64,7 @@ class UserManager {
                     print("-- UserManager: load data finished")
                     break
                 }
-            }, receiveValue: { (data: UserDTO) in
+            }, receiveValue: { (data: TokenDTO) in
                 self.loggedInUser.send(data)
             })
         
@@ -93,7 +82,8 @@ class UserManager {
     func updateToken() {
         
         let data = RenewDTO(refreshToken: loggedInUser.value?.refreshToken ?? "")
-        subscription = worker.execute(target: .renew(data))
+        refreshSubject = PassthroughSubject()
+        subscription = worker.directExecute(target: .renew(data))
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
                 switch result {
@@ -103,17 +93,13 @@ class UserManager {
                     print("-- UserManager: load data finished")
                     break
                 }
-            }, receiveValue: { (data: UserDTO) in
                 
-                guard let accessToken: JWT<UnderseaClaim> = try? JWT(jwtString: data.accessToken) else {
-                    self.loggedInUser.send(nil)
-                    print("Access token decode failure")
-                    return
-                }
+                self.refreshSubject?.send(completion: result)
+                self.refreshSubject = nil
                 
-                print(data)
+            }, receiveValue: { (data: TokenDTO) in
                 
-                self.accessToken = accessToken
+                self.refreshSubject?.send(data)
                 let keychain = Keychain(service: "hu.encosoft.Undersea")
                 keychain["accessToken"] = data.accessToken
                 keychain["refreshToken"] = data.refreshToken
@@ -121,6 +107,16 @@ class UserManager {
                 self.loggedInUser.send(data)
             
             })
+        
+    }
+    
+    func isExpired() -> Bool {
+        
+        if let value = loggedInUser.value {
+            return value.expirationDate + -600 < Date()
+        } else {
+            return false
+        }
         
     }
     

@@ -26,11 +26,31 @@ class BaseApiWorker<ApiServiceType: TargetType>: ApiWorkerProtocol {
     // MARK: - Functions
     
     func execute<ResponseType: Decodable>(target: ApiServiceType) -> AnyPublisher<ResponseType, Error> {
-        cancelActiveRequests()
-        return internalExecute(target: target)
+        
+        //Token frissitodese kozben belefut, eredeti igenyt kiszolgalja
+        if let refreshSubject = UserManager.shared.refreshSubject {
+            
+            return refreshSubject
+                    .flatMap { (_) -> AnyPublisher<ResponseType, Error> in
+                        return self.directExecute(target: target)
+                    }.eraseToAnyPublisher()
+        
+        //Token lejart
+        } else if UserManager.shared.isExpired() {
+                
+            UserManager.shared.updateToken()
+            return execute(target: target)
+        
+        //Token letezik es friss vagy nem letezik
+        } else {
+            
+            return directExecute(target: target)
+            
+        }
+        
     }
     
-    private func internalExecute<ResponseType: Decodable>(target: ApiServiceType) -> AnyPublisher<ResponseType, Error> {
+    func directExecute<ResponseType: Decodable>(target: ApiServiceType) -> AnyPublisher<ResponseType, Error> {
         return Future<ResponseType, Error> { promise in
             self.provider.request(target) { (result: Result<Response, MoyaError>) in
                 switch result {
@@ -52,19 +72,6 @@ class BaseApiWorker<ApiServiceType: TargetType>: ApiWorkerProtocol {
             }
         }
         .eraseToAnyPublisher()
-    }
-    
-    private func manageTokenValidity() {
-        
-        if let accessToken = UserManager.shared.accessToken {
-            
-            let validationResult = accessToken.validateClaims(leeway: -30.0)
-            if validationResult != .success {
-                UserManager.shared.updateToken()
-            }
-            
-        }
-        
     }
     
     internal func cancelActiveRequests() {

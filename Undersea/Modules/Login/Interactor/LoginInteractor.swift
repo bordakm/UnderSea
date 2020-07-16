@@ -35,7 +35,6 @@ extension Login {
                 .sink(receiveCompletion: { (result) in
                     switch result {
                     case .failure(_):
-                        self.sendTestData()
                         self.dataSubject.send(completion: result)
                     default:
                         print("-- Interactor: load data finished")
@@ -44,12 +43,6 @@ extension Login {
                 }, receiveValue: { (data) in
                     self.dataSubject.send(data)
                 })
-            
-        }
-        
-        private func sendTestData() {
-            
-            self.dataSubject.send(UserDTO(refreshToken: "", accessToken: ""))
             
         }
         
