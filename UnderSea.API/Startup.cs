@@ -18,6 +18,7 @@ using UnderSea.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using UnderSea.DAL;
 using UnderSea.BLL.Hubs;
+using System.Collections.Generic;
 
 namespace UnderSea.API
 {
@@ -36,6 +37,13 @@ namespace UnderSea.API
             services.AddSignalR();
 
             services.AddAutoMapper(typeof(MapperProfile));
+
+            services.AddCors(o => o.AddPolicy("AllowAllOriginsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
             services.AddDbContext<UnderSeaDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -69,11 +77,31 @@ namespace UnderSea.API
             });
             services.AddAuthorization();
 
-            services.AddControllers();           
-            
+            services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UnderSea", Version = "v1" });
+
+                c.AddSecurityDefinition("basicAuth", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Basic",
+                    Name = "Authorization",
+                    Description = "Authorization header értéke. Például: \"bearer f3g5h6345jfh634jh645\"",
+                    In = ParameterLocation.Header,
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "basicAuth" }
+                            }, new List<string>() }
+                    });
             });
                   
             services.AddScoped<IGameService, GameService>();
@@ -89,7 +117,7 @@ namespace UnderSea.API
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
+            app.UseCors("AllowAllOriginsPolicy");
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>

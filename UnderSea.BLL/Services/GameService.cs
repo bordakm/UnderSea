@@ -50,7 +50,7 @@ namespace UnderSea.BLL.Services
                 CountryName = user.Country.Name,
                 StatusBar = new StatusBarViewModel
                 {
-                    Buildings = user.Country.BuildingGroup,
+                    Buildings = mapper.Map<IEnumerable<StatusBarViewModel.StatusBarBuilding>>(user.Country.BuildingGroup.Buildings),
                     RoundCount = game.Round,
                     ScoreboardPosition = user.Place,
                     Units = mapper.Map<IEnumerable<AvailableUnitViewModel>>(user.Country.DefendingArmy.Units),
