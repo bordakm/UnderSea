@@ -37,7 +37,7 @@ namespace UnderSea.API.Controllers
             await gameService.NewRoundAsync(rounds);
         }
 
-        [HttpGet("/profile")]
+        [HttpGet("profile")]
         [Authorize]
         public async Task<ProfileViewModel> GetProfile()
         {
