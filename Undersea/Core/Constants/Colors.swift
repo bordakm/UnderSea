@@ -23,9 +23,10 @@ struct Colors {
     static let textFieldColor = Color(hex: "#1C3E76")
     static let tabTintColor = Color(hex: "#001234")
     static let navBarBackgroundColor = UIColor(hex: "#1C3E76")
-    static let backgroundUIColor = UIColor(hex: "#03255F")
     static let backgroundColor = Color(Colors.backgroundUIColor)
-    static let separatorColor = UIColor(hex: "#3F68AE")
+    static let backgroundUIColor = UIColor(hex: "#03255F")
+    static let separatorColor = Color(Colors.separatorUIColor)
+    static let separatorUIColor = UIColor(hex: "#3F68AE")
     static let searchFieldBackground = Color.init(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.39)
     
 }

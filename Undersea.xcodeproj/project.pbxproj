@@ -91,6 +91,10 @@
 		799C0DCD24B8B3BC00CEBD2E /* pearl.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC724B8B3BC00CEBD2E /* pearl.svg */; };
 		799C0DCE24B8B3BC00CEBD2E /* coral.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC824B8B3BC00CEBD2E /* coral.svg */; };
 		799C0DCF24B8B3BC00CEBD2E /* flowRegulator.svg in Resources */ = {isa = PBXBuildFile; fileRef = 799C0DC924B8B3BC00CEBD2E /* flowRegulator.svg */; };
+		79A5998424C5DE9900B1E17E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5998324C5DE9900B1E17E /* Profile.swift */; };
+		79A5998624C5DEA600B1E17E /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5998524C5DEA600B1E17E /* ProfilePage.swift */; };
+		79A5998824C5EC3A00B1E17E /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5998724C5EC3A00B1E17E /* ProfileHeader.swift */; };
+		79A5998A24C5ED4F00B1E17E /* ProfileCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5998924C5ED4F00B1E17E /* ProfileCityCell.swift */; };
 		79A5B52424BF0DD6009D5AC6 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52324BF0DD6009D5AC6 /* LoginInteractor.swift */; };
 		79A5B52724BF0F04009D5AC6 /* LoginUsecases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52624BF0F04009D5AC6 /* LoginUsecases.swift */; };
 		79A5B52924BF0F16009D5AC6 /* LoginEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B52824BF0F16009D5AC6 /* LoginEvents.swift */; };
@@ -207,6 +211,10 @@
 		799C0DC724B8B3BC00CEBD2E /* pearl.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pearl.svg; sourceTree = "<group>"; };
 		799C0DC824B8B3BC00CEBD2E /* coral.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coral.svg; sourceTree = "<group>"; };
 		799C0DC924B8B3BC00CEBD2E /* flowRegulator.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flowRegulator.svg; sourceTree = "<group>"; };
+		79A5998324C5DE9900B1E17E /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		79A5998524C5DEA600B1E17E /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
+		79A5998724C5EC3A00B1E17E /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		79A5998924C5ED4F00B1E17E /* ProfileCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCityCell.swift; sourceTree = "<group>"; };
 		79A5B52324BF0DD6009D5AC6 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
 		79A5B52624BF0F04009D5AC6 /* LoginUsecases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUsecases.swift; sourceTree = "<group>"; };
 		79A5B52824BF0F16009D5AC6 /* LoginEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEvents.swift; sourceTree = "<group>"; };
@@ -449,6 +457,7 @@
 		794CAAD024B5C697007DC9C7 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				79A5998124C5DE8000B1E17E /* Profile */,
 				79E4869824BDF4FD00A0EB3B /* AttackDetail */,
 				79820C7524B71DC1006D7258 /* Teams */,
 				79820C7424B71D4A006D7258 /* Attack */,
@@ -743,6 +752,25 @@
 			isa = PBXGroup;
 			children = (
 				79820C8A24B73A67006D7258 /* TeamsPage.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		79A5998124C5DE8000B1E17E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				79A5998224C5DE8A00B1E17E /* View */,
+				79A5998324C5DE9900B1E17E /* Profile.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		79A5998224C5DE8A00B1E17E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				79A5998524C5DEA600B1E17E /* ProfilePage.swift */,
+				79A5998724C5EC3A00B1E17E /* ProfileHeader.swift */,
+				79A5998924C5ED4F00B1E17E /* ProfileCityCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1061,6 +1089,7 @@
 				79F5314B24C0581E0058F86D /* Token.swift in Sources */,
 				79820C8B24B73A67006D7258 /* TeamsPage.swift in Sources */,
 				79A5B53724BF5316009D5AC6 /* RegisterInteractor.swift in Sources */,
+				79A5998824C5EC3A00B1E17E /* ProfileHeader.swift in Sources */,
 				792DE2E624BC9B37009D175D /* MainInteractor.swift in Sources */,
 				794CAAD924B5CDF5007DC9C7 /* Colors.swift in Sources */,
 				794CAAD624B5C730007DC9C7 /* LoginPage.swift in Sources */,
@@ -1072,12 +1101,15 @@
 				7922A9CB24B4BBB8002A7957 /* AppDelegate.swift in Sources */,
 				794CAACB24B5C51B007DC9C7 /* BaseApiWorker.swift in Sources */,
 				79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */,
+				79A5998424C5DE9900B1E17E /* Profile.swift in Sources */,
 				794CAACA24B5C51B007DC9C7 /* BaseApiService.swift in Sources */,
 				794CAACC24B5C51B007DC9C7 /* ServerProxy.swift in Sources */,
 				7956491F24BEF79D003D6D16 /* UserManager.swift in Sources */,
 				79A5B52D24BF4193009D5AC6 /* LoginViewModel.swift in Sources */,
+				79A5998624C5DEA600B1E17E /* ProfilePage.swift in Sources */,
 				792DE2E924BC9C16009D175D /* MainUsecases.swift in Sources */,
 				7914335B24C07F6000BC4755 /* RenewDTO.swift in Sources */,
+				79A5998A24C5ED4F00B1E17E /* ProfileCityCell.swift in Sources */,
 				7922C0AF24C59A4500304446 /* Images.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
 				7956492124BEF831003D6D16 /* TokenDTO.swift in Sources */,

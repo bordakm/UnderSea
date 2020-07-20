@@ -52,14 +52,16 @@ extension Main {
             
             var statList: [StatusBarItem] = []
             
-            for unit in dtoStatBar.units {
+            for index in 0 ..< dtoStatBar.allUnits.count {
+                let unit = dtoStatBar.allUnits[index]
+                let allCount = dtoStatBar.availableUnits[index].availableCount
                 switch unit.id {
                 case 1:
-                    statList.append(.shark(unit.availableCount, -5))
+                    statList.append(.shark(unit.availableCount, allCount))
                 case 2:
-                    statList.append(.seal(unit.availableCount, -10))
+                    statList.append(.seal(unit.availableCount, allCount))
                 case 3:
-                    statList.append(.seahorse(unit.availableCount, -10))
+                    statList.append(.seahorse(unit.availableCount, allCount))
                 default:
                     DDLogDebug("Unknown unit id \(unit.id)")
                 }
