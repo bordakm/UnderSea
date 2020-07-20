@@ -45,7 +45,14 @@ namespace UnderSea.BLL.Services
 
             List<Unit> allUnits = new List<Unit>();
             allUnits.AddRange(user.Country.DefendingArmy.Units);
-            allUnits.AddRange(user.Country.AttackingArmy.Units);
+            foreach (var outerUnit in allUnits)
+            {
+                foreach (var innerUnit in user.Country.AttackingArmy.Units)
+                {
+                    if (outerUnit.Type.Id == innerUnit.Type.Id)
+                        outerUnit.Count += innerUnit.Count;
+                }
+            }
 
             MainPageViewModel response = new MainPageViewModel()
             {

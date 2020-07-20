@@ -110,10 +110,12 @@ namespace UnderSea.DAL.Models
                         }
                     }
 
-                    //csökkentjük a deffender armyját 10%al
-                    foreach (var defendingUnit in defUserCountry.DefendingArmy.Units)
+
+                    var unitCount = defUserCountry.DefendingArmy.Units.Count;
+                    int newCount = Convert.ToInt32(Math.Ceiling(unitCount * 0.9));
+                    for(int i = 0; i< unitCount - newCount; i++)
                     {
-                        defendingUnit.Count = Convert.ToInt32(Math.Floor(defendingUnit.Count * 0.9));
+                        defUserCountry.DefendingArmy.Units.RemoveAt(rand.Next(0, unitCount-i));
                     }
 
                     //nyereség jóváírása
