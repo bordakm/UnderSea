@@ -1,5 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { IUserViewModel } from '../models/scoreboard.model';
+import { ScoreboardViewModel } from 'src/app/shared';
 
 @Component({
   selector: 'app-scoreboard',
@@ -8,8 +9,8 @@ import { IUserViewModel } from '../models/scoreboard.model';
 })
 export class ScoreboardComponent implements OnInit {
 
-  @Input() user: IUserViewModel;
-  
+  @Input() user: ScoreboardViewModel;
+
   constructor() { }
 
   ngOnInit(): void {

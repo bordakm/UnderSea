@@ -16,10 +16,11 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-top: 10vh;
+    padding-top: 5vh;
     padding-bottom: 10vh;
     min-height: 80vh;
 }
+
 
 .flex-card {
     display: flex;
@@ -56,6 +57,8 @@
     justify-content: center;
     height: 30vh;
     min-width: 10vw;
+    max-width: 15vw;
+    cursor: pointer;
 }
 .mat-card.upgrade-card-in-upgrades-page{
     max-height: 20vh;

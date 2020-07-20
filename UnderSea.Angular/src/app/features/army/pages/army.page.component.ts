@@ -3,7 +3,6 @@ import { IUnitViewModel } from '../models/army.model';
 
 import { ArmyService } from '../services/army.service';
 import { tap, catchError } from 'rxjs/operators';
-import { IUserViewModel } from '../../scoreboard/models/scoreboard.model';
 
 @Component({
   selector: 'app-army-page',
@@ -52,8 +51,6 @@ export class ArmyPageComponent implements OnInit {
       catchError(error => console.assert)
     ).subscribe();
   }
-
-
 
   deleteOneLasersharkFromCart(): void{
     if ( this.laserSharkModel.buyNumber > 0 ){

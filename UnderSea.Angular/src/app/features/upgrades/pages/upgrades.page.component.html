@@ -6,10 +6,25 @@
             <h4>Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog fejleszthető és minden csak egyszer fejleszthető ki (nem lehet két kombájn).</h4>
 
             <div class="flex-box">
+
+                <!-- <div *ngFor="let upgrade of upgrades">
+                    <mat-card class="upgrade-card-in-upgrades-page" [class.color1]="isSelected === 'color1'"
+                    (click)="enableButton('color1')">
+                    <div class="img-container">
+                        <img [src]="upgrade.imageUrl" alt=''>
+                    </div>
+                    
+                    <h3>{{ upgrade.name }}</h3>
+                    <h4>{{ upgrade.description }}</h4>
+                    
+                </mat-card>
+                </div> -->
+                
+
                 <mat-card class="upgrade-card-in-upgrades-page" [class.color1]="isSelected === 'color1'"
                     (click)="enableButton('color1')">
                     <div class="img-container">
-                        <img class="high" src='../../../../assets/images/undersea_game-09.png' alt=''>
+                        <img src='../../../../assets/images/undersea_game-09.png' alt=''>
                     </div>
                     
                     <h3>{{ mudTractor.name }}</h3>
@@ -19,7 +34,7 @@
                 <mat-card class="upgrade-card-in-upgrades-page" [class.color2]="isSelected === 'color2'"
                     (click)="enableButton('color2')">
                     <div class="img-container">
-                        <img class="wide" src='../../../../assets/images/undersea_game-10.png' alt=''>
+                        <img src='../../../../assets/images/undersea_game-10.png' alt=''>
                     </div>
                     <h3>{{ mudHarvester.name }}</h3>
                     <h4>Növeli a {{ mudHarvester.upgrade }} {{ mudHarvester.percent }}%-kal</h4>
@@ -35,7 +50,7 @@
                 <mat-card class="upgrade-card-in-upgrades-page" [class.color3]="isSelected === 'color4'"
                     (click)="enableButton('color4')">
                     <div class="img-container">
-                        <img class="high" src='../../../../assets/images/undersea_game-03.png' alt=''>
+                        <img src='../../../../assets/images/undersea_game-03.png' alt=''>
                     </div>
                     <h3>{{ sonarCanon.name }}</h3>
                     <h4>Növeli a {{ sonarCanon.upgrade }} {{ sonarCanon.percent }}%-kal</h4>

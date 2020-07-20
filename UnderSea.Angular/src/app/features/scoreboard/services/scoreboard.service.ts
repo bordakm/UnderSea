@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { IUserViewModel } from '../models/scoreboard.model';
 
-import { UnitViewModel, ApiClient, IScoreboardViewModel } from '../../../shared/index';
+import { UnitViewModel, ApiClient, IScoreboardViewModel, ScoreboardViewModel } from '../../../shared/index';
 
 @Injectable({
     providedIn: 'root',
@@ -14,15 +14,7 @@ import { UnitViewModel, ApiClient, IScoreboardViewModel } from '../../../shared/
 
     constructor(private http: HttpClient, private client: ApiClient) { }
 
-    getUser(): Observable<IUserViewModel[]>{
-        return this.client.scoreboard(null, null, null).pipe(
-            map((dtos: IScoreboardViewModel[]): IUserViewModel[] =>
-                dtos.map(dto => ({
-                    name: dto.userName,
-                    points: dto.place,
-                    score: dto.score,
-                }))
-        )
-    );
+    getUser(): Observable<ScoreboardViewModel[]>{
+        return this.client.scoreboard('', 1, 10);
     }
   }

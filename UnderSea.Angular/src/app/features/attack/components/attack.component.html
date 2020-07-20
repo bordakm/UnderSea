@@ -4,6 +4,7 @@
     </div>
     <div>
         <h4 class="attack-unit-name">{{ unit.name }} : {{ matslider.value }} példány</h4>
+        <!-- <mat-slider [min]=0 [max]="unit.availableCount" #matslider (ng-mouseup)="getSliderValue(unit.id, matslider.value)"></mat-slider> -->
         <mat-slider [min]=0 [max]="unit.availableCount" #matslider></mat-slider>
     </div>
 </div>

@@ -12,7 +12,7 @@
             Ár
         </div>
         <div class="numbers">
-            0<!--ide kell majd a count, amit a fejléchez behúzott adatokból szedünk le. -->> db <br>
+            0<!--ide kell majd a count, amit a fejléchez behúzott adatokból szedünk le. --> db <br>
             {{ unit.attackScore }} / {{ unit.defenseScore }}<br>
             {{ unit.pearlCostPerTurn }} Gyöngy <br>
             {{ unit.coralCostPerTurn }} Korall <br>
@@ -21,7 +21,7 @@
     </div>
     <div class="plus-minus">
         <button mat-mini-fab class="color-button-small" (click)="clickDecrease.emit()">-</button>
-        <h3 class="main-name">{{ unit.buyNumber }}</h3>
+        <h3 class="main-name">{{ buyNumber }}</h3>
         <button mat-mini-fab class="color-button-small" (click)="clickAdd.emit()">+</button>
     </div>
 </mat-card>

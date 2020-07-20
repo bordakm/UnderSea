@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
       tap(res => {
         if (res.accessToken != null) {
           localStorage.setItem('token', res.accessToken);
+          localStorage.setItem('refreshtoken', res.refreshToken);
           this.router.navigate(['/main']);
         }
       })
@@ -79,10 +80,16 @@ export class LoginComponent implements OnInit {
 
   _true(): void {
     this.reg = true;
+    this.username = null;
+    this.password = null;
   }
 
   _false(): void {
     this.reg = false;
+    this.regUsername = null;
+    this.regPassword = null;
+    this.confirmPassword = null;
+    this.countryName = null;
   }
 
 }

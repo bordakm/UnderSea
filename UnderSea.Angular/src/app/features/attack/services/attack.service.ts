@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
-import {IOutgoingAttackViewModel, AttacksClient, AvailableUnitViewModel, ScoreboardViewModel } from '../../../shared/index';
+import {IOutgoingAttackViewModel, AttacksClient, AvailableUnitViewModel, ScoreboardViewModel, AttackDTO } from '../../../shared/index';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,11 @@ export class AttackService {
   }
 
   getCountries(): Observable<ScoreboardViewModel[]>{
-    return this.client.searchtargets('', 0, 0);
+    return this.client.searchtargets('', 1, 10);
+  }
+
+  sendUnits(attack: AttackDTO): void{
+    this.client.send(attack);
   }
 
 }

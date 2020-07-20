@@ -3,6 +3,7 @@ import { IUserViewModel } from '../models/scoreboard.model';
 
 import { ScoreboardService } from '../services/scoreboard.service';
 import { tap, catchError } from 'rxjs/operators';
+import { ScoreboardViewModel } from 'src/app/shared';
 
 @Component({
   selector: 'app-scoreboard-page',
@@ -17,7 +18,7 @@ export class ScoreboardPageComponent implements OnInit {
     score: 1,
   };
 
-  users: IUserViewModel[];
+  users: ScoreboardViewModel[];
 
   constructor(private service: ScoreboardService) { }
 

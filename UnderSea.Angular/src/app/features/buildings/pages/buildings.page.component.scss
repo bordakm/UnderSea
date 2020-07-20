@@ -1,15 +1,15 @@
 
+// .flex-box{
+//     height: 80vh;
+//     flex-direction: row;
+// }
+
 .flex-box{
-    height: 80vh;
-    flex-direction: row;
-    .flex-box{
         height: fit-content;
         flex-direction: row;
         align-items: flex-start;
         
     }
-}
-
 .flex-box .unit-card{
     flex-direction: column;
     background: transparent;
@@ -47,11 +47,16 @@ div.button{
 }
 
 .mat-divider.my-divider{
-    width: 65vw;
+    width: 35vw;
+    padding-left: 3vw;
 }
 
 h3{
     margin: 0 0 0 0;
+}
+
+.h3-container{
+    min-height: 8vh;
 }
 
 .mat-card > h3{
@@ -60,6 +65,8 @@ h3{
 
 h4{
     font-weight: lighter;
+    margin: 0;
+    align-self: flex-end;
 }
 
 .mat-card > h4{

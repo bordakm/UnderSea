@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IUpgradesViewModel } from '../models/upgrades.model';
 
+import {UpgradesService } from '../services/upgrades.service'
+import { tap, catchError } from 'rxjs/operators';
+import { UpgradeViewModel } from 'src/app/shared';
+
 @Component({
   selector: 'app-upgrades-page',
   templateUrl: './upgrades.page.component.html',
@@ -47,9 +51,15 @@ export class UpgradesPageComponent implements OnInit {
     percent: 30
   };
 
-  constructor() { }
+  upgrades: UpgradeViewModel[];
+
+  constructor(private service: UpgradesService) { }
 
   ngOnInit(): void {
+    this.service.getUpgrades().pipe(
+      tap(res => this.upgrades = res),
+      catchError(error => console.assert)
+    ).subscribe();
   }
 
   enableButton(value): void{

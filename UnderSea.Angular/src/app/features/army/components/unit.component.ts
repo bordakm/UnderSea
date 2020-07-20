@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IUnitViewModel } from '../models/army.model';
+import { UnitViewModel } from 'src/app/shared';
 
 @Component({
   selector: 'app-unit',
@@ -8,8 +9,9 @@ import { IUnitViewModel } from '../models/army.model';
 })
 export class UnitComponent implements OnInit {
 
-  @Input() unit: IUnitViewModel;
+  @Input() unit: UnitViewModel;
   @Input() image: string;
+  @Input() buyNumber: number;
 
   @Output() clickAdd = new EventEmitter();
   @Output() clickDecrease = new EventEmitter();

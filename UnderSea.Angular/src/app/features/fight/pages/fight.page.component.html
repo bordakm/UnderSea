@@ -5,11 +5,14 @@
             <div class="flex-box">
                    <div class="slider">
                         <mat-list>
-                            <mat-divider></mat-divider>
-                            <mat-list-item class="list-item">
-                                <app-fight [units]="fightModels"></app-fight>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>          
+                            <div *ngFor="let fight of fightModels">
+                                <mat-divider></mat-divider>
+                                <mat-list-item class="list-item">
+                                    <app-fight [units]="fight"></app-fight>
+                                </mat-list-item>
+                            </div>
+                            
+                            <!-- <mat-divider></mat-divider>          
                             <mat-list-item class="list-item">
                                 <app-fight [units]="fightModels"></app-fight>
                             </mat-list-item>
@@ -28,7 +31,7 @@
                             <mat-divider></mat-divider>    
                             <mat-list-item class="list-item">
                                 <app-fight [units]="fightModels"></app-fight>
-                            </mat-list-item>
+                            </mat-list-item> -->
                             <mat-divider></mat-divider>    
                         </mat-list>
                     </div>

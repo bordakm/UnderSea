@@ -13,7 +13,13 @@
                         </form>
                     </mat-list-item>
 
-                    <mat-list-item class="list-item">
+                    <div *ngFor="let user of users">
+                        <mat-list-item class="list-item">
+                            <app-scoreboard [user]="user"></app-scoreboard>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                    </div>
+                    <!-- <mat-list-item class="list-item">
                         <app-scoreboard [user]="user"></app-scoreboard>
                     </mat-list-item>
                     <mat-divider></mat-divider>
@@ -22,7 +28,7 @@
                     <mat-list-item class="list-item">3</mat-list-item>
                     <mat-divider></mat-divider>
                     <mat-list-item class="list-item">4</mat-list-item>
-                    <mat-divider></mat-divider>
+                    <mat-divider></mat-divider> -->
                 </mat-list>
             </div>
         </mat-card-content>

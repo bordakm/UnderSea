@@ -1,4 +1,4 @@
-<div class="flex-box">
+<div class="flex-box-features">
     <mat-card class="mat-card-main">
         <mat-card-content>
             <h1 class="main-card-title">Épületek</h1>
@@ -12,12 +12,13 @@
                         <img src='../../../../assets/images/undersea_game-07.png' alt=''>
                     </div>
                     
-                    <h3>{{ reefCastle.name }}</h3>
-                    <!-- <h3>{{ reefCastle.givenMembers }} embert ad a népességhez</h3>
-                    <h3>{{ reefCastle.bearedFood }} krumplit termel körönként</h3> -->
+                    <h3>{{ buildings[0].name }}</h3>
+                    <div class="h3-container">
+                        <h3>{{ buildings[0].description }}</h3>
+                    </div>
 
-                    <h4>{{ reefCastle.count }} db</h4>
-                    <h4>{{ reefCastle.price }} Gyöngy / db</h4>
+                    <h4>{{ buildings[0].count }} db</h4>
+                    <h4>{{ buildings[0].price }} Gyöngy / db</h4>
 
                 </mat-card>
                 <mat-card class="building-card-in-main-page" [class.color2]="isSelected === 'color2'"
@@ -25,11 +26,14 @@
                     <div class="img-container">
                         <img src='../../../../assets/images/undersea_game-05.png' alt=''>
                     </div>
-                    <h3>{{ streamManager.name }}</h3>
-                    <!-- <h3>{{ streamManager.givenShelter }} egységnek nyújt szállást</h3> -->
+                    <h3>{{ buildings[1].name }}</h3>
+                    <div class="h3-container">
+                        <h3>{{ buildings[1].description }}</h3>
+                    </div>
+                    
 
-                    <h4>{{ reefCastle.count }} db</h4>
-                    <h4>{{ reefCastle.price }} Gyöngy / db</h4>
+                    <h4>{{ buildings[1].count }} db</h4>
+                    <h4>{{ buildings[1].price }} Gyöngy / db</h4>
                 </mat-card>
 
             </div>

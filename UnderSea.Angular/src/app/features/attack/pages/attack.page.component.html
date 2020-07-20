@@ -18,7 +18,9 @@
                             </mat-list-item>
                             <div *ngFor="let country of countries">
                                 <mat-divider></mat-divider>
-                                <mat-list-item  class="list-item">{{ country.userName }}</mat-list-item>
+                                <mat-list-item  class="list-item" (click)="choose(country.id)">{{ country.userName }}
+                                    <mat-icon *ngIf="country.id === attackData.defenderUserId && clicked">check_circle</mat-icon>
+                                </mat-list-item>
                             </div>
                         </mat-list>
                     </div>
@@ -27,6 +29,7 @@
                 <div class="attack-parts">
                     <h3>2. Állítsd be, kiket küldesz harcba:</h3>
                     <div *ngFor="let availableunit of availableUnits">
+                        <!-- <app-attack [unit]="availableunit" (unitValue)=getUnitCount($event) ></app-attack> -->
                         <app-attack [unit]="availableunit" ></app-attack>
                     </div>
                 </div>
@@ -37,7 +40,7 @@
             </div>
 
             <div class="button">
-                <button mat-flat-button class="color-button">Megtámadom!</button>
+                <button mat-flat-button class="color-button" (click)="sendAttack()">Megtámadom!</button>
             </div>
         </mat-card-content>
     </mat-card>

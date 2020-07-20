@@ -34,6 +34,10 @@ export class AuthService{
         return localStorage.getItem('token');
     }
 
+    public getRefreshToken(): string {
+        return localStorage.getItem('refreshtoken');
+    }
+
     public isAuthenticated(): boolean {
         const token = this.getToken();
         if (token != null){

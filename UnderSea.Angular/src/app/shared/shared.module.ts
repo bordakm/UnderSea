@@ -7,6 +7,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule, MatButton} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
 
 import {TableSearchComponent} from './components/table-search.component'
 import { HttpClientModule } from '@angular/common/http';
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatSliderModule,
     MatListModule,
+    MatIconModule,
     HttpClientModule,
   ],
   exports: [
@@ -33,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSliderModule,
     MatListModule,
     TableSearchComponent,
+    MatIconModule,
     HttpClientModule,
   ]
 })
