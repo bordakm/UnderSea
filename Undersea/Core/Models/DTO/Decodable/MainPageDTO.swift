@@ -10,9 +10,10 @@ import Foundation
 
 struct MainPageDTO: Decodable {
     
-      let statusBar: StatusBarDTO
-      let countryName: String
-      let structures: StructuresDTO
+    
+    let statusBar: StatusBarDTO
+    let countryName: String
+    let structures: StructuresDTO
     
 }
 
@@ -20,13 +21,12 @@ extension MainPageDTO {
     
     struct StatusBarDTO: Decodable {
         
-        let combatSeaHorseCount: Int
-        let laserSharkCount: Int
-        let stromSealCount: Int
-        let flowManagerCount: Int
-        let reefCastleCount: Int
+        let units: [Unit]
+        let buildings: [Building]
+        
         let roundCount: Int
         let scoreboardPosition: Int
+        
         let resources: ResourcesDTO
         
     }
@@ -48,12 +48,35 @@ extension MainPageDTO {
 
 extension MainPageDTO.StatusBarDTO {
     
+    //New
+    struct Unit: Decodable {
+        
+        let id: Int
+        let name: String
+        let availableCount: Int
+        let imageUrl: String
+        
+    }
+    
+    struct Building: Decodable {
+        
+        let typeId: Int
+        let imageUrl: String
+        let name: String
+        let count: Int
+        let underConstructionCount: Int
+        
+    }
+    
+    //Old
     struct ResourcesDTO: Decodable {
         
         let pearlCount: Int
         let pearlProductionCount: Int
+        let pearlPictureUrl: String
         let coralCount: Int
         let coralProductionCount: Int
+        let coralPictureUrl: String
         
     }
     

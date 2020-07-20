@@ -19,6 +19,8 @@
 		7922A9EA24B4CA7C002A7957 /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7922A9E524B4CA7C002A7957 /* Baloo2-Medium.ttf */; };
 		7922A9EB24B4CA7C002A7957 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7922A9E624B4CA7C002A7957 /* Baloo2-Bold.ttf */; };
 		7922A9EC24B4CA7C002A7957 /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7922A9E724B4CA7C002A7957 /* Baloo2-SemiBold.ttf */; };
+		7922C0AF24C59A4500304446 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922C0AE24C59A4500304446 /* Images.swift */; };
+		7922C0B224C5BCB200304446 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922C0B124C5BCB200304446 /* R.generated.swift */; };
 		792DE2DD24BC8DE3009D175D /* MainPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */; };
 		792DE2E124BC94EA009D175D /* MainApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2E024BC94EA009D175D /* MainApiService.swift */; };
 		792DE2E324BC962F009D175D /* MainApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DE2E224BC962F009D175D /* MainApiWorker.swift */; };
@@ -133,6 +135,8 @@
 		7922A9E524B4CA7C002A7957 /* Baloo2-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baloo2-Medium.ttf"; sourceTree = "<group>"; };
 		7922A9E624B4CA7C002A7957 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baloo2-Bold.ttf"; sourceTree = "<group>"; };
 		7922A9E724B4CA7C002A7957 /* Baloo2-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baloo2-SemiBold.ttf"; sourceTree = "<group>"; };
+		7922C0AE24C59A4500304446 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		7922C0B124C5BCB200304446 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageDTO.swift; sourceTree = "<group>"; };
 		792DE2E024BC94EA009D175D /* MainApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApiService.swift; sourceTree = "<group>"; };
 		792DE2E224BC962F009D175D /* MainApiWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApiWorker.swift; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 		7922A9E024B4CA39002A7957 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7922C0B124C5BCB200304446 /* R.generated.swift */,
 				79820C5124B71685006D7258 /* SVG */,
 				7922A9D024B4BBBA002A7957 /* Assets.xcassets */,
 				7922A9E124B4CA4A002A7957 /* Fonts */,
@@ -480,6 +485,7 @@
 			children = (
 				794CAAD824B5CDF5007DC9C7 /* Colors.swift */,
 				79E4867F24BDB38C00A0EB3B /* Fonts.swift */,
+				7922C0AE24C59A4500304446 /* Images.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -874,6 +880,7 @@
 			buildConfigurationList = 7922A9DB24B4BBBA002A7957 /* Build configuration list for PBXNativeTarget "Undersea" */;
 			buildPhases = (
 				512B6D992B250EE460761256 /* [CP] Check Pods Manifest.lock */,
+				7922C0B024C5BB4E00304446 /* ShellScript */,
 				7922A9C324B4BBB8002A7957 /* Sources */,
 				7922A9C424B4BBB8002A7957 /* Frameworks */,
 				7922A9C524B4BBB8002A7957 /* Resources */,
@@ -985,6 +992,25 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7922C0B024C5BB4E00304446 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/Undersea/Resources/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Undersea/Resources/R.generated.swift\"\n";
+		};
 		CEDE81757AC4E1808A2A0855 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1015,6 +1041,7 @@
 				792DE2E324BC962F009D175D /* MainApiWorker.swift in Sources */,
 				79E4869B24BDF52300A0EB3B /* AttackDetailPage.swift in Sources */,
 				79820C8724B73A4D006D7258 /* Teams.swift in Sources */,
+				7922C0B224C5BCB200304446 /* R.generated.swift in Sources */,
 				7956490A24BEE23F003D6D16 /* AttackApiService.swift in Sources */,
 				7956491224BEE3AB003D6D16 /* AttackInteractor.swift in Sources */,
 				7956491824BEE4EF003D6D16 /* AttackPageViewModel.swift in Sources */,
@@ -1051,6 +1078,7 @@
 				79A5B52D24BF4193009D5AC6 /* LoginViewModel.swift in Sources */,
 				792DE2E924BC9C16009D175D /* MainUsecases.swift in Sources */,
 				7914335B24C07F6000BC4755 /* RenewDTO.swift in Sources */,
+				7922C0AF24C59A4500304446 /* Images.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
 				7956492124BEF831003D6D16 /* TokenDTO.swift in Sources */,
 				7947D99D24B8678700C5306D /* HostingController.swift in Sources */,

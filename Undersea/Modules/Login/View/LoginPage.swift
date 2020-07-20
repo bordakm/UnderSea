@@ -24,7 +24,7 @@ extension Login {
             
             GeometryReader { geometry in
                     VStack {
-                        SVGImage(svgName: "underseaLogo")
+                        SVGImage(svgPath: R.file.underseaLogoSvg()!)
                             .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.15)
                         VStack {
                             

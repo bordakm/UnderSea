@@ -8,19 +8,12 @@
 
 import SwiftUI
 
-struct Stat {
-    var label: String
-    var image: String
-}
-
 struct EqualWidth: ViewModifier {
 
     @State var width: CGFloat = 0
 
     func body(content: Content) -> some View {
-        
-            content
-        
+        content
     }
 }
 
@@ -59,16 +52,27 @@ struct SlideInMenuView: View {
     let statList: [StatusBarItem]
     let action: () -> Void
     
+    @State
+    private var detailHidden = true
+    
     var body: some View {
         VStack(spacing: 0) {
-            Button(action: action) {
+            Button(action: {
+                withAnimation {
+                    self.detailHidden.toggle()
+                }
+                self.action()
+            }) {
                 ZStack {
                     Rectangle()
                         .fill(Color.white)
                         .frame(height: 20.0)
-                    Rectangle()
+                    /*Rectangle()
                         .fill(Color.black)
-                        .frame(width: 10.0, height: 10.0)
+                        .frame(width: 10.0, height: 10.0)*/
+                    Image(systemName: Images.chevronUp.rawValue)
+                        .foregroundColor(Color.black)
+                        .rotationEffect(.degrees(detailHidden ? 0.0 : 180.0))
                 }
             }
             VStack(spacing: 10) {
@@ -93,7 +97,7 @@ struct SlideInMenuView: View {
             .clipped()
             .modifier(SizeModifier())
         }
-        .background(Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.5))
+        .background(Colors.whiteTransparent)
     }
 }
 

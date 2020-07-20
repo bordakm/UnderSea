@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import CocoaLumberjack
 
 extension Main {
     
@@ -49,7 +50,34 @@ extension Main {
             let dtoStatBar = dataModel.statusBar
             let resources = dtoStatBar.resources
             
-            let statList: [StatusBarItem] = [.shark(dtoStatBar.laserSharkCount, 5), .seal(dtoStatBar.stromSealCount, 10), .seahorse(dtoStatBar.combatSeaHorseCount, 10), .pearl(resources.pearlCount, resources.pearlProductionCount), .coral(resources.coralCount, resources.coralProductionCount), .reefcastle(dtoStatBar.reefCastleCount), .flowRegulator(dtoStatBar.flowManagerCount)]
+            var statList: [StatusBarItem] = []
+            
+            for unit in dtoStatBar.units {
+                switch unit.id {
+                case 1:
+                    statList.append(.shark(unit.availableCount, -5))
+                case 2:
+                    statList.append(.seal(unit.availableCount, -10))
+                case 3:
+                    statList.append(.seahorse(unit.availableCount, -10))
+                default:
+                    DDLogDebug("Unknown unit id \(unit.id)")
+                }
+            }
+            
+            statList.append(.pearl(resources.pearlCount, resources.pearlProductionCount))
+            statList.append(.coral(resources.coralCount, resources.coralProductionCount))
+            
+            for building in dtoStatBar.buildings {
+                switch building.typeId {
+                case 1:
+                    statList.append(.reefcastle(building.count))
+                case 2:
+                    statList.append(.flowRegulator(building.count))
+                default:
+                    DDLogDebug("Unknown building id \(building.typeId)")
+                }
+            }
             
             var builtStructures: Set<StructureType> = Set<StructureType>()
             
