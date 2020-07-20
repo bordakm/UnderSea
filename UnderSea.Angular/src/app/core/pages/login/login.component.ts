@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 import { Router } from '@angular/router';
 
-import { MatCardModule } from '@angular/material/card';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
+import { tap } from 'rxjs/operators';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,34 +24,53 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
+  countryName: string;
 
   reg: boolean;
 
-  userFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  passFormControl = new FormControl('');
+  loginForm: FormGroup;
+
+  formBuilder: FormBuilder = new FormBuilder();
 
   matcher = new MyErrorStateMatcher();
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public http: HttpClient, private authService: AuthService) { }
 
   ngOnInit(): void {
+
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
     this.reg = false;
   }
 
   login(): void {
-    // todo the username and password validation and stuff
-    /* if (this.reg === false) {
-        this.router.navigate(['main']);
-    } else {
-      alert('Invalid credentials');
-    } */
-    this.router.navigate(['./main']);
+
+    //if (this.loginForm.valid) {
+    console.log(1);
+    this.authService.login(this.username, this.password).pipe(
+      tap(res => {
+        if (res.accessToken != null) {
+          localStorage.setItem('token', res.accessToken);
+          this.router.navigate(['/main']);
+        }
+      })
+    ).subscribe();
+    //}
   }
 
   signup(): void {
+    this.authService.signup(this.username, this.password, this.countryName).pipe(
+      tap(res => {
+        if (res.accessToken != null) {
+          localStorage.setItem('token', res.accessToken);
+          this.router.navigate(['/main']);
+        }
+      })
+    ).subscribe();
   }
 
   _true(): void {
@@ -59,6 +80,7 @@ export class LoginComponent implements OnInit {
   _false(): void {
     this.reg = false;
   }
+
 }
 
 

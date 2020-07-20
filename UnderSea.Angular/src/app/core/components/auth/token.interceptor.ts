@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable()
@@ -17,20 +17,13 @@ export class TokenInterceptor implements HttpInterceptor {
       }
     });
     return next.handle(request).pipe(
-        catchError(error => console.error),
+        catchError(error => {
+          if (error.status === 401 || error.status === 403) {
+            this.auth.collectFailedRequest(request);
+          }
+          return throwError(error);
+        }),
     );
 
-    // .do((event: HttpEvent<any>) => {
-    //     if (event instanceof HttpResponse) {
-    //       // do stuff with response if you want
-    //     }
-    //   }, (err: any) => {
-    //     if (err instanceof HttpErrorResponse) {
-    //       if (err.status === 401) {
-    //         // redirect to the login route or
-    //         this.auth.collectFailedRequest(request);
-    //       }
-    //     }
-    //   });
   }
 }

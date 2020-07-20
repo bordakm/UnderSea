@@ -9,25 +9,33 @@
     <mat-card *ngIf=!reg class="flex-box">
         <mat-card-title>Belépés</mat-card-title>
         <mat-card-content class="input-line">
-            <form class="login-form">
+            <!-- <form class="login-form">
                 <mat-form-field class="login-full-width">
-                    <mat-label>Felhasználónév</mat-label>
-                    <input matInput [formControl]="userFormControl" [errorStateMatcher]="matcher" [(ngModel)]="username">
-                    <mat-error *ngIf="userFormControl.hasError('required')">
-                        <strong>Kötelező</strong> tartomány
-                    </mat-error>
-                </mat-form-field>
-            </form>
+                    <mat-label >Felhasználónév</mat-label>
+                    <input matInput [(ngModel)]="username" required>
+                </mat-form-field> 
+            </form> -->
+
+            <mat-form-field class="login-full-width">
+                <mat-label >Felhasználónév</mat-label>
+                <input matInput [(ngModel)]="username" required>
+            </mat-form-field>
            
         </mat-card-content>
 
         <mat-card-content class="input-line">
-            <form class="login-form">
+            <!-- <form class="login-form">
                 <mat-form-field class="login-full-width">  
                     <mat-label>Jelszó</mat-label>
-                    <input type="Jelszó" matInput [(ngModel)]="password">
+                    <input type="password" matInput [(ngModel)]="password">
                 </mat-form-field>
-            </form>
+            </form> -->
+
+            <mat-form-field class="login-full-width">
+                <mat-label >Jelszó</mat-label>
+                <input type="password" matInput [(ngModel)]="password" required>
+            </mat-form-field>
+
         </mat-card-content>
         <mat-card-actions>
             <button mat-flat-button type="submit" class="color-button" (click)="login()" >Belépés</button>
@@ -44,10 +52,10 @@
             <form class="login-form">
                 <mat-form-field class="login-full-width">
                     <mat-label>Felhasználónév</mat-label>
-                    <input matInput [formControl]="userFormControl" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="userFormControl.hasError('required')">
+                    <input matInput [errorStateMatcher]="matcher">
+                    <!-- <mat-error *ngIf=".hasError('required')">
                         <strong>Kötelező</strong> tartomány
-                    </mat-error>
+                    </mat-error> -->
                 </mat-form-field>
 
 

@@ -304,7 +304,7 @@ export interface IAuthClient {
      * @param body (optional) 
      * @return Success
      */
-    renew(body: string | null | undefined): Observable<TokensViewModel>;
+    renew(body: RefreshTokenDTO | undefined): Observable<TokensViewModel>;
 }
 
 @Injectable({
@@ -483,7 +483,7 @@ export class AuthClient implements IAuthClient {
      * @param body (optional) 
      * @return Success
      */
-    renew(body: string | null | undefined): Observable<TokensViewModel> {
+    renew(body: RefreshTokenDTO | undefined): Observable<TokensViewModel> {
         let url_ = this.baseUrl + "/api/Auth/renew";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1594,6 +1594,42 @@ export interface IRegisterDTO {
     countryName: string;
 }
 
+export class RefreshTokenDTO implements IRefreshTokenDTO {
+    refreshToken?: string | undefined;
+
+    constructor(data?: IRefreshTokenDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.refreshToken = _data["refreshToken"];
+        }
+    }
+
+    static fromJS(data: any): RefreshTokenDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new RefreshTokenDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["refreshToken"] = this.refreshToken;
+        return data; 
+    }
+}
+
+export interface IRefreshTokenDTO {
+    refreshToken?: string | undefined;
+}
+
 export class BuildingInfoViewModel implements IBuildingInfoViewModel {
     id?: number;
     name?: string | undefined;
@@ -1654,85 +1690,14 @@ export interface IBuildingInfoViewModel {
     remainingRounds?: number;
 }
 
-export class BuildingType implements IBuildingType {
-    id?: number;
-    name?: string | undefined;
-    description?: string | undefined;
-    price?: number;
-    populationBonus?: number;
-    coralBonus?: number;
-    unitStorage?: number;
-    imageUrl?: string | undefined;
-    score?: number;
-
-    constructor(data?: IBuildingType) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.description = _data["description"];
-            this.price = _data["price"];
-            this.populationBonus = _data["populationBonus"];
-            this.coralBonus = _data["coralBonus"];
-            this.unitStorage = _data["unitStorage"];
-            this.imageUrl = _data["imageUrl"];
-            this.score = _data["score"];
-        }
-    }
-
-    static fromJS(data: any): BuildingType {
-        data = typeof data === 'object' ? data : {};
-        let result = new BuildingType();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["description"] = this.description;
-        data["price"] = this.price;
-        data["populationBonus"] = this.populationBonus;
-        data["coralBonus"] = this.coralBonus;
-        data["unitStorage"] = this.unitStorage;
-        data["imageUrl"] = this.imageUrl;
-        data["score"] = this.score;
-        return data; 
-    }
-}
-
-export interface IBuildingType {
-    id?: number;
-    name?: string | undefined;
-    description?: string | undefined;
-    price?: number;
-    populationBonus?: number;
-    coralBonus?: number;
-    unitStorage?: number;
-    imageUrl?: string | undefined;
-    score?: number;
-}
-
-export class Building implements IBuilding {
-    id?: number;
-    buildingGroupId?: number;
+export class StatusBarBuilding implements IStatusBarBuilding {
     typeId?: number;
-    type?: BuildingType;
+    imageUrl?: string | undefined;
+    name?: string | undefined;
     count?: number;
     underConstructionCount?: number;
-    constructionTimeLeft?: number;
-    readonly coralBonusTotal?: number;
 
-    constructor(data?: IBuilding) {
+    constructor(data?: IStatusBarBuilding) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1743,95 +1708,38 @@ export class Building implements IBuilding {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
-            this.buildingGroupId = _data["buildingGroupId"];
             this.typeId = _data["typeId"];
-            this.type = _data["type"] ? BuildingType.fromJS(_data["type"]) : <any>undefined;
+            this.imageUrl = _data["imageUrl"];
+            this.name = _data["name"];
             this.count = _data["count"];
             this.underConstructionCount = _data["underConstructionCount"];
-            this.constructionTimeLeft = _data["constructionTimeLeft"];
-            (<any>this).coralBonusTotal = _data["coralBonusTotal"];
         }
     }
 
-    static fromJS(data: any): Building {
+    static fromJS(data: any): StatusBarBuilding {
         data = typeof data === 'object' ? data : {};
-        let result = new Building();
+        let result = new StatusBarBuilding();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["buildingGroupId"] = this.buildingGroupId;
         data["typeId"] = this.typeId;
-        data["type"] = this.type ? this.type.toJSON() : <any>undefined;
+        data["imageUrl"] = this.imageUrl;
+        data["name"] = this.name;
         data["count"] = this.count;
         data["underConstructionCount"] = this.underConstructionCount;
-        data["constructionTimeLeft"] = this.constructionTimeLeft;
-        data["coralBonusTotal"] = this.coralBonusTotal;
         return data; 
     }
 }
 
-export interface IBuilding {
-    id?: number;
-    buildingGroupId?: number;
+export interface IStatusBarBuilding {
     typeId?: number;
-    type?: BuildingType;
+    imageUrl?: string | undefined;
+    name?: string | undefined;
     count?: number;
     underConstructionCount?: number;
-    constructionTimeLeft?: number;
-    coralBonusTotal?: number;
-}
-
-export class BuildingGroup implements IBuildingGroup {
-    id?: number;
-    buildings?: Building[] | undefined;
-
-    constructor(data?: IBuildingGroup) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            if (Array.isArray(_data["buildings"])) {
-                this.buildings = [] as any;
-                for (let item of _data["buildings"])
-                    this.buildings!.push(Building.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): BuildingGroup {
-        data = typeof data === 'object' ? data : {};
-        let result = new BuildingGroup();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        if (Array.isArray(this.buildings)) {
-            data["buildings"] = [];
-            for (let item of this.buildings)
-                data["buildings"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-export interface IBuildingGroup {
-    id?: number;
-    buildings?: Building[] | undefined;
 }
 
 export class StatusBarResource implements IStatusBarResource {
@@ -1892,7 +1800,7 @@ export interface IStatusBarResource {
 
 export class StatusBarViewModel implements IStatusBarViewModel {
     units?: AvailableUnitViewModel[] | undefined;
-    buildings?: BuildingGroup;
+    buildings?: StatusBarBuilding[] | undefined;
     roundCount?: number;
     scoreboardPosition?: number;
     resources?: StatusBarResource;
@@ -1913,7 +1821,11 @@ export class StatusBarViewModel implements IStatusBarViewModel {
                 for (let item of _data["units"])
                     this.units!.push(AvailableUnitViewModel.fromJS(item));
             }
-            this.buildings = _data["buildings"] ? BuildingGroup.fromJS(_data["buildings"]) : <any>undefined;
+            if (Array.isArray(_data["buildings"])) {
+                this.buildings = [] as any;
+                for (let item of _data["buildings"])
+                    this.buildings!.push(StatusBarBuilding.fromJS(item));
+            }
             this.roundCount = _data["roundCount"];
             this.scoreboardPosition = _data["scoreboardPosition"];
             this.resources = _data["resources"] ? StatusBarResource.fromJS(_data["resources"]) : <any>undefined;
@@ -1934,7 +1846,11 @@ export class StatusBarViewModel implements IStatusBarViewModel {
             for (let item of this.units)
                 data["units"].push(item.toJSON());
         }
-        data["buildings"] = this.buildings ? this.buildings.toJSON() : <any>undefined;
+        if (Array.isArray(this.buildings)) {
+            data["buildings"] = [];
+            for (let item of this.buildings)
+                data["buildings"].push(item.toJSON());
+        }
         data["roundCount"] = this.roundCount;
         data["scoreboardPosition"] = this.scoreboardPosition;
         data["resources"] = this.resources ? this.resources.toJSON() : <any>undefined;
@@ -1944,7 +1860,7 @@ export class StatusBarViewModel implements IStatusBarViewModel {
 
 export interface IStatusBarViewModel {
     units?: AvailableUnitViewModel[] | undefined;
-    buildings?: BuildingGroup;
+    buildings?: StatusBarBuilding[] | undefined;
     roundCount?: number;
     scoreboardPosition?: number;
     resources?: StatusBarResource;

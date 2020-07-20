@@ -49,10 +49,11 @@ h1{
 }
 
 .login-full-width {
-    width: 100%;
+    //width: 100%;
     min-width: 18vw;
     border-radius: 20px;
     background-color: rgba($white, 0.39);
+    margin-bottom: 10px;
 }
 
 ::ng-deep .mat-form-field-infix{
@@ -78,6 +79,10 @@ h1{
 
 ::ng-deep .mat-card-actions{
     margin-bottom: 0px !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
 }
 
 ::placeholder{
