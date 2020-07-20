@@ -13,7 +13,9 @@ namespace UnderSea.DAL.Models.Units
         [ForeignKey("UnitType")]
         public int TypeId { get; set; }
         public UnitType Type { get; set; }
-
+        public int BattlesSurvived { get; set; }
+        public double AttackScore => Type.GetAttackScore(BattlesSurvived);
+        public double DefenseScore => Type.GetDefenseScore(BattlesSurvived);
         public int CalculateScore()
         {
             return Type.Score * Count;

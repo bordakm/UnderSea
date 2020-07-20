@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.Linq;
 
 namespace UnderSea.DAL.Models.Units
 {
@@ -11,11 +10,38 @@ namespace UnderSea.DAL.Models.Units
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
-        public double AttackScore { get; set; }
-        public double DefenseScore { get; set; }
         public int PearlCostPerTurn { get; set; }
         public int CoralCostPerTurn { get; set; }
         public string ImageUrl { get; set; }
         public int Score { get; set; }
+        public List<UnitLevel> Levels { get; set; }
+
+        public double GetAttackScore(int battlesSurvived)
+        {
+            var levels = Levels.OrderBy(level => level.BattlesNeeded)
+                .Reverse();
+            foreach (var level in levels)
+            {
+                if (level.BattlesNeeded <= battlesSurvived)
+                {
+                    return level.AttackScore;
+                }
+            }
+            return levels.Last().AttackScore;
+        }
+
+        public double GetDefenseScore(int battlesSurvived)
+        {
+            var levels = Levels.OrderBy(level => level.BattlesNeeded)
+                .Reverse();
+            foreach (var level in levels)
+            {
+                if (level.BattlesNeeded <= battlesSurvived)
+                {
+                    return level.DefenseScore;
+                }
+            }
+            return levels.Last().DefenseScore;
+        }
     }
 }
