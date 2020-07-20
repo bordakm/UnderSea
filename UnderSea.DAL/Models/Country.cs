@@ -97,7 +97,7 @@ namespace UnderSea.DAL.Models
             Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
             foreach (Unit unit in AttackingArmy.Units)
             {
-                unitsToRemove.Add(unit.Id, 0);
+                unitsToRemove.Add(unit.Type.Id, 0);
             }
             bool stop = false;
             while (!stop)
@@ -131,7 +131,7 @@ namespace UnderSea.DAL.Models
                 {
                     if (unit.Count > 0)
                     {
-                        unitsToRemove[unit.Id]++;
+                        unitsToRemove[unit.Type.Id]++;
                         unit.Count--;
                         switch (fireReason)
                         {

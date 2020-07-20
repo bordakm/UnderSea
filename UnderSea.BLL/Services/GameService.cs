@@ -226,7 +226,7 @@ namespace UnderSea.BLL.Services
                     {
                         foreach (int unitId in removeUnits.Keys)
                         {
-                            var unitToRemove = attack.UnitList.Find(unit => unit.Id == unitId);
+                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitId);
                             if (unitToRemove.Count > 0 && removeUnits[unitId] > 0)
                             {
                                 removeUnits[unitId]--;
@@ -275,7 +275,7 @@ namespace UnderSea.BLL.Services
                     {
                         foreach (int unitId in removeUnits.Keys)
                         {
-                            var unitToRemove = attack.UnitList.Find(unit => unit.Id == unitId);
+                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitId);
                             if (unitToRemove.Count > 0 && removeUnits[unitId] > 0)
                             {
                                 removeUnits[unitId]--;
