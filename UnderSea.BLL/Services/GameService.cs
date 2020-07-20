@@ -149,7 +149,10 @@ namespace UnderSea.BLL.Services
                 .Include(user => user.Country)
                 .ThenInclude(c => c.BuildingGroup)
                 .ThenInclude(bg => bg.Buildings)
-                .ThenInclude(b => b.Type);
+                .ThenInclude(b => b.Type)
+                .Include(user => user.Country)
+                .ThenInclude(country => country.Upgrades)
+                .ThenInclude(upgrade => upgrade.Type);
             foreach (var user in users)
             {
                 user.Country.AddTaxes();
