@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnderSea.BLL.DTO;
+using UnderSea.BLL.ViewModels;
 using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
@@ -83,6 +85,17 @@ namespace UnderSea.BLL.Services
             user.Country = country;
             await db.SaveChangesAsync();
             return user;
+        }
+
+        public async Task<ProfileViewModel> GetProfile(int userId)
+        {
+            var user = await db.Users.Include(user => user.Country)
+                .SingleAsync(user => user.Id == userId);
+            return new ProfileViewModel
+            {
+                UserName = user.UserName,
+                CountryName = user.Country.Name
+            };
         }
     }
 }
