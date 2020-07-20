@@ -10,7 +10,7 @@ namespace UnderSea.DAL.Models.Upgrades
         {
             Name = "Iszapkombájn";
             Description = "növeli a korall termesztést 15%-kal";
-            ImageUrl = "majd/kesobb/lesz/kep.jpg";
+            ImageUrl = "/images/valami.png";
             CoralProductionBonusPercentage = 15;
         }
     }

@@ -10,7 +10,7 @@ namespace UnderSea.DAL.Models.Buildings
         {
             Name = "Zátonyvár";
             Description = "50 ember-t ad a népességhez, 200 krumplit termel körönként";
-            ImageUrl = "majd/lesz/kep.jpeg";
+            ImageUrl = "/images/buildings/flowmanager.png";
             Price = 1000;
             PopulationBonus = 0;
             CoralBonus = 0;

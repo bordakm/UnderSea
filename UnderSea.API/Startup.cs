@@ -22,6 +22,8 @@ using System.Collections.Generic;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace UnderSea.API
 {
@@ -117,7 +119,7 @@ namespace UnderSea.API
             services.AddHangfireServer();
 
 
-                  
+
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IArmyService, ArmyService>();
             services.AddScoped<IBuildingsService, BuildingsService>();
@@ -131,7 +133,7 @@ namespace UnderSea.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRecurringJobManager recurringJobManager, IGameService gameService)
         {
             app.UseHangfireDashboard();
-            
+
             recurringJobManager.AddOrUpdate("step game", () => gameService.NewRoundAsync(1), Cron.Hourly);
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
@@ -150,7 +152,17 @@ namespace UnderSea.API
 
             app.UseRouting();
 
+            //app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "AppData/images")),
+                RequestPath = "/images"
+            });
+
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

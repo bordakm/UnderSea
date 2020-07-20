@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 
 namespace UnderSea.API
-{
+{    
     public class Program
     {
         public static void Main(string[] args)

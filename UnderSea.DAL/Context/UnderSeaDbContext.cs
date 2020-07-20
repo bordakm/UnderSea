@@ -349,9 +349,7 @@ namespace UnderSea.DAL.Context
             var game = new Game
             {
                 Id = 1,
-                Round = 1,
-                CoralPictureUrl = "",
-                PearlPictureUrl = "",
+                Round = 1
             };
 
             var passwordHasher = new PasswordHasher<User>();

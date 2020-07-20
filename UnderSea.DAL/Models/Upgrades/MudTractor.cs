@@ -10,7 +10,7 @@ namespace UnderSea.DAL.Models.Upgrades
         {
             Name = "Iszaptraktor";
             Description = "növeli a krumpli termesztést 10%-kal";
-            ImageUrl = "majd/kesobb/lesz/kep.jpg";
+            ImageUrl = "/images/valami.png";
             CoralProductionBonusPercentage = 10;
         }
     }
