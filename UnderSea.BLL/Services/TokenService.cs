@@ -37,7 +37,7 @@ namespace UnderSea.BLL.Services
                configuration["JwtIssuer"],
                configuration["JwtIssuer"],
                claims,
-               expires: DateTime.Now.AddMinutes(5),
+               expires: DateTime.Now.AddYears(1), //DateTime.Now.AddMinutes(5), // TODO 
                signingCredentials: creds
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
