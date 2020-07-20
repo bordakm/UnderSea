@@ -36,7 +36,10 @@ export class AuthService{
 
     public isAuthenticated(): boolean {
         const token = this.getToken();
-        return !!token;
+        if (token != null){
+            return !!token;
+        }
+        return false;
     }
 
     public collectFailedRequest(request): void {

@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
+
+  regUsername: string;
+  regPassword: string;
+  confirmPassword: string;
   countryName: string;
 
   reg: boolean;
@@ -63,11 +67,11 @@ export class LoginComponent implements OnInit {
   }
 
   signup(): void {
-    this.authService.signup(this.username, this.password, this.countryName).pipe(
+    this.authService.signup(this.regUsername, this.regPassword, this.countryName).pipe(
       tap(res => {
         if (res.accessToken != null) {
           localStorage.setItem('token', res.accessToken);
-          this.router.navigate(['/main']);
+          this.reg = false;
         }
       })
     ).subscribe();
