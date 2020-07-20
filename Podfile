@@ -9,6 +9,9 @@ target 'Undersea' do
 
 #Network
 pod 'Moya', '14.0.0'
+pod 'KeychainAccess', '4.2.0'
+pod 'SwiftJWT', '3.5.3'
+pod 'CocoaLumberjack/Swift', '3.6.1'
 
 #For SVG image view
 pod "Macaw", "0.9.6"

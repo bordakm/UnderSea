@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7914335B24C07F6000BC4755 /* RenewDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914335A24C07F6000BC4755 /* RenewDTO.swift */; };
 		7922A9CB24B4BBB8002A7957 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9CA24B4BBB8002A7957 /* AppDelegate.swift */; };
 		7922A9CD24B4BBB8002A7957 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9CC24B4BBB8002A7957 /* SceneDelegate.swift */; };
 		7922A9CF24B4BBB8002A7957 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9CE24B4BBB8002A7957 /* ContentView.swift */; };
@@ -58,7 +59,7 @@
 		7956491A24BEE54B003D6D16 /* AttackPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491924BEE54B003D6D16 /* AttackPageDTO.swift */; };
 		7956491D24BEF588003D6D16 /* RootPageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491C24BEF588003D6D16 /* RootPageManager.swift */; };
 		7956491F24BEF79D003D6D16 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491E24BEF79D003D6D16 /* UserManager.swift */; };
-		7956492124BEF831003D6D16 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492024BEF831003D6D16 /* UserDTO.swift */; };
+		7956492124BEF831003D6D16 /* TokenDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492024BEF831003D6D16 /* TokenDTO.swift */; };
 		7956492524BEFD54003D6D16 /* UserManagerApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492424BEFD54003D6D16 /* UserManagerApiService.swift */; };
 		7956492924BEFDEF003D6D16 /* LoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492824BEFDEF003D6D16 /* LoginDTO.swift */; };
 		7956492B24BF0159003D6D16 /* RegisterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956492A24BF0159003D6D16 /* RegisterDTO.swift */; };
@@ -111,11 +112,14 @@
 		79E4869424BDE10900A0EB3B /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79E4868924BDD0B200A0EB3B /* OpenSans-SemiBold.ttf */; };
 		79E4869524BDE10900A0EB3B /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79E4868224BDD0B100A0EB3B /* OpenSans-SemiBoldItalic.ttf */; };
 		79E4869B24BDF52300A0EB3B /* AttackDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4869A24BDF52300A0EB3B /* AttackDetailPage.swift */; };
+		79F5314B24C0581E0058F86D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5314A24C0581E0058F86D /* Token.swift */; };
+		79F5314D24C058640058F86D /* UnderseaClaim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5314C24C058640058F86D /* UnderseaClaim.swift */; };
 		9716A4D8D401F86C5396A3DE /* Pods_Undersea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A22C343B8C5C4E5D915B7CB6 /* Pods_Undersea.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0407B9A606DA13EEE39D4DF7 /* Pods-Undersea.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Undersea.release.xcconfig"; path = "Target Support Files/Pods-Undersea/Pods-Undersea.release.xcconfig"; sourceTree = "<group>"; };
+		7914335A24C07F6000BC4755 /* RenewDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenewDTO.swift; sourceTree = "<group>"; };
 		7922A9C724B4BBB8002A7957 /* Undersea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Undersea.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7922A9CA24B4BBB8002A7957 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7922A9CC24B4BBB8002A7957 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,7 +173,7 @@
 		7956491924BEE54B003D6D16 /* AttackPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPageDTO.swift; sourceTree = "<group>"; };
 		7956491C24BEF588003D6D16 /* RootPageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPageManager.swift; sourceTree = "<group>"; };
 		7956491E24BEF79D003D6D16 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		7956492024BEF831003D6D16 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		7956492024BEF831003D6D16 /* TokenDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDTO.swift; sourceTree = "<group>"; };
 		7956492424BEFD54003D6D16 /* UserManagerApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerApiService.swift; sourceTree = "<group>"; };
 		7956492824BEFDEF003D6D16 /* LoginDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDTO.swift; sourceTree = "<group>"; };
 		7956492A24BF0159003D6D16 /* RegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDTO.swift; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 		79E4868A24BDD0B200A0EB3B /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		79E4868B24BDD0B200A0EB3B /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		79E4869A24BDF52300A0EB3B /* AttackDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailPage.swift; sourceTree = "<group>"; };
+		79F5314A24C0581E0058F86D /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		79F5314C24C058640058F86D /* UnderseaClaim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderseaClaim.swift; sourceTree = "<group>"; };
 		7B2A8D040160C9A807195C73 /* Pods-Undersea.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Undersea.debug.xcconfig"; path = "Target Support Files/Pods-Undersea/Pods-Undersea.debug.xcconfig"; sourceTree = "<group>"; };
 		A22C343B8C5C4E5D915B7CB6 /* Pods_Undersea.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Undersea.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -324,6 +330,8 @@
 			isa = PBXGroup;
 			children = (
 				792DE2DB24BC8D97009D175D /* DTO */,
+				79F5314A24C0581E0058F86D /* Token.swift */,
+				79F5314C24C058640058F86D /* UnderseaClaim.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -598,6 +606,7 @@
 			children = (
 				7956492824BEFDEF003D6D16 /* LoginDTO.swift */,
 				7956492A24BF0159003D6D16 /* RegisterDTO.swift */,
+				7914335A24C07F6000BC4755 /* RenewDTO.swift */,
 			);
 			path = Encodable;
 			sourceTree = "<group>";
@@ -607,7 +616,7 @@
 			children = (
 				792DE2DC24BC8DE3009D175D /* MainPageDTO.swift */,
 				7956491924BEE54B003D6D16 /* AttackPageDTO.swift */,
-				7956492024BEF831003D6D16 /* UserDTO.swift */,
+				7956492024BEF831003D6D16 /* TokenDTO.swift */,
 				794EDCBA24C03B7700D8AA9E /* EmptyResponse.swift */,
 			);
 			path = Decodable;
@@ -1014,6 +1023,7 @@
 				794CAAE724B60764007DC9C7 /* RegisterPage.swift in Sources */,
 				792DE2EE24BCA3DE009D175D /* MainPresenter.swift in Sources */,
 				7956492924BEFDEF003D6D16 /* LoginDTO.swift in Sources */,
+				79F5314D24C058640058F86D /* UnderseaClaim.swift in Sources */,
 				79820C8924B73A5B006D7258 /* AttackPage.swift in Sources */,
 				792DE2EB24BC9C48009D175D /* MainEvents.swift in Sources */,
 				79E4868024BDB38C00A0EB3B /* Fonts.swift in Sources */,
@@ -1021,6 +1031,7 @@
 				7956491424BEE401003D6D16 /* AttackPresenter.swift in Sources */,
 				79820C8D24B7415C006D7258 /* CustomTabBar.swift in Sources */,
 				794CAACF24B5C577007DC9C7 /* ApiError.swift in Sources */,
+				79F5314B24C0581E0058F86D /* Token.swift in Sources */,
 				79820C8B24B73A67006D7258 /* TeamsPage.swift in Sources */,
 				79A5B53724BF5316009D5AC6 /* RegisterInteractor.swift in Sources */,
 				792DE2E624BC9B37009D175D /* MainInteractor.swift in Sources */,
@@ -1039,8 +1050,9 @@
 				7956491F24BEF79D003D6D16 /* UserManager.swift in Sources */,
 				79A5B52D24BF4193009D5AC6 /* LoginViewModel.swift in Sources */,
 				792DE2E924BC9C16009D175D /* MainUsecases.swift in Sources */,
+				7914335B24C07F6000BC4755 /* RenewDTO.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
-				7956492124BEF831003D6D16 /* UserDTO.swift in Sources */,
+				7956492124BEF831003D6D16 /* TokenDTO.swift in Sources */,
 				7947D99D24B8678700C5306D /* HostingController.swift in Sources */,
 				7922A9CD24B4BBB8002A7957 /* SceneDelegate.swift in Sources */,
 				79A5B53F24BF538B009D5AC6 /* RegisterViewModel.swift in Sources */,

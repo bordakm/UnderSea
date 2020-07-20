@@ -49,6 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = HostingController(rootView: RootPageController())
+            UserManager.shared.autoLogin()
             
             self.window = window
             window.makeKeyAndVisible()

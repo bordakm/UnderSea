@@ -72,7 +72,7 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>underseaapit2.webtest.encosoft.internal</key>
+			<key>underseat2lasttry.webtest.encosoft.internal</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>

@@ -1,16 +1,15 @@
 //
-//  UserDTO.swift
+//  RenewDTO.swift
 //  Undersea
 //
-//  Created by Vekety Robin on 2020. 07. 15..
+//  Created by Vekety Robin on 2020. 07. 16..
 //  Copyright © 2020. Vekety Robin. All rights reserved.
 //
 
 import Foundation
 
-struct UserDTO: Decodable {
+struct RenewDTO: Encodable {
     
     let refreshToken: String
-    let accessToken: String
     
 }

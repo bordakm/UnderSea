@@ -20,14 +20,37 @@ class BaseApiWorker<ApiServiceType: TargetType>: ApiWorkerProtocol {
     
     // MARK: - Properties
     
-    internal let provider: MoyaProvider<ApiServiceType> = ServerProxy.getProvider()
-    internal var subscriptions: Set<AnyCancellable> = []
+    let provider: MoyaProvider<ApiServiceType> = ServerProxy.getProvider()
+    var subscriptions: Set<AnyCancellable> = []
     
     // MARK: - Functions
     
     func execute<ResponseType: Decodable>(target: ApiServiceType) -> AnyPublisher<ResponseType, Error> {
-        cancelActiveRequests()
         
+        //Token frissitodese kozben belefut, eredeti igenyt kiszolgalja
+        if let refreshSubject = UserManager.shared.refreshSubject {
+            
+            return refreshSubject
+                    .flatMap { (_) -> AnyPublisher<ResponseType, Error> in
+                        return self.directExecute(target: target)
+                    }.eraseToAnyPublisher()
+        
+        //Token lejart
+        } else if UserManager.shared.isExpired() {
+                
+            UserManager.shared.updateToken()
+            return execute(target: target)
+        
+        //Token letezik es friss vagy nem letezik
+        } else {
+            
+            return directExecute(target: target)
+            
+        }
+        
+    }
+    
+    func directExecute<ResponseType: Decodable>(target: ApiServiceType) -> AnyPublisher<ResponseType, Error> {
         return Future<ResponseType, Error> { promise in
             self.provider.request(target) { (result: Result<Response, MoyaError>) in
                 switch result {
