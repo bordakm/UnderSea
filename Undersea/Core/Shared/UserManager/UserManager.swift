@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import KeychainAccess
 import SwiftJWT
+import CocoaLumberjack
 
 class UserManager {
     
@@ -107,6 +108,31 @@ class UserManager {
                 self.loggedInUser.send(data)
             
             })
+        
+    }
+    
+    func autoLogin() {
+        
+        let keychain = Keychain(service: "hu.encosoft.Undersea")
+        
+        guard let accessToken = keychain["accessToken"] else {
+            return
+        }
+        
+        guard let refreshToken = keychain["refreshToken"] else {
+            return
+        }
+        
+        do {
+            let tokenData = try TokenDTO(refreshToken, accessToken)
+            if tokenData.expirationDate + -600 < Date() {
+                loggedInUser.send(tokenData)
+            } else {
+                updateToken()
+            }
+        } catch {
+            DDLogDebug("Invalid access token format")
+        }
         
     }
     

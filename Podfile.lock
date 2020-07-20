@@ -3,6 +3,9 @@ PODS:
   - BlueCryptor (1.0.32)
   - BlueECC (1.2.5)
   - BlueRSA (1.0.34)
+  - CocoaLumberjack/Core (3.6.1)
+  - CocoaLumberjack/Swift (3.6.1):
+    - CocoaLumberjack/Core
   - KeychainAccess (4.2.0)
   - KituraContracts (1.2.1):
     - LoggerAPI (~> 1.7)
@@ -24,10 +27,11 @@ PODS:
   - SWXMLHash (5.0.1)
 
 DEPENDENCIES:
+  - CocoaLumberjack/Swift
   - KeychainAccess (= 4.2.0)
   - Macaw (= 0.9.6)
   - Moya (= 14.0.0)
-  - SwiftJWT
+  - SwiftJWT (= 3.5.3)
 
 SPEC REPOS:
   trunk:
@@ -35,6 +39,7 @@ SPEC REPOS:
     - BlueCryptor
     - BlueECC
     - BlueRSA
+    - CocoaLumberjack
     - KeychainAccess
     - KituraContracts
     - LoggerAPI
@@ -49,6 +54,7 @@ SPEC CHECKSUMS:
   BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
   BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
+  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   KeychainAccess: 3f760109aa99b05d0f231e28b22642da7153e38a
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   LoggerAPI: fb78461eedac5316b290f2404d88b9d614d96c57
@@ -58,6 +64,6 @@ SPEC CHECKSUMS:
   SwiftJWT: 9a47a71090cae25767078756b5810e3b630aa9a7
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
 
-PODFILE CHECKSUM: 4837d754fbc3ac5fe11ea3543be145f65e798786
+PODFILE CHECKSUM: a8b8aaee765c1d05578c17f01bdc31d9cabcdd06
 
 COCOAPODS: 1.9.3

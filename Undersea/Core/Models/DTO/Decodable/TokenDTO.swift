@@ -33,4 +33,11 @@ struct TokenDTO: Decodable {
         
     }
     
+    init(_ refreshToken: String, _ accessToken: String) throws {
+        self.refreshToken = refreshToken
+        self.accessToken = accessToken
+        let jwtToken: JWT<UnderseaClaim> = try JWT(jwtString: accessToken)
+        expirationDate = jwtToken.claims.exp
+    }
+    
 }

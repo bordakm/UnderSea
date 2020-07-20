@@ -17,10 +17,12 @@ class RootPageManager : ObservableObject {
     private init() {
         
         subscription = UserManager.shared.loggedInUser
-            .receive(on: DispatchQueue.global())
+            .receive(on: DispatchQueue.main)
             .sink(receiveValue: { (data) in
                 if data == nil {
                     self.currentPage = .login
+                } else if self.currentPage == .login {
+                    self.currentPage = .main
                 }
             })
         
