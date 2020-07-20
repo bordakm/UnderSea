@@ -12,6 +12,7 @@ using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Upgrades;
 using UnderSea.BLL.Hubs;
+using UnderSea.DAL.Models.Units;
 
 namespace UnderSea.BLL.Services
 {
@@ -42,6 +43,9 @@ namespace UnderSea.BLL.Services
                                 .ThenInclude(u => u.Type)
                                 .SingleAsync(user => user.Id == userId);
 
+            List<Unit> allUnits = new List<Unit>();
+            allUnits.AddRange(user.Country.DefendingArmy.Units);
+            allUnits.AddRange(user.Country.AttackingArmy.Units);
 
             MainPageViewModel response = new MainPageViewModel()
             {
@@ -51,7 +55,8 @@ namespace UnderSea.BLL.Services
                     Buildings = mapper.Map<IEnumerable<StatusBarViewModel.StatusBarBuilding>>(user.Country.BuildingGroup.Buildings),
                     RoundCount = game.Round,
                     ScoreboardPosition = user.Place,
-                    Units = mapper.Map<IEnumerable<AvailableUnitViewModel>>(user.Country.DefendingArmy.Units),
+                    AvailableUnits = mapper.Map<IEnumerable<AvailableUnitViewModel>>(user.Country.DefendingArmy.Units),
+                    AllUnits = mapper.Map<IEnumerable<AvailableUnitViewModel>>(allUnits),
                     Resources = new StatusBarViewModel.StatusBarResource()
                     {
                         CoralCount = user.Country.Coral,
