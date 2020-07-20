@@ -41,6 +41,9 @@ namespace UnderSea.BLL.Services
                                 .ThenInclude(buildings => buildings.Type)
                                 .Include(users => users.Country.Upgrades)
                                 .ThenInclude(u => u.Type)
+                                .Include(users => users.Country)
+                                .ThenInclude(country => country.AttackingArmy)
+                                .ThenInclude(attackingArmy => attackingArmy.Units)
                                 .SingleAsync(user => user.Id == userId);
 
             List<Unit> allUnits = new List<Unit>();
