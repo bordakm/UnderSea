@@ -14,14 +14,21 @@ import CocoaLumberjack
 
 class UserManager {
     
-    private(set) var refreshSubject: PassthroughSubject<TokenDTO, Error>?
+    // MARK: - Properties
     
     let loggedInUser = CurrentValueSubject<TokenDTO?, Never>(nil)
+    
+    private(set) var refreshSubject: PassthroughSubject<TokenDTO, Error>?
     private let worker = BaseApiWorker<UserManager.ApiService>()
     private var subscription: AnyCancellable?
     
+    // MARK: - Shared
+    
     static let shared: UserManager = UserManager()
+    
     private init() {}
+    
+    // MARK: - API Functions
     
     func login(_ data: LoginDTO) -> AnyPublisher<TokenDTO, Error> {
         
@@ -32,18 +39,15 @@ class UserManager {
             .sink(receiveCompletion: { (result) in
                 switch result {
                 case .failure(_):
-                    self.loggedInUser.send(nil)
+                    self.invalidateTokens()
                 default:
                     print("-- UserManager: load data finished")
                     break
                 }
             }, receiveValue: { (data: TokenDTO) in
                 
-                let keychain = Keychain(service: "hu.encosoft.Undersea")
-                keychain["accessToken"] = data.accessToken
-                keychain["refreshToken"] = data.refreshToken
-                
                 self.loggedInUser.send(data)
+                self.setKeychainTokens(data)
             
             })
         
@@ -60,13 +64,16 @@ class UserManager {
             .sink(receiveCompletion: { (result) in
                 switch result {
                 case .failure(_):
-                    self.loggedInUser.send(nil)
+                    self.invalidateTokens()
                 default:
                     print("-- UserManager: load data finished")
                     break
                 }
             }, receiveValue: { (data: TokenDTO) in
+                
                 self.loggedInUser.send(data)
+                self.setKeychainTokens(data)
+                
             })
         
         return publisher
@@ -76,7 +83,7 @@ class UserManager {
     func logout() {
         
         let _: AnyPublisher<EmptyResponse, Error> = worker.execute(target: .logout)
-        loggedInUser.send(nil)
+        self.invalidateTokens()
         
     }
     
@@ -89,7 +96,7 @@ class UserManager {
             .sink(receiveCompletion: { (result) in
                 switch result {
                 case .failure(_):
-                    self.loggedInUser.send(nil)
+                    self.invalidateTokens()
                 default:
                     print("-- UserManager: load data finished")
                     break
@@ -100,49 +107,74 @@ class UserManager {
                 
             }, receiveValue: { (data: TokenDTO) in
                 
-                self.refreshSubject?.send(data)
-                let keychain = Keychain(service: "hu.encosoft.Undersea")
-                keychain["accessToken"] = data.accessToken
-                keychain["refreshToken"] = data.refreshToken
-                
+                self.setKeychainTokens(data)
                 self.loggedInUser.send(data)
+                self.refreshSubject?.send(data)
             
             })
         
     }
     
+    // MARK: - Helper Functions
+    
     func autoLogin() {
         
-        let keychain = Keychain(service: "hu.encosoft.Undersea")
+        let keychain = Keychain(service: KeychainKeys.serviceKey.rawValue)
         
-        guard let accessToken = keychain["accessToken"] else {
-            return
-        }
-        
-        guard let refreshToken = keychain["refreshToken"] else {
-            return
+        guard
+            let accessToken = keychain[KeychainKeys.accessToken.rawValue],
+            let refreshToken = keychain[KeychainKeys.refreshToken.rawValue]
+            else {
+                return
         }
         
         do {
             let tokenData = try TokenDTO(refreshToken, accessToken)
-            if tokenData.expirationDate + -600 < Date() {
+            if tokenData.isExpired {
                 loggedInUser.send(tokenData)
             } else {
                 updateToken()
             }
         } catch {
             DDLogDebug("Invalid access token format")
+            invalidateTokens()
         }
         
     }
     
     func isExpired() -> Bool {
         
-        if let value = loggedInUser.value {
-            return value.expirationDate + -600 < Date()
-        } else {
-            return false
-        }
+        return loggedInUser.value?.isExpired ?? false
+        
+    }
+    
+    // MARK: - Private Functions
+    
+    private func invalidateTokens() {
+        
+        loggedInUser.send(nil)
+        setKeychainTokens(nil)
+        
+    }
+    
+    private func setKeychainTokens(_ data: TokenDTO?) {
+        
+        let keychain = Keychain(service: KeychainKeys.serviceKey.rawValue)
+        keychain[KeychainKeys.accessToken.rawValue] = data?.accessToken
+        keychain[KeychainKeys.refreshToken.rawValue] = data?.refreshToken
+        
+    }
+    
+}
+
+// MARK: - Constants
+extension UserManager {
+    
+    enum KeychainKeys: String {
+        
+        case serviceKey = "hu.encosoft.Undersea"
+        case accessToken
+        case refreshToken
         
     }
     

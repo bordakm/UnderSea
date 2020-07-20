@@ -17,8 +17,8 @@ extension Login {
         
         var usecaseHandler: ((Login.Usecase) -> Void)?
         
-        @State private var userName: String = "first"
-        @State private var userPassword: String = "undersea"
+        @State private var userName: String = ""
+        @State private var userPassword: String = ""
         
         var body: some View {
             

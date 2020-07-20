@@ -41,3 +41,11 @@ struct TokenDTO: Decodable {
     }
     
 }
+
+extension TokenDTO {
+    
+    var isExpired: Bool {
+        return expirationDate + -30 < Date()
+    }
+    
+}
