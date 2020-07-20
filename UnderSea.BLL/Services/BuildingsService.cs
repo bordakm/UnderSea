@@ -14,12 +14,10 @@ namespace UnderSea.BLL.Services
     public class BuildingsService : IBuildingsService
     {
         private readonly UnderSeaDbContext db;
-        private readonly ILogger logger;
         private readonly IMapper mapper;
-        public BuildingsService(UnderSeaDbContext db, ILogger<BuildingsService> logger, IMapper mapper)
+        public BuildingsService(UnderSeaDbContext db, IMapper mapper)
         {
             this.db = db;
-            this.logger = logger;
             this.mapper = mapper;
         }
 

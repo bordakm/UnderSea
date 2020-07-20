@@ -13,12 +13,10 @@ namespace UnderSea.API.Controllers
     public class MainPageController : ControllerBase
     {
         private readonly IGameService gameService;
-        private readonly ILogger logger;
 
-        public MainPageController(IGameService gameService, ILogger<MainPageController> logger)
+        public MainPageController(IGameService gameService)
         {
             this.gameService = gameService;
-            this.logger = logger;
         }
 
         [HttpGet]

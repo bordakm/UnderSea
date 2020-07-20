@@ -23,17 +23,15 @@ namespace UnderSea.API.Controllers
         private readonly ITokenService tokenService;
         private readonly IUserService userService;
         private readonly IGameService gameService;
-        private readonly ILogger logger;
 
         public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, ITokenService tokenService,
-            IUserService userService, IGameService gameService, ILogger<AuthController> logger)
+            IUserService userService, IGameService gameService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.tokenService = tokenService;
             this.userService = userService;
             this.gameService = gameService;
-            this.logger = logger;
         }        
 
         [AllowAnonymous]

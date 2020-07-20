@@ -17,12 +17,10 @@ namespace UnderSea.API.Controllers
     public class UnitsController : ControllerBase
     {
         private IArmyService armyService;
-        private readonly ILogger logger;
 
-        public UnitsController(IArmyService armyService, ILogger<UnitsController> logger)
+        public UnitsController(IArmyService armyService)
         {
             this.armyService = armyService;
-            this.logger = logger;
         }
 
         [HttpGet]

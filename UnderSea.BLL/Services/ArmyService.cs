@@ -16,12 +16,10 @@ namespace UnderSea.BLL.Services
     public class ArmyService : IArmyService
     {
         private readonly UnderSeaDbContext db;
-        private readonly ILogger logger;
         private readonly IMapper mapper;
-        public ArmyService(UnderSeaDbContext db, ILogger<ArmyService> logger, IMapper mapper)
+        public ArmyService(UnderSeaDbContext db, IMapper mapper)
         {
             this.db = db;
-            this.logger = logger;
             this.mapper = mapper;
         }
 

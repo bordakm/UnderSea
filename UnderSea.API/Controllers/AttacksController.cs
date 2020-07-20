@@ -17,13 +17,11 @@ namespace UnderSea.API.Controllers
     {
         private IArmyService armyService;
         private IGameService gameService;
-        private readonly ILogger logger;
 
-        public AttacksController(IArmyService armyService, IGameService gameService, ILogger<AttacksController> logger)
+        public AttacksController(IArmyService armyService, IGameService gameService)
         {
             this.armyService = armyService;
             this.gameService = gameService;
-            this.logger = logger;
         }
 
         [HttpGet("getoutgoing")]

@@ -16,12 +16,10 @@ namespace UnderSea.API.Controllers
     public class UpgradesController : ControllerBase
     {
         private IUpgradesService upgradesService;
-        private readonly ILogger logger;
 
-        public UpgradesController(IUpgradesService upgradesService, ILogger<UpgradesController> logger)
+        public UpgradesController(IUpgradesService upgradesService)
         {
             this.upgradesService = upgradesService;
-            this.logger = logger;
         }
 
         [HttpGet]

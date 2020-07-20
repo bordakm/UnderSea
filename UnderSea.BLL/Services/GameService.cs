@@ -18,13 +18,11 @@ namespace UnderSea.BLL.Services
     public class GameService : IGameService
     {
         private UnderSeaDbContext db;
-        private readonly ILogger logger;
         private readonly IMapper mapper;
         private readonly IHubContext<MyHub> hubContext;
-        public GameService(UnderSeaDbContext db, ILogger<GameService> logger, IMapper mapper, IHubContext<MyHub> hubContext)
+        public GameService(UnderSeaDbContext db, IMapper mapper, IHubContext<MyHub> hubContext)
         {
             this.db = db;
-            this.logger = logger;
             this.mapper = mapper;
             this.hubContext = hubContext;
         }
