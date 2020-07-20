@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Identity;
 using UnderSea.DAL;
 using UnderSea.BLL.Hubs;
 using System.Collections.Generic;
+using Hangfire;
+using Hangfire.MemoryStorage;
 
 namespace UnderSea.API
 {
@@ -104,6 +106,16 @@ namespace UnderSea.API
                             }, new List<string>() }
                     });
             });
+
+            services.AddHangfire(config =>
+                                config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                                .UseSimpleAssemblyNameTypeSerializer()
+                                .UseDefaultTypeSerializer()
+                                .UseMemoryStorage()
+                                );
+            services.AddHangfireServer();
+
+
                   
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IArmyService, ArmyService>();
@@ -114,8 +126,12 @@ namespace UnderSea.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRecurringJobManager recurringJobManager, IGameService gameService)
         {
+            app.UseHangfireDashboard();
+            
+            recurringJobManager.AddOrUpdate("step game", () => gameService.NewRoundAsync(1), Cron.Hourly);
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
             app.UseCors("AllowAllOriginsPolicy");

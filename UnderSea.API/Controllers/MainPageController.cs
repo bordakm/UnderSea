@@ -14,7 +14,7 @@ namespace UnderSea.API.Controllers
     {
         private readonly IGameService gameService;
         private readonly ILogger logger;
-
+        
         public MainPageController(IGameService gameService, ILogger<MainPageController> logger)
         {
             this.gameService = gameService;
