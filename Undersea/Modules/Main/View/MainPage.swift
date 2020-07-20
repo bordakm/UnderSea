@@ -34,6 +34,14 @@ extension Main {
             })
         }
         
+        var userButton: some View {
+            
+            NavigationLink(destination: Text("Profil nezet placeholder")) {
+                SVGImage(svgPath: R.file.userImageSvg()!)
+            }.frame(width: 30.0, height: 30.0)
+            
+        }
+        
         var body: some View {
             NavigationView {
                 ZStack(alignment: .bottom) {
@@ -44,7 +52,7 @@ extension Main {
                             print("push to rank page")
                         }){
                             Text(viewModel.mainPageModel?.roundAndRank ?? "...")
-                                .font(Font.custom("Baloo2-Regular", size: 16))
+                                .font(Fonts.get(.bRegular))
                                 .foregroundColor(Colors.darkBlue)
                                 .padding(10.0)
                         }
@@ -56,8 +64,16 @@ extension Main {
                         
                         GeometryReader { geometry in
                             ZStack {
-                                Text("Epuletek")
-                                    .foregroundColor(Color.white)
+                                VStack {
+                                    HStack {
+                                        Image(uiImage: R.image.reefCastle()!).resizable().scaledToFit()
+                                        Image(uiImage: R.image.sonarCannon()!).resizable().scaledToFit()
+                                    }
+                                    HStack {
+                                        Image(uiImage: R.image.alchemy()!).resizable().scaledToFit()
+                                        Image(uiImage: R.image.flowManager()!).resizable().scaledToFit()
+                                    }
+                                }
                             }
                             .frame(height: geometry.size.height)
                         }
@@ -71,13 +87,14 @@ extension Main {
                         .offset(y: self.slideInOffset)
                     
                 }
-                .background(Image("mainBackground")
+                .background(Image(Images.mainBg.rawValue)
                     .resizable()
                     .scaledToFill())
                 .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(leading: SVGImage(svgName: "underseaLogo").frame(width: 70.0, height: 40.0),
-                                    trailing: SVGImage(svgName: "userImage").frame(width: 30.0, height: 30.0))
+                .navigationBarItems(leading: SVGImage(svgPath: R.file.underseaLogoSvg()!).frame(width: 70.0, height: 40.0),
+                                    trailing: userButton)
                 .navigationBarColor(Colors.navBarBackgroundColor)
+                
             }.onAppear {
                 self.usecaseHandler?(.load)
             }

@@ -22,6 +22,25 @@ enum StatusBarItem {
 
 extension StatusBarItem {
     
+    var id: Int {
+        switch self {
+        case .shark:
+            return 1
+        case .seal:
+            return 2
+        case .seahorse:
+            return 3
+        case .pearl:
+            return 0
+        case .coral:
+            return 0
+        case .reefcastle:
+            return 1
+        case .flowRegulator:
+            return 2
+        }
+    }
+    
     var imageName: String {
         
         switch self {

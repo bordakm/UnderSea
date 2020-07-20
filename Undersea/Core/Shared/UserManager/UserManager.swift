@@ -37,6 +37,7 @@ class UserManager {
         subscription = publisher
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
+                
                 switch result {
                 case .failure(_):
                     self.invalidateTokens()
@@ -44,6 +45,7 @@ class UserManager {
                     print("-- UserManager: load data finished")
                     break
                 }
+                
             }, receiveValue: { (data: TokenDTO) in
                 
                 self.loggedInUser.send(data)
@@ -62,6 +64,7 @@ class UserManager {
         subscription = publisher
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
+                
                 switch result {
                 case .failure(_):
                     self.invalidateTokens()
@@ -69,6 +72,7 @@ class UserManager {
                     print("-- UserManager: load data finished")
                     break
                 }
+                
             }, receiveValue: { (data: TokenDTO) in
                 
                 self.loggedInUser.send(data)
@@ -89,11 +93,19 @@ class UserManager {
     
     func updateToken() {
         
-        let data = RenewDTO(refreshToken: loggedInUser.value?.refreshToken ?? "")
         refreshSubject = PassthroughSubject()
+        guard let refreshToken = loggedInUser.value?.refreshToken else {
+            invalidateTokens()
+            refreshSubject?.send(completion: .finished)
+            return
+        }
+        
+        let data = RenewDTO(refreshToken: refreshToken)
+        
         subscription = worker.directExecute(target: .renew(data))
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
+                
                 switch result {
                 case .failure(_):
                     self.invalidateTokens()
@@ -130,7 +142,7 @@ class UserManager {
         
         do {
             let tokenData = try TokenDTO(refreshToken, accessToken)
-            if tokenData.isExpired {
+            if !tokenData.isExpired {
                 loggedInUser.send(tokenData)
             } else {
                 updateToken()

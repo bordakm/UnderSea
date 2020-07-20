@@ -13,7 +13,15 @@ import Macaw
 struct SVGImage: UIViewRepresentable {
     
     typealias UIViewType = SVGView
-    var svgName: String
+    private var svgName: String
+    
+    init(svgName: String) {
+        self.svgName = svgName
+    }
+    
+    init(svgPath: URL) {
+        self.svgName = svgPath.deletingPathExtension().lastPathComponent
+    }
 
     func makeUIView(context: Context) -> SVGView {
         let svgView = SVGView()
