@@ -2,95 +2,65 @@
     <mat-card class="flex-card">
         <div class="flex-box">
             <mat-card-content>
-                <div class="header-text">4.kör</div>
+                <div class="header-text">{{ layout.everything.statusBar.roundCount }} . kör</div>
             </mat-card-content>
-    
+
             <mat-card-content>
-                <div class="header-text">23.hely</div>
-            </mat-card-content>    
+                <div class="header-text">{{ layout.everything.statusBar.scoreboardPosition }} . hely</div>
+            </mat-card-content>
         </div>
-        
+
         <div class="flex-box">
-            <mat-card-content>
-                <div class="rectangle">
-                    <img src="../../../../../assets/images/007-shark.svg" alt="">
+            <div style="display: flex; flex-direction: row; align-items: center;"
+                *ngFor="let unit of everything.statusBar.units">
+                <mat-card-content>
+                    <div class="rectangle">
+                        <img [src]="unit.imageUrl" alt="">
+                    </div>
+                </mat-card-content>
+
+                <mat-card-content>
+                    <div class="header-number">{{ unit.availableCount }}</div>
+                </mat-card-content>
+            </div>
+
+                <mat-card-content>
+                    <div class="rectangle">
+                        <img src="../../../../../assets/images/shell.svg" alt="">
+                    </div>
+                </mat-card-content>
+
+                <mat-card-content>
+                    <div class="header-number">{{everything.statusBar.resources.pearlCount}}</div>
+                    <div class="header-small-text">{{everything.statusBar.resources.pearlProductionCount}} /kör</div>
+                </mat-card-content>
+
+                <mat-card-content>
+                    <div class="rectangle">
+                        <img src="../../../../../assets/images/018-coral.svg" alt="">
+                    </div>
+                </mat-card-content>
+
+                <mat-card-content>
+                    <div class="header-number">{{everything.statusBar.resources.coralCount}}</div>
+                    <div class="header-small-text">{{everything.statusBar.resources.coralProductionCount}} /kör</div>
+                </mat-card-content>
+
+                <div style="display: flex; flex-direction: row; align-items: center;"
+                    *ngFor="let building of everything.statusBar.buildings">
+                    <mat-card-content>
+                        <div class="rectangle">
+                            <img [src]="building.imageUrl" alt="">
+                        </div>
+                    </mat-card-content>
+
+                    <mat-card-content>
+                        <div class="header-number">{{ building.count }}</div>
+                    </mat-card-content>
                 </div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="header-number">0</div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="rectangle">
-                    <img src="../../../../../assets/images/025-seal.svg" alt="">
-                </div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="header-number">5</div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="rectangle">
-                    <img src="../../../../../assets/images/013-seahorse.svg" alt="">
-                </div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="header-number">13</div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="rectangle">
-                    <img src="../../../../../assets/images/shell.svg" alt="">
-                </div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="header-number">230</div>
-                <div class="header-small-text">20/kör</div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="rectangle">
-                    <img src="../../../../../assets/images/018-coral.svg" alt="">
-                </div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="header-number">230</div>
-                <div class="header-small-text">12/kör</div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="rectangle">
-                    <img src="../../../../../assets/images/Group125.png" alt="">
-                </div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="header-number">1</div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="rectangle">
-                    <img src="../../../../../assets/images/Group126.png" alt="">
-                </div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="header-number">0</div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="rectangle"></div>
-            </mat-card-content>
-    
-            <mat-card-content>
-                <div class="header-number">0</div>
-            </mat-card-content>
-        </div>
-        
+
+
+            </div>
+
     </mat-card>
 </div>

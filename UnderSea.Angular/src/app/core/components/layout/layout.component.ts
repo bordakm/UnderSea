@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LayoutService } from '../../services/layout.service';
-import { IUnitViewModel } from 'src/app/shared';
+import { IUnitViewModel, MainPageViewModel } from 'src/app/shared';
 import { tap, catchError } from 'rxjs/operators';
 
 
@@ -12,16 +12,15 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class LayoutComponent implements OnInit {
 
-  units: IUnitViewModel[];
-
+  everything: MainPageViewModel;
+  
   constructor(private service: LayoutService) { }
 
   ngOnInit(): void {
-    this.service.getUnits().pipe(
-      tap(res => this.units = res),
+    this.service.getEverything().pipe(
+      tap(res => this.everything = res),
       catchError(error => console.assert)
     ).subscribe();
-
   }
 
 }
