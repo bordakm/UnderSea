@@ -13,11 +13,13 @@ namespace UnderSea.API.Controllers
     public class MainPageController : ControllerBase
     {
         private readonly IGameService gameService;
+        private readonly IUserService userService;
         private readonly ILogger logger;
         
-        public MainPageController(IGameService gameService, ILogger<MainPageController> logger)
+        public MainPageController(IGameService gameService, IUserService userService, ILogger<MainPageController> logger)
         {
             this.gameService = gameService;
+            this.userService = userService;
             this.logger = logger;
         }
 
@@ -33,6 +35,14 @@ namespace UnderSea.API.Controllers
         public async Task NewRound([FromQuery] int rounds)
         {
             await gameService.NewRoundAsync(rounds);
+        }
+
+        [HttpGet("/profile")]
+        [Authorize]
+        public async Task<ProfileViewModel> GetProfile()
+        {
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return await userService.GetProfile(userId);
         }
     }
 }
