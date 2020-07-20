@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { IAttackUnitViewModel, ICountryViewModel } from '../../attack/models/attack.model';
-import { IOutgoingAttackViewModel, AvailableUnitViewModel } from 'src/app/shared';
+import { IOutgoingAttackViewModel, AvailableUnitViewModel, ScoreboardViewModel } from 'src/app/shared';
 
 import { AttackService } from '../services/attack.service';
 import { tap, catchError } from 'rxjs/operators';
@@ -30,13 +30,7 @@ export class AttackPageComponent implements OnInit {
   };
 
   availableUnits: AvailableUnitViewModel[];
-
-  countries: Array<ICountryViewModel> = [
-    { name: 'Kisváros'},
-    { name: 'Nagyváros'},
-    { name: 'Jobbváros'},
-    { name: 'Balváros'},
-  ];
+  countries: ScoreboardViewModel[];
 
   formatLabel(value: number): number{
     this.units = value;
@@ -48,6 +42,11 @@ export class AttackPageComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAttacks().pipe(
       tap(res => this.availableUnits = res),
+      catchError(error => console.assert)
+    ).subscribe();
+
+    this.service.getCountries().pipe(
+      tap(res => this.countries = res),
       catchError(error => console.assert)
     ).subscribe();
   }

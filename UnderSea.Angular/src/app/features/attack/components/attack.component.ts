@@ -10,7 +10,6 @@ import { AvailableUnitViewModel } from 'src/app/shared';
 export class AttackComponent implements OnInit {
 
   @Input() unit: AvailableUnitViewModel;
-  @Input() image: string;
 
   constructor() { }
 

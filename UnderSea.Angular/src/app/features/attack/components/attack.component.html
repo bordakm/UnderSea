@@ -3,7 +3,7 @@
         <img [src]="unit.imageUrl" alt="">
     </div>
     <div>
-        <h4 class="attack-unit-name">{{ unit.name }} : példány</h4>
-        <mat-slider [max]="unit.availableCount"></mat-slider>
+        <h4 class="attack-unit-name">{{ unit.name }} : {{ matslider.value }} példány</h4>
+        <mat-slider [min]=0 [max]="unit.availableCount" #matslider></mat-slider>
     </div>
 </div>

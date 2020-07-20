@@ -26,9 +26,9 @@
 
                 <div class="attack-parts">
                     <h3>2. Állítsd be, kiket küldesz harcba:</h3>
-                    <app-attack [unit]="availableUnits" [image]="'../../../../../assets/images/007-shark.svg'"></app-attack>
-                    <app-attack [unit]="stormSealModel" [image]="'../../../../../assets/images/025-seal.svg'"></app-attack>
-                    <app-attack [unit]="combatSeaHorseModel" [image]="'../../../../../assets/images/013-seahorse.svg'"></app-attack>
+                    <div *ngFor="let availableunit of availableUnits">
+                        <app-attack [unit]="availableunit" ></app-attack>
+                    </div>
                 </div>
 
             </div>
