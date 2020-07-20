@@ -10,7 +10,7 @@ namespace UnderSea.DAL.Models
 {
     public class Country
     {
-        private readonly int taxRate = 25;
+        private readonly int taxPerPerson = 25;
         public int Id { get; set; }
         public string Name { get; set; }
         [ForeignKey("BuildingGroup")]
@@ -32,7 +32,7 @@ namespace UnderSea.DAL.Models
         public int Score { get; set; }
         public List<Upgrade> Upgrades { get; set; }
         [NotMapped]
-        public int PearlProduction => Population * taxRate;
+        public int PearlProduction => Population * taxPerPerson * (1 + (Upgrades.Sum(upgrades => upgrades.Type.TaxBonusPercentage) / 100));
         [NotMapped]
         public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus * building.Count);
         [NotMapped]

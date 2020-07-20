@@ -14,5 +14,6 @@ namespace UnderSea.DAL.Models.Upgrades
         public int DefenseBonusPercentage { get; set; }
         public int AttackBonusPercentage { get; set; }
         public int PearlProductionBonusPercentage { get; set; }
+        public int TaxBonusPercentage { get; set; }
     }
 }
