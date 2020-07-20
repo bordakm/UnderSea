@@ -290,20 +290,21 @@ export interface IAuthClient {
      * @param body (optional) 
      * @return Success
      */
-    register(body: RegisterDTO | undefined): Observable<TokensViewModel>;
+    login(body: LoginDTO | undefined): Observable<TokensViewModel>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    login(body: LoginDTO | undefined): Observable<TokensViewModel>;
+    register(body: RegisterDTO | undefined): Observable<TokensViewModel>;
     /**
      * @return Success
      */
     logout(): Observable<void>;
     /**
+     * @param body (optional) 
      * @return Success
      */
-    renew(): Observable<TokensViewModel>;
+    renew(body: string | null | undefined): Observable<TokensViewModel>;
 }
 
 @Injectable({
@@ -317,62 +318,6 @@ export class AuthClient implements IAuthClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "";
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    register(body: RegisterDTO | undefined): Observable<TokensViewModel> {
-        let url_ = this.baseUrl + "/api/Auth/register";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRegister(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processRegister(<any>response_);
-                } catch (e) {
-                    return <Observable<TokensViewModel>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<TokensViewModel>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processRegister(response: HttpResponseBase): Observable<TokensViewModel> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TokensViewModel.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<TokensViewModel>(<any>null);
     }
 
     /**
@@ -410,6 +355,62 @@ export class AuthClient implements IAuthClient {
     }
 
     protected processLogin(response: HttpResponseBase): Observable<TokensViewModel> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TokensViewModel.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TokensViewModel>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    register(body: RegisterDTO | undefined): Observable<TokensViewModel> {
+        let url_ = this.baseUrl + "/api/Auth/register";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processRegister(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processRegister(<any>response_);
+                } catch (e) {
+                    return <Observable<TokensViewModel>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TokensViewModel>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processRegister(response: HttpResponseBase): Observable<TokensViewModel> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -479,16 +480,21 @@ export class AuthClient implements IAuthClient {
     }
 
     /**
+     * @param body (optional) 
      * @return Success
      */
-    renew(): Observable<TokensViewModel> {
+    renew(body: string | null | undefined): Observable<TokensViewModel> {
         let url_ = this.baseUrl + "/api/Auth/renew";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
                 "Accept": "text/plain"
             })
         };
@@ -1152,11 +1158,11 @@ export class UpgradesClient implements IUpgradesClient {
     }
 }
 
-export class SimpleUnitViewModel implements ISimpleUnitViewModel {
-    typeId?: number;
+export class SimpleUnitWithNameViewModel implements ISimpleUnitWithNameViewModel {
     count?: number;
+    name?: string | undefined;
 
-    constructor(data?: ISimpleUnitViewModel) {
+    constructor(data?: ISimpleUnitWithNameViewModel) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1167,34 +1173,34 @@ export class SimpleUnitViewModel implements ISimpleUnitViewModel {
 
     init(_data?: any) {
         if (_data) {
-            this.typeId = _data["typeId"];
             this.count = _data["count"];
+            this.name = _data["name"];
         }
     }
 
-    static fromJS(data: any): SimpleUnitViewModel {
+    static fromJS(data: any): SimpleUnitWithNameViewModel {
         data = typeof data === 'object' ? data : {};
-        let result = new SimpleUnitViewModel();
+        let result = new SimpleUnitWithNameViewModel();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["typeId"] = this.typeId;
         data["count"] = this.count;
+        data["name"] = this.name;
         return data; 
     }
 }
 
-export interface ISimpleUnitViewModel {
-    typeId?: number;
+export interface ISimpleUnitWithNameViewModel {
     count?: number;
+    name?: string | undefined;
 }
 
 export class OutgoingAttackViewModel implements IOutgoingAttackViewModel {
     countryName?: string | undefined;
-    units?: SimpleUnitViewModel[] | undefined;
+    units?: SimpleUnitWithNameViewModel[] | undefined;
 
     constructor(data?: IOutgoingAttackViewModel) {
         if (data) {
@@ -1211,7 +1217,7 @@ export class OutgoingAttackViewModel implements IOutgoingAttackViewModel {
             if (Array.isArray(_data["units"])) {
                 this.units = [] as any;
                 for (let item of _data["units"])
-                    this.units!.push(SimpleUnitViewModel.fromJS(item));
+                    this.units!.push(SimpleUnitWithNameViewModel.fromJS(item));
             }
         }
     }
@@ -1237,7 +1243,7 @@ export class OutgoingAttackViewModel implements IOutgoingAttackViewModel {
 
 export interface IOutgoingAttackViewModel {
     countryName?: string | undefined;
-    units?: SimpleUnitViewModel[] | undefined;
+    units?: SimpleUnitWithNameViewModel[] | undefined;
 }
 
 export class SendUnitDTO implements ISendUnitDTO {
@@ -1326,6 +1332,46 @@ export class AttackDTO implements IAttackDTO {
 export interface IAttackDTO {
     defenderUserId?: number;
     attackingUnits?: SendUnitDTO[] | undefined;
+}
+
+export class SimpleUnitViewModel implements ISimpleUnitViewModel {
+    typeId?: number;
+    count?: number;
+
+    constructor(data?: ISimpleUnitViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.typeId = _data["typeId"];
+            this.count = _data["count"];
+        }
+    }
+
+    static fromJS(data: any): SimpleUnitViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new SimpleUnitViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["typeId"] = this.typeId;
+        data["count"] = this.count;
+        return data; 
+    }
+}
+
+export interface ISimpleUnitViewModel {
+    typeId?: number;
+    count?: number;
 }
 
 export class ScoreboardViewModel implements IScoreboardViewModel {
@@ -1424,12 +1470,11 @@ export interface IAvailableUnitViewModel {
     imageUrl?: string | undefined;
 }
 
-export class RegisterDTO implements IRegisterDTO {
-    userName?: string | undefined;
-    password?: string | undefined;
-    countryName?: string | undefined;
+export class LoginDTO implements ILoginDTO {
+    userName!: string;
+    password!: string;
 
-    constructor(data?: IRegisterDTO) {
+    constructor(data?: ILoginDTO) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1442,13 +1487,12 @@ export class RegisterDTO implements IRegisterDTO {
         if (_data) {
             this.userName = _data["userName"];
             this.password = _data["password"];
-            this.countryName = _data["countryName"];
         }
     }
 
-    static fromJS(data: any): RegisterDTO {
+    static fromJS(data: any): LoginDTO {
         data = typeof data === 'object' ? data : {};
-        let result = new RegisterDTO();
+        let result = new LoginDTO();
         result.init(data);
         return result;
     }
@@ -1457,15 +1501,13 @@ export class RegisterDTO implements IRegisterDTO {
         data = typeof data === 'object' ? data : {};
         data["userName"] = this.userName;
         data["password"] = this.password;
-        data["countryName"] = this.countryName;
         return data; 
     }
 }
 
-export interface IRegisterDTO {
-    userName?: string | undefined;
-    password?: string | undefined;
-    countryName?: string | undefined;
+export interface ILoginDTO {
+    userName: string;
+    password: string;
 }
 
 export class TokensViewModel implements ITokensViewModel {
@@ -1508,11 +1550,12 @@ export interface ITokensViewModel {
     refreshToken?: string | undefined;
 }
 
-export class LoginDTO implements ILoginDTO {
-    userName?: string | undefined;
-    password?: string | undefined;
+export class RegisterDTO implements IRegisterDTO {
+    userName!: string;
+    password!: string;
+    countryName!: string;
 
-    constructor(data?: ILoginDTO) {
+    constructor(data?: IRegisterDTO) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1525,12 +1568,13 @@ export class LoginDTO implements ILoginDTO {
         if (_data) {
             this.userName = _data["userName"];
             this.password = _data["password"];
+            this.countryName = _data["countryName"];
         }
     }
 
-    static fromJS(data: any): LoginDTO {
+    static fromJS(data: any): RegisterDTO {
         data = typeof data === 'object' ? data : {};
-        let result = new LoginDTO();
+        let result = new RegisterDTO();
         result.init(data);
         return result;
     }
@@ -1539,13 +1583,15 @@ export class LoginDTO implements ILoginDTO {
         data = typeof data === 'object' ? data : {};
         data["userName"] = this.userName;
         data["password"] = this.password;
+        data["countryName"] = this.countryName;
         return data; 
     }
 }
 
-export interface ILoginDTO {
-    userName?: string | undefined;
-    password?: string | undefined;
+export interface IRegisterDTO {
+    userName: string;
+    password: string;
+    countryName: string;
 }
 
 export class BuildingInfoViewModel implements IBuildingInfoViewModel {
@@ -1606,130 +1652,6 @@ export interface IBuildingInfoViewModel {
     price?: number;
     imageUrl?: string | undefined;
     remainingRounds?: number;
-}
-
-export class UnitType implements IUnitType {
-    id?: number;
-    name?: string | undefined;
-    price?: number;
-    attackScore?: number;
-    defenseScore?: number;
-    pearlCostPerTurn?: number;
-    coralCostPerTurn?: number;
-    imageUrl?: string | undefined;
-    score?: number;
-
-    constructor(data?: IUnitType) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.price = _data["price"];
-            this.attackScore = _data["attackScore"];
-            this.defenseScore = _data["defenseScore"];
-            this.pearlCostPerTurn = _data["pearlCostPerTurn"];
-            this.coralCostPerTurn = _data["coralCostPerTurn"];
-            this.imageUrl = _data["imageUrl"];
-            this.score = _data["score"];
-        }
-    }
-
-    static fromJS(data: any): UnitType {
-        data = typeof data === 'object' ? data : {};
-        let result = new UnitType();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["price"] = this.price;
-        data["attackScore"] = this.attackScore;
-        data["defenseScore"] = this.defenseScore;
-        data["pearlCostPerTurn"] = this.pearlCostPerTurn;
-        data["coralCostPerTurn"] = this.coralCostPerTurn;
-        data["imageUrl"] = this.imageUrl;
-        data["score"] = this.score;
-        return data; 
-    }
-}
-
-export interface IUnitType {
-    id?: number;
-    name?: string | undefined;
-    price?: number;
-    attackScore?: number;
-    defenseScore?: number;
-    pearlCostPerTurn?: number;
-    coralCostPerTurn?: number;
-    imageUrl?: string | undefined;
-    score?: number;
-}
-
-export class Unit implements IUnit {
-    id?: number;
-    attackId?: number | undefined;
-    unitGroupId?: number;
-    count?: number;
-    typeId?: number;
-    type?: UnitType;
-
-    constructor(data?: IUnit) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.attackId = _data["attackId"];
-            this.unitGroupId = _data["unitGroupId"];
-            this.count = _data["count"];
-            this.typeId = _data["typeId"];
-            this.type = _data["type"] ? UnitType.fromJS(_data["type"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): Unit {
-        data = typeof data === 'object' ? data : {};
-        let result = new Unit();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["attackId"] = this.attackId;
-        data["unitGroupId"] = this.unitGroupId;
-        data["count"] = this.count;
-        data["typeId"] = this.typeId;
-        data["type"] = this.type ? this.type.toJSON() : <any>undefined;
-        return data; 
-    }
-}
-
-export interface IUnit {
-    id?: number;
-    attackId?: number | undefined;
-    unitGroupId?: number;
-    count?: number;
-    typeId?: number;
-    type?: UnitType;
 }
 
 export class BuildingType implements IBuildingType {
@@ -1969,7 +1891,7 @@ export interface IStatusBarResource {
 }
 
 export class StatusBarViewModel implements IStatusBarViewModel {
-    units?: Unit[] | undefined;
+    units?: AvailableUnitViewModel[] | undefined;
     buildings?: BuildingGroup;
     roundCount?: number;
     scoreboardPosition?: number;
@@ -1989,7 +1911,7 @@ export class StatusBarViewModel implements IStatusBarViewModel {
             if (Array.isArray(_data["units"])) {
                 this.units = [] as any;
                 for (let item of _data["units"])
-                    this.units!.push(Unit.fromJS(item));
+                    this.units!.push(AvailableUnitViewModel.fromJS(item));
             }
             this.buildings = _data["buildings"] ? BuildingGroup.fromJS(_data["buildings"]) : <any>undefined;
             this.roundCount = _data["roundCount"];
@@ -2021,7 +1943,7 @@ export class StatusBarViewModel implements IStatusBarViewModel {
 }
 
 export interface IStatusBarViewModel {
-    units?: Unit[] | undefined;
+    units?: AvailableUnitViewModel[] | undefined;
     buildings?: BuildingGroup;
     roundCount?: number;
     scoreboardPosition?: number;

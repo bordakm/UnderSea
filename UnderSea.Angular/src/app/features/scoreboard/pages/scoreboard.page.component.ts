@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IUserViewModel } from '../models/scoreboard.model';
 
+import { ScoreboardService } from '../services/scoreboard.service';
+import { tap, catchError } from 'rxjs/operators';
+
 @Component({
   selector: 'app-scoreboard-page',
   templateUrl: './scoreboard.page.component.html',
@@ -14,9 +17,15 @@ export class ScoreboardPageComponent implements OnInit {
     score: 1,
   };
 
-  constructor() { }
+  users: IUserViewModel[];
+
+  constructor(private service: ScoreboardService) { }
 
   ngOnInit(): void {
+    this.service.getUser().pipe(
+      tap(res => this.users = res),
+      catchError(error => console.assert)
+    ).subscribe();
   }
 
 }

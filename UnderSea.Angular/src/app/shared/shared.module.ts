@@ -9,6 +9,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatListModule} from '@angular/material/list';
 
 import {TableSearchComponent} from './components/table-search.component'
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {TableSearchComponent} from './components/table-search.component'
     MatButtonModule,
     MatSliderModule,
     MatListModule,
+    HttpClientModule,
   ],
   exports: [
     MatCardModule,
@@ -31,6 +33,7 @@ import {TableSearchComponent} from './components/table-search.component'
     MatSliderModule,
     MatListModule,
     TableSearchComponent,
+    HttpClientModule,
   ]
 })
 export class SharedModule { }

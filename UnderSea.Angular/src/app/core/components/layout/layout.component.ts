@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { LayoutService } from '../../services/layout.service';
+import { IUnitViewModel } from 'src/app/shared';
+import { tap, catchError } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-layout',
@@ -8,9 +12,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  units: IUnitViewModel[];
+
+  constructor(private service: LayoutService) { }
 
   ngOnInit(): void {
+    this.service.getUnits().pipe(
+      tap(res => this.units = res),
+      catchError(error => console.assert)
+    ).subscribe();
+
   }
 
 }

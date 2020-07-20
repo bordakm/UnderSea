@@ -16,8 +16,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
-
-
+import { environment } from 'src/environments/environment';
+import { API_BASE_URL } from '../shared';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from '../core/components/auth/token.interceptor';
+import { AuthGuardService } from './services/auth-guard.service';
+import { JwtModuleOptions } from '@auth0/angular-jwt';
 
 
 
@@ -44,5 +48,11 @@ import {MatButtonModule} from '@angular/material/button';
   exports: [
     SharedModule
   ],
+  providers: [
+    AuthGuardService,
+    AuthService,
+    { provide: API_BASE_URL, useValue: environment.apiUrl },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ]
 })
 export class CoreModule { }

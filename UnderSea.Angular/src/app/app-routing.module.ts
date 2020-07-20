@@ -3,11 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './core/components/layout/layout.component';
 import { LoginComponent } from './core/pages/login/login.component';
 
+import { AuthGuardService } from '../app/core/services/auth-guard.service';
+
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
+    loadChildren: () => import('./core/core.module').then(m => m.CoreModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'login',
@@ -43,6 +46,7 @@ const routes: Routes = [
     component: LayoutComponent,
     loadChildren: () => import('./features/upgrades/upgrades.module').then(m => m.UpgradesModule)
   },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
