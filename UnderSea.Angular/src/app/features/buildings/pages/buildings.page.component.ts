@@ -42,10 +42,6 @@ export class BuildingsPageComponent implements OnInit {
       catchError(error => console.assert)
     ).subscribe();
 
-    this.service.getCats().pipe(
-      tap(res => this.bossCat = res),
-      catchError(error => console.assert)
-    ).subscribe();
   }
 
   enableButton(value): void{

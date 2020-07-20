@@ -27,15 +27,5 @@ export class BuildingsService {
     );
   }
 
-  getCats(): Observable<ICatsViewModel>{
-    const url = 'https://cat-fact.herokuapp.com/facts/random';
-    return this.http.get<ICatsDto>(url).pipe(
-        map((dto: ICatsDto): ICatsViewModel => ({
-            type: dto.type,
-            text: dto.text,
-            status: dto.status,
-        }))
-    );
-  }
 
 }
