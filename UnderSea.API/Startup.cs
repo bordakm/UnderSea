@@ -21,6 +21,7 @@ using UnderSea.BLL.Hubs;
 using System.Collections.Generic;
 using Hangfire;
 using Hangfire.MemoryStorage;
+using Microsoft.AspNetCore.Authentication;
 
 namespace UnderSea.API
 {
@@ -123,6 +124,7 @@ namespace UnderSea.API
             services.AddScoped<IUpgradesService, UpgradesService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

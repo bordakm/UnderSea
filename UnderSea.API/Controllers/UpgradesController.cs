@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -16,12 +15,10 @@ namespace UnderSea.API.Controllers
     public class UpgradesController : ControllerBase
     {
         private IUpgradesService upgradesService;
-        private readonly ILogger logger;
 
-        public UpgradesController(IUpgradesService upgradesService, ILogger<UpgradesController> logger)
+        public UpgradesController(IUpgradesService upgradesService)
         {
             this.upgradesService = upgradesService;
-            this.logger = logger;
         }
 
         [HttpGet]

@@ -14,12 +14,10 @@ namespace UnderSea.BLL.Services
     public class UpgradesService : IUpgradesService
     {
         UnderSeaDbContext db;
-        private readonly ILogger logger;
         private readonly IMapper mapper;
-        public UpgradesService(UnderSeaDbContext context, ILogger<UpgradesService> logger, IMapper mapper)
+        public UpgradesService(UnderSeaDbContext context, IMapper mapper)
         {
             db = context;
-            this.logger = logger;
             this.mapper = mapper;
         }
         public async Task<IEnumerable<UpgradeViewModel>> GetUpgradesAsync(int userid)
@@ -53,7 +51,7 @@ namespace UnderSea.BLL.Services
             }
             else
             {
-                throw new Exception("Most nem indíthatod el ezt a fejlesztést!");
+                throw new HttpResponseException { Status = 400, Value = "Most nem indíthatod el ezt a fejlesztést!" };
             }
         }
     }

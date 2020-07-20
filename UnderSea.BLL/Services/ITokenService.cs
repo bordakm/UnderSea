@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using UnderSea.DAL.Models;
 
-namespace UnderSea.API
+namespace UnderSea.BLL.Services
 {
     public interface ITokenService
     {

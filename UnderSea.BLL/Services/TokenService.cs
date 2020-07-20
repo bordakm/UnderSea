@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
 using Microsoft.Extensions.Configuration;
-using Microsoft.EntityFrameworkCore;
 
-namespace UnderSea.API
+namespace UnderSea.BLL.Services
 {
     public class TokenService : ITokenService
     {

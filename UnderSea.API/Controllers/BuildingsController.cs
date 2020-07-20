@@ -16,12 +16,10 @@ namespace UnderSea.API.Controllers
     public class BuildingsController : ControllerBase
     {
         private readonly IBuildingsService buildingsService;
-        private readonly ILogger logger;
 
-        public BuildingsController(IBuildingsService buildingsService, ILogger<BuildingsController> logger)
+        public BuildingsController(IBuildingsService buildingsService)
         {
             this.buildingsService = buildingsService;
-            this.logger = logger;
         }
 
         [HttpGet]

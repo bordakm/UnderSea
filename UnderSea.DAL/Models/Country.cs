@@ -10,7 +10,7 @@ namespace UnderSea.DAL.Models
 {
     public class Country
     {
-        private readonly int taxRate = 25;
+        private readonly int taxPerPerson = 25;
         public int Id { get; set; }
         public string Name { get; set; }
         [ForeignKey("BuildingGroup")]
@@ -32,7 +32,7 @@ namespace UnderSea.DAL.Models
         public int Score { get; set; }
         public List<Upgrade> Upgrades { get; set; }
         [NotMapped]
-        public int PearlProduction => Population * taxRate;
+        public int PearlProduction => Population * taxPerPerson * (1 + (Upgrades.Sum(upgrades => upgrades.Type.TaxBonusPercentage) / 100));
         [NotMapped]
         public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus * building.Count);
         [NotMapped]
@@ -52,12 +52,7 @@ namespace UnderSea.DAL.Models
 
         public void AddCoral()
         {
-            int producedCoral = 0;
-            BuildingGroup.Buildings.ForEach(building =>
-            {
-                producedCoral += building.CoralBonusTotal;
-            });            
-            Coral += producedCoral;
+            Coral += CoralProduction;
         }
 
         public Dictionary<int, int> FeedUnits()
@@ -97,7 +92,7 @@ namespace UnderSea.DAL.Models
             Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
             foreach (Unit unit in AttackingArmy.Units)
             {
-                unitsToRemove.Add(unit.Id, 0);
+                unitsToRemove.Add(unit.Type.Id, 0);
             }
             bool stop = false;
             while (!stop)
@@ -131,7 +126,7 @@ namespace UnderSea.DAL.Models
                 {
                     if (unit.Count > 0)
                     {
-                        unitsToRemove[unit.Id]++;
+                        unitsToRemove[unit.Type.Id]++;
                         unit.Count--;
                         switch (fireReason)
                         {
