@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using UnderSea.BLL.DTO;
 using UnderSea.BLL.Services;
 using UnderSea.BLL.ViewModels;
 
@@ -29,10 +30,10 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpPost("research")]
-        public async Task<UpgradeViewModel> Research([FromBody] int id)
+        public async Task<UpgradeViewModel> Research([FromBody] IdDTO id)
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await upgradesService.ResearchByIdAsync(userId, id);
+            return await upgradesService.ResearchByIdAsync(userId, id.Id);
         }
     }
 }
