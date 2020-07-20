@@ -8,6 +8,6 @@ namespace UnderSea.BLL.Services
     public interface IUserService
     {
         Task<User> CreateUserAsync(RegisterDTO registerData);
-        Task<ProfileViewModel> GetProfile(int userId);
+        Task<ProfileViewModel> GetProfileAsync(int userId);
     }
 }

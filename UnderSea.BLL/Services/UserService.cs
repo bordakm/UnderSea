@@ -87,7 +87,7 @@ namespace UnderSea.BLL.Services
             return user;
         }
 
-        public async Task<ProfileViewModel> GetProfile(int userId)
+        public async Task<ProfileViewModel> GetProfileAsync(int userId)
         {
             var user = await db.Users.Include(user => user.Country)
                 .SingleAsync(user => user.Id == userId);
