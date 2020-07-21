@@ -49,7 +49,7 @@ extension Main {
                         
                         Button(action: {
                             //ToDo: push to rank page
-                            print("push to rank page")
+                            RootPageManager.shared.leaderboardVisible = true
                         }){
                             Text(viewModel.mainPageModel?.roundAndRank ?? "...")
                                 .font(Fonts.get(.bRegular))

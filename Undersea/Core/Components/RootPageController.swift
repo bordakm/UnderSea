@@ -12,12 +12,17 @@ struct RootPageController: View {
     
     @ObservedObject var observedPages = RootPageManager.shared
     
-    private let tabs: [CustomTabItem] = [
-        CustomTabItem(view: AnyView(Main.setup()), title: "Kezdőlap", imageName: "main"),
-        CustomTabItem(view: AnyView(City.setup()), title: "Városom", imageName: "city"),
-        CustomTabItem(view: AnyView(Attack.setup()), title: "Támadás", imageName: "attack"),
-        CustomTabItem(view: AnyView(Teams.setup()), title: "Csapataim", imageName: "teams")
-    ]
+    private let tabs: [CustomTabItem] = [CustomTabItem(page: .main), CustomTabItem(page: .city),
+                                         CustomTabItem(page: .attack), CustomTabItem(page: .units)]
+    
+    var tabBar: some View {
+        
+        CustomTabBar(tabItems: tabs, selected: $observedPages.currentSubPage)
+            .sheet(isPresented: $observedPages.leaderboardVisible) {
+                Leaderboard.setup()
+        }
+        
+    }
     
     var body: some View {
         switch observedPages.currentPage {
@@ -26,7 +31,7 @@ struct RootPageController: View {
         case .register:
             return AnyView(Register.setup())
         case .main:
-            return AnyView(CustomTabBar(tabItems: tabs))
+            return AnyView(tabBar)
         }
     }
 }
