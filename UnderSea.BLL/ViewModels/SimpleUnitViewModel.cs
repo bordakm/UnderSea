@@ -4,5 +4,6 @@
     {
         public int TypeId { get; set; }
         public int Count { get; set; }
+        public int Level { get; set; }
     }
 }

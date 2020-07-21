@@ -43,21 +43,42 @@ namespace UnderSea.BLL.Services
                 .SingleAsync(c => c.UserId == attack.DefenderUserId);
             var defendingUser = defendingCountry.User;
 
-            var sentUnits = new List<Unit>();
-            var newUnitGroup = new UnitGroup();
-            db.UnitGroups.Add(newUnitGroup);
+            var tranferList = new List<Unit>();
+
             await db.SaveChangesAsync();
 
             foreach (var sendUnit in attack.AttackingUnits)
             {
-                int ownedCount = attackingUser.Country.DefendingArmy.Units.Count(u => u.Type.Id == sendUnit.Id && u.Level == sendUnit.Level);
+                int ownedCount = attackingUser.Country.DefendingArmy.Units
+                    .Count(u => u.Type.Id == sendUnit.Id && u.Level == sendUnit.Level);
                 if (sendUnit.SendCount > ownedCount)
                     throw new HttpResponseException { Status = 400, Value = "Nem küldhetsz több egységet, mint amennyid van!" };
                 else
-                {                        
-                    attackingUser.Country.AttackingArmy.Units.Count(u => u.Type == type) += sendUnit.SendCount;
-                    attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendUnit.SendCount;
-                    sentUnits.Add(new Unit() { Count = sendUnit.SendCount, Type = type, UnitGroupId = newUnitGroup.Id });
+                {
+                    //Összeszedjük a kívánt egységeket a defending armyból
+                    foreach (var oneAttack in attack.AttackingUnits)
+                    {
+                        foreach (var defender in attackingUser.Country.DefendingArmy.Units)
+                        {
+                            if(defender.Type.Id == oneAttack.Id && defender.Level == oneAttack.Level)
+                            {
+                                oneAttack.SendCount--;
+                                tranferList.Add(defender);
+                            }
+
+                            if (oneAttack.SendCount <= 0)
+                                break;
+                        }
+                    }
+
+                    // levonjuk az egységeket a defending armyból
+                    // ÉS hozzáadjuk az attacking armyhoz
+                    foreach (var item in tranferList)
+                    {
+                        attackingUser.Country.DefendingArmy.Units.Remove(item);
+                        attackingUser.Country.AttackingArmy.Units.Add(item);
+                    }
+
                 }
             }
 
@@ -68,10 +89,39 @@ namespace UnderSea.BLL.Services
                 DefenderUserId = defendingUser.Id,
                 DefenderUser = defendingUser,
                 GameId = game.Id,
-                UnitList = sentUnits
+                UnitList = tranferList
             });
             await db.SaveChangesAsync();
-            return mapper.Map<IEnumerable<SimpleUnitViewModel>>(sentUnits);
+
+            List<SimpleUnitViewModel> result = new List<SimpleUnitViewModel>();
+            var found = false;
+            foreach (var unit in tranferList)
+            {
+                found = false;
+
+                foreach (var unitvm in result)
+                {
+                    if (unitvm.TypeId == unit.Type.Id && unitvm.Level == unit.Level)
+                    {
+                        unitvm.Count++;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    result.Add(new SimpleUnitViewModel()
+                    {
+                        Count = 1,
+                        Level = unit.Level,
+                        TypeId = unit.Type.Id                        
+                    });
+                }
+
+            }
+
+            return result;
         }
 
         public async Task<IEnumerable<SimpleUnitViewModel>> BuyUnitsAsync(int userId, List<UnitPurchaseDTO> purchases)
@@ -108,7 +158,20 @@ namespace UnderSea.BLL.Services
                 throw new HttpResponseException { Status = 400, Value = "Nincs eléd gyöngyöd!" };
             }
             user.Country.Pearl -= priceTotal;
-            purchases.ForEach(pur => defendingUnits.Single(units => units.Type.Id == pur.TypeId).Count += pur.Count);
+
+            foreach (var purUnit in purchases)
+            {
+                for(int i = 0; i<purUnit.Count; i++)
+                {
+                    defendingUnits.Add(new Unit
+                    {
+                        BattlesSurvived = 0,
+                        TypeId = purUnit.TypeId,
+                        //??? UnitGroup ???
+                    });
+                }
+            }
+
             await db.SaveChangesAsync();
             return mapper.Map<List<UnitPurchaseDTO>, IEnumerable<SimpleUnitViewModel>>(purchases);
         }

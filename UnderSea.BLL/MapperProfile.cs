@@ -15,7 +15,7 @@ namespace UnderSea.BLL
     {
         public MapperProfile()
         {
-            CreateMap<Unit, SimpleUnitViewModel>();
+            //CreateMap<IEnumerable<Unit>, SimpleUnitViewModel>();
             CreateMap<Unit, SimpleUnitWithNameViewModel>()
                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name));
             CreateMap<Building, BuildingInfoViewModel>()

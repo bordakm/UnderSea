@@ -109,6 +109,7 @@ namespace UnderSea.BLL.Services
 
             MainPageViewModel response = new MainPageViewModel()
             {
+                UserName = user.UserName,
                 CountryName = user.Country.Name,
                 StatusBar = new StatusBarViewModel
                 {

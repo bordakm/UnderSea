@@ -10,6 +10,7 @@ namespace UnderSea.BLL.ViewModels
     {
         public StatusBarViewModel StatusBar { get; set; }
         public string CountryName { get; set; }
+        public string UserName { get; set; }
         public StructuresViewModel Structures { get; set; }
     }
 }
