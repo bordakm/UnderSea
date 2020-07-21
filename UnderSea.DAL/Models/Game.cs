@@ -36,7 +36,7 @@ namespace UnderSea.DAL.Models
                 //calculationg defender base score
                 foreach (var unit in defUserCountry.DefendingArmy.Units)
                 {
-                    defenderScore += unit.Type.DefenseScore;
+                    defenderScore += unit.DefenseScore;
                 }
 
                 //calculating defender modifier
@@ -50,7 +50,7 @@ namespace UnderSea.DAL.Models
                 //calculating attacker base score
                 foreach (var unit in attack.UnitList)
                 {
-                    attackerScore += unit.Type.AttackScore;
+                    attackerScore += unit.AttackScore;
                 }
 
                 //calculating attacker modifier

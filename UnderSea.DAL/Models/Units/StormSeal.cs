@@ -11,8 +11,6 @@ namespace UnderSea.DAL.Models.Units
             Name = "Rohamfóka";
             ImageUrl = "majd/lesz/kep.jpeg";
             Price = 50;
-            AttackScore = 6.0;
-            DefenseScore = 2.0;
             PearlCostPerTurn = 1;
             CoralCostPerTurn = 1;
             Score = 5;

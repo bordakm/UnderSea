@@ -30,10 +30,10 @@ namespace UnderSea.BLL
                         .ForMember(dest => dest.AvailableCount, opt => opt.MapFrom(src => src.Count))
                         .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Type.Id));
             CreateMap<Unit, UnitViewModel>()                                            
-                        .ForMember(dest => dest.AttackScore, opt => opt.MapFrom(src => src.Type.AttackScore))                                           
+                        .ForMember(dest => dest.AttackScore, opt => opt.MapFrom(src => src.AttackScore))                                           
                         .ForMember(dest => dest.CoralCostPerTurn, opt => opt.MapFrom(src => src.Type.CoralCostPerTurn))                                           
                         .ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.Count))                                           
-                        .ForMember(dest => dest.DefenseScore, opt => opt.MapFrom(src => src.Type.DefenseScore))                                           
+                        .ForMember(dest => dest.DefenseScore, opt => opt.MapFrom(src => src.DefenseScore))                                           
                         .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))                                           
                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))                                           
                         .ForMember(dest => dest.PearlCostPerTurn, opt => opt.MapFrom(src => src.Type.PearlCostPerTurn))                                           
