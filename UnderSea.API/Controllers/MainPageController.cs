@@ -37,12 +37,12 @@ namespace UnderSea.API.Controllers
             await gameService.NewRoundAsync(rounds);
         }
 
-        [HttpGet("/profile")]
+        [HttpGet("profile")]
         [Authorize]
         public async Task<ProfileViewModel> GetProfile()
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await userService.GetProfile(userId);
+            return await userService.GetProfileAsync(userId);
         }
     }
 }
