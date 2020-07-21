@@ -12,6 +12,7 @@ namespace UnderSea.BLL.Services
         Task<MainPageViewModel> GetMainPageAsync(int userId);
         Task NewRoundAsync(int rounds);
         Task<IEnumerable<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search);
+        Task<IEnumerable<ScoreboardViewModel>> SearchTargetsAsync(SearchDTO search, int userId);
         Task CalculateRankingsAsync();
     }
 }

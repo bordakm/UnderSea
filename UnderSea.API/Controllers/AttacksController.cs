@@ -42,7 +42,8 @@ namespace UnderSea.API.Controllers
         public async Task<IEnumerable<ScoreboardViewModel>> SearchTargets([FromQuery] SearchDTO search)
         {
             // ha egy usernek több countryja lesz, itt majd ScoreboardViewModel helyett olyat kell odaadni ami country nevet ad, nem usert
-            return await gameService.SearchScoreboardAsync(search);
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return await gameService.SearchTargetsAsync(search, userId);
         }
 
         [HttpGet("getunits")]

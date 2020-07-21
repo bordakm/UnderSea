@@ -120,7 +120,20 @@ namespace UnderSea.BLL.Services
             int pageNum = search.Page ?? 1;
             string searchWord = search.SearchPhrase ?? "";
             var users = await db.Users
-                               .Where(users => searchWord.ToUpper().Contains(searchWord.ToUpper()))
+                               .Where(user => user.UserName.ToUpper().Contains(searchWord.ToUpper()))
+                               .Skip(perPage * (pageNum - 1))
+                               .Take(perPage)
+                               .ToListAsync();
+            return mapper.Map<IEnumerable<ScoreboardViewModel>>(users);
+        }
+
+        public async Task<IEnumerable<ScoreboardViewModel>> SearchTargetsAsync(SearchDTO search, int userId)
+        {
+            int perPage = search.ItemPerPage ?? 10;
+            int pageNum = search.Page ?? 1;
+            string searchWord = search.SearchPhrase ?? "";
+            var users = await db.Users
+                               .Where(user => user.UserName.ToUpper().Contains(searchWord.ToUpper()) && user.Id != userId)
                                .Skip(perPage * (pageNum - 1))
                                .Take(perPage)
                                .ToListAsync();
