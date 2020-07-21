@@ -9,7 +9,7 @@ namespace UnderSea.DAL.Models.Units
         public CombatSeaHorse()
         {
             Name = "Csatacsikó";
-            ImageUrl = "images/units/seahorse.png";
+            ImageUrl = "/images/units/seahorse.png";
             Price = 50;
             AttackScore = 2.0;
             DefenseScore = 6.0;
