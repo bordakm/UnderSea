@@ -15,6 +15,20 @@ namespace UnderSea.DAL.Models.Units
         public string ImageUrl { get; set; }
         public int Score { get; set; }
         public List<UnitLevel> Levels { get; set; }
+        public int GetLevel (int battlesSurvived)
+        {
+            var levels = Levels.OrderBy(level => level.BattlesNeeded)
+                .Reverse();
+
+            foreach (var level in levels)
+            {
+                if (level.BattlesNeeded <= battlesSurvived)
+                {
+                    return level.Level;
+                }
+            }
+            return levels.Last().Level;
+        }
 
         public double GetAttackScore(int battlesSurvived)
         {

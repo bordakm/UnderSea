@@ -50,13 +50,14 @@ namespace UnderSea.BLL.Services
 
             foreach (var sendUnit in attack.AttackingUnits)
             {
-                UnitType type = unitTypes.Single(ut => ut.Id == sendUnit.Id);
-                int ownedCount = attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count;
+                int ownedCount = attackingUser.Country.DefendingArmy.Units.Count(u => u.Type.Id == sendUnit.Id && u.Level == sendUnit.Level);
                 if (sendUnit.SendCount > ownedCount)
                     throw new HttpResponseException { Status = 400, Value = "Nem küldhetsz több egységet, mint amennyid van!" };
                 else
                 {
-                    attackingUser.Country.AttackingArmy.Units.Single(u => u.Type == type).Count += sendUnit.SendCount;
+                    attackingUser.Country.AttackingArmy.Units.Add();
+                        
+                    attackingUser.Country.AttackingArmy.Units.Count(u => u.Type == type) += sendUnit.SendCount;
                     attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendUnit.SendCount;
                     sentUnits.Add(new Unit() { Count = sendUnit.SendCount, Type = type, UnitGroupId = newUnitGroup.Id });
                 }
@@ -124,7 +125,37 @@ namespace UnderSea.BLL.Services
                                .SingleAsync(user => user.Id == userId);
 
             var units = user.Country.DefendingArmy.Units;
-            return mapper.Map<IEnumerable<Unit>, IEnumerable<AvailableUnitViewModel>>(units);
+            List<AvailableUnitViewModel> result = new List<AvailableUnitViewModel>();
+            var found = false;
+            foreach (var unit in units)
+            {
+                found = false;
+
+                foreach (var unitvm in result)
+                {
+                    if (unitvm.Id == unit.Type.Id && unitvm.Level == unit.Level)
+                    {
+                        unitvm.AvailableCount++;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    result.Add(new AvailableUnitViewModel()
+                    {
+                        AvailableCount = 1,
+                        Id = unit.Id,
+                        ImageUrl = unit.Type.ImageUrl,
+                        Level = unit.Level,
+                        Name = unit.Type.Name
+                    });
+                }
+                    
+            }
+            
+            return result;
         }
 
         public async Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacksAsync(int userId)
@@ -155,7 +186,42 @@ namespace UnderSea.BLL.Services
         {
             var country = await db.Countries.SingleAsync(c => c.UserId == userId);
             var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId).Include(u => u.Type);
-            return mapper.Map<IEnumerable<Unit>, IEnumerable<UnitViewModel>>(units);
+
+            List<UnitViewModel> result = new List<UnitViewModel>();
+            var found = false;
+            foreach (var unit in units)
+            {
+                found = false;
+
+                foreach (var unitvm in result)
+                {
+                    if (unitvm.Id == unit.Type.Id)
+                    {
+                        unitvm.Count++;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    result.Add(new UnitViewModel()
+                    {
+                        Id = unit.Id,
+                        Name = unit.Type.Name,
+                        Count = 1,
+                        ImageUrl = unit.Type.ImageUrl,
+                        AttackScore = unit.AttackScore,
+                        DefenseScore = unit.DefenseScore,
+                        CoralCostPerTurn = unit.Type.CoralCostPerTurn,
+                        PearlCostPerTurn = unit.Type.PearlCostPerTurn,
+                        Price = unit.Type.Price
+                    });
+                }
+
+            }
+
+            return result;
         }
     }
 }

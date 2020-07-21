@@ -83,37 +83,53 @@ namespace UnderSea.DAL.Models
 
 
                     //levonjuk az egységeket az attacking armyból
-                    foreach (var unit in attack.UnitList)
+                    for(int i = attUserCountry.AttackingArmy.Units.Count(); i>0; i--)
                     {
-                        foreach (var attackingUnit in attUserCountry.AttackingArmy.Units)
+                        foreach(var unit in attack.UnitList)
                         {
-                            if (unit.Type.Id == attackingUnit.Type.Id)
-                                attackingUnit.Count -= unit.Count;
+                            if (attUserCountry.AttackingArmy.Units[i].Type.Id == unit.Type.Id
+                                && attUserCountry.AttackingArmy.Units[i].BattlesSurvived == unit.BattlesSurvived)
+                            {
+                                attUserCountry.AttackingArmy.Units.RemoveAt(i); 
+                            }
+                               
                         }
+                    }
+
+                    //adding +1 battle in defCountry
+                    foreach (var unit in defUserCountry.DefendingArmy.Units)
+                    {
+                        unit.BattlesSurvived++;
+                    }
+
+                    //adding +1 battle in attCountry
+                    foreach (var unit in attUserCountry.DefendingArmy.Units)
+                    {
+                        unit.BattlesSurvived++;
                     }
 
                 }
+
+                //if the attacker wins
                 else if (attackerScore > defenderScore)
                 {
                     //levonjuk az egységeket az attacking armyból
-                    foreach (var unit in attack.UnitList)
+                    for (int i = attUserCountry.AttackingArmy.Units.Count(); i > 0; i--)
                     {
-                        foreach (var attackingUnit in attUserCountry.AttackingArmy.Units)
+                        foreach (var unit in attack.UnitList)
                         {
-                            if (unit.Type.Id == attackingUnit.Type.Id)
-                                attackingUnit.Count -= unit.Count;
+                            if (attUserCountry.AttackingArmy.Units[i].Type.Id == unit.Type.Id
+                                && attUserCountry.AttackingArmy.Units[i].BattlesSurvived == unit.BattlesSurvived)
+                            {
+                                attUserCountry.AttackingArmy.Units.RemoveAt(i);
+                            }
+
                         }
                     }
 
-                    //hozzáadjuk a defender armyhoz
-                    foreach (var unit in attack.UnitList)
-                    {
-                        foreach (var defendingunit in attUserCountry.DefendingArmy.Units)
-                        {
-                            if (unit.Type.Id == defendingunit.Type.Id)
-                                defendingunit.Count += unit.Count;
-                        }
-                    }
+                    //hozzáadjuk az attacker defender armyjához
+                    attUserCountry.DefendingArmy.Units.AddRange(attack.UnitList);
+                    
 
                     //CR Ready
                     //csökkentjük a deffender armyját 10%al
@@ -122,6 +138,18 @@ namespace UnderSea.DAL.Models
                     for(int i = 0; i< unitCount - newCount; i++)
                     {
                         defUserCountry.DefendingArmy.Units.RemoveAt(rand.Next(0, unitCount-i));
+                    }
+
+                    //adding +1 battle in defCountry
+                    foreach (var unit in defUserCountry.DefendingArmy.Units)
+                    {
+                        unit.BattlesSurvived++;
+                    }
+
+                    //adding +1 battle in attCountry
+                    foreach (var unit in attUserCountry.DefendingArmy.Units)
+                    {
+                        unit.BattlesSurvived++;
                     }
 
                     //nyereség jóváírása

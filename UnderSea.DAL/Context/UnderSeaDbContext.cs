@@ -94,84 +94,75 @@ namespace UnderSea.DAL.Context
             {
                 Id = 1,
                 UnitGroupId = 1,
-                Count = 0,
-                TypeId = 1
+                TypeId = 1,
+                BattlesSurvived = 0,
+                  
             };
             var unit2 = new Unit
             {
                 Id = 2,
                 UnitGroupId = 1,
-                Count = 0,
                 TypeId = 2
+
             };
             var unit3 = new Unit
             {
                 Id = 3,
                 UnitGroupId = 1,
-                Count = 0,
                 TypeId = 3
             };
             var unit4 = new Unit
             {
                 Id = 4,
                 UnitGroupId = 2,
-                Count = 20,
                 TypeId = 1
             };
             var unit5 = new Unit
             {
                 Id = 5,
                 UnitGroupId = 2,
-                Count = 20,
                 TypeId = 2
             };
             var unit6 = new Unit
             {
                 Id = 6,
                 UnitGroupId = 2,
-                Count = 20,
                 TypeId = 3
             };
             var unit7 = new Unit
             {
                 Id = 7,
                 UnitGroupId = 3,
-                Count = 0,
                 TypeId = 1
             };
             var unit8 = new Unit
             {
                 Id = 8,
                 UnitGroupId = 3,
-                Count = 0,
                 TypeId = 2
             };
             var unit9 = new Unit
             {
                 Id = 9,
                 UnitGroupId = 3,
-                Count = 0,
                 TypeId = 3
             };
             var unit10 = new Unit
             {
                 Id = 10,
                 UnitGroupId = 4,
-                Count = 10,
                 TypeId = 1
             };
             var unit11 = new Unit
             {
                 Id = 11,
                 UnitGroupId = 4,
-                Count = 20,
                 TypeId = 2
             };
             var unit12 = new Unit
             {
                 Id = 12,
                 UnitGroupId = 4,
-                Count = 40,
                 TypeId = 3
             };
 

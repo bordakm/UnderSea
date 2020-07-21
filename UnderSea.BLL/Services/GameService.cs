@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Upgrades;
 using UnderSea.BLL.Hubs;
 using UnderSea.DAL.Models.Units;
+using AutoMapper;
 
 namespace UnderSea.BLL.Services
 {
@@ -57,6 +57,66 @@ namespace UnderSea.BLL.Services
                 }
             }
 
+            List<AvailableUnitViewModel> availableUnits = new List<AvailableUnitViewModel>();
+            var found = false;
+            foreach (var unit in user.Country.DefendingArmy.Units)
+            {
+                found = false;
+
+                foreach (var unitvm in availableUnits)
+                {
+                    if (unitvm.Id == unit.Type.Id)
+                    {
+                        unitvm.AvailableCount++;
+                        unitvm.AllCount++;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    availableUnits.Add(new AvailableUnitViewModel()
+                    {
+                        AvailableCount = 1,
+                        AllCount = 1,
+                        Id = unit.Type.Id,
+                        ImageUrl = unit.Type.ImageUrl,
+                        Name = unit.Type.Name
+                    });
+                }
+
+            }
+
+            foreach (var unit in user.Country.AttackingArmy.Units)
+            {
+                found = false;
+
+                foreach (var unitvm in availableUnits)
+                {
+                    if (unitvm.Id == unit.Type.Id)
+                    {
+                        unitvm.AvailableCount++;
+                        unitvm.AllCount++;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    availableUnits.Add(new AvailableUnitViewModel()
+                    {
+                        AvailableCount = 1,
+                        AllCount = 1,
+                        Id = unit.Type.Id,
+                        ImageUrl = unit.Type.ImageUrl,
+                        Name = unit.Type.Name
+                    });
+                }
+
+            }
+
             MainPageViewModel response = new MainPageViewModel()
             {
                 CountryName = user.Country.Name,
@@ -65,8 +125,7 @@ namespace UnderSea.BLL.Services
                     Buildings = mapper.Map<IEnumerable<StatusBarViewModel.StatusBarBuilding>>(user.Country.BuildingGroup.Buildings),
                     RoundCount = game.Round,
                     ScoreboardPosition = user.Place,
-                    AvailableUnits = mapper.Map<IEnumerable<AvailableUnitViewModel>>(user.Country.DefendingArmy.Units),
-                    AllUnits = mapper.Map<IEnumerable<AvailableUnitViewModel>>(allUnits),
+                    Units = availableUnits,
                     Resources = new StatusBarViewModel.StatusBarResource()
                     {
                         CoralCount = user.Country.Coral,
