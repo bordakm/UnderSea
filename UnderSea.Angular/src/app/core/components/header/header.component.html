@@ -1,7 +1,7 @@
 <div class="flex-box">
     <mat-card class="flex-card">
         <div class="flex-box">
-            <mat-card-content>
+            <mat-card-content (click)="newRound()" style="cursor: pointer">
                 <div class="header-text">{{ layout.everything.statusBar.roundCount }} . kör</div>
             </mat-card-content>
 
@@ -12,7 +12,7 @@
 
         <div class="flex-box">
             <div style="display: flex; flex-direction: row; align-items: center;"
-                *ngFor="let unit of everything.statusBar.units">
+                *ngFor="let unit of everything.statusBar.availableUnits">
                 <mat-card-content>
                     <div class="rectangle">
                         <img [src]="unit.imageUrl" alt="">
