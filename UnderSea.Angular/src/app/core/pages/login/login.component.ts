@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { tap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
 
-  constructor(private router: Router, public http: HttpClient, private authService: AuthService) { }
+  constructor(private router: Router, public http: HttpClient, private authService: AuthService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -74,6 +75,10 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', res.accessToken);
           this.reg = false;
         }
+        this.snackbar.open('Sikeres regisztráció', 'Bezár', {
+          duration: 3000,
+          panelClass: ['my-snackbar'],
+        });
       })
     ).subscribe();
   }

@@ -11,10 +11,14 @@ import { ApiClient, UnitViewModel, MainPageClient, MainPageViewModel } from '../
 })
 export class LayoutService {
 
-  constructor(private http: HttpClient, private client: ApiClient) { }
+  constructor(private http: HttpClient, private client: ApiClient, private clientm: MainPageClient) { }
 
   getEverything(): Observable<MainPageViewModel>{
     return this.client.mainPage();
+  }
+
+  newRound(): Observable<any>{
+    return this.clientm.newround(1);
   }
 
 }

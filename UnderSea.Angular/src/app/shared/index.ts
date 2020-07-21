@@ -933,7 +933,7 @@ export interface IBuildingsClient {
      * @param body (optional) 
      * @return Success
      */
-    purchase(body: number | undefined): Observable<BuildingInfoViewModel>;
+    purchase(body: IdDTO | undefined): Observable<BuildingInfoViewModel>;
 }
 
 @Injectable({
@@ -953,7 +953,7 @@ export class BuildingsClient implements IBuildingsClient {
      * @param body (optional) 
      * @return Success
      */
-    purchase(body: number | undefined): Observable<BuildingInfoViewModel> {
+    purchase(body: IdDTO | undefined): Observable<BuildingInfoViewModel> {
         let url_ = this.baseUrl + "/api/Buildings/purchase";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1080,12 +1080,84 @@ export class MainPageClient implements IMainPageClient {
     }
 }
 
+export interface IClient {
+    /**
+     * @return Success
+     */
+    profile(): Observable<ProfileViewModel>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class Client implements IClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    profile(): Observable<ProfileViewModel> {
+        let url_ = this.baseUrl + "/profile";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processProfile(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processProfile(<any>response_);
+                } catch (e) {
+                    return <Observable<ProfileViewModel>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProfileViewModel>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processProfile(response: HttpResponseBase): Observable<ProfileViewModel> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ProfileViewModel.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProfileViewModel>(<any>null);
+    }
+}
+
 export interface IUpgradesClient {
     /**
      * @param body (optional) 
      * @return Success
      */
-    research(body: number | undefined): Observable<UpgradeViewModel>;
+    research(body: IdDTO | undefined): Observable<UpgradeViewModel>;
 }
 
 @Injectable({
@@ -1105,7 +1177,7 @@ export class UpgradesClient implements IUpgradesClient {
      * @param body (optional) 
      * @return Success
      */
-    research(body: number | undefined): Observable<UpgradeViewModel> {
+    research(body: IdDTO | undefined): Observable<UpgradeViewModel> {
         let url_ = this.baseUrl + "/api/Upgrades/research";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1690,6 +1762,42 @@ export interface IBuildingInfoViewModel {
     remainingRounds?: number;
 }
 
+export class IdDTO implements IIdDTO {
+    id?: number;
+
+    constructor(data?: IIdDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): IdDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new IdDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IIdDTO {
+    id?: number;
+}
+
 export class StatusBarBuilding implements IStatusBarBuilding {
     typeId?: number;
     imageUrl?: string | undefined;
@@ -1799,7 +1907,8 @@ export interface IStatusBarResource {
 }
 
 export class StatusBarViewModel implements IStatusBarViewModel {
-    units?: AvailableUnitViewModel[] | undefined;
+    availableUnits?: AvailableUnitViewModel[] | undefined;
+    allUnits?: AvailableUnitViewModel[] | undefined;
     buildings?: StatusBarBuilding[] | undefined;
     roundCount?: number;
     scoreboardPosition?: number;
@@ -1816,10 +1925,15 @@ export class StatusBarViewModel implements IStatusBarViewModel {
 
     init(_data?: any) {
         if (_data) {
-            if (Array.isArray(_data["units"])) {
-                this.units = [] as any;
-                for (let item of _data["units"])
-                    this.units!.push(AvailableUnitViewModel.fromJS(item));
+            if (Array.isArray(_data["availableUnits"])) {
+                this.availableUnits = [] as any;
+                for (let item of _data["availableUnits"])
+                    this.availableUnits!.push(AvailableUnitViewModel.fromJS(item));
+            }
+            if (Array.isArray(_data["allUnits"])) {
+                this.allUnits = [] as any;
+                for (let item of _data["allUnits"])
+                    this.allUnits!.push(AvailableUnitViewModel.fromJS(item));
             }
             if (Array.isArray(_data["buildings"])) {
                 this.buildings = [] as any;
@@ -1841,10 +1955,15 @@ export class StatusBarViewModel implements IStatusBarViewModel {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.units)) {
-            data["units"] = [];
-            for (let item of this.units)
-                data["units"].push(item.toJSON());
+        if (Array.isArray(this.availableUnits)) {
+            data["availableUnits"] = [];
+            for (let item of this.availableUnits)
+                data["availableUnits"].push(item.toJSON());
+        }
+        if (Array.isArray(this.allUnits)) {
+            data["allUnits"] = [];
+            for (let item of this.allUnits)
+                data["allUnits"].push(item.toJSON());
         }
         if (Array.isArray(this.buildings)) {
             data["buildings"] = [];
@@ -1859,7 +1978,8 @@ export class StatusBarViewModel implements IStatusBarViewModel {
 }
 
 export interface IStatusBarViewModel {
-    units?: AvailableUnitViewModel[] | undefined;
+    availableUnits?: AvailableUnitViewModel[] | undefined;
+    allUnits?: AvailableUnitViewModel[] | undefined;
     buildings?: StatusBarBuilding[] | undefined;
     roundCount?: number;
     scoreboardPosition?: number;
@@ -1972,6 +2092,46 @@ export interface IMainPageViewModel {
     statusBar?: StatusBarViewModel;
     countryName?: string | undefined;
     structures?: StructuresViewModel;
+}
+
+export class ProfileViewModel implements IProfileViewModel {
+    userName?: string | undefined;
+    countryName?: string | undefined;
+
+    constructor(data?: IProfileViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.userName = _data["userName"];
+            this.countryName = _data["countryName"];
+        }
+    }
+
+    static fromJS(data: any): ProfileViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProfileViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userName"] = this.userName;
+        data["countryName"] = this.countryName;
+        return data; 
+    }
+}
+
+export interface IProfileViewModel {
+    userName?: string | undefined;
+    countryName?: string | undefined;
 }
 
 export class UnitViewModel implements IUnitViewModel {
