@@ -36,7 +36,7 @@ extension Main {
         
         var userButton: some View {
             
-            NavigationLink(destination: ProfilePage()) {
+            NavigationLink(destination: Profile.setup()) {
                 SVGImage(svgPath: R.file.userImageSvg()!)
             }.frame(width: 30.0, height: 30.0)
             

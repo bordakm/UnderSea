@@ -9,20 +9,23 @@
 import SwiftUI
 
 struct ProfileCityCell: View {
+    
+    var cityName: String
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Varosom neve")
                 .foregroundColor(Color.white)
                 .font(Fonts.get(.osBold))
-            Text("Oceania")
+            Text(cityName)
                 .foregroundColor(Color.white)
                 .font(Fonts.get(.osRegular))
         }.padding(.vertical, 15.0)
     }
 }
 
-struct ProfileCityCell_Previews: PreviewProvider {
+/*struct ProfileCityCell_Previews: PreviewProvider {
     static var previews: some View {
         ProfileCityCell()
     }
-}
+}*/

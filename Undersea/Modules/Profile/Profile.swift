@@ -7,3 +7,27 @@
 //
 
 import Foundation
+
+struct Profile {
+    
+    typealias DataModelType = ProfilePageDTO
+    typealias ViewModelType = ViewModel
+    
+    static func setup() -> ProfilePage {
+        
+        let interactor = Interactor()
+        let presenter = Presenter()
+        
+        var view = ProfilePage(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
+        
+        interactor.setPresenter = { return presenter }
+        
+        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
+        
+        view.setInteractor = { return interactor }
+        
+        return view
+        
+    }
+    
+}

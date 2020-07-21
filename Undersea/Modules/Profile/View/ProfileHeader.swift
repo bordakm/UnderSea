@@ -9,11 +9,14 @@
 import SwiftUI
 
 struct ProfileHeader: View {
+    
+    var userName: String
+    
     var body: some View {
         VStack(alignment: .center) {
             SVGImage(svgPath: R.file.userImageSvg()!)
                 .frame(width: 90.0, height: 90.0, alignment: .center)
-            Text("username")
+            Text(userName)
                 .foregroundColor(Color.white)
                 .font(Fonts.get(.bRegular))
         }
@@ -22,8 +25,8 @@ struct ProfileHeader: View {
     }
 }
 
-struct ProfileHeader_Previews: PreviewProvider {
+/*struct ProfileHeader_Previews: PreviewProvider {
     static var previews: some View {
         ProfileHeader()
     }
-}
+}*/
