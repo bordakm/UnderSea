@@ -11,7 +11,7 @@ namespace UnderSea.DAL.Models.Units
         public int UnitGroupId { get; set; }
         [ForeignKey("UnitType")]
         public int TypeId { get; set; }
-        public UnitType Type { get; set; }
+        public virtual UnitType Type { get; set; }
         public int BattlesSurvived { get; set; }
         public int Level => Type.GetLevel(BattlesSurvived);
         public double AttackScore => Type.GetAttackScore(BattlesSurvived);

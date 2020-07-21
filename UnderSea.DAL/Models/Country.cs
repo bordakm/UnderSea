@@ -15,22 +15,22 @@ namespace UnderSea.DAL.Models
         public string Name { get; set; }
         [ForeignKey("BuildingGroup")]
         public int BuildingGroupId { get; set; }
-        public BuildingGroup BuildingGroup { get; set; }
+        public virtual BuildingGroup BuildingGroup { get; set; }
         [ForeignKey("UnitGroup")]
         public int AttackingArmyId { get; set; }
-        public UnitGroup AttackingArmy { get; set; }
+        public virtual UnitGroup AttackingArmy { get; set; }
         [ForeignKey("UnitGroup")]
         public int DefendingArmyId { get; set; }
-        public UnitGroup DefendingArmy { get; set; }
+        public virtual UnitGroup DefendingArmy { get; set; }
         public int Coral { get; set; }
         public int Pearl { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public int UpgradeTimeLeft { get; set; }
         public int BuildingTimeLeft { get; set; }
         public int Score { get; set; }
-        public List<Upgrade> Upgrades { get; set; }
+        public virtual List<Upgrade> Upgrades { get; set; }
         [NotMapped]
         public int PearlProduction => Population * taxPerPerson * (1 + (Upgrades.Sum(upgrades => upgrades.Type.TaxBonusPercentage) / 100));
         [NotMapped]

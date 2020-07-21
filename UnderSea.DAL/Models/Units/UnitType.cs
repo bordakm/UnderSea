@@ -14,7 +14,7 @@ namespace UnderSea.DAL.Models.Units
         public int CoralCostPerTurn { get; set; }
         public string ImageUrl { get; set; }
         public int Score { get; set; }
-        public List<UnitLevel> Levels { get; set; }
+        public virtual List<UnitLevel> Levels { get; set; }
         public int GetLevel (int battlesSurvived)
         {
             var levels = Levels.OrderBy(level => level.BattlesNeeded)
