@@ -8,6 +8,7 @@ import {MatButtonModule, MatButton} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {TableSearchComponent} from './components/table-search.component'
 import { HttpClientModule } from '@angular/common/http';
@@ -26,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatListModule,
     MatIconModule,
     HttpClientModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatCardModule,
@@ -37,6 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     TableSearchComponent,
     MatIconModule,
     HttpClientModule,
+    MatSnackBarModule,
   ]
 })
 export class SharedModule { }
