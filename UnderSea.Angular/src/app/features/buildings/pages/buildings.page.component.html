@@ -7,7 +7,7 @@
 
             <div class="flex-box">
                 <mat-card class="building-card-in-main-page" [class.color1]="isSelected === 'color1'"
-                    (click)="enableButton('color1')">
+                    (click)="enableButton('color1', buildings[0].id)">
                     <div class="img-container">
                         <img src='../../../../assets/images/undersea_game-07.png' alt=''>
                     </div>
@@ -22,7 +22,7 @@
 
                 </mat-card>
                 <mat-card class="building-card-in-main-page" [class.color2]="isSelected === 'color2'"
-                    (click)="enableButton('color2')">
+                    (click)="enableButton('color2', buildings[1].id)">
                     <div class="img-container">
                         <img src='../../../../assets/images/undersea_game-05.png' alt=''>
                     </div>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="button">
-                <button mat-flat-button [disabled]="!clicked" class="color-button">Megveszem</button>
+                <button mat-flat-button [disabled]="!clicked" class="color-button" (click)="buyBuilding()">Megveszem</button>
             </div>
         </mat-card-content>
     </mat-card>

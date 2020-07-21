@@ -5,26 +5,25 @@ import { map } from 'rxjs/operators';
 import { IBuildingsViewModel, ICatsViewModel } from '../models/buildings.model';
 import { IBuildingsDto, ICatsDto } from '../models/buildings.dto';
 
-import { BuildingsClient, ApiClient, IBuildingInfoViewModel } from '../../../shared/index';
+import { BuildingsClient, ApiClient, IBuildingInfoViewModel, IdDTO } from '../../../shared/index';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BuildingsService {
 
-  constructor(private http: HttpClient, private client: ApiClient) { }
+  constructor(private http: HttpClient, private client: ApiClient, private clientb: BuildingsClient) { }
 
-  getBuildings(): Observable<IBuildingsViewModel[]>{
-    return this.client.buildings().pipe(
-        map((dtos: IBuildingInfoViewModel[]): IBuildingsViewModel[] =>
-                 dtos.map(dto => ({
-                    name: dto.name,
-                    count: dto.count,
-                    price: dto.price,
-                    description: dto.description,
-                }))
-        )
+  getBuildings(): Observable<IBuildingInfoViewModel[]>{
+    return this.client.buildings();
+  }
+
+  buyBuilding(id: number): Observable<any>{
+    console.log(id);
+    const iddto: IdDTO = new IdDTO(
+      { id }
     );
+    return this.clientb.purchase(iddto);
   }
 
 

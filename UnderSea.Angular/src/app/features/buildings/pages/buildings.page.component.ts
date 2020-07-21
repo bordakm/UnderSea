@@ -3,6 +3,9 @@ import { IBuildingsViewModel, ICatsViewModel } from '../models/buildings.model';
 import { BuildingsService } from '../services/buildings.service';
 import { tap, catchError } from 'rxjs/operators';
 import { ICatsDto } from '../models/buildings.dto';
+import { IBuildingInfoViewModel } from 'src/app/shared';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-buildings-page',
@@ -13,28 +16,10 @@ export class BuildingsPageComponent implements OnInit {
 
   clicked = false;
   isSelected: string;
+  purchaseId: number;
+  buildings: IBuildingInfoViewModel[];
 
-  reefCastle: IBuildingsViewModel = {
-    name: 'Zátonyvár',
-    count: 1,
-    price: 45,
-  };
-
-  streamManager: IBuildingsViewModel = {
-    name: 'Áramlásirányító',
-    count: 0,
-    price: 35,
-  };
-
-  bossCat: ICatsViewModel = {
-    type: null,
-    text: null,
-    status: null,
-  };
-
-  buildings: IBuildingsViewModel[];
-
-  constructor(private service: BuildingsService) { }
+  constructor(private service: BuildingsService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.service.getBuildings().pipe(
@@ -44,9 +29,29 @@ export class BuildingsPageComponent implements OnInit {
 
   }
 
-  enableButton(value): void{
+  enableButton(value: string, id: number): void{
     this.isSelected = value;
+    this.purchaseId = id;
     this.clicked = true;
   }
 
+  buyBuilding(): void{
+    this.service.buyBuilding(this.purchaseId
+      ).pipe(
+        tap(res => {
+          this.snackbar.open('Sikeres vétel!', 'Bezár', {
+            duration: 3000,
+            panelClass: ['my-snackbar'],
+          });
+        }),
+        catchError(err => {
+          return of(this.snackbar.open('A művelet sikertelen', 'Bezár', {
+            duration: 3000,
+            panelClass: ['my-snackbar'],
+          }));
+        })
+      ).subscribe();
+  }
+
 }
+
