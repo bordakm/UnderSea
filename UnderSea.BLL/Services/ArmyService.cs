@@ -167,7 +167,7 @@ namespace UnderSea.BLL.Services
                     {
                         BattlesSurvived = 0,
                         TypeId = purUnit.TypeId,
-                        //??? UnitGroup ???
+                        UnitGroupId = user.Country.DefendingArmyId
                     });
                 }
             }
