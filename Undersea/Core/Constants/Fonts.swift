@@ -29,7 +29,7 @@ extension Fonts {
         case .osBold:
             selectedFont = Font.custom("OpenSans-Bold", size: size)
         case .bRegular:
-            selectedFont = Font.custom("Baloo-Regular", size: size)
+            selectedFont = Font.custom("Baloo2-Bold", size: size)
         }
         
         return selectedFont
