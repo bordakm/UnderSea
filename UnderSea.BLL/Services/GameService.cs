@@ -13,6 +13,7 @@ using UnderSea.DAL.Models.Upgrades;
 using UnderSea.BLL.Hubs;
 using UnderSea.DAL.Models.Units;
 using AutoMapper;
+using System;
 
 namespace UnderSea.BLL.Services
 {
@@ -45,17 +46,6 @@ namespace UnderSea.BLL.Services
                                 .ThenInclude(country => country.AttackingArmy)
                                 .ThenInclude(attackingArmy => attackingArmy.Units)
                                 .SingleAsync(user => user.Id == userId);
-
-            List<Unit> allUnits = new List<Unit>();
-            allUnits.AddRange(user.Country.DefendingArmy.Units);
-            foreach (var outerUnit in allUnits)
-            {
-                foreach (var innerUnit in user.Country.AttackingArmy.Units)
-                {
-                    if (outerUnit.Type.Id == innerUnit.Type.Id)
-                        outerUnit.Count += innerUnit.Count;
-                }
-            }
 
             List<AvailableUnitViewModel> availableUnits = new List<AvailableUnitViewModel>();
             var found = false;
@@ -292,6 +282,9 @@ namespace UnderSea.BLL.Services
                             .Include(user => user.Country.DefendingArmy)
                             .ThenInclude(da => da.Units)
                             .ThenInclude(units => units.Type);
+
+            Random rand = new Random();
+
             foreach (var user in users)
             {
                 var removeUnits = user.Country.FeedUnits();
@@ -303,11 +296,10 @@ namespace UnderSea.BLL.Services
                     {
                         foreach (int unitId in removeUnits.Keys)
                         {
-                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitId);
-                            if (unitToRemove.Count > 0 && removeUnits[unitId] > 0)
+                            if (removeUnits[unitId] > 0)
                             {
                                 removeUnits[unitId]--;
-                                unitToRemove.Count--;
+                                //remove one from the list "randomly"
                             }
                         }
                         stop = removeUnits.Values.All(count => count == 0);
