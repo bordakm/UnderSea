@@ -20,30 +20,30 @@ namespace UnderSea.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<TokensViewModel> Login([FromBody] LoginDTO loginData)
+        public Task<TokensViewModel> Login([FromBody] LoginDTO loginData)
         {
-            return await authService.Login(loginData);
+            return authService.Login(loginData);
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
+        public Task<TokensViewModel> Register([FromBody] RegisterDTO registerData)
         {
-            return await authService.Register(registerData);
+            return authService.Register(registerData);
         }
 
         [HttpPost("logout")]
         [Authorize]
-        public async Task Logout()
+        public Task Logout()
         {
-            await authService.Logout(User);
+            return authService.Logout(User);
         }
 
         [HttpPost("renew")]
         [AllowAnonymous]
-        public async Task<TokensViewModel> RenewToken([FromBody] RefreshTokenDTO tokenDTO)
+        public Task<TokensViewModel> RenewToken([FromBody] RefreshTokenDTO tokenDTO)
         {
-            return await authService.RenewToken(tokenDTO);
+            return authService.RenewToken(tokenDTO);
         }
     }
 }

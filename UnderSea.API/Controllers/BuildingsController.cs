@@ -24,19 +24,17 @@ namespace UnderSea.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<BuildingInfoViewModel>> GetBuildingInfos()
+        public Task<IEnumerable<BuildingInfoViewModel>> GetBuildingInfos()
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await buildingsService.GetBuildingInfosAsync(userId);
+            return buildingsService.GetBuildingInfosAsync(userId);
         }
 
         [HttpPost("purchase")]
-        public async Task<BuildingInfoViewModel> PurchaseBuilding([FromBody] IdDTO buildingId)
+        public Task<BuildingInfoViewModel> PurchaseBuilding([FromBody] IdDTO buildingId)
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            await buildingsService.PurchaseBuildingByIdAsync(userId, buildingId.Id);
-            var buildings = await GetBuildingInfos();
-            return buildings.Single(b => b.Id == buildingId.Id);
+            return buildingsService.PurchaseBuildingByIdAsync(userId, buildingId.Id);
         }
     }
 }

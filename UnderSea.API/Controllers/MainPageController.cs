@@ -25,24 +25,24 @@ namespace UnderSea.API.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<MainPageViewModel> GetMainPage()
+        public Task<MainPageViewModel> GetMainPage()
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await gameService.GetMainPageAsync(userId);
+            return gameService.GetMainPageAsync(userId);
         }
 
         [HttpPost("newround")]
-        public async Task NewRound([FromQuery] int rounds)
+        public Task NewRound([FromQuery] int rounds)
         {
-            await gameService.NewRoundAsync(rounds);
+            return gameService.NewRoundAsync(rounds);
         }
 
         [HttpGet("profile")]
         [Authorize]
-        public async Task<ProfileViewModel> GetProfile()
+        public Task<ProfileViewModel> GetProfile()
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await userService.GetProfileAsync(userId);
+            return userService.GetProfileAsync(userId);
         }
     }
 }
