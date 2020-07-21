@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IUnitViewModel } from '../models/army.model';
 import { UnitViewModel } from 'src/app/shared';
 
 @Component({
