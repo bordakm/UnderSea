@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IUnitViewModel } from '../models/army.model'
+import { IArmyViewModel } from '../models/army.model';
 
 import { UnitViewModel, ApiClient } from '../../../shared/index';
 
@@ -15,17 +15,24 @@ export class ArmyService {
 
   constructor(private http: HttpClient, private client: ApiClient) { }
 
-  getUnits(): Observable<IUnitViewModel[]>{
+  // getUnits(): Observable<UnitViewModel[]>{
+  //   return this.client.unitsGet();
+  // }
+
+  getUnits(): Observable<IArmyViewModel[]>{
     return this.client.unitsGet().pipe(
-        map((dtos: UnitViewModel[]): IUnitViewModel[] =>
+        map((dtos: UnitViewModel[]): IArmyViewModel[] =>
                  dtos.map(dto => ({
+                    id: dto.id,
                     name: dto.name,
-                    // count: dto.count,
+                    count: dto.count,
                     price: dto.price,
                     attackScore: dto.attackScore,
                     defenseScore: dto.defenseScore,
                     pearlCostPerTurn: dto.pearlCostPerTurn,
-                    coralCostPerTurn: dto.coralCostPerTurn
+                    coralCostPerTurn: dto.coralCostPerTurn,
+                    imageUrl: dto.imageUrl,
+                    purchaseCount: 0
                 }))
         )
     );

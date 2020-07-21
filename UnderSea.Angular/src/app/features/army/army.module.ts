@@ -3,6 +3,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { ArmyRoutingModule } from './army-routing.module';
 import { UnitComponent } from './components/unit.component';
 import { ArmyPageComponent } from './pages/army.page.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { ArmyPageComponent } from './pages/army.page.component';
     ArmyPageComponent,
   ],
   imports: [
+    CommonModule,
     SharedModule,
     ArmyRoutingModule,
   ],

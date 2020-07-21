@@ -4,13 +4,13 @@
             <h1 class="main-card-title">Sereg</h1>
             <h3>Kattints rá, amelyiket szeretnéd megvenni</h3>
 
-            <div class="flex-box">
-                <app-unit [unit]="unitsModel[0]" [buyNumber]="laserSharkModel.buyNumber" [image]="'../../../../../assets/images/007-shark.svg'"(clickDecrease)="deleteOneLasersharkFromCart()" (clickAdd)="addOneLasersharkToCart()"></app-unit>
-                <app-unit [unit]="unitsModel[1]" [buyNumber]="stormSealModel.buyNumber" [image]="'../../../../../assets/images/025-seal.svg'" (clickDecrease)="deleteOneStormsealFromCart()" (clickAdd)="addOneStormsealToCart()"></app-unit>
-                <app-unit [unit]="unitsModel[2]" [buyNumber]="combatSeaHorseModel.buyNumber" [image]="'../../../../../assets/images/013-seahorse.svg'" (clickDecrease)="deleteOneCombatSeahorseFromCart()" (clickAdd)="addOneCombatSeahorseToCart()"></app-unit>
-                
-                   
+            <div class="flex-box" >
+                <div *ngFor="let unitModel of unitsModel">
+                    <app-unit [unit]="unitModel" [buyNumber]=0 [image]="unitModel.imageUrl" (clickDecrease)="decrease(unitModel.id)" (clickAdd)="increase(unitModel.id)"></app-unit>  
+                </div>
+                    
             </div>
+
             <div class="divider">
                 <mat-divider class="my-divider"></mat-divider>
             </div>

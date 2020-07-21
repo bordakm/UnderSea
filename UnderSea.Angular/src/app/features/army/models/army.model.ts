@@ -1,11 +1,13 @@
-export interface IUnitViewModel {
+export interface IArmyViewModel {
+    id: number;
     name: string;
-    // count: number;
+    count: number;
     price: number;
     attackScore: number;
     defenseScore: number;
     pearlCostPerTurn: number;
     coralCostPerTurn: number;
-    buyNumber?: number;
+    imageUrl: string;
+    purchaseCount?: number;
 }
 
