@@ -98,8 +98,6 @@ namespace UnderSea.BLL.Services
         {
             for (int i = 0; i < rounds; ++i)
             {
-                using (var tran = db.Database.BeginTransaction())
-                {
                     await AddTaxes();
                     await AddCoral();
                     await PayUnits();
@@ -108,8 +106,6 @@ namespace UnderSea.BLL.Services
                     await Build();
                     await CalculateAttacks();
                     await CalculateRankingsAsync();
-                    tran.Commit();
-                }
             }
             await hubContext.Clients.All.SendAsync("NewRound");
         }
