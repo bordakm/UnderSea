@@ -54,9 +54,7 @@ namespace UnderSea.BLL.Services
                 if (sendUnit.SendCount > ownedCount)
                     throw new HttpResponseException { Status = 400, Value = "Nem küldhetsz több egységet, mint amennyid van!" };
                 else
-                {
-                    attackingUser.Country.AttackingArmy.Units.Add();
-                        
+                {                        
                     attackingUser.Country.AttackingArmy.Units.Count(u => u.Type == type) += sendUnit.SendCount;
                     attackingUser.Country.DefendingArmy.Units.Single(u => u.Type == type).Count -= sendUnit.SendCount;
                     sentUnits.Add(new Unit() { Count = sendUnit.SendCount, Type = type, UnitGroupId = newUnitGroup.Id });

@@ -55,9 +55,9 @@ namespace UnderSea.DAL.Models
             Coral += CoralProduction;
         }
 
-        public Dictionary<int, int> FeedUnits()
+        public List<Unit> FeedUnits()
         {
-            Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
+            List<Unit> unitsToRemove = new List<Unit>();
             int costTotal = AttackingArmy.Units.Sum(unit => unit.Type.CoralCostPerTurn);
             costTotal += DefendingArmy.Units.Sum(unit => unit.Type.CoralCostPerTurn);
             int difference = Coral - costTotal;
@@ -71,9 +71,9 @@ namespace UnderSea.DAL.Models
             return unitsToRemove;
         }
 
-        public Dictionary<int, int> PayUnits()
+        public List<Unit> PayUnits()
         {
-            Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
+            List<Unit> unitsToRemove = new List<Unit>();
             int costTotal = AttackingArmy.Units.Sum(unit => unit.Type.PearlCostPerTurn)
                           + DefendingArmy.Units.Sum(unit => unit.Type.PearlCostPerTurn);
             int difference = Pearl - costTotal;
@@ -87,28 +87,39 @@ namespace UnderSea.DAL.Models
             return unitsToRemove;
         }
 
-        private Dictionary<int, int> FireUnits(int difference, FireReason fireReason)
+        private List<Unit> FireUnits(int difference, FireReason fireReason)
         {
+            Random rand = new Random();
             Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
-            foreach (Unit unit in AttackingArmy.Units)
-            {
-                unitsToRemove.Add(unit.Type.Id, 0);
-            }
+
+            //létrehozzuk az üres listát, értelmetlen
+            //foreach (Unit unit in AttackingArmy.Units)
+            //{
+            //    unitsToRemove.Add(unit.Type.Id, 0);
+            //}
             bool stop = false;
+
+            List<Unit> defUnitsToRemove = new List<Unit>();
+            List<Unit> attUnitsToRemove = new List<Unit>();
+            Unit target;
+
             while (!stop)
             {
+                //defending army ritkítása
                 foreach (Unit unit in DefendingArmy.Units)
                 {
-                    if (unit.Count > 0)
-                    {
-                        unit.Count--;
+                    //fölösleges, ha üres lenne a lista, akkor nem is menne a foreach
+                    //if (unit.Count > 0)
+                    //{
+                    target = DefendingArmy.Units[rand.Next(0, DefendingArmy.Units.Count - 1)];
+                    defUnitsToRemove.Add(target);
                         switch (fireReason)
                         {
                             case FireReason.Coral:
-                                difference -= unit.Type.CoralCostPerTurn;
+                                difference -= target.Type.CoralCostPerTurn;
                                 break;
                             case FireReason.Pearl:
-                                difference -= unit.Type.PearlCostPerTurn;
+                                difference -= target.Type.PearlCostPerTurn;
                                 break;
                         }
                         if (difference <= 0)
@@ -116,25 +127,27 @@ namespace UnderSea.DAL.Models
                             stop = true;
                             break;
                         }
-                    }
+                    //}
                 }
                 if (stop)
                 {
                     break;
                 }
+                //attacking army ritkítása
                 foreach (Unit unit in AttackingArmy.Units)
                 {
-                    if (unit.Count > 0)
-                    {
-                        unitsToRemove[unit.Type.Id]++;
-                        unit.Count--;
-                        switch (fireReason)
+                    //if (unit.Count > 0)
+                    //{
+
+                    target = AttackingArmy.Units[rand.Next(0, DefendingArmy.Units.Count - 1)];
+                    attUnitsToRemove.Add(target);
+                    switch (fireReason)
                         {
                             case FireReason.Coral:
-                                difference -= unit.Type.CoralCostPerTurn;
+                                difference -= target.Type.CoralCostPerTurn;
                                 break;
                             case FireReason.Pearl:
-                                difference -= unit.Type.PearlCostPerTurn;
+                                difference -= target.Type.PearlCostPerTurn;
                                 break;
                         }
                         if (difference <= 0)
@@ -142,10 +155,21 @@ namespace UnderSea.DAL.Models
                             stop = true;
                             break;
                         }
-                    }
+                    //}
                 }
             }
-            return unitsToRemove;            
+            //eltávolítás a sima listákból
+            foreach (var unit in attUnitsToRemove)
+            {
+                AttackingArmy.Units.Remove(unit);
+            }
+            foreach (var unit in defUnitsToRemove)
+            {
+                DefendingArmy.Units.Remove(unit);
+            }
+
+            //visszatérünk azzal amit kivettünk, hogy ki tudjuk venni az attacklist-ből
+            return attUnitsToRemove;            
         }
 
         public void Build()

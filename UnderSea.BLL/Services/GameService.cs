@@ -289,27 +289,29 @@ namespace UnderSea.BLL.Services
             {
                 var removeUnits = user.Country.FeedUnits();
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
-                bool stop = false;
-                while (!stop && userAttacks.Count() != 0)
+
+                List<Unit> removeFromAttack = new List<Unit>();
+                foreach (Attack attack in userAttacks)
                 {
-                    foreach (Attack attack in userAttacks)
+                    //ki kell venni az attackokból azokat a Unitokat amelyek benne vannak a removeUnits-ban
+                    //sajnos tulajdonságok alapján kell ellenőzni, mivel nem ugyan az a két object
+                    foreach (var unit in removeUnits)
                     {
-                        foreach (int unitId in removeUnits.Keys)
+                        foreach (var attackUnit in attack.UnitList)
                         {
-                            if (removeUnits[unitId] > 0)
-                            {
-                                removeUnits[unitId]--;
-                                //remove one from the list "randomly"
-                            }
-                        }
-                        stop = removeUnits.Values.All(count => count == 0);
-                        if (stop)
-                        {
-                            break;
+                            if (attackUnit.BattlesSurvived == unit.BattlesSurvived && attackUnit.Type.Id == unit.Type.Id)
+                                removeFromAttack.Add(attackUnit);
                         }
                     }
+
+                    //a megfelelő Unitok eltávolítása
+                    foreach (var unit in removeFromAttack)
+                    {
+                        attack.UnitList.Remove(unit);
+                    }
                 }
-            }
+            
+        }
             await db.SaveChangesAsync();
         }
 
@@ -337,25 +339,25 @@ namespace UnderSea.BLL.Services
             {
                 var removeUnits = user.Country.PayUnits();
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
-                bool stop = false;
-                while (!stop && userAttacks.Count() != 0)
+
+                List<Unit> removeFromAttack = new List<Unit>();
+                foreach (Attack attack in userAttacks)
                 {
-                    foreach (Attack attack in userAttacks)
+                    //ki kell venni az attackokból azokat a Unitokat amelyek benne vannak a removeUnits-ban
+                    //sajnos tulajdonságok alapján kell ellenőzni, mivel nem ugyan az a két object
+                    foreach (var unit in removeUnits)
                     {
-                        foreach (int unitId in removeUnits.Keys)
+                        foreach (var attackUnit in attack.UnitList)
                         {
-                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitId);
-                            if (unitToRemove.Count > 0 && removeUnits[unitId] > 0)
-                            {
-                                removeUnits[unitId]--;
-                                unitToRemove.Count--;
-                            }
+                            if (attackUnit.BattlesSurvived == unit.BattlesSurvived && attackUnit.Type.Id == unit.Type.Id)
+                                removeFromAttack.Add(attackUnit);
                         }
-                        stop = removeUnits.Values.All(count => count == 0);
-                        if (stop)
-                        {
-                            break;
-                        }
+                    }
+
+                    //a megfelelő Unitok eltávolítása
+                    foreach (var unit in removeFromAttack)
+                    {
+                        attack.UnitList.Remove(unit);
                     }
                 }
             }
