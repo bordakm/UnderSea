@@ -20,8 +20,8 @@ export class AttackService {
     return this.client.searchtargets('', 1, 10);
   }
 
-  sendUnits(attack: AttackDTO): void{
-    this.client.send(attack);
+  sendUnits(attack: AttackDTO): Observable<any>{
+    return this.client.send(attack);
   }
 
 }
