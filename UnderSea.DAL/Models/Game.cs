@@ -61,9 +61,8 @@ namespace UnderSea.DAL.Models
                 }
                 attackerScore *= 1 + attackerScoreModifier / 100;
 
-                //calculating random for attacker
-                Random rand = new Random();
-                attackerScore *= 1 + rand.Next(-5, 5) / 100;
+                //calculating random for attacker                
+                attackerScore *= 1 + (new Random().NextDouble() * 10 - 5) / 100;
 
                 //if the defender wins
                 if (defenderScore > attackerScore)
@@ -124,8 +123,8 @@ namespace UnderSea.DAL.Models
                     defUserCountry.Coral -= Convert.ToInt32(Math.Ceiling(defUserCountry.Coral * 0.5));
                 }
             }
-
-            Attacks.Clear();
+            //Attacks.Clear();
+            //Attacks = new List<Attack>();
         }
     }
 }

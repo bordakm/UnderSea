@@ -12,7 +12,7 @@ namespace UnderSea.DAL.Models
         [ForeignKey("User")]
         public int DefenderUserId { get; set; }
         [ForeignKey("Game")]
-        public int GameId { get; set; }
+        public int? GameId { get; set; } //TODO ennek nem kéne nullablenak lennie, csak tesztelés miatt
         public User AttackerUser { get; set; }
         public User DefenderUser { get; set; }
         public List<Unit> UnitList { get; set; }

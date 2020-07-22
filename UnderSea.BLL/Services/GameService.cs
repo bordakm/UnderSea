@@ -271,7 +271,7 @@ namespace UnderSea.BLL.Services
         private async Task CalculateAttacks()
         {
             var game = await db.Game
-                            .Include(game => game.Attacks)
+                            .Include(game => game.Attacks)                            
                             .Include(game => game.Users)
                             .ThenInclude(users => users.Country)
                             .ThenInclude(country => country.AttackingArmy)
@@ -284,6 +284,8 @@ namespace UnderSea.BLL.Services
                             .ThenInclude(units => units.Type)
                             .SingleAsync();
             game.CalculateAttacks();
+            // támadások listájának törlése utólag, hátha így megy.. TODO visszarakni calculateattacksba
+            db.Attacks.RemoveRange(db.Attacks);
             await db.SaveChangesAsync();
         }
 
