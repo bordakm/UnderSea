@@ -188,7 +188,6 @@ namespace UnderSea.DAL.Context
                 UnitGroupId = 1,
                 TypeId = 2,
                 BattlesSurvived = 10,
-
             };
             var unit3 = new Unit
             {
@@ -197,6 +196,37 @@ namespace UnderSea.DAL.Context
                 TypeId = 3,
                 BattlesSurvived = 2,
             };
+
+            var unit13 = new Unit
+            {
+                Id = 13,
+                UnitGroupId = 1,
+                TypeId = 2,
+                BattlesSurvived = 10,
+            };
+            var unit14 = new Unit
+            {
+                Id = 14,
+                UnitGroupId = 1,
+                TypeId = 3,
+                BattlesSurvived = 2,
+            };
+            var unit15 = new Unit
+            {
+                Id = 15,
+                UnitGroupId = 2,
+                TypeId = 2,
+                BattlesSurvived = 10,
+            };
+            var unit16 = new Unit
+            {
+                Id = 16,
+                UnitGroupId = 2,
+                TypeId = 3,
+                BattlesSurvived = 2,
+            };
+
+
             var unit4 = new Unit
             {
                 Id = 4,
