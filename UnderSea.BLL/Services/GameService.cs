@@ -37,6 +37,7 @@ namespace UnderSea.BLL.Services
                                 .ThenInclude(country => country.DefendingArmy)
                                 .ThenInclude(da => da.Units)
                                 .ThenInclude(units => units.Type)
+                                .ThenInclude(type => type.Levels)
                                 .Include(users => users.Country.BuildingGroup)
                                 .ThenInclude(bGroup => bGroup.Buildings)
                                 .ThenInclude(buildings => buildings.Type)
@@ -45,6 +46,8 @@ namespace UnderSea.BLL.Services
                                 .Include(users => users.Country)
                                 .ThenInclude(country => country.AttackingArmy)
                                 .ThenInclude(attackingArmy => attackingArmy.Units)
+                                .ThenInclude(aa => aa.Type)
+                                .ThenInclude(type => type.Levels)
                                 .SingleAsync(user => user.Id == userId);
 
             List<AvailableUnitViewModel> availableUnits = new List<AvailableUnitViewModel>();
@@ -86,7 +89,6 @@ namespace UnderSea.BLL.Services
                 {
                     if (unitvm.Id == unit.Type.Id)
                     {
-                        unitvm.AvailableCount++;
                         unitvm.AllCount++;
                         found = true;
                         break;
@@ -97,7 +99,6 @@ namespace UnderSea.BLL.Services
                 {
                     availableUnits.Add(new AvailableUnitViewModel()
                     {
-                        AvailableCount = 1,
                         AllCount = 1,
                         Id = unit.Type.Id,
                         ImageUrl = unit.Type.ImageUrl,
@@ -152,10 +153,13 @@ namespace UnderSea.BLL.Services
                 {
                     await AddTaxes();
                     await AddCoral();
+                    //todo
                     await PayUnits();
+                    //todo
                     await FeedUnits();
                     await DoUpgrades();
                     await Build();
+                    //todo
                     await CalculateAttacks();
                     await CalculateRankingsAsync();
                     tran.Commit();
@@ -190,10 +194,12 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(country => country.AttackingArmy)
                 .ThenInclude(aa => aa.Units)
                 .ThenInclude(units => units.Type)
+                .ThenInclude(type => type.Levels)
                 .Include(user => user.Country)
                 .ThenInclude(country => country.DefendingArmy)
                 .ThenInclude(da => da.Units)
-                .ThenInclude(units => units.Type);
+                .ThenInclude(units => units.Type)
+                .ThenInclude(type => type.Levels);
 
             foreach (var user in users)
             {
@@ -244,8 +250,10 @@ namespace UnderSea.BLL.Services
         {
             var users = db.Users
                 .Include(u => u.Country)
-                .ThenInclude(c => c.Upgrades);
-            var countries = db.Countries.Include(c => c.Upgrades);
+                .ThenInclude(c => c.Upgrades)
+                .ThenInclude(upgrades => upgrades.Type);
+            var countries = db.Countries.Include(c => c.Upgrades)
+                                        .ThenInclude(upgrades => upgrades.Type);
             foreach (var country in countries)
             {
                 country.DoUpgrades();
@@ -369,7 +377,8 @@ namespace UnderSea.BLL.Services
         {
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
-                .ThenInclude(buildingGroup => buildingGroup.Buildings);
+                .ThenInclude(buildingGroup => buildingGroup.Buildings)
+                .ThenInclude(building => building.Type);
             foreach (var user in users)
             {
                 user.Country.Build();
