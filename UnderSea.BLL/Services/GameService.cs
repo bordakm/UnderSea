@@ -13,6 +13,7 @@ using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Upgrades;
 using UnderSea.BLL.Hubs;
 using UnderSea.DAL.Models.Units;
+using System;
 
 namespace UnderSea.BLL.Services
 {
@@ -144,16 +145,25 @@ namespace UnderSea.BLL.Services
         {
             for (int i = 0; i < rounds; ++i)
             {
-                    await AddTaxes();
-                    await AddCoral();
-                    await PayUnits();
-                    await FeedUnits();
-                    await DoUpgrades();
-                    await Build();
-                    await CalculateAttacks();
-                    await CalculateRankingsAsync();
+                await IncreaseRoundCountAsync();
+                await AddTaxes();
+                await AddCoral();
+                await PayUnits();
+                await FeedUnits();
+                await DoUpgrades();
+                await Build();
+                await CalculateAttacks();
+                await CalculateRankingsAsync();
+
             }
             await hubContext.Clients.All.SendAsync("NewRound");
+        }
+
+        private async Task IncreaseRoundCountAsync()
+        {
+            var game = await db.Game.FirstAsync();
+            game.Round++;
+            await db.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
@@ -260,7 +270,7 @@ namespace UnderSea.BLL.Services
 
         private async Task CalculateAttacks()
         {
-            var game = db.Game
+            var game = await db.Game
                             .Include(game => game.Attacks)
                             .Include(game => game.Users)
                             .ThenInclude(users => users.Country)
@@ -272,7 +282,7 @@ namespace UnderSea.BLL.Services
                             .ThenInclude(c => c.DefendingArmy)
                             .ThenInclude(da => da.Units)
                             .ThenInclude(units => units.Type)
-                            .Single();
+                            .SingleAsync();
             game.CalculateAttacks();
             await db.SaveChangesAsync();
         }

@@ -16,8 +16,8 @@ namespace UnderSea.DAL.Models
 
         public Game()
         {
-            CoralPictureUrl = "/images/coral.png";
-            PearlPictureUrl = "/images/shell.png";
+            CoralPictureUrl = "majd/lesz/kep.jpeg";
+            PearlPictureUrl = "majd/lesz/kep.jpeg";
         }
 
         public void CalculateAttacks()
@@ -68,20 +68,6 @@ namespace UnderSea.DAL.Models
                 //if the defender wins
                 if (defenderScore > attackerScore)
                 {
-                    //CR Ready
-                    //hozzáadjuk az attacker defender armyjához 10%osan csökkentve
-                    var dummyList = attack.UnitList;
-
-                    var unitCount = dummyList.Count;
-                    int newCount = Convert.ToInt32(Math.Ceiling(unitCount * 0.9));
-                    for (int i = 0; i < unitCount - newCount; i++)
-                    {
-                        dummyList.RemoveAt(rand.Next(0, unitCount - i));
-                    }
-
-                    attUserCountry.DefendingArmy.Units.AddRange(dummyList);
-
-
                     //levonjuk az egységeket az attacking armyból
                     foreach (var unit in attack.UnitList)
                     {
@@ -92,6 +78,15 @@ namespace UnderSea.DAL.Models
                         }
                     }
 
+                    //hozzáadjuk a defender armyhoz 10%osan csökkentve
+                    foreach (var unit in attack.UnitList)
+                    {
+                        foreach (var defendingUnit in attUserCountry.DefendingArmy.Units)
+                        {
+                            if (unit.Type.Id == defendingUnit.Type.Id)
+                                defendingUnit.Count += Convert.ToInt32(Math.Floor(unit.Count * 0.9));
+                        }
+                    }
                 }
                 else if (attackerScore > defenderScore)
                 {
@@ -115,13 +110,10 @@ namespace UnderSea.DAL.Models
                         }
                     }
 
-                    //CR Ready
                     //csökkentjük a deffender armyját 10%al
-                    var unitCount = defUserCountry.DefendingArmy.Units.Count;
-                    int newCount = Convert.ToInt32(Math.Ceiling(unitCount * 0.9));
-                    for(int i = 0; i< unitCount - newCount; i++)
+                    foreach (var defendingUnit in defUserCountry.DefendingArmy.Units)
                     {
-                        defUserCountry.DefendingArmy.Units.RemoveAt(rand.Next(0, unitCount-i));
+                        defendingUnit.Count = Convert.ToInt32(Math.Floor(defendingUnit.Count * 0.9));
                     }
 
                     //nyereség jóváírása
