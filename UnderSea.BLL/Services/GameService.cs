@@ -153,9 +153,7 @@ namespace UnderSea.BLL.Services
                 {
                     await AddTaxes();
                     await AddCoral();
-                    //todo
                     await PayUnits();
-                    //todo
                     await FeedUnits();
                     await DoUpgrades();
                     await Build();
@@ -270,11 +268,13 @@ namespace UnderSea.BLL.Services
                             .ThenInclude(country => country.AttackingArmy)
                             .ThenInclude(army => army.Units)
                             .ThenInclude(units => units.Type)
+                            .ThenInclude(type => type.Levels)
                             .Include(game => game.Users)
                             .ThenInclude(u => u.Country)
                             .ThenInclude(c => c.DefendingArmy)
                             .ThenInclude(da => da.Units)
                             .ThenInclude(units => units.Type)
+                            .ThenInclude(type => type.Levels)
                             .Single();
             game.CalculateAttacks();
             await db.SaveChangesAsync();
@@ -332,16 +332,19 @@ namespace UnderSea.BLL.Services
                 .Include(game => game.Attacks)
                 .ThenInclude(attacks => attacks.UnitList)
                 .ThenInclude(ul => ul.Type)
+                .ThenInclude(type => type.Levels)
                 .Include(game => game.Users)
                 .ThenInclude(user => user.Country)
                 .ThenInclude(country => country.AttackingArmy)
                 .ThenInclude(aa => aa.Units)
                 .ThenInclude(units => units.Type)
+                .ThenInclude(type => type.Levels)
                 .Include(game => game.Users)
                 .ThenInclude(user => user.Country)
                 .ThenInclude(country => country.DefendingArmy)
                 .ThenInclude(da => da.Units)
                 .ThenInclude(units => units.Type)
+                .ThenInclude(type => type.Levels)
                 .SingleAsync();
 
             foreach (var user in game.Users)
