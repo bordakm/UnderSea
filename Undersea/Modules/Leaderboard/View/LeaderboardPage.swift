@@ -35,9 +35,6 @@ extension Leaderboard {
         }
         
         private var loadingIndicator: some View {
-            /*Rectangle()
-                .fill(Color.white)
-                .frame(width: 20.0, height: 20.0, alignment: .center)*/
             VStack {
                 ActivityIndicator(isAnimating: $viewModel.isLoading, style: .medium, color: UIColor.white)
             }.frame(minWidth: 0.0, maxWidth: .infinity, alignment: .center)
