@@ -13,8 +13,8 @@ extension Leaderboard {
     struct UserViewModel: Identifiable, Equatable {
             
         let id: Int
-        let userName: String
         let place: Int
+        let userName: String
         let score: Int
         
     }

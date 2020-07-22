@@ -35,7 +35,7 @@
 		79237B9324C6D88B009F5650 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79237B9224C6D88B009F5650 /* Leaderboard.swift */; };
 		79237B9624C6D8A3009F5650 /* LeaderboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79237B9524C6D8A3009F5650 /* LeaderboardPage.swift */; };
 		79237B9A24C6DB53009F5650 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79237B9924C6DB53009F5650 /* LeaderboardViewModel.swift */; };
-		79237B9C24C6DB63009F5650 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79237B9B24C6DB62009F5650 /* UserViewModel.swift */; };
+		79237B9C24C6DB63009F5650 /* LeaderboardUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79237B9B24C6DB62009F5650 /* LeaderboardUserViewModel.swift */; };
 		79237B9E24C6E16E009F5650 /* LeaderboardCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79237B9D24C6E16D009F5650 /* LeaderboardCloseButton.swift */; };
 		79237BA024C6E189009F5650 /* LeaderboardAttackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79237B9F24C6E189009F5650 /* LeaderboardAttackButton.swift */; };
 		79237BA224C6ECAA009F5650 /* TabPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79237BA124C6ECAA009F5650 /* TabPage.swift */; };
@@ -82,7 +82,7 @@
 		7956491224BEE3AB003D6D16 /* AttackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491124BEE3AB003D6D16 /* AttackInteractor.swift */; };
 		7956491424BEE401003D6D16 /* AttackPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491324BEE401003D6D16 /* AttackPresenter.swift */; };
 		7956491624BEE4B9003D6D16 /* AttackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491524BEE4B9003D6D16 /* AttackViewModel.swift */; };
-		7956491824BEE4EF003D6D16 /* AttackPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491724BEE4EF003D6D16 /* AttackPageViewModel.swift */; };
+		7956491824BEE4EF003D6D16 /* AttackUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491724BEE4EF003D6D16 /* AttackUserViewModel.swift */; };
 		7956491A24BEE54B003D6D16 /* AttackPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491924BEE54B003D6D16 /* AttackPageDTO.swift */; };
 		7956491D24BEF588003D6D16 /* RootPageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491C24BEF588003D6D16 /* RootPageManager.swift */; };
 		7956491F24BEF79D003D6D16 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7956491E24BEF79D003D6D16 /* UserManager.swift */; };
@@ -133,6 +133,17 @@
 		79A5B53D24BF5357009D5AC6 /* RegisterEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B53C24BF5357009D5AC6 /* RegisterEvents.swift */; };
 		79A5B53F24BF538B009D5AC6 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B53E24BF538B009D5AC6 /* RegisterViewModel.swift */; };
 		79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */; };
+		79D4532124C877BB00A2197B /* AttackDetailAnimalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4532024C877BB00A2197B /* AttackDetailAnimalCell.swift */; };
+		79D4532524C8781A00A2197B /* AnimalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4532424C8781A00A2197B /* AnimalViewModel.swift */; };
+		79D4532924C87BCC00A2197B /* AttackDetailUsecases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4532824C87BCC00A2197B /* AttackDetailUsecases.swift */; };
+		79D4532B24C87BDE00A2197B /* AttackDetailEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4532A24C87BDE00A2197B /* AttackDetailEvents.swift */; };
+		79D4532D24C87C4D00A2197B /* AttackDetailApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4532C24C87C4D00A2197B /* AttackDetailApiService.swift */; };
+		79D4532F24C87C5900A2197B /* AttackDetailApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4532E24C87C5900A2197B /* AttackDetailApiWorker.swift */; };
+		79D4533124C87D3400A2197B /* AttackDetailPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4533024C87D3400A2197B /* AttackDetailPageDTO.swift */; };
+		79D4533324C87DEB00A2197B /* AttackDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4533224C87DEB00A2197B /* AttackDetailViewModel.swift */; };
+		79D4533624C87E9F00A2197B /* AttackDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4533524C87E9F00A2197B /* AttackDetailInteractor.swift */; };
+		79D4533924C87F6500A2197B /* AttackDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4533824C87F6500A2197B /* AttackDetailPresenter.swift */; };
+		79D4533B24C87FA800A2197B /* AttackDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4533A24C87FA800A2197B /* AttackDetail.swift */; };
 		79D4D77624C837EB0051AAA1 /* TeamsUsecases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D77524C837EB0051AAA1 /* TeamsUsecases.swift */; };
 		79D4D77824C837FB0051AAA1 /* TeamsEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D77724C837FB0051AAA1 /* TeamsEvents.swift */; };
 		79D4D77C24C838980051AAA1 /* TeamsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D77B24C838980051AAA1 /* TeamsApiService.swift */; };
@@ -191,7 +202,7 @@
 		79237B9224C6D88B009F5650 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaderboard.swift; sourceTree = "<group>"; };
 		79237B9524C6D8A3009F5650 /* LeaderboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardPage.swift; sourceTree = "<group>"; };
 		79237B9924C6DB53009F5650 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
-		79237B9B24C6DB62009F5650 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		79237B9B24C6DB62009F5650 /* LeaderboardUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardUserViewModel.swift; sourceTree = "<group>"; };
 		79237B9D24C6E16D009F5650 /* LeaderboardCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCloseButton.swift; sourceTree = "<group>"; };
 		79237B9F24C6E189009F5650 /* LeaderboardAttackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardAttackButton.swift; sourceTree = "<group>"; };
 		79237BA124C6ECAA009F5650 /* TabPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPage.swift; sourceTree = "<group>"; };
@@ -238,7 +249,7 @@
 		7956491124BEE3AB003D6D16 /* AttackInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackInteractor.swift; sourceTree = "<group>"; };
 		7956491324BEE401003D6D16 /* AttackPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPresenter.swift; sourceTree = "<group>"; };
 		7956491524BEE4B9003D6D16 /* AttackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackViewModel.swift; sourceTree = "<group>"; };
-		7956491724BEE4EF003D6D16 /* AttackPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPageViewModel.swift; sourceTree = "<group>"; };
+		7956491724BEE4EF003D6D16 /* AttackUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackUserViewModel.swift; sourceTree = "<group>"; };
 		7956491924BEE54B003D6D16 /* AttackPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPageDTO.swift; sourceTree = "<group>"; };
 		7956491C24BEF588003D6D16 /* RootPageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPageManager.swift; sourceTree = "<group>"; };
 		7956491E24BEF79D003D6D16 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
@@ -289,6 +300,17 @@
 		79A5B53C24BF5357009D5AC6 /* RegisterEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEvents.swift; sourceTree = "<group>"; };
 		79A5B53E24BF538B009D5AC6 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenuView.swift; sourceTree = "<group>"; };
+		79D4532024C877BB00A2197B /* AttackDetailAnimalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailAnimalCell.swift; sourceTree = "<group>"; };
+		79D4532424C8781A00A2197B /* AnimalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalViewModel.swift; sourceTree = "<group>"; };
+		79D4532824C87BCC00A2197B /* AttackDetailUsecases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailUsecases.swift; sourceTree = "<group>"; };
+		79D4532A24C87BDE00A2197B /* AttackDetailEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailEvents.swift; sourceTree = "<group>"; };
+		79D4532C24C87C4D00A2197B /* AttackDetailApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailApiService.swift; sourceTree = "<group>"; };
+		79D4532E24C87C5900A2197B /* AttackDetailApiWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailApiWorker.swift; sourceTree = "<group>"; };
+		79D4533024C87D3400A2197B /* AttackDetailPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailPageDTO.swift; sourceTree = "<group>"; };
+		79D4533224C87DEB00A2197B /* AttackDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailViewModel.swift; sourceTree = "<group>"; };
+		79D4533524C87E9F00A2197B /* AttackDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailInteractor.swift; sourceTree = "<group>"; };
+		79D4533824C87F6500A2197B /* AttackDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailPresenter.swift; sourceTree = "<group>"; };
+		79D4533A24C87FA800A2197B /* AttackDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetail.swift; sourceTree = "<group>"; };
 		79D4D77524C837EB0051AAA1 /* TeamsUsecases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsUsecases.swift; sourceTree = "<group>"; };
 		79D4D77724C837FB0051AAA1 /* TeamsEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsEvents.swift; sourceTree = "<group>"; };
 		79D4D77B24C838980051AAA1 /* TeamsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsApiService.swift; sourceTree = "<group>"; };
@@ -501,7 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				79237B9924C6DB53009F5650 /* LeaderboardViewModel.swift */,
-				79237B9B24C6DB62009F5650 /* UserViewModel.swift */,
+				79237B9B24C6DB62009F5650 /* LeaderboardUserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -780,7 +802,7 @@
 			isa = PBXGroup;
 			children = (
 				7956491524BEE4B9003D6D16 /* AttackViewModel.swift */,
-				7956491724BEE4EF003D6D16 /* AttackPageViewModel.swift */,
+				7956491724BEE4EF003D6D16 /* AttackUserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -841,6 +863,7 @@
 				79237B8F24C6CED9009F5650 /* ProfilePageDTO.swift */,
 				7947A2A524C717F000E912CC /* LeaderboardPageDTO.swift */,
 				79D4D78324C83B670051AAA1 /* TeamsPageDTO.swift */,
+				79D4533024C87D3400A2197B /* AttackDetailPageDTO.swift */,
 			);
 			path = Decodable;
 			sourceTree = "<group>";
@@ -1074,6 +1097,59 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		79D4532224C877F200A2197B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				79D4532724C87B9F00A2197B /* Network */,
+				79D4532624C87B9900A2197B /* Enums */,
+				79D4532324C877F900A2197B /* ViewModels */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		79D4532324C877F900A2197B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				79D4532424C8781A00A2197B /* AnimalViewModel.swift */,
+				79D4533224C87DEB00A2197B /* AttackDetailViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		79D4532624C87B9900A2197B /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				79D4532824C87BCC00A2197B /* AttackDetailUsecases.swift */,
+				79D4532A24C87BDE00A2197B /* AttackDetailEvents.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		79D4532724C87B9F00A2197B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				79D4532C24C87C4D00A2197B /* AttackDetailApiService.swift */,
+				79D4532E24C87C5900A2197B /* AttackDetailApiWorker.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		79D4533424C87E8B00A2197B /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				79D4533524C87E9F00A2197B /* AttackDetailInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		79D4533724C87F5500A2197B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				79D4533824C87F6500A2197B /* AttackDetailPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		79D4D77324C837C10051AAA1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1147,7 +1223,11 @@
 		79E4869824BDF4FD00A0EB3B /* AttackDetail */ = {
 			isa = PBXGroup;
 			children = (
+				79D4533724C87F5500A2197B /* Presenter */,
+				79D4533424C87E8B00A2197B /* Interactor */,
+				79D4532224C877F200A2197B /* Utilities */,
 				79E4869924BDF50B00A0EB3B /* View */,
+				79D4533A24C87FA800A2197B /* AttackDetail.swift */,
 			);
 			path = AttackDetail;
 			sourceTree = "<group>";
@@ -1156,6 +1236,7 @@
 			isa = PBXGroup;
 			children = (
 				79E4869A24BDF52300A0EB3B /* AttackDetailPage.swift */,
+				79D4532024C877BB00A2197B /* AttackDetailAnimalCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1338,25 +1419,31 @@
 				79D4D77624C837EB0051AAA1 /* TeamsUsecases.swift in Sources */,
 				792DE2E324BC962F009D175D /* MainApiWorker.swift in Sources */,
 				79237B9624C6D8A3009F5650 /* LeaderboardPage.swift in Sources */,
+				79D4532524C8781A00A2197B /* AnimalViewModel.swift in Sources */,
 				79E4869B24BDF52300A0EB3B /* AttackDetailPage.swift in Sources */,
 				79820C8724B73A4D006D7258 /* Teams.swift in Sources */,
 				79A2963124C82674001CA029 /* PullToRefresh.swift in Sources */,
 				7947A29E24C7157F00E912CC /* LeaderboardUsecases.swift in Sources */,
+				79D4532124C877BB00A2197B /* AttackDetailAnimalCell.swift in Sources */,
 				7922C0B224C5BCB200304446 /* R.generated.swift in Sources */,
 				7956490A24BEE23F003D6D16 /* AttackApiService.swift in Sources */,
 				7947A2A224C715FB00E912CC /* LeaderboardPresenter.swift in Sources */,
 				7956491224BEE3AB003D6D16 /* AttackInteractor.swift in Sources */,
-				7956491824BEE4EF003D6D16 /* AttackPageViewModel.swift in Sources */,
+				7956491824BEE4EF003D6D16 /* AttackUserViewModel.swift in Sources */,
+				79D4532D24C87C4D00A2197B /* AttackDetailApiService.swift in Sources */,
 				7956492B24BF0159003D6D16 /* RegisterDTO.swift in Sources */,
 				7956492F24BF056B003D6D16 /* Dictionary+Extension.swift in Sources */,
 				79D4D78724C83C580051AAA1 /* TeamsInteractor.swift in Sources */,
+				79D4532F24C87C5900A2197B /* AttackDetailApiWorker.swift in Sources */,
 				794CAAE724B60764007DC9C7 /* RegisterPage.swift in Sources */,
 				792DE2EE24BCA3DE009D175D /* MainPresenter.swift in Sources */,
+				79D4533B24C87FA800A2197B /* AttackDetail.swift in Sources */,
 				7956492924BEFDEF003D6D16 /* LoginDTO.swift in Sources */,
 				79F5314D24C058640058F86D /* UnderseaClaim.swift in Sources */,
 				7947A2A024C7159D00E912CC /* LeaderboardEvents.swift in Sources */,
 				79820C8924B73A5B006D7258 /* AttackPage.swift in Sources */,
 				792DE2EB24BC9C48009D175D /* MainEvents.swift in Sources */,
+				79D4533624C87E9F00A2197B /* AttackDetailInteractor.swift in Sources */,
 				79E4868024BDB38C00A0EB3B /* Fonts.swift in Sources */,
 				79820C8124B71E2C006D7258 /* CityPage.swift in Sources */,
 				7956491424BEE401003D6D16 /* AttackPresenter.swift in Sources */,
@@ -1366,6 +1453,7 @@
 				79820C8B24B73A67006D7258 /* TeamsPage.swift in Sources */,
 				79A5B53724BF5316009D5AC6 /* RegisterInteractor.swift in Sources */,
 				79A5998824C5EC3A00B1E17E /* ProfileHeader.swift in Sources */,
+				79D4532924C87BCC00A2197B /* AttackDetailUsecases.swift in Sources */,
 				79D4D77C24C838980051AAA1 /* TeamsApiService.swift in Sources */,
 				792DE2E624BC9B37009D175D /* MainInteractor.swift in Sources */,
 				794CAAD924B5CDF5007DC9C7 /* Colors.swift in Sources */,
@@ -1401,7 +1489,7 @@
 				79A5998A24C5ED4F00B1E17E /* ProfileCityCell.swift in Sources */,
 				7922C0AF24C59A4500304446 /* Images.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
-				79237B9C24C6DB63009F5650 /* UserViewModel.swift in Sources */,
+				79237B9C24C6DB63009F5650 /* LeaderboardUserViewModel.swift in Sources */,
 				7956492124BEF831003D6D16 /* TokenDTO.swift in Sources */,
 				79D4D78024C839690051AAA1 /* TeamsViewModel.swift in Sources */,
 				7947D99D24B8678700C5306D /* HostingController.swift in Sources */,
@@ -1410,10 +1498,12 @@
 				79820C7B24B71E01006D7258 /* Main.swift in Sources */,
 				7947D99624B84A2700C5306D /* UIColor+Extension.swift in Sources */,
 				794EDCBB24C03B7700D8AA9E /* EmptyResponse.swift in Sources */,
+				79D4533924C87F6500A2197B /* AttackDetailPresenter.swift in Sources */,
 				7947D99B24B85A5400C5306D /* View+Extension.swift in Sources */,
 				7947D99924B859F100C5306D /* NavigationBarModifier.swift in Sources */,
 				7922A9CF24B4BBB8002A7957 /* ContentView.swift in Sources */,
 				79237B8E24C6CE6B009F5650 /* ProfileInteractor.swift in Sources */,
+				79D4533324C87DEB00A2197B /* AttackDetailViewModel.swift in Sources */,
 				79237B8824C6CDB9009F5650 /* ProfileViewModel.swift in Sources */,
 				7947A2A424C716EC00E912CC /* LeaderboardInteractor.swift in Sources */,
 				79A5B52424BF0DD6009D5AC6 /* LoginInteractor.swift in Sources */,
@@ -1422,6 +1512,7 @@
 				7947A29A24C714B400E912CC /* LeaderboardApiService.swift in Sources */,
 				79237B8A24C6CDE6009F5650 /* ProfilePageViewModel.swift in Sources */,
 				79D4D77824C837FB0051AAA1 /* TeamsEvents.swift in Sources */,
+				79D4532B24C87BDE00A2197B /* AttackDetailEvents.swift in Sources */,
 				7956491024BEE338003D6D16 /* AttackEvents.swift in Sources */,
 				79237B8C24C6CE37009F5650 /* ProfilePresenter.swift in Sources */,
 				79A5B52B24BF40B2009D5AC6 /* LoginPresenter.swift in Sources */,
@@ -1445,6 +1536,7 @@
 				79820C8F24B76155006D7258 /* SVGImage.swift in Sources */,
 				794C674824B6F8AD006D1F2B /* RootPage.swift in Sources */,
 				792DE2F324BCA76A009D175D /* MainPageViewModel.swift in Sources */,
+				79D4533124C87D3400A2197B /* AttackDetailPageDTO.swift in Sources */,
 				79D4D78224C839E60051AAA1 /* TeamModel.swift in Sources */,
 				794CAAE124B5FB61007DC9C7 /* SeaInputField.swift in Sources */,
 				79820C7F24B71E20006D7258 /* City.swift in Sources */,

@@ -11,7 +11,8 @@ import Foundation
 extension Attack {
     
     enum Usecase {
-        case load
+        case load(_ userName: String)
+        case loadMore(_ userName: String)
     }
     
 }

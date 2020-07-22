@@ -14,6 +14,7 @@ struct Colors {
     static let darkBlue = Color(hex: "#1C3E76")
     static let whiteTransparent = Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.65)
     static let underseaTitleColor = Color(hex: "#9FFFF0")
+    static let underseaTitleUIColor = UIColor(hex: "#9FFFF0")
     static let loginGradientStart = Color(hex: "#0FCFDE")
     static let loginGradientMid = Color(hex: "#6BEEE9")
     static let loginGradientEnd = Color(hex: "#9FFFF0")
@@ -29,5 +30,6 @@ struct Colors {
     static let separatorColor = Color(Colors.separatorUIColor)
     static let separatorUIColor = UIColor(hex: "#3F68AE")
     static let searchFieldBackground = Color.init(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.39)
+    static let maximumTrackUIColor = UIColor(red: 122.0/255.0, green: 122.0/255.0, blue: 122.0/255.0, alpha: 0.32)
     
 }

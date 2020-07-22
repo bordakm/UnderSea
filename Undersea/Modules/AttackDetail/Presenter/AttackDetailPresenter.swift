@@ -1,8 +1,8 @@
 //
-//  LeaderboardPresenter.swift
+//  AttackDetailPresenter.swift
 //  Undersea
 //
-//  Created by Vekety Robin on 2020. 07. 21..
+//  Created by Vekety Robin on 2020. 07. 22..
 //  Copyright © 2020. Vekety Robin. All rights reserved.
 //
 
@@ -10,11 +10,11 @@ import Foundation
 import Combine
 import CocoaLumberjack
 
-extension Leaderboard {
+extension AttackDetail {
     
     class Presenter {
         
-        private var subscriptions: [Leaderboard.Event: AnyCancellable] = [:]
+        private var subscriptions: [AttackDetail.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
@@ -26,7 +26,6 @@ extension Leaderboard {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.isRefreshing = false
                         self.viewModel.set(alertMessage: error.localizedDescription)
                     default:
                         print("-- Presenter: finished")
@@ -35,20 +34,19 @@ extension Leaderboard {
                     
                 }, receiveValue: { (data) in
 
-                    self.viewModel.isRefreshing = false
                     self.populateViewModel(dataModel: data)
                     
                 })
             
         }
         
-        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+        /*func bind(loadingSubject: AnyPublisher<Bool, Never>) {
             subscriptions[.nextPageLoading] = loadingSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveValue: { [weak self] (isLoading) in
                     self?.viewModel.isLoading = isLoading
                 })
-        }
+        }*/
         
         private func populateViewModel(dataModel: DataModelType?) {
             
@@ -57,11 +55,11 @@ extension Leaderboard {
                     return
             }
             
-            let userList = dataModel.map { user in
-                return UserViewModel(id: user.id, place: user.place, userName: user.userName, score: user.score)
+            let animalList = dataModel.map { animal in
+                return AnimalViewModel(name: animal.name, available: Double(animal.availableCount))
             }
             
-            self.viewModel.set(userList: userList)
+            self.viewModel.set(animalList: animalList)
             
         }
         

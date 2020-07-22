@@ -13,8 +13,8 @@ extension Attack {
  
     class ApiWorker: BaseApiWorker<ApiService> {
         
-        func getAttack() -> AnyPublisher<AttackPageDTO, Error> {
-            return execute(target: .getAttack)
+        func getAttack(_ userName: String? = nil, page: Int = 1) -> AnyPublisher<[AttackPageDTO], Error> {
+            return execute(target: .getAttack(userName, page: page))
         }
         
     }

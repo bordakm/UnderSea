@@ -21,6 +21,12 @@ extension Attack {
         
         var usecaseHandler: ((Attack.Usecase) -> Void)?
         
+        private var loadingIndicator: some View {
+            VStack {
+                ActivityIndicator(isAnimating: $viewModel.isLoading, style: .medium, color: UIColor.white)
+            }.frame(minWidth: 0.0, maxWidth: .infinity, alignment: .center)
+        }
+        
         var body: some View {
             NavigationView {
                 VStack {
@@ -35,14 +41,32 @@ extension Attack {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 20.0)
                     .padding(.leading, 20.0)
-                    SeaInputField(placeholder: "Felhasznalonev", inputText: $userName, backgroundColor: Colors.searchFieldBackground)
-                        .padding(.horizontal)
-                    List(viewModel.attackPageModel?.users ?? []) { user in
-                        NavigationLink(destination: AttackDetailPage()) {
-                            Text(user.name)
-                                .foregroundColor(Color.white)
-                                .padding(.vertical)
+                    
+                    SeaInputField(placeholder: "Felhasznalonev", inputText: $userName, backgroundColor: Colors.searchFieldBackground, keyboardType: UIKeyboardType.webSearch, onEditingChanged: { editing in
+                        if !editing {
+                            //self.usecaseHandler?(.load(self.userName))
                         }
+                    }).padding(.horizontal)
+                    
+                    List {
+                        ForEach(viewModel.userList) { user in
+                            VStack(spacing: 0.0) {
+                                NavigationLink(destination: AttackDetail.setup()) {
+                                    Text(user.userName)
+                                        .foregroundColor(Color.white)
+                                        .padding(.vertical)
+                                }
+                                Divider()
+                                    .background(Colors.separatorColor)
+                            }
+                            .listRowInsets(EdgeInsets(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
+                        }
+                        
+                        if viewModel.isLoading {
+                            loadingIndicator
+                        }
+                    }.pullToRefresh(isShowing: $viewModel.isRefreshing) {
+                        self.usecaseHandler?(.load(self.userName))
                     }
                 }
                 .navigationBarTitle("Támadás", displayMode: .inline)
@@ -50,7 +74,7 @@ extension Attack {
                 .navigationBarColor(Colors.navBarBackgroundColor)
             }
             .onAppear {
-                self.usecaseHandler?(.load)
+                self.usecaseHandler?(.load(self.userName))
             }
         }
     }

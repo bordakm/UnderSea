@@ -1,25 +1,24 @@
 //
-//  AttackViewModel.swift
+//  AttackDetailViewModel.swift
 //  Undersea
 //
-//  Created by Vekety Robin on 2020. 07. 15..
+//  Created by Vekety Robin on 2020. 07. 22..
 //  Copyright © 2020. Vekety Robin. All rights reserved.
 //
 
 import Foundation
 
-extension Attack {
+extension AttackDetail {
     
     class ViewModel: ObservableObject {
         
         @Published var isLoading = false
-        @Published var isRefreshing = false
-        private(set) var userList: [UserViewModel] = []
+        private(set) var animalList: [AnimalViewModel] = []
         private(set) var alertMessage: String?
         
-        func set(userList: [UserViewModel]) {
+        func set(animalList: [AnimalViewModel]) {
             alertMessage = nil
-            self.userList = userList
+            self.animalList = animalList
             objectWillChange.send()
         }
         
