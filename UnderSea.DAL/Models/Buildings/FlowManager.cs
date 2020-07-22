@@ -10,7 +10,7 @@ namespace UnderSea.DAL.Models.Buildings
         {
             Name = "Áramlásirányító";
             Description = "200 egységnek nyújt szállást";
-            ImageUrl = "/images/buildings/reefcastle.png";
+            ImageUrl = "/images/buildings/flowmanager.png";
             Price = 1000;
             PopulationBonus = 50;
             CoralBonus = 200;
