@@ -80,7 +80,10 @@ namespace UnderSea.BLL.Services
                 AttackingArmy = attackingArmy,
                 DefendingArmy = defendingArmy,
                 Upgrades = upgrades,
-                User = user
+                User = user,
+                Pearl = 100000,
+                Coral = 100000
+                //TODO add stone  
             };
             user.Country = country;
             await db.SaveChangesAsync();
