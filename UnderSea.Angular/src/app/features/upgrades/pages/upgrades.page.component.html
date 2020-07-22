@@ -5,80 +5,30 @@
             <h3>Kattints rá, amelyiket szeretnéd megvenni</h3>
             <h4>Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog fejleszthető és minden csak egyszer fejleszthető ki (nem lehet két kombájn).</h4>
 
-            <div class="flex-box">
+            <div class="flex-box" style="overflow: auto; max-height: 40vh;">
 
-                <!-- <div *ngFor="let upgrade of upgrades">
-                    <mat-card class="upgrade-card-in-upgrades-page" [class.color1]="isSelected === 'color1'"
-                    (click)="enableButton('color1')">
+                <div *ngFor="let upgrade of upgrades">
+                    <mat-card class="upgrade-card-in-upgrades-page" [class.color1]="isSelected === 'color' + upgrade.id"
+                    (click)="enableButton('color' + upgrade.id, upgrade.id)">
                     <div class="img-container">
-                        <img [src]="upgrade.imageUrl" alt=''>
+                        <img [src]="baseUrl + upgrade.imageUrl" alt=''>
                     </div>
                     
                     <h3>{{ upgrade.name }}</h3>
                     <h4>{{ upgrade.description }}</h4>
                     
                 </mat-card>
-                </div> -->
+                </div>
                 
 
-                <mat-card class="upgrade-card-in-upgrades-page" [class.color1]="isSelected === 'color1'"
-                    (click)="enableButton('color1')">
-                    <div class="img-container">
-                        <img src='../../../../assets/images/undersea_game-09.png' alt=''>
-                    </div>
-                    
-                    <h3>{{ mudTractor.name }}</h3>
-                    <h4>Növeli a {{ mudTractor.upgrade }} {{ mudTractor.percent }}%-kal</h4>
-                    
-                </mat-card>
-                <mat-card class="upgrade-card-in-upgrades-page" [class.color2]="isSelected === 'color2'"
-                    (click)="enableButton('color2')">
-                    <div class="img-container">
-                        <img src='../../../../assets/images/undersea_game-10.png' alt=''>
-                    </div>
-                    <h3>{{ mudHarvester.name }}</h3>
-                    <h4>Növeli a {{ mudHarvester.upgrade }} {{ mudHarvester.percent }}%-kal</h4>
-                </mat-card>
-                <mat-card class="upgrade-card-in-upgrades-page" [class.color3]="isSelected === 'color3'"
-                    (click)="enableButton('color3')">
-                    <div class="img-container">
-                        <img src='../../../../assets/images/undersea_game-11.png' alt=''>
-                    </div>
-                    <h3>{{ coralWall.name }}</h3>
-                    <h4>Növeli a {{ coralWall.upgrade }} {{ coralWall.percent }}%-kal</h4>
-                </mat-card>
-                <mat-card class="upgrade-card-in-upgrades-page" [class.color3]="isSelected === 'color4'"
-                    (click)="enableButton('color4')">
-                    <div class="img-container">
-                        <img src='../../../../assets/images/undersea_game-03.png' alt=''>
-                    </div>
-                    <h3>{{ sonarCanon.name }}</h3>
-                    <h4>Növeli a {{ sonarCanon.upgrade }} {{ sonarCanon.percent }}%-kal</h4>
-                </mat-card>
-                <mat-card class="upgrade-card-in-upgrades-page" [class.color3]="isSelected === 'color5'"
-                    (click)="enableButton('color5')">
-                    <div class="img-container">
-                        <img src='../../../../assets/images/undersea_game-13.png' alt=''>
-                    </div>
-                    <h3>{{ underwaterMartialArts.name }}</h3>
-                    <h4>Növeli a {{ underwaterMartialArts.upgrade }} {{ underwaterMartialArts.percent }}%-kal</h4>
-                </mat-card>
-                <mat-card class="upgrade-card-in-upgrades-page" [class.color3]="isSelected === 'color6'"
-                    (click)="enableButton('color6')">
-                    <div class="img-container">
-                        <img src='../../../../assets/images/undersea_game-14.png' alt=''>
-                    </div>
-                    <h3>{{ alchemy.name }}</h3>
-                    <h4>Növeli a {{ alchemy.upgrade }} {{ alchemy.percent }}%-kal</h4>
-                </mat-card>
-
+            
             </div>
             <div class="divider">
                 <mat-divider class="my-divider"></mat-divider>
             </div>
 
             <div class="button">
-                <button mat-flat-button [disabled]="!clicked" class="color-button">Megveszem</button>
+                <button mat-flat-button [disabled]="!clicked" class="color-button" (click)="buyUpgrade()">Megveszem</button>
             </div>
         </mat-card-content>
     </mat-card>

@@ -87,3 +87,37 @@ img{
 .img-container{
     text-align: center;
 }
+
+.slider {
+    width: 50vw;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;  
+    padding-right: 5px;
+    position: relative;
+}
+
+.list-item{
+    margin-top: 10px;
+
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+  
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #3F68AE;
+    border-radius: 5px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #1C3E76;
+}

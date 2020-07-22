@@ -4,6 +4,9 @@ import { IUpgradesViewModel } from '../models/upgrades.model';
 import {UpgradesService } from '../services/upgrades.service'
 import { tap, catchError } from 'rxjs/operators';
 import { UpgradeViewModel } from 'src/app/shared';
+import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-upgrades-page',
@@ -14,46 +17,12 @@ export class UpgradesPageComponent implements OnInit {
 
   clicked = false;
   isSelected: string;
-
-  mudTractor: IUpgradesViewModel = {
-    name: 'Iszaptraktor',
-    upgrade: 'krumpli termesztését',
-    percent: 20
-  };
-
-  mudHarvester: IUpgradesViewModel = {
-    name: 'Iszapkombájn',
-    upgrade: 'korall termesztését',
-    percent: 15
-  };
-
-    coralWall: IUpgradesViewModel = {
-    name: 'Korallfal',
-    upgrade: 'védelmi pontokat',
-    percent: 20
-  };
-
-  sonarCanon: IUpgradesViewModel = {
-    name: 'Szonárágyú',
-    upgrade: 'támadópontokat',
-    percent: 20
-  };
-
-  underwaterMartialArts: IUpgradesViewModel = {
-    name: 'Vízalatti harcművészetek',
-    upgrade: 'védelmi és támadóerőt',
-    percent: 10
-  };
-
-  alchemy: IUpgradesViewModel = {
-    name: 'Alkímia',
-    upgrade: 'beszedett adót',
-    percent: 30
-  };
+  baseUrl = environment.apiUrl;
+  researchId: number;
 
   upgrades: UpgradeViewModel[];
 
-  constructor(private service: UpgradesService) { }
+  constructor(private service: UpgradesService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.service.getUpgrades().pipe(
@@ -62,9 +31,28 @@ export class UpgradesPageComponent implements OnInit {
     ).subscribe();
   }
 
-  enableButton(value): void{
+  enableButton(value: string, id: number): void{
     this.isSelected = value;
+    this.researchId = id;
     this.clicked = true;
+  }
+
+  buyUpgrade(): void{
+    this.service.research(this.researchId
+      ).pipe(
+        tap(res => {
+          this.snackbar.open('Sikeres fejlesztés!', 'Bezár', {
+            duration: 3000,
+            panelClass: ['my-snackbar'],
+          });
+        }),
+        catchError(err => {
+          return of(this.snackbar.open('A művelet sikertelen', 'Bezár', {
+            duration: 3000,
+            panelClass: ['my-snackbar'],
+          }));
+        })
+      ).subscribe();
   }
 
 }
