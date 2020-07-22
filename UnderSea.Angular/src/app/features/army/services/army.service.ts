@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 
 import { IArmyViewModel } from '../models/army.model';
 
-import { UnitViewModel, ApiClient } from '../../../shared/index';
+import { UnitViewModel, ApiClient, SimpleUnitViewModel, UnitPurchaseDTO } from '../../../shared/index';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -15,11 +16,8 @@ export class ArmyService {
 
   constructor(private http: HttpClient, private client: ApiClient) { }
 
-  // getUnits(): Observable<UnitViewModel[]>{
-  //   return this.client.unitsGet();
-  // }
-
   getUnits(): Observable<IArmyViewModel[]>{
+    console.log(environment.apiUrl);
     return this.client.unitsGet().pipe(
         map((dtos: UnitViewModel[]): IArmyViewModel[] =>
                  dtos.map(dto => ({
@@ -31,12 +29,16 @@ export class ArmyService {
                     defenseScore: dto.defenseScore,
                     pearlCostPerTurn: dto.pearlCostPerTurn,
                     coralCostPerTurn: dto.coralCostPerTurn,
-                    imageUrl: dto.imageUrl,
+                    imageUrl: environment.apiUrl + dto.imageUrl,
                     purchaseCount: 0
                 }))
         )
     );
   }
+
+  buyUnits(unitsPurchased: UnitPurchaseDTO[]): Observable<SimpleUnitViewModel[]>{
+    return this.client.unitsPost(unitsPurchased);
+   }
 
 
 }

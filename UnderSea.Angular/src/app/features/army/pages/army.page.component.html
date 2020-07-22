@@ -1,12 +1,17 @@
 <div class="flex-box">
     <mat-card class="mat-card-main">
+        <!-- <div class="center">
+            <mat-progress-spinner diameter=50 
+                                  mode="indeterminate">
+            </mat-progress-spinner> 
+        </div> -->
         <mat-card-content>
             <h1 class="main-card-title">Sereg</h1>
             <h3>Kattints rá, amelyiket szeretnéd megvenni</h3>
 
             <div class="flex-box" >
                 <div *ngFor="let unitModel of unitsModel">
-                    <app-unit [unit]="unitModel" [buyNumber]=0 [image]="unitModel.imageUrl" (clickDecrease)="decrease(unitModel.id)" (clickAdd)="increase(unitModel.id)"></app-unit>  
+                    <app-unit [unit]="unitModel" (clickDecrease)="decrease(unitModel.id)" (clickAdd)="increase(unitModel.id)"></app-unit>  
                 </div>
                     
             </div>
@@ -16,7 +21,7 @@
             </div>
             
             <div class="button">
-                <button mat-flat-button class="color-button">Megveszem</button>
+                <button mat-flat-button class="color-button" (click)="buyUnits()">Megveszem</button>
             </div>
         </mat-card-content>
     </mat-card>

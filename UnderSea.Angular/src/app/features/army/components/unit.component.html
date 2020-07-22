@@ -1,6 +1,6 @@
 <mat-card class="flex-box unit-card">
     <div class="rectangle-big">
-        <img [src]="image" alt="">
+        <img [src]="unit.imageUrl" alt="">
     </div>
     <h3 class="main-name">{{ unit.name }}</h3>
     <div class="data-holder">
@@ -12,7 +12,7 @@
             Ár
         </div>
         <div class="numbers">
-            0<!--ide kell majd a count, amit a fejléchez behúzott adatokból szedünk le. --> db <br>
+            {{ unit.count }} db <br>
             {{ unit.attackScore }} / {{ unit.defenseScore }}<br>
             {{ unit.pearlCostPerTurn }} Gyöngy <br>
             {{ unit.coralCostPerTurn }} Korall <br>
@@ -21,7 +21,7 @@
     </div>
     <div class="plus-minus">
         <button mat-mini-fab class="color-button-small" (click)="clickDecrease.emit()">-</button>
-        <h3 class="main-name">{{ buyNumber }}</h3>
+        <h3 class="main-name">{{ unit.purchaseCount }}</h3>
         <button mat-mini-fab class="color-button-small" (click)="clickAdd.emit()">+</button>
     </div>
 </mat-card>
