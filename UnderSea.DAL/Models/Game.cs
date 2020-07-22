@@ -79,11 +79,6 @@ namespace UnderSea.DAL.Models
                         dummyList.RemoveAt(rand.Next(0, unitCount - i));
                     }
 
-                    dummyList.ForEach(unit => {
-                        unit.UnitGroupId = attUserCountry.DefendingArmyId;
-                        unit.AttackId = null;
-                    });
-
                     attUserCountry.DefendingArmy.Units.AddRange(dummyList);
 
 
@@ -133,12 +128,6 @@ namespace UnderSea.DAL.Models
                     }
 
                     //hozzáadjuk az attacker defender armyjához
-                    attack.UnitList.ForEach(unit =>
-                    {
-                        unit.AttackId = null;
-                        unit.UnitGroupId = attUserCountry.DefendingArmyId;
-                    });
-
                     attUserCountry.DefendingArmy.Units.AddRange(attack.UnitList);
                     
 
@@ -172,7 +161,7 @@ namespace UnderSea.DAL.Models
                 }
             }
 
-            Attacks = new List<Attack>();
+            Attacks.Clear();
         }
     }
 }
