@@ -1,9 +1,9 @@
 <div class="attack-one-unit">
     <div class="rectangle attack">
-        <img [src]="unit.imageUrl" alt="">
+        <img [src]="baseUrl + unit.imageUrl" alt="">
     </div>
     <div>
         <h4 class="attack-unit-name">{{ unit.name }} : {{ matslider.value }} példány</h4>
-        <mat-slider [min]=0 [max]="unit.availableCount" #matslider ></mat-slider>
+        <mat-slider [min]=0 [max]="unit.availableCount" #matslider (change)="addValue()" ></mat-slider>
     </div>
 </div>

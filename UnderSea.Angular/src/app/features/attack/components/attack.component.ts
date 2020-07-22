@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { IAttackUnitViewModel } from '../models/attack.model';
-import { AvailableUnitViewModel, SendUnitDTO } from 'src/app/shared';
+import { AvailableUnitViewModel, SendUnitDTO, IdDTO } from 'src/app/shared';
 import { MatSlider } from '@angular/material/slider';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-attack',
@@ -10,25 +11,21 @@ import { MatSlider } from '@angular/material/slider';
 })
 export class AttackComponent implements OnInit {
 
-  @Input() unit: AvailableUnitViewModel;
+  @Input() unit: IAttackUnitViewModel;
   @Input() reset: boolean;
-  @Output() unitValue = new EventEmitter<SendUnitDTO>();
 
-  @Output() slider: MatSlider;
-  @ViewChild(MatSlider) matslider: MatSlider;
+  @Output() @ViewChild(MatSlider) matslider: MatSlider;
+
+  baseUrl = environment.apiUrl;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.slider = this.matslider;
+    
   }
 
-  getSliderValue(unitId: number, count: number): void{
-    const value: SendUnitDTO = new SendUnitDTO({
-      id: unitId,
-      sendCount: count
-    });
-    return this.unitValue.emit(value);
+  addValue(): void{
+    this.unit.sentCount = this.matslider.value;
   }
 
 }

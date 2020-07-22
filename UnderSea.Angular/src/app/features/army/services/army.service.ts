@@ -17,7 +17,6 @@ export class ArmyService {
   constructor(private http: HttpClient, private client: ApiClient) { }
 
   getUnits(): Observable<IArmyViewModel[]>{
-    console.log(environment.apiUrl);
     return this.client.unitsGet().pipe(
         map((dtos: UnitViewModel[]): IArmyViewModel[] =>
                  dtos.map(dto => ({

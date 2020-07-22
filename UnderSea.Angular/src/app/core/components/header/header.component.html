@@ -2,20 +2,20 @@
     <mat-card class="flex-card">
         <div class="flex-box">
             <mat-card-content (click)="newRound()" style="cursor: pointer">
-                <div class="header-text">{{ layout.everything.statusBar.roundCount }} . kör</div>
+                <div class="header-text">{{ everything.statusBar.roundCount }} . kör</div>
             </mat-card-content>
 
             <mat-card-content>
-                <div class="header-text">{{ layout.everything.statusBar.scoreboardPosition }} . hely</div>
+                <div class="header-text">{{ everything.statusBar.scoreboardPosition }} . hely</div>
             </mat-card-content>
         </div>
 
         <div class="flex-box">
             <div style="display: flex; flex-direction: row; align-items: center;"
-                *ngFor="let unit of everything.statusBar.availableUnits">
+                *ngFor="let unit of everything.statusBar.units">
                 <mat-card-content>
                     <div class="rectangle">
-                        <img [src]="unit.imageUrl" alt="">
+                        <img [src]="baseUrl + unit.imageUrl" alt="">
                     </div>
                 </mat-card-content>
 
@@ -31,8 +31,8 @@
                 </mat-card-content>
 
                 <mat-card-content>
-                    <div class="header-number">{{everything.statusBar.resources.pearlCount}}</div>
-                    <div class="header-small-text">{{everything.statusBar.resources.pearlProductionCount}} /kör</div>
+                    <div class="header-number">{{everything.statusBar.resources.pearlCount | number}}</div>
+                    <div class="header-small-text">{{everything.statusBar.resources.pearlProductionCount | number}}/kör</div>
                 </mat-card-content>
 
                 <mat-card-content>
@@ -42,15 +42,15 @@
                 </mat-card-content>
 
                 <mat-card-content>
-                    <div class="header-number">{{everything.statusBar.resources.coralCount}}</div>
-                    <div class="header-small-text">{{everything.statusBar.resources.coralProductionCount}} /kör</div>
+                    <div class="header-number">{{everything.statusBar.resources.coralCount | number}}</div>
+                    <div class="header-small-text">{{everything.statusBar.resources.coralProductionCount | number}}/kör</div>
                 </mat-card-content>
 
                 <div style="display: flex; flex-direction: row; align-items: center;"
                     *ngFor="let building of everything.statusBar.buildings">
                     <mat-card-content>
                         <div class="rectangle">
-                            <img [src]="building.imageUrl" alt="">
+                            <img [src]="baseUrl + building.imageUrl" alt="">
                         </div>
                     </mat-card-content>
 

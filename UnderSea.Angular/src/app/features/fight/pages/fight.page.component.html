@@ -2,6 +2,7 @@
     <mat-card class="mat-card-main">
         <mat-card-content>
             <h1 class="main-card-title">Harc</h1>
+            <div *ngIf="empty"><h4>Nincsenek folyamatban harcok</h4></div>
             <div class="flex-box">
                    <div class="slider">
                         <mat-list>
@@ -11,27 +12,6 @@
                                     <app-fight [units]="fight"></app-fight>
                                 </mat-list-item>
                             </div>
-                            
-                            <!-- <mat-divider></mat-divider>          
-                            <mat-list-item class="list-item">
-                                <app-fight [units]="fightModels"></app-fight>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>    
-                            <mat-list-item class="list-item">
-                                <app-fight [units]="fightModels"></app-fight>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>                      
-                            <mat-list-item class="list-item">
-                                <app-fight [units]="fightModels"></app-fight>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>    
-                            <mat-list-item class="list-item">
-                                <app-fight [units]="fightModels"></app-fight>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>    
-                            <mat-list-item class="list-item">
-                                <app-fight [units]="fightModels"></app-fight>
-                            </mat-list-item> -->
                             <mat-divider></mat-divider>    
                         </mat-list>
                     </div>

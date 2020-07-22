@@ -13,6 +13,7 @@ import { OutgoingAttackViewModel } from 'src/app/shared';
 export class FightPageComponent implements OnInit {
 
   fightModels: OutgoingAttackViewModel[];
+  empty: boolean;
 
   constructor(private service: FightService) { }
 
@@ -21,6 +22,12 @@ export class FightPageComponent implements OnInit {
       tap(res => this.fightModels = res),
       catchError(error => console.assert)
     ).subscribe();
+
+    if (Array.isArray(this.fightModels) && this.fightModels.length){
+      this.empty = false;
+    }else{
+      this.empty = true;
+    }
   }
 
 

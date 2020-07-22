@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-
+import { IAttackUnitViewModel } from '../../attack/models/attack.model';
 import {IOutgoingAttackViewModel, AttacksClient, AvailableUnitViewModel, ScoreboardViewModel, AttackDTO } from '../../../shared/index';
 
 @Injectable({
@@ -12,8 +13,18 @@ export class AttackService {
 
   constructor(private http: HttpClient, private client: AttacksClient) { }
 
-  getAttacks(): Observable<AvailableUnitViewModel[]>{
-    return this.client.getunits();
+  getAttacks(): Observable<IAttackUnitViewModel[]>{
+    return this.client.getunits().pipe(
+      map((dtos: AvailableUnitViewModel[]): IAttackUnitViewModel[] =>
+               dtos.map(dto => ({
+                  id: dto.id,
+                  name: dto.name,
+                  availableCount: dto.availableCount,
+                  imageUrl: dto.imageUrl,
+                  sentCount: 0
+              }))
+      )
+    );
   }
 
   getCountries(): Observable<ScoreboardViewModel[]>{

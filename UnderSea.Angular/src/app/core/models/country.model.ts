@@ -15,4 +15,3 @@ export interface IUnitViewModel{
     count: number;
     imageUrl: string;
 }
-

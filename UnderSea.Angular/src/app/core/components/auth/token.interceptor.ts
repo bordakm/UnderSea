@@ -17,12 +17,12 @@ export class TokenInterceptor implements HttpInterceptor {
       }
     });
     return next.handle(request).pipe(
-        catchError(error => {
-          if (error.status === 401 || error.status === 403) {
-            this.auth.collectFailedRequest(request);
-          }
-          return throwError(error);
-        }),
+      catchError(error => {
+        if (error.status === 401 || error.status === 403) {
+          this.auth.collectFailedRequest(request);
+        }
+        return throwError(error);
+      }),
     );
 
   }

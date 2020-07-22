@@ -9,6 +9,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import {TableSearchComponent} from './components/table-search.component'
 import { HttpClientModule } from '@angular/common/http';
@@ -28,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatCardModule,
@@ -40,6 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class SharedModule { }

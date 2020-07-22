@@ -1008,10 +1008,14 @@ export class BuildingsClient implements IBuildingsClient {
 
 export interface IMainPageClient {
     /**
-     * @param rounds (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    newround(rounds: number | undefined): Observable<void>;
+    newround(body: RoundsDTO | undefined): Observable<void>;
+    /**
+     * @return Success
+     */
+    profile(): Observable<ProfileViewModel>;
 }
 
 @Injectable({
@@ -1028,21 +1032,21 @@ export class MainPageClient implements IMainPageClient {
     }
 
     /**
-     * @param rounds (optional) 
+     * @param body (optional) 
      * @return Success
      */
-    newround(rounds: number | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/MainPage/newround?";
-        if (rounds === null)
-            throw new Error("The parameter 'rounds' cannot be null.");
-        else if (rounds !== undefined)
-            url_ += "rounds=" + encodeURIComponent("" + rounds) + "&";
+    newround(body: RoundsDTO | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/MainPage/newround";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
             })
         };
 
@@ -1078,33 +1082,12 @@ export class MainPageClient implements IMainPageClient {
         }
         return _observableOf<void>(<any>null);
     }
-}
-
-export interface IClient {
-    /**
-     * @return Success
-     */
-    profile(): Observable<ProfileViewModel>;
-}
-
-@Injectable({
-    providedIn: 'root'
-})
-export class Client implements IClient {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "";
-    }
 
     /**
      * @return Success
      */
     profile(): Observable<ProfileViewModel> {
-        let url_ = this.baseUrl + "/profile";
+        let url_ = this.baseUrl + "/api/MainPage/profile";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1498,6 +1481,7 @@ export class AvailableUnitViewModel implements IAvailableUnitViewModel {
     id?: number;
     name?: string | undefined;
     availableCount?: number;
+    allCount?: number;
     imageUrl?: string | undefined;
 
     constructor(data?: IAvailableUnitViewModel) {
@@ -1514,6 +1498,7 @@ export class AvailableUnitViewModel implements IAvailableUnitViewModel {
             this.id = _data["id"];
             this.name = _data["name"];
             this.availableCount = _data["availableCount"];
+            this.allCount = _data["allCount"];
             this.imageUrl = _data["imageUrl"];
         }
     }
@@ -1530,6 +1515,7 @@ export class AvailableUnitViewModel implements IAvailableUnitViewModel {
         data["id"] = this.id;
         data["name"] = this.name;
         data["availableCount"] = this.availableCount;
+        data["allCount"] = this.allCount;
         data["imageUrl"] = this.imageUrl;
         return data; 
     }
@@ -1539,6 +1525,7 @@ export interface IAvailableUnitViewModel {
     id?: number;
     name?: string | undefined;
     availableCount?: number;
+    allCount?: number;
     imageUrl?: string | undefined;
 }
 
@@ -1907,8 +1894,7 @@ export interface IStatusBarResource {
 }
 
 export class StatusBarViewModel implements IStatusBarViewModel {
-    availableUnits?: AvailableUnitViewModel[] | undefined;
-    allUnits?: AvailableUnitViewModel[] | undefined;
+    units?: AvailableUnitViewModel[] | undefined;
     buildings?: StatusBarBuilding[] | undefined;
     roundCount?: number;
     scoreboardPosition?: number;
@@ -1925,15 +1911,10 @@ export class StatusBarViewModel implements IStatusBarViewModel {
 
     init(_data?: any) {
         if (_data) {
-            if (Array.isArray(_data["availableUnits"])) {
-                this.availableUnits = [] as any;
-                for (let item of _data["availableUnits"])
-                    this.availableUnits!.push(AvailableUnitViewModel.fromJS(item));
-            }
-            if (Array.isArray(_data["allUnits"])) {
-                this.allUnits = [] as any;
-                for (let item of _data["allUnits"])
-                    this.allUnits!.push(AvailableUnitViewModel.fromJS(item));
+            if (Array.isArray(_data["units"])) {
+                this.units = [] as any;
+                for (let item of _data["units"])
+                    this.units!.push(AvailableUnitViewModel.fromJS(item));
             }
             if (Array.isArray(_data["buildings"])) {
                 this.buildings = [] as any;
@@ -1955,15 +1936,10 @@ export class StatusBarViewModel implements IStatusBarViewModel {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.availableUnits)) {
-            data["availableUnits"] = [];
-            for (let item of this.availableUnits)
-                data["availableUnits"].push(item.toJSON());
-        }
-        if (Array.isArray(this.allUnits)) {
-            data["allUnits"] = [];
-            for (let item of this.allUnits)
-                data["allUnits"].push(item.toJSON());
+        if (Array.isArray(this.units)) {
+            data["units"] = [];
+            for (let item of this.units)
+                data["units"].push(item.toJSON());
         }
         if (Array.isArray(this.buildings)) {
             data["buildings"] = [];
@@ -1978,8 +1954,7 @@ export class StatusBarViewModel implements IStatusBarViewModel {
 }
 
 export interface IStatusBarViewModel {
-    availableUnits?: AvailableUnitViewModel[] | undefined;
-    allUnits?: AvailableUnitViewModel[] | undefined;
+    units?: AvailableUnitViewModel[] | undefined;
     buildings?: StatusBarBuilding[] | undefined;
     roundCount?: number;
     scoreboardPosition?: number;
@@ -2092,6 +2067,42 @@ export interface IMainPageViewModel {
     statusBar?: StatusBarViewModel;
     countryName?: string | undefined;
     structures?: StructuresViewModel;
+}
+
+export class RoundsDTO implements IRoundsDTO {
+    number?: number;
+
+    constructor(data?: IRoundsDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.number = _data["number"];
+        }
+    }
+
+    static fromJS(data: any): RoundsDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new RoundsDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["number"] = this.number;
+        return data; 
+    }
+}
+
+export interface IRoundsDTO {
+    number?: number;
 }
 
 export class ProfileViewModel implements IProfileViewModel {

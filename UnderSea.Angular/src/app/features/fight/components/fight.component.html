@@ -1,6 +1,7 @@
 <tr class="fight-table">
     <td>{{ units.countryName }}</td>
-    <td>{{ units.units[0].count }} {{ units.units[0].name }}</td>
-    <td>{{ units.units[1].count }} {{ units.units[1].name }}</td>
-    <td>{{ units.units[2].count }} {{ units.units[2].name }}</td>
+    <div *ngFor="let unit of units.units">
+        <td>{{ unit.count }} {{ unit.name }}</td>
+    </div>
+    
 </tr>

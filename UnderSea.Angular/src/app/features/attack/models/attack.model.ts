@@ -1,8 +1,9 @@
-export interface IAttackUnitViewModel {
-    name: string;
-    count: number;
-}
 
-export interface ICountryViewModel{
-    name: string;
+
+export interface IAttackUnitViewModel{
+    id?: number;
+    name?: string;
+    availableCount?: number;
+    imageUrl?: string;
+    sentCount?: number;
 }

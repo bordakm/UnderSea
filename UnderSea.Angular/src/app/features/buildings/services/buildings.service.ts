@@ -19,7 +19,6 @@ export class BuildingsService {
   }
 
   buyBuilding(id: number): Observable<any>{
-    console.log(id);
     const iddto: IdDTO = new IdDTO(
       { id }
     );

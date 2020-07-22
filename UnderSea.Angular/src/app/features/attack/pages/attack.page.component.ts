@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input } from '@angular/core';
-import { IAttackUnitViewModel, ICountryViewModel } from '../../attack/models/attack.model';
-import { IOutgoingAttackViewModel, AvailableUnitViewModel, ScoreboardViewModel, AttackDTO, SendUnitDTO } from 'src/app/shared';
+import { IAttackUnitViewModel } from '../../attack/models/attack.model';
+import { IOutgoingAttackViewModel, ScoreboardViewModel, AttackDTO, SendUnitDTO, IdDTO } from 'src/app/shared';
 
 import { AttackService } from '../services/attack.service';
 import { tap, catchError } from 'rxjs/operators';
@@ -18,11 +18,11 @@ export class AttackPageComponent implements OnInit {
   @Input() unitValue: number;
   @Output() units: number;
 
-  availableUnits: AvailableUnitViewModel[];
+  availableUnits: IAttackUnitViewModel[];
   countries: ScoreboardViewModel[];
+
   attackData: AttackDTO = new AttackDTO();
   clicked: boolean;
-  matslider: MatSlider[];
 
   formatLabel(value: number): number{
     this.units = value;
@@ -45,19 +45,15 @@ export class AttackPageComponent implements OnInit {
 
   choose(id: number): void{
     this.attackData.defenderUserId = id;
-    // this.id = id;
     this.clicked = true;
   }
 
-  getUnitCount(unit: SendUnitDTO): void{
-    this.attackData.attackingUnits.forEach(element => {
-      if (element.id === unit.id){
-        element.sendCount = unit.sendCount;
-      }
-    });
-  }
-
   sendAttack(): void{
+    this.attackData.attackingUnits = this.availableUnits.map((model: IAttackUnitViewModel): SendUnitDTO => new SendUnitDTO({
+      id : model.id,
+      sendCount : model.sentCount
+    }));
+
     this.service.sendUnits(this.attackData
       ).pipe(
         tap(res => {

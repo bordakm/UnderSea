@@ -5,6 +5,8 @@ import { tap, catchError } from 'rxjs/operators';
 import { UnitViewModel, MainPageViewModel } from '../../../shared/index';
 import { LayoutComponent } from '../layout/layout.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +16,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HeaderComponent implements OnInit {
 
   everything: MainPageViewModel;
+
+  baseUrl = environment.apiUrl;
 
   constructor(private service: LayoutService, public layout: LayoutComponent, private snackbar: MatSnackBar) { }
 
@@ -26,18 +30,19 @@ export class HeaderComponent implements OnInit {
 
   newRound(): void{
     this.service.newRound(
-    ).subscribe(
-      res => {
+    ).pipe(
+      tap(res => {
         this.snackbar.open('Új kör', 'Bezár', {
           duration: 3000,
           panelClass: ['my-snackbar'],
         });
-      },
-      err => {
-        this.snackbar.open('A művelet sikertelen', 'Bezár', {
+      }),
+      catchError(err => {
+        return of(this.snackbar.open('A művelet sikertelen', 'Bezár', {
           duration: 3000,
           panelClass: ['my-snackbar'],
-        });
-      });
+        }));
+      })
+    ).subscribe();
   }
 }

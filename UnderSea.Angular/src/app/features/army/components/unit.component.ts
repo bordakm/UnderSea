@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IArmyViewModel } from '../models/army.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-unit',
@@ -14,6 +15,8 @@ export class UnitComponent implements OnInit {
 
   @Output() clickAdd = new EventEmitter();
   @Output() clickDecrease = new EventEmitter();
+
+  //baseUrl = environment.apiUrl;
 
   ngOnInit(): void {
   }
