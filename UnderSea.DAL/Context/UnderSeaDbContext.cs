@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
@@ -50,14 +52,96 @@ namespace UnderSea.DAL.Context
             {
                 Id = 1
             };
+            var sharkLv1 = new UnitLevel()
+            {
+                Id = 1,
+                Level = 1,
+                AttackScore = 5,
+                DefenseScore = 5,
+                UnitTypeId = 1,
+                BattlesNeeded = 0
+            };
+            var sharkLv2 = new UnitLevel()
+            {
+                Id = 2,
+                Level = 2,
+                AttackScore = 7,
+                DefenseScore = 7,
+                UnitTypeId = 1,
+                BattlesNeeded = 3
+            };
+            var sharkLv3 = new UnitLevel()
+            {
+                Id = 3,
+                Level = 3,
+                AttackScore = 10,
+                DefenseScore = 10,
+                UnitTypeId = 1,
+                BattlesNeeded = 8
+            };
             var stormSeal = new StormSeal
             {
-                Id = 2
+                Id = 2,
+            };
+            var sealLv1 = new UnitLevel()
+            {
+                Id = 4,
+                Level = 1,
+                AttackScore = 6,
+                DefenseScore = 2,
+                UnitTypeId = 2,
+                BattlesNeeded = 0
+            };
+            var sealLv2 = new UnitLevel()
+            {
+                Id = 5,
+                Level = 2,
+                AttackScore = 8,
+                DefenseScore = 3,
+                UnitTypeId = 2,
+                BattlesNeeded = 3
+            };
+            var sealLv3 = new UnitLevel()
+            {
+                Id = 6,
+                Level = 3,
+                AttackScore = 10,
+                DefenseScore = 5,
+                UnitTypeId = 2,
+                BattlesNeeded = 8
             };
             var combatSeaHorse = new CombatSeaHorse
             {
                 Id = 3
             };
+            var horseLv1 = new UnitLevel()
+            {
+                Id = 7,
+                Level = 1,
+                AttackScore = 2,
+                DefenseScore = 6,
+                UnitTypeId = 3,
+                BattlesNeeded = 0
+            };
+            var horseLv2 = new UnitLevel()
+            {
+                Id = 8,
+                Level = 2,
+                AttackScore = 3,
+                DefenseScore = 8,
+                UnitTypeId = 3,
+                BattlesNeeded = 3
+            };
+            var horseLv3 = new UnitLevel()
+            {
+                Id = 9,
+                Level = 3,
+                AttackScore = 5,
+                DefenseScore = 10,
+                UnitTypeId = 3,
+                BattlesNeeded = 8
+            };
+
             var reefCastle = new ReefCastle
             {
                 Id = 1
@@ -97,7 +181,6 @@ namespace UnderSea.DAL.Context
                 UnitGroupId = 1,
                 TypeId = 1,
                 BattlesSurvived = 0,
-                  
             };
             var unit2 = new Unit
             {
@@ -451,6 +534,19 @@ namespace UnderSea.DAL.Context
                     building2,
                     building3,
                     building4
+                });
+
+            modelBuilder.Entity<UnitLevel>()
+                .HasData(new UnitLevel[]{
+                    sharkLv1,
+                    sharkLv2,
+                    sharkLv3,
+                    horseLv1,
+                    horseLv2,
+                    horseLv3,
+                    sealLv1,
+                    sealLv2,
+                    sealLv3,
                 });
         }
     }
