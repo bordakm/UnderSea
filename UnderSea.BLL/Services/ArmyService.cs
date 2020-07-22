@@ -243,6 +243,7 @@ namespace UnderSea.BLL.Services
             var attacks = await db.Attacks
                                .Include(attack => attack.UnitList)
                                .ThenInclude(u => u.Type)
+                               .ThenInclude(type => type.Levels)
                                .Include(attack => attack.AttackerUser)
                                .ThenInclude(attacker => attacker.Country)
                                .Include(attack => attack.DefenderUser)
