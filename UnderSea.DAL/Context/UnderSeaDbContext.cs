@@ -538,7 +538,22 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<Unit>()
                 .HasData(new Unit[]
                 {
-                    unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8, unit9, unit10, unit11, unit12
+                    unit1,
+                    unit2,
+                    unit3,
+                    unit4,
+                    unit5,
+                    unit6,
+                    unit7,
+                    unit8,
+                    unit9,
+                    unit10,
+                    unit11,
+                    unit12,
+                    unit13,
+                    unit14,
+                    unit15,
+                    unit16,
                 });
             modelBuilder.Entity<Country>()
                 .HasData(new Country[]
