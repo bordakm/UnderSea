@@ -11,8 +11,25 @@ import SwiftUI
 
 struct Teams {
     
+    typealias DataModelType = [TeamsPageDTO]
+    typealias ViewModelType = ViewModel
+    
     static func setup() -> TeamsPage {
-        return TeamsPage()
+        
+        let interactor = Interactor()
+        let presenter = Presenter()
+        
+        var view = TeamsPage(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
+        
+        interactor.setPresenter = { return presenter }
+        
+        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
+        
+        view.setInteractor = { return interactor }
+        
+        return view
+        
+        
     }
     
 }

@@ -133,6 +133,15 @@
 		79A5B53D24BF5357009D5AC6 /* RegisterEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B53C24BF5357009D5AC6 /* RegisterEvents.swift */; };
 		79A5B53F24BF538B009D5AC6 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A5B53E24BF538B009D5AC6 /* RegisterViewModel.swift */; };
 		79C39EED24B8B12000803C00 /* SlideInMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */; };
+		79D4D77624C837EB0051AAA1 /* TeamsUsecases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D77524C837EB0051AAA1 /* TeamsUsecases.swift */; };
+		79D4D77824C837FB0051AAA1 /* TeamsEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D77724C837FB0051AAA1 /* TeamsEvents.swift */; };
+		79D4D77C24C838980051AAA1 /* TeamsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D77B24C838980051AAA1 /* TeamsApiService.swift */; };
+		79D4D77E24C839040051AAA1 /* TeamsApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D77D24C839040051AAA1 /* TeamsApiWorker.swift */; };
+		79D4D78024C839690051AAA1 /* TeamsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D77F24C839690051AAA1 /* TeamsViewModel.swift */; };
+		79D4D78224C839E60051AAA1 /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D78124C839E60051AAA1 /* TeamModel.swift */; };
+		79D4D78424C83B670051AAA1 /* TeamsPageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D78324C83B670051AAA1 /* TeamsPageDTO.swift */; };
+		79D4D78724C83C580051AAA1 /* TeamsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D78624C83C580051AAA1 /* TeamsInteractor.swift */; };
+		79D4D78A24C83CB50051AAA1 /* TeamsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4D78924C83CB50051AAA1 /* TeamsPresenter.swift */; };
 		79E4868024BDB38C00A0EB3B /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4867F24BDB38C00A0EB3B /* Fonts.swift */; };
 		79E4868C24BDE10900A0EB3B /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79E4868824BDD0B200A0EB3B /* OpenSans-Bold.ttf */; };
 		79E4868D24BDE10900A0EB3B /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79E4868724BDD0B200A0EB3B /* OpenSans-BoldItalic.ttf */; };
@@ -280,6 +289,15 @@
 		79A5B53C24BF5357009D5AC6 /* RegisterEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEvents.swift; sourceTree = "<group>"; };
 		79A5B53E24BF538B009D5AC6 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		79C39EEC24B8B12000803C00 /* SlideInMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInMenuView.swift; sourceTree = "<group>"; };
+		79D4D77524C837EB0051AAA1 /* TeamsUsecases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsUsecases.swift; sourceTree = "<group>"; };
+		79D4D77724C837FB0051AAA1 /* TeamsEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsEvents.swift; sourceTree = "<group>"; };
+		79D4D77B24C838980051AAA1 /* TeamsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsApiService.swift; sourceTree = "<group>"; };
+		79D4D77D24C839040051AAA1 /* TeamsApiWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsApiWorker.swift; sourceTree = "<group>"; };
+		79D4D77F24C839690051AAA1 /* TeamsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsViewModel.swift; sourceTree = "<group>"; };
+		79D4D78124C839E60051AAA1 /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
+		79D4D78324C83B670051AAA1 /* TeamsPageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsPageDTO.swift; sourceTree = "<group>"; };
+		79D4D78624C83C580051AAA1 /* TeamsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsInteractor.swift; sourceTree = "<group>"; };
+		79D4D78924C83CB50051AAA1 /* TeamsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsPresenter.swift; sourceTree = "<group>"; };
 		79E4867F24BDB38C00A0EB3B /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		79E4868224BDD0B100A0EB3B /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		79E4868324BDD0B100A0EB3B /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -822,6 +840,7 @@
 				794EDCBA24C03B7700D8AA9E /* EmptyResponse.swift */,
 				79237B8F24C6CED9009F5650 /* ProfilePageDTO.swift */,
 				7947A2A524C717F000E912CC /* LeaderboardPageDTO.swift */,
+				79D4D78324C83B670051AAA1 /* TeamsPageDTO.swift */,
 			);
 			path = Decodable;
 			sourceTree = "<group>";
@@ -906,6 +925,9 @@
 		79820C7524B71DC1006D7258 /* Teams */ = {
 			isa = PBXGroup;
 			children = (
+				79D4D78824C83CA60051AAA1 /* Presenter */,
+				79D4D78524C83C350051AAA1 /* Interactor */,
+				79D4D77324C837C10051AAA1 /* Utilities */,
 				79820C7924B71DE6006D7258 /* View */,
 				79820C8624B73A4D006D7258 /* Teams.swift */,
 			);
@@ -1050,6 +1072,59 @@
 				79A5B53E24BF538B009D5AC6 /* RegisterViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		79D4D77324C837C10051AAA1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				79D4D77A24C838850051AAA1 /* ViewModels */,
+				79D4D77924C8387C0051AAA1 /* Network */,
+				79D4D77424C837CF0051AAA1 /* Enums */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		79D4D77424C837CF0051AAA1 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				79D4D77524C837EB0051AAA1 /* TeamsUsecases.swift */,
+				79D4D77724C837FB0051AAA1 /* TeamsEvents.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		79D4D77924C8387C0051AAA1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				79D4D77B24C838980051AAA1 /* TeamsApiService.swift */,
+				79D4D77D24C839040051AAA1 /* TeamsApiWorker.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		79D4D77A24C838850051AAA1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				79D4D77F24C839690051AAA1 /* TeamsViewModel.swift */,
+				79D4D78124C839E60051AAA1 /* TeamModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		79D4D78524C83C350051AAA1 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				79D4D78624C83C580051AAA1 /* TeamsInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		79D4D78824C83CA60051AAA1 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				79D4D78924C83CB50051AAA1 /* TeamsPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		79E4868124BDD09F00A0EB3B /* OpenSans */ = {
@@ -1260,6 +1335,7 @@
 				792DE2F724BCAF8B009D175D /* StructureType.swift in Sources */,
 				79A5B53B24BF5343009D5AC6 /* RegisterUsecases.swift in Sources */,
 				792DE2DD24BC8DE3009D175D /* MainPageDTO.swift in Sources */,
+				79D4D77624C837EB0051AAA1 /* TeamsUsecases.swift in Sources */,
 				792DE2E324BC962F009D175D /* MainApiWorker.swift in Sources */,
 				79237B9624C6D8A3009F5650 /* LeaderboardPage.swift in Sources */,
 				79E4869B24BDF52300A0EB3B /* AttackDetailPage.swift in Sources */,
@@ -1273,6 +1349,7 @@
 				7956491824BEE4EF003D6D16 /* AttackPageViewModel.swift in Sources */,
 				7956492B24BF0159003D6D16 /* RegisterDTO.swift in Sources */,
 				7956492F24BF056B003D6D16 /* Dictionary+Extension.swift in Sources */,
+				79D4D78724C83C580051AAA1 /* TeamsInteractor.swift in Sources */,
 				794CAAE724B60764007DC9C7 /* RegisterPage.swift in Sources */,
 				792DE2EE24BCA3DE009D175D /* MainPresenter.swift in Sources */,
 				7956492924BEFDEF003D6D16 /* LoginDTO.swift in Sources */,
@@ -1289,12 +1366,14 @@
 				79820C8B24B73A67006D7258 /* TeamsPage.swift in Sources */,
 				79A5B53724BF5316009D5AC6 /* RegisterInteractor.swift in Sources */,
 				79A5998824C5EC3A00B1E17E /* ProfileHeader.swift in Sources */,
+				79D4D77C24C838980051AAA1 /* TeamsApiService.swift in Sources */,
 				792DE2E624BC9B37009D175D /* MainInteractor.swift in Sources */,
 				794CAAD924B5CDF5007DC9C7 /* Colors.swift in Sources */,
 				794CAAD624B5C730007DC9C7 /* LoginPage.swift in Sources */,
 				7956490C24BEE24D003D6D16 /* AttackApiWorker.swift in Sources */,
 				79237B9324C6D88B009F5650 /* Leaderboard.swift in Sources */,
 				79237BA024C6E189009F5650 /* LeaderboardAttackButton.swift in Sources */,
+				79D4D78424C83B670051AAA1 /* TeamsPageDTO.swift in Sources */,
 				7947A2A624C717F000E912CC /* LeaderboardPageDTO.swift in Sources */,
 				794CAADF24B5EBEC007DC9C7 /* SeaButton.swift in Sources */,
 				79A5B52924BF0F16009D5AC6 /* LoginEvents.swift in Sources */,
@@ -1310,18 +1389,21 @@
 				79A5998424C5DE9900B1E17E /* Profile.swift in Sources */,
 				794CAACA24B5C51B007DC9C7 /* BaseApiService.swift in Sources */,
 				79237BA224C6ECAA009F5650 /* TabPage.swift in Sources */,
+				79D4D78A24C83CB50051AAA1 /* TeamsPresenter.swift in Sources */,
 				794CAACC24B5C51B007DC9C7 /* ServerProxy.swift in Sources */,
 				7956491F24BEF79D003D6D16 /* UserManager.swift in Sources */,
 				79A5B52D24BF4193009D5AC6 /* LoginViewModel.swift in Sources */,
 				79237B8424C6CD69009F5650 /* ProfileUsecases.swift in Sources */,
 				79A5998624C5DEA600B1E17E /* ProfilePage.swift in Sources */,
 				792DE2E924BC9C16009D175D /* MainUsecases.swift in Sources */,
+				79D4D77E24C839040051AAA1 /* TeamsApiWorker.swift in Sources */,
 				7914335B24C07F6000BC4755 /* RenewDTO.swift in Sources */,
 				79A5998A24C5ED4F00B1E17E /* ProfileCityCell.swift in Sources */,
 				7922C0AF24C59A4500304446 /* Images.swift in Sources */,
 				79820C8524B73A43006D7258 /* Attack.swift in Sources */,
 				79237B9C24C6DB63009F5650 /* UserViewModel.swift in Sources */,
 				7956492124BEF831003D6D16 /* TokenDTO.swift in Sources */,
+				79D4D78024C839690051AAA1 /* TeamsViewModel.swift in Sources */,
 				7947D99D24B8678700C5306D /* HostingController.swift in Sources */,
 				7922A9CD24B4BBB8002A7957 /* SceneDelegate.swift in Sources */,
 				79A5B53F24BF538B009D5AC6 /* RegisterViewModel.swift in Sources */,
@@ -1339,6 +1421,7 @@
 				79237B8624C6CD84009F5650 /* ProfileEvents.swift in Sources */,
 				7947A29A24C714B400E912CC /* LeaderboardApiService.swift in Sources */,
 				79237B8A24C6CDE6009F5650 /* ProfilePageViewModel.swift in Sources */,
+				79D4D77824C837FB0051AAA1 /* TeamsEvents.swift in Sources */,
 				7956491024BEE338003D6D16 /* AttackEvents.swift in Sources */,
 				79237B8C24C6CE37009F5650 /* ProfilePresenter.swift in Sources */,
 				79A5B52B24BF40B2009D5AC6 /* LoginPresenter.swift in Sources */,
@@ -1362,6 +1445,7 @@
 				79820C8F24B76155006D7258 /* SVGImage.swift in Sources */,
 				794C674824B6F8AD006D1F2B /* RootPage.swift in Sources */,
 				792DE2F324BCA76A009D175D /* MainPageViewModel.swift in Sources */,
+				79D4D78224C839E60051AAA1 /* TeamModel.swift in Sources */,
 				794CAAE124B5FB61007DC9C7 /* SeaInputField.swift in Sources */,
 				79820C7F24B71E20006D7258 /* City.swift in Sources */,
 				792DE2E124BC94EA009D175D /* MainApiService.swift in Sources */,
