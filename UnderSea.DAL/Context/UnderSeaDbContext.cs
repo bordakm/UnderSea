@@ -186,68 +186,79 @@ namespace UnderSea.DAL.Context
             {
                 Id = 2,
                 UnitGroupId = 1,
-                TypeId = 2
+                TypeId = 2,
+                BattlesSurvived = 10,
 
             };
             var unit3 = new Unit
             {
                 Id = 3,
                 UnitGroupId = 1,
-                TypeId = 3
+                TypeId = 3,
+                BattlesSurvived = 2,
             };
             var unit4 = new Unit
             {
                 Id = 4,
                 UnitGroupId = 2,
-                TypeId = 1
+                TypeId = 1,
+                BattlesSurvived = 3,
             };
             var unit5 = new Unit
             {
                 Id = 5,
                 UnitGroupId = 2,
-                TypeId = 2
+                TypeId = 2,
+                BattlesSurvived = 8,
             };
             var unit6 = new Unit
             {
                 Id = 6,
                 UnitGroupId = 2,
-                TypeId = 3
+                TypeId = 3,
+                BattlesSurvived = 4,
             };
             var unit7 = new Unit
             {
                 Id = 7,
                 UnitGroupId = 3,
-                TypeId = 1
+                TypeId = 1,
+                BattlesSurvived = 1,
             };
             var unit8 = new Unit
             {
                 Id = 8,
                 UnitGroupId = 3,
-                TypeId = 2
+                TypeId = 2,
+                BattlesSurvived = 5,
             };
             var unit9 = new Unit
             {
                 Id = 9,
                 UnitGroupId = 3,
-                TypeId = 3
+                TypeId = 3,
+                BattlesSurvived = 9,
             };
             var unit10 = new Unit
             {
                 Id = 10,
                 UnitGroupId = 4,
-                TypeId = 1
+                TypeId = 1,
+                BattlesSurvived = 9,
             };
             var unit11 = new Unit
             {
                 Id = 11,
                 UnitGroupId = 4,
-                TypeId = 2
+                TypeId = 2,
+                BattlesSurvived = 3,
             };
             var unit12 = new Unit
             {
                 Id = 12,
                 UnitGroupId = 4,
-                TypeId = 3
+                TypeId = 3,
+                BattlesSurvived = 5,
             };
 
             var upgrade1 = new Upgrade
