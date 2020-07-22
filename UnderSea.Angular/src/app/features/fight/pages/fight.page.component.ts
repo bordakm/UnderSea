@@ -23,7 +23,7 @@ export class FightPageComponent implements OnInit {
       catchError(error => console.assert)
     ).subscribe();
 
-    if (Array.isArray(this.fightModels) && this.fightModels.length){
+    if (Array.isArray(this.fightModels) && this.fightModels.length > 0){
       this.empty = false;
     }else{
       this.empty = true;

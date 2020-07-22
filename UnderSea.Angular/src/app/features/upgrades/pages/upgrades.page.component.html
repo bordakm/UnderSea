@@ -3,32 +3,34 @@
         <mat-card-content>
             <h1 class="main-card-title">Fejlesztések</h1>
             <h3>Kattints rá, amelyiket szeretnéd megvenni</h3>
-            <h4>Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog fejleszthető és minden csak egyszer fejleszthető ki (nem lehet két kombájn).</h4>
+            <h4>Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog fejleszthető és minden csak egyszer
+                fejleszthető ki (nem lehet két kombájn).</h4>
 
             <div class="flex-box" style="overflow: auto; max-height: 40vh;">
 
                 <div *ngFor="let upgrade of upgrades">
                     <mat-card class="upgrade-card-in-upgrades-page" [class.color1]="isSelected === 'color' + upgrade.id"
-                    (click)="enableButton('color' + upgrade.id, upgrade.id)">
-                    <div class="img-container">
-                        <img [src]="baseUrl + upgrade.imageUrl" alt=''>
-                    </div>
-                    
-                    <h3>{{ upgrade.name }}</h3>
-                    <h4>{{ upgrade.description }}</h4>
-                    
-                </mat-card>
-                </div>
-                
+                        (click)="enableButton('color' + upgrade.id, upgrade.id)">
+                        <div class="img-container">
+                            <img [src]="baseUrl + upgrade.imageUrl" alt=''>
+                        </div>
 
-            
+                        <h3>{{ upgrade.name }}</h3>
+                        <h4>{{ upgrade.description }}</h4>
+
+                    </mat-card>
+                </div>
+
+
+
             </div>
             <div class="divider">
                 <mat-divider class="my-divider"></mat-divider>
             </div>
 
             <div class="button">
-                <button mat-flat-button [disabled]="!clicked" class="color-button" (click)="buyUpgrade()">Megveszem</button>
+                <button mat-flat-button [disabled]="!clicked" class="color-button"
+                    (click)="buyUpgrade()">Megveszem</button>
             </div>
         </mat-card-content>
     </mat-card>

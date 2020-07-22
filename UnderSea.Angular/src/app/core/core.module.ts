@@ -19,7 +19,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { environment } from 'src/environments/environment';
 import { API_BASE_URL } from '../shared';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from '../core/components/auth/token.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
