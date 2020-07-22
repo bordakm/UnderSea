@@ -10,6 +10,7 @@ namespace UnderSea.BLL.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public int AvailableCount { get; set; }
+        public int AllCount { get; set; }
         public string ImageUrl { get; set; }
     }
 }
