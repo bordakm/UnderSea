@@ -114,7 +114,7 @@ namespace UnderSea.API
                                 config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                                 .UseSimpleAssemblyNameTypeSerializer()
                                 .UseDefaultTypeSerializer()
-                                .UseMemoryStorage()
+                                .UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"))
                                 );
             services.AddHangfireServer();
 
