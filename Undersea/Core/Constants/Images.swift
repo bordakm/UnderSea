@@ -14,5 +14,6 @@ enum Images: String {
     case underseaLogo = "underseaLogo"
     case userImage = "userImage"
     case chevronUp = "chevron.up"
+    case chevronDown = "chevron.down"
     
 }

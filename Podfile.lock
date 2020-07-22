@@ -6,6 +6,7 @@ PODS:
   - CocoaLumberjack/Core (3.6.1)
   - CocoaLumberjack/Swift (3.6.1):
     - CocoaLumberjack/Core
+  - Introspect (0.1.0)
   - KeychainAccess (4.2.0)
   - KituraContracts (1.2.1):
     - LoggerAPI (~> 1.7)
@@ -31,10 +32,11 @@ PODS:
 
 DEPENDENCIES:
   - CocoaLumberjack/Swift (= 3.6.1)
+  - Introspect
   - KeychainAccess (= 4.2.0)
   - Macaw (= 0.9.6)
   - Moya (= 14.0.0)
-  - R.swift
+  - R.swift (= 5.2.2)
   - SwiftJWT (= 3.5.3)
 
 SPEC REPOS:
@@ -44,6 +46,7 @@ SPEC REPOS:
     - BlueECC
     - BlueRSA
     - CocoaLumberjack
+    - Introspect
     - KeychainAccess
     - KituraContracts
     - LoggerAPI
@@ -61,6 +64,7 @@ SPEC CHECKSUMS:
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
   BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
+  Introspect: ad32f2b7b9e7ac2c008b9dfec3d5325fbd3660fa
   KeychainAccess: 3f760109aa99b05d0f231e28b22642da7153e38a
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   LoggerAPI: fb78461eedac5316b290f2404d88b9d614d96c57
@@ -72,6 +76,6 @@ SPEC CHECKSUMS:
   SwiftJWT: 9a47a71090cae25767078756b5810e3b630aa9a7
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
 
-PODFILE CHECKSUM: 08481d149e640786ee133f901c3fe548f2ec1b41
+PODFILE CHECKSUM: f932a24dcdbb9be17a5607d79e75bf3add949b67
 
 COCOAPODS: 1.9.3

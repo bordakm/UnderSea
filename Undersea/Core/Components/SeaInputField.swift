@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct SeaInputField: View {
     
@@ -14,15 +15,20 @@ struct SeaInputField: View {
     @Binding var inputText: String
     
     var backgroundColor = Color.white
+    var keyboardType = UIKeyboardType.asciiCapable
+    var onEditingChanged: (Bool) -> Void = { _ in }
     
     var body: some View {
         ZStack {
             GeometryReader() { geometry in
                 // TODO: Placeholder szinenek beallitasara nincs beepitett megoldas meg SwiftUI-ban
-                TextField(self.placeholder, text: self.$inputText)
+                TextField(self.placeholder, text: self.$inputText, onEditingChanged: self.onEditingChanged)
                     .padding(Edge.Set.horizontal, 16.0)
                     .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
                     .font(Font.system(size: 15.0))
+                    .keyboardType(self.keyboardType)
+                    .foregroundColor(Colors.tabTintColor)
+                    .accentColor(Colors.tabTintColor)
             }
         }
         .frame(height: 40.0, alignment: .leading)

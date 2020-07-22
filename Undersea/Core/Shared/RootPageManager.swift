@@ -12,6 +12,9 @@ import Combine
 class RootPageManager : ObservableObject {
     
     @Published var currentPage = RootPage.login
+    @Published var currentSubPage = TabPage.main
+    @Published var leaderboardVisible = false
+    
     private var subscription: AnyCancellable?
     
     private init() {

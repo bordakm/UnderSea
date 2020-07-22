@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UITableView.appearance().tableFooterView = UIView()
         UITableView.appearance().backgroundColor = Colors.backgroundUIColor
         UITableViewCell.appearance().backgroundColor = Colors.backgroundUIColor
-        UITableView.appearance().separatorColor = Colors.separatorUIColor
+        UITableView.appearance().separatorColor = UIColor.clear
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

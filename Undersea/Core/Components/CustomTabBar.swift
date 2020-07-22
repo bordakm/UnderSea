@@ -14,6 +14,14 @@ struct CustomTabItem: Identifiable {
     let view: AnyView
     let title: String
     let imageName: String
+    let page: TabPage
+    
+    init(page: TabPage) {
+        self.view = page.view
+        self.title = page.title
+        self.imageName = page.imageName
+        self.page = page
+    }
     
 }
 
@@ -21,18 +29,19 @@ struct CustomTabBar: View {
     
     let tabItems: [CustomTabItem]
     
-    @State
-    private var selectedTab = 0
+    @Binding
+    var selected: TabPage
+    
     private let tabHeight: CGFloat = 56.0
     
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                self.tabItems[self.selectedTab].view
+                self.tabItems.filter({ $0.page == self.selected }).first?.view //[self.selectedTab].view
                 ZStack {
                     LinearGradient(gradient: Gradient(colors: [Colors.loginGradientStart, Colors.loginGradientMid, Colors.loginGradientEnd]), startPoint: .bottom, endPoint: .top)
                         .frame(width: geometry.size.width, height: self.tabHeight + geometry.safeAreaInsets.bottom)
-                    TabButtons(tabItems: self.tabItems, selectedTab: self.$selectedTab)
+                    TabButtons(tabItems: self.tabItems, selected: self.$selected)
                         .padding(.bottom, geometry.safeAreaInsets.bottom)
                         .frame(width: geometry.size.width, height: self.tabHeight)
                 }
@@ -42,18 +51,18 @@ struct CustomTabBar: View {
     }
 }
 
-struct CustomTabBar_Previews: PreviewProvider {
+/*struct CustomTabBar_Previews: PreviewProvider {
     static var previews: some View {
         let tab1 = CustomTabItem(view: AnyView(Text("First page")), title: "First", imageName: "star")
         let tab2 = CustomTabItem(view: AnyView(Text("Second page")), title: "Second", imageName: "star")
         return CustomTabBar(tabItems: [tab1, tab2])
     }
-}
+}*/
 
 struct TabButtons: View {
     
     @State var tabItems: [CustomTabItem]
-    @Binding var selectedTab: Int
+    @Binding var selected: TabPage
     
     var body: some View {
         HStack {
@@ -67,18 +76,18 @@ struct TabButtons: View {
                         .foregroundColor(Colors.tabTintColor)
                 }.gesture(
                     TapGesture().onEnded({ _ in
-                        self.selectedTab = self.index(of: tabItem)
+                        self.selected = tabItem.page
                     })
-                ).opacity(self.selectedTab == self.index(of: tabItem) ? 1.0 : 0.5)
+                ).opacity(self.selected == tabItem.page ? 1.0 : 0.5)
                 Spacer()
             }
         }
     }
     
-    private func index(of tabItem: CustomTabItem) -> Int {
+    /*private func index(of tabItem: CustomTabItem) -> Int {
         return self.tabItems.firstIndex(where: { (item) -> Bool in
             return tabItem.id == item.id
         }) ?? 0
-    }
+    }*/
     
 }
