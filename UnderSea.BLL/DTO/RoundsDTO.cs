@@ -6,6 +6,6 @@ namespace UnderSea.BLL.DTO
 {
     public class RoundsDTO
     {
-        public int Nubmer { get; set; }
+        public int Number { get; set; }
     }
 }
