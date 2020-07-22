@@ -15,7 +15,20 @@
 
 // todo: a kettő különböző hátteret meg kell jeleníteni
 body{
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    background-image: url("../assets/images/undersea_game-01.png");
+    margin: 0;
+}
+
+.login-body {
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
     background-image: url("../assets/images/undersea_game-08.png");
-    background-repeat: no-repeat;
-    background-size: 100vw;
 }
