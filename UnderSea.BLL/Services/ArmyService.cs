@@ -80,6 +80,7 @@ namespace UnderSea.BLL.Services
                     foreach (var item in tranferList)
                     {
                         attackingUser.Country.DefendingArmy.Units.Remove(item);
+                        item.UnitGroupId = attackingUser.Country.AttackingArmyId;
                         attackingUser.Country.AttackingArmy.Units.Add(item);
                     }
 
@@ -181,7 +182,12 @@ namespace UnderSea.BLL.Services
             }
 
             await db.SaveChangesAsync();
-            return mapper.Map<List<UnitPurchaseDTO>, IEnumerable<SimpleUnitViewModel>>(purchases);
+            var result = mapper.Map<List<UnitPurchaseDTO>, IEnumerable<SimpleUnitViewModel>>(purchases);
+            foreach (var unit in result)
+            {
+                unit.Level = 1;
+            }
+            return result;
         }
 
         public async Task<IEnumerable<AvailableUnitViewModel>> GetAvailableUnitsAsync(int userId)
@@ -208,6 +214,7 @@ namespace UnderSea.BLL.Services
                         && unitvm.Level == unit.Level)
                     {
                         unitvm.AvailableCount++;
+                        unitvm.AllCount++;
                         found = true;
                         break;
                     }
@@ -218,7 +225,8 @@ namespace UnderSea.BLL.Services
                     result.Add(new AvailableUnitViewModel()
                     {
                         AvailableCount = 1,
-                        Id = unit.Id,
+                        AllCount = 1,
+                        Id = unit.Type.Id,
                         ImageUrl = unit.Type.ImageUrl,
                         Level = unit.Level,
                         Name = unit.Type.Name
@@ -267,7 +275,7 @@ namespace UnderSea.BLL.Services
                         result.Add(new SimpleUnitWithNameViewModel()
                         {
                             Count = 1,
-                            TypeId = unit.Id,
+                            TypeId = unit.Type.Id,
                             Name = unit.Type.Name
                         });
                     }                    
@@ -311,7 +319,7 @@ namespace UnderSea.BLL.Services
                 {
                     result.Add(new UnitViewModel()
                     {
-                        Id = unit.Id,
+                        Id = unit.Type.Id,
                         Name = unit.Type.Name,
                         Count = 1,
                         Level = unit.Level,
