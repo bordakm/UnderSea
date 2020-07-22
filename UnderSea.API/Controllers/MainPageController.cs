@@ -35,7 +35,7 @@ namespace UnderSea.API.Controllers
         [HttpPost("newround")]
         public Task NewRound([FromBody] RoundsDTO rounds)
         {
-            return gameService.NewRoundAsync(rounds.Nubmer);
+            return gameService.NewRoundAsync(rounds.Number);
         }
 
         [HttpGet("profile")]
