@@ -5,7 +5,6 @@ using UnderSea.BLL.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using System.Globalization;
 using UnderSea.BLL.DTO;
 
 namespace UnderSea.API.Controllers
