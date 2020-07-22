@@ -33,10 +33,12 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(country => country.DefendingArmy)
                 .ThenInclude(defendingArmy => defendingArmy.Units)
                 .ThenInclude(unit => unit.Type)
+                .ThenInclude(type => type.Levels)
                 .Include(u => u.Country)
                 .ThenInclude(country => country.AttackingArmy)
                 .ThenInclude(attackingArmy => attackingArmy.Units)
                 .ThenInclude(unit => unit.Type)
+                .ThenInclude(type => type.Levels)
                 .SingleAsync(u => u.Id == attackerUserId);
             var defendingCountry = await db.Countries
                 .Include(country => country.User)
@@ -60,7 +62,9 @@ namespace UnderSea.BLL.Services
                     {
                         foreach (var defender in attackingUser.Country.DefendingArmy.Units)
                         {
-                            if(defender.Type.Id == oneAttack.Id && defender.Level == oneAttack.Level)
+                            if(defender.Type.Id == oneAttack.Id
+                                //Group by LVL
+                                && defender.Level == oneAttack.Level)
                             {
                                 oneAttack.SendCount--;
                                 tranferList.Add(defender);
@@ -101,7 +105,9 @@ namespace UnderSea.BLL.Services
 
                 foreach (var unitvm in result)
                 {
-                    if (unitvm.TypeId == unit.Type.Id && unitvm.Level == unit.Level)
+                    if (unitvm.TypeId == unit.Type.Id
+                        //Group by LVL
+                        && unitvm.Level == unit.Level)
                     {
                         unitvm.Count++;
                         found = true;
@@ -135,10 +141,12 @@ namespace UnderSea.BLL.Services
                                     .ThenInclude(country => country.AttackingArmy)
                                     .ThenInclude(aa => aa.Units)
                                     .ThenInclude(units => units.Type)
+                                    .ThenInclude(type => type.Levels)
                                     .Include(user => user.Country)
                                     .ThenInclude(country => country.DefendingArmy)
                                     .ThenInclude(da => da.Units)
                                     .ThenInclude(units => units.Type)
+                                    .ThenInclude(type => type.Levels)
                                     .Include(user => user.Country)
                                     .ThenInclude(country => country.Upgrades)
                                     .ThenInclude(upgrades => upgrades.Type)
@@ -183,6 +191,7 @@ namespace UnderSea.BLL.Services
                                .ThenInclude(country => country.DefendingArmy)
                                .ThenInclude(army => army.Units)
                                .ThenInclude(unit => unit.Type)
+                               .ThenInclude(type => type.Levels)
                                .SingleAsync(user => user.Id == userId);
 
             var units = user.Country.DefendingArmy.Units;
@@ -194,7 +203,9 @@ namespace UnderSea.BLL.Services
 
                 foreach (var unitvm in result)
                 {
-                    if (unitvm.Id == unit.Type.Id && unitvm.Level == unit.Level)
+                    if (unitvm.Id == unit.Type.Id
+                        //Group by LVL
+                        && unitvm.Level == unit.Level)
                     {
                         unitvm.AvailableCount++;
                         found = true;
@@ -231,13 +242,41 @@ namespace UnderSea.BLL.Services
                                .ToListAsync();
 
             var response = new List<OutgoingAttackViewModel>();
+            var result = new List<SimpleUnitWithNameViewModel>();
+            var found = false;
             foreach (var attack in attacks)
             {
-                var units = mapper.Map<List<SimpleUnitWithNameViewModel>>(attack.UnitList);
+                result.Clear();
+                found = false;
+                foreach (var unit in attack.UnitList)
+                {
+                    found = false;
+
+                    foreach (var unitvm in result)
+                    {
+                        if (unitvm.TypeId == unit.Type.Id)
+                        {
+                            unitvm.Count++;
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        result.Add(new SimpleUnitWithNameViewModel()
+                        {
+                            Count = 1,
+                            TypeId = unit.Id,
+                            Name = unit.Type.Name
+                        });
+                    }                    
+                }
+
                 response.Add(new OutgoingAttackViewModel
                 {
                     CountryName = attack.DefenderUser.Country.Name,
-                    Units = units
+                    Units = result
                 });
             }
             return response;
@@ -246,7 +285,9 @@ namespace UnderSea.BLL.Services
         public async Task<IEnumerable<UnitViewModel>> GetUnitsAsync(int userId)
         {
             var country = await db.Countries.SingleAsync(c => c.UserId == userId);
-            var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId).Include(u => u.Type);
+            var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId)
+                                .Include(u => u.Type)
+                                .ThenInclude(t => t.Levels);
 
             List<UnitViewModel> result = new List<UnitViewModel>();
             var found = false;
@@ -256,7 +297,9 @@ namespace UnderSea.BLL.Services
 
                 foreach (var unitvm in result)
                 {
-                    if (unitvm.Id == unit.Type.Id)
+                    if (unitvm.Id == unit.Type.Id 
+                        //Group by LVL
+                        && unitvm.Level == unit.Level)
                     {
                         unitvm.Count++;
                         found = true;
@@ -271,6 +314,7 @@ namespace UnderSea.BLL.Services
                         Id = unit.Id,
                         Name = unit.Type.Name,
                         Count = 1,
+                        Level = unit.Level,
                         ImageUrl = unit.Type.ImageUrl,
                         AttackScore = unit.AttackScore,
                         DefenseScore = unit.DefenseScore,
