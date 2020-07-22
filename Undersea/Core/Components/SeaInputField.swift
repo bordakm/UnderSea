@@ -18,15 +18,26 @@ struct SeaInputField: View {
     var keyboardType = UIKeyboardType.asciiCapable
     var onEditingChanged: (Bool) -> Void = { _ in }
     
+    var isSecure = false
+    
+    var textField: AnyView {
+        if self.isSecure {
+            return AnyView(SecureField(self.placeholder, text: self.$inputText)
+                .keyboardType(self.keyboardType))
+        } else {
+            return AnyView(TextField(self.placeholder, text: self.$inputText, onEditingChanged: self.onEditingChanged)
+                .keyboardType(self.keyboardType))
+        }
+    }
+    
     var body: some View {
         ZStack {
             GeometryReader() { geometry in
                 // TODO: Placeholder szinenek beallitasara nincs beepitett megoldas meg SwiftUI-ban
-                TextField(self.placeholder, text: self.$inputText, onEditingChanged: self.onEditingChanged)
+                self.textField
                     .padding(Edge.Set.horizontal, 16.0)
                     .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
                     .font(Font.system(size: 15.0))
-                    .keyboardType(self.keyboardType)
                     .foregroundColor(Colors.tabTintColor)
                     .accentColor(Colors.tabTintColor)
             }

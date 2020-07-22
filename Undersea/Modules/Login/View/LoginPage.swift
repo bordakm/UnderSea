@@ -29,11 +29,11 @@ extension Login {
                         VStack {
                             
                             Text("Belepes")
-                                .font(Font.custom("Baloo2-Regular", size: 20))
+                                .font(Fonts.get(.bRegular, 20.0))
                                 .foregroundColor(Colors.loginTitleColor)
                             
                             SeaInputField(placeholder: "Felhasznalonev", inputText: self.$userName)
-                            SeaInputField(placeholder: "Jelszo", inputText: self.$userPassword)
+                            SeaInputField(placeholder: "Jelszo", inputText: self.$userPassword, isSecure: true)
                             
                             SeaButton(title: "Belepes", action: {
                                 self.usecaseHandler?(.login(self.userName, self.userPassword))
@@ -50,12 +50,14 @@ extension Login {
                         }
                         .frame(width: 280.0)
                         .padding()
-                        .background(Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.65))
+                        .background(Colors.whiteTransparent)
                         .cornerRadius(16.0)
                         
-                    }
+                        Spacer()
+                        
+                    }.padding(.top, geometry.safeAreaInsets.top + 50.0)
             }
-            .background(Image("loginBackground")
+            .background(Image(uiImage: R.image.loginBackground()!)
                 .resizable()
                 .scaledToFill())
             .edgesIgnoringSafeArea(.vertical)

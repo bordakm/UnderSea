@@ -35,12 +35,12 @@ extension Register {
                     VStack {
                         
                         Text("Belepes")
-                            .font(Font.custom("Baloo2-Regular", size: 20))
+                            .font(Fonts.get(.bRegular, 20.0))
                             .foregroundColor(Colors.loginTitleColor)
                         
                         SeaInputField(placeholder: "Felhasznalonev", inputText: self.$userName)
-                        SeaInputField(placeholder: "Jelszo", inputText: self.$password)
-                        SeaInputField(placeholder: "Jelszo megerositese", inputText: self.$passwordRepeat)
+                        SeaInputField(placeholder: "Jelszo", inputText: self.$password, isSecure: true)
+                        SeaInputField(placeholder: "Jelszo megerositese", inputText: self.$passwordRepeat, isSecure: true)
                         SeaInputField(placeholder: "A varosod neve, amit epitesz", inputText: self.$cityName)
                         
                         SeaButton(title: "Regisztracio", action: {
@@ -57,20 +57,22 @@ extension Register {
                             RootPageManager.shared.currentPage = RootPage.login
                         }) {
                             Text("Belepes")
-                                .font(Font.custom("Baloo2-Regular", size: 16))
+                                .font(Fonts.get(.bRegular))
                                 .foregroundColor(Colors.loginBtnTextColor)
                         }
                     
                     }
                     .frame(width: 280.0)
                     .padding()
-                    .background(Color(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.65))
+                    .background(Colors.whiteTransparent)
                     .cornerRadius(16.0)
                     
-                }
+                    Spacer()
+                    
+                }.padding(.top, geometry.safeAreaInsets.top + 50.0)
                 
             }
-            .background(Image("loginBackground")
+            .background(Image(uiImage: R.image.loginBackground()!)
                 .resizable()
                 .scaledToFill())
             .edgesIgnoringSafeArea(.vertical)
