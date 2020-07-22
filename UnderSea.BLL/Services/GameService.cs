@@ -75,7 +75,8 @@ namespace UnderSea.BLL.Services
                         AllCount = 1,
                         Id = unit.Type.Id,
                         ImageUrl = unit.Type.ImageUrl,
-                        Name = unit.Type.Name
+                        Name = unit.Type.Name,
+                        Level = unit.Level
                     });
                 }
 
