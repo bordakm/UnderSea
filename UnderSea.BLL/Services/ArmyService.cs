@@ -262,7 +262,9 @@ namespace UnderSea.BLL.Services
 
                     foreach (var unitvm in result)
                     {
-                        if (unitvm.TypeId == unit.Type.Id)
+                        if (unitvm.TypeId == unit.Type.Id
+                            //Group by LVL
+                            && unit.Level == unit.Level)
                         {
                             unitvm.Count++;
                             found = true;
@@ -276,7 +278,8 @@ namespace UnderSea.BLL.Services
                         {
                             Count = 1,
                             TypeId = unit.Type.Id,
-                            Name = unit.Type.Name
+                            Name = unit.Type.Name,
+                            Level = unit.Level
                         });
                     }                    
                 }
