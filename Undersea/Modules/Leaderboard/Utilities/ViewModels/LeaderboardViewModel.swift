@@ -13,6 +13,7 @@ extension Leaderboard {
     class ViewModel: ObservableObject {
         
         @Published var isLoading = false
+        @Published var isRefreshing = false
         private(set) var userList: [UserViewModel] = []
         private(set) var alertMessage: String?
         

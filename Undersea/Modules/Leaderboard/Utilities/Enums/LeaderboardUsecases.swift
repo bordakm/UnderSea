@@ -11,9 +11,8 @@ import Foundation
 extension Leaderboard {
     
     enum Usecase {
-        case load
+        case load(_ userName: String)
         case loadMore(_ userName: String)
-        case search(_ userName: String)
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct SeaInputField: View {
     
@@ -26,7 +27,8 @@ struct SeaInputField: View {
                     .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
                     .font(Font.system(size: 15.0))
                     .keyboardType(self.keyboardType)
-                    
+                    .foregroundColor(Colors.tabTintColor)
+                    .accentColor(Colors.tabTintColor)
             }
         }
         .frame(height: 40.0, alignment: .leading)

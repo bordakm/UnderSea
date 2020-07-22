@@ -26,6 +26,7 @@ extension Leaderboard {
                     
                     switch result {
                     case .failure(let error):
+                        self.viewModel.isRefreshing = false
                         self.viewModel.set(alertMessage: error.localizedDescription)
                     default:
                         print("-- Presenter: finished")
@@ -34,6 +35,7 @@ extension Leaderboard {
                     
                 }, receiveValue: { (data) in
 
+                    self.viewModel.isRefreshing = false
                     self.populateViewModel(dataModel: data)
                     
                 })

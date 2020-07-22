@@ -19,6 +19,8 @@ pod 'CocoaLumberjack/Swift', '3.6.1'
 pod 'R.swift', '5.2.2'
 
 #For SVG image view
-pod "Macaw", "0.9.6"
+pod 'Macaw', '0.9.6'
+
+pod 'Introspect', '0.1.0'
 
 end

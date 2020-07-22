@@ -13,7 +13,7 @@ extension Leaderboard {
  
     class ApiWorker: BaseApiWorker<ApiService> {
         
-        func getLeaderboard(_ userName: String? = nil, page: Int? = 1) -> AnyPublisher<[LeaderboardPageDTO], Error> {
+        func getLeaderboard(_ userName: String? = nil, page: Int = 1) -> AnyPublisher<[LeaderboardPageDTO], Error> {
             return execute(target: .getLeaderboard(userName, page: page))
         }
         

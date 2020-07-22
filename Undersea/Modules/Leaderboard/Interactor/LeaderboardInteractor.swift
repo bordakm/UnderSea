@@ -27,20 +27,18 @@ extension Leaderboard {
         func handleUsecase(_ event: Leaderboard.Usecase) {
             
             switch event {
-            case .load:
-                loadData()
+            case .load(let userName):
+                loadData(userName)
             case .loadMore(let userName):
                 loadMore(userName)
-            case .search(let userName):
-                search(userName)
             }
             
         }
         
-        private func loadData() {
+        private func loadData(_ userName: String?) {
             
             page = 1
-            subscription = worker.getLeaderboard()
+            subscription = worker.getLeaderboard(userName)
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { (result) in
                     switch result {
@@ -53,25 +51,6 @@ extension Leaderboard {
                 }, receiveValue: { data in
                     self.dataSubject.send(data)
                 })
-            
-        }
-        
-        private func search(_ userName: String) {
-            
-            page = 1
-            subscription = worker.getLeaderboard(userName)
-            .receive(on: DispatchQueue.global())
-            .sink(receiveCompletion: { (result) in
-                switch result {
-                case .failure(_):
-                    self.dataSubject.send(completion: result)
-                default:
-                    print("-- Profile Interactor: load data finished")
-                    break
-                }
-            }, receiveValue: { data in
-                self.dataSubject.send(data)
-            })
             
         }
         
@@ -89,26 +68,12 @@ extension Leaderboard {
                     print("-- Profile Interactor: load data finished")
                     break
                 }
-            }, receiveValue: { _ in
-                let data = self.loadMoreTestData()
+            }, receiveValue: { data in
                 self.page += 1
                 var tmp = self.dataSubject.value ?? []
                 tmp.append(contentsOf: data)
                 self.dataSubject.send(tmp)
             })
-            
-        }
-        
-        private func loadMoreTestData() -> [LeaderboardPageDTO] {
-            
-            sleep(3)
-            let diff = page * 15
-            var tmp: [LeaderboardPageDTO] = []
-            for i in 0..<15 {
-                tmp.append(LeaderboardPageDTO(id: i + diff, userName: "User\(i + diff)", place: i + diff, score: i + diff))
-            }
-            
-            return tmp
             
         }
         

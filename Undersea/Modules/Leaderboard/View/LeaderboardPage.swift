@@ -20,7 +20,6 @@ extension Leaderboard {
         var usecaseHandler: ((Leaderboard.Usecase) -> Void)?
         
         @State private var userName: String = ""
-        @State private var isLoading = false
         
         private var closeButton: some View {
             LeaderboardCloseButton(action: {
@@ -39,7 +38,9 @@ extension Leaderboard {
             /*Rectangle()
                 .fill(Color.white)
                 .frame(width: 20.0, height: 20.0, alignment: .center)*/
-            ActivityIndicator(isAnimating: $viewModel.isLoading, style: .medium, color: UIColor.white)
+            VStack {
+                ActivityIndicator(isAnimating: $viewModel.isLoading, style: .medium, color: UIColor.white)
+            }.frame(minWidth: 0.0, maxWidth: .infinity, alignment: .center)
         }
         
         var body: some View {
@@ -47,27 +48,32 @@ extension Leaderboard {
                 VStack {
                     SeaInputField(placeholder: "Felhasznalonev", inputText: $userName, backgroundColor: Colors.searchFieldBackground, keyboardType: UIKeyboardType.webSearch, onEditingChanged: { editing in
                         if !editing {
-                            self.usecaseHandler?(.search(self.userName))
+                            self.usecaseHandler?(.load(self.userName))
                         }
                     })
                         .padding([.horizontal, .top])
                     
                     List {
-                        
                         ForEach(viewModel.userList) { user in
-                            Text(user.userName)
-                                .foregroundColor(Color.white)
-                                .padding(.vertical)
-                                .onAppear(perform: {
-                                    if self.viewModel.userList.last?.id == user.id {
-                                        self.usecaseHandler?(.loadMore(self.userName))
-                                    }
-                                })
+                            VStack(alignment: .leading, spacing: 0.0) {
+                                Text(user.userName)
+                                    .foregroundColor(Color.white)
+                                    .padding(.vertical)
+                                    .onAppear(perform: {
+                                        if self.viewModel.userList.last?.id == user.id {
+                                            self.usecaseHandler?(.loadMore(self.userName))
+                                        }
+                                    })
+                                Divider()
+                                    .background(Colors.separatorColor)
+                            }.listRowInsets(EdgeInsets(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
                         }
                         
                         if viewModel.isLoading {
                             loadingIndicator
                         }
+                    }.pullToRefresh(isShowing: $viewModel.isRefreshing) {
+                        self.usecaseHandler?(.load(self.userName))
                     }
                 }
                 .navigationBarTitle("Ranglista", displayMode: .inline)
@@ -76,7 +82,7 @@ extension Leaderboard {
                 .navigationBarColor(Colors.navBarBackgroundColor)
             }
             .onAppear {
-                self.usecaseHandler?(.load)
+                self.usecaseHandler?(.load(self.userName))
             }
         }
     }

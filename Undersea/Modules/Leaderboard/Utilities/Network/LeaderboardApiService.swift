@@ -12,7 +12,7 @@ import Moya
 extension Leaderboard {
     
     enum ApiService {
-        case getLeaderboard(_ userName: String?, page: Int?)
+        case getLeaderboard(_ userName: String?, page: Int)
     }
     
 }
