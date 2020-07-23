@@ -44,7 +44,7 @@ namespace UnderSea.API
 
             services.AddCors(o => o.AddPolicy("AllowAllOriginsPolicy", builder =>
             {
-                builder.WithOrigins("http://localhost:4200") //.AllowAnyOrigin()
+                builder.WithOrigins("http://localhost:4200", "http://underseat2lasttry.webtest.encosoft.internal") //.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader()
                        .AllowCredentials();
