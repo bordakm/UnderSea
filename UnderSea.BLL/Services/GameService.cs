@@ -57,8 +57,8 @@ namespace UnderSea.BLL.Services
                 {
                     if (unitvm.Id == unit.Type.Id)
                     {
-                        unitvm.AvailableCount++;
-                        unitvm.AllCount++;
+                        unitvm.AvailableCount += unit.Count;
+                        unitvm.AllCount += unit.Count;
                         found = true;
                         break;
                     }
@@ -68,8 +68,8 @@ namespace UnderSea.BLL.Services
                 {
                     availableUnits.Add(new AvailableUnitViewModel()
                     {
-                        AvailableCount = 1,
-                        AllCount = 1,
+                        AvailableCount = unit.Count,
+                        AllCount = unit.Count,
                         Id = unit.Type.Id,
                         ImageUrl = unit.Type.ImageUrl,
                         Name = unit.Type.Name
@@ -86,7 +86,7 @@ namespace UnderSea.BLL.Services
                 {
                     if (unitvm.Id == unit.Type.Id)
                     {
-                        unitvm.AllCount++;
+                        unitvm.AllCount += unit.Count;
                         found = true;
                         break;
                     }
@@ -96,7 +96,7 @@ namespace UnderSea.BLL.Services
                 {
                     availableUnits.Add(new AvailableUnitViewModel()
                     {
-                        AllCount = 1,
+                        AllCount = unit.Count,
                         Id = unit.Type.Id,
                         ImageUrl = unit.Type.ImageUrl,
                         Name = unit.Type.Name
