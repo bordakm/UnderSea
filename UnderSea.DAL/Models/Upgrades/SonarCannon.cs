@@ -10,7 +10,7 @@ namespace UnderSea.DAL.Models.Upgrades
         {
             Name = "Szonárágyú";
             Description = "növeli a támadópontokat 20%-kal";
-            ImageUrl = "/images/valami.png";
+            ImageUrl = "/images/upgrades/sonarcannon.png";
             AttackBonusPercentage = 20;
         }
     }
