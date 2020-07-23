@@ -215,12 +215,13 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(country => country.AttackingArmy)
                 .ThenInclude(aa => aa.Units)
                 .ThenInclude(units => units.Type)
-                .ThenInclude(type => type.Levels)
+                //.ThenInclude(type => type.Levels)
                 .Include(user => user.Country)
                 .ThenInclude(country => country.DefendingArmy)
                 .ThenInclude(da => da.Units)
                 .ThenInclude(units => units.Type)
-                .ThenInclude(type => type.Levels);
+                //.ThenInclude(type => type.Levels)
+                ;
 
             foreach (var user in users)
             {
