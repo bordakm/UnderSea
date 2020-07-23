@@ -52,16 +52,16 @@ export class ArmyPageComponent implements OnInit {
       });
       this.data.push(temp);
     });
-    this.service.buyUnits(this.data
-    ).pipe(
+    this.service.buyUnits(this.data).pipe(
       tap(res => {
-        this.snackbar.open('Sikeres támadás!', 'Bezár', {
+        this.snackbar.open('Sikeres vásárlás', 'Bezár', {
           duration: 3000,
           panelClass: ['my-snackbar'],
         });
       }),
-      catchError(this.handleError<SimpleUnitViewModel[]>('Nem sikerült a támadás elindítása', []))
+      catchError(this.handleError<SimpleUnitViewModel[]>('Nem sikerült a vásárlás', []))
     ).subscribe();
+    // TODO: replace window.reload
     window.location.reload();
   }
 
