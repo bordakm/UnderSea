@@ -7,6 +7,7 @@ import { UpgradeViewModel } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, Observable } from 'rxjs';
+import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
 
 @Component({
   selector: 'app-upgrades-page',
@@ -22,9 +23,13 @@ export class UpgradesPageComponent implements OnInit {
 
   upgrades: UpgradeViewModel[];
 
-  constructor(private service: UpgradesService, private snackbar: MatSnackBar) { }
+  constructor(private service: UpgradesService, private snackbar: MatSnackBar, private refreshService: RefreshDataService) { }
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData(): void{
     this.service.getUpgrades().pipe(
       tap(res => this.upgrades = res),
       catchError(error => this.handleError<UpgradeViewModel[]>('Nem sikerült a fejlesztések betöltése', []))
@@ -45,6 +50,7 @@ export class UpgradesPageComponent implements OnInit {
             duration: 3000,
             panelClass: ['my-snackbar'],
           });
+          this.refreshService.refresh(true);
         }),
         catchError(err => this.handleError('Nem sikerült a fejlesztés'))
       ).subscribe();
