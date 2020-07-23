@@ -19,14 +19,10 @@ extension Profile {
 
 extension Profile.ApiService: BaseApiService {
     
-    var baseURL: URL {
-        return URL(string: "http://underseat2lasttry.webtest.encosoft.internal")!
-    }
-    
     var path: String {
         switch self {
         case .getProfile:
-            return "/profile"
+            return "/MainPage/profile"
         }
     }
     

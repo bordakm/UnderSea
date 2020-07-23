@@ -21,8 +21,7 @@ extension MainPageDTO {
     
     struct StatusBarDTO: Decodable {
         
-        let allUnits: [Unit]
-        let availableUnits: [Unit]
+        let units: [Unit]
         let buildings: [Building]
         
         let roundCount: Int
@@ -55,6 +54,7 @@ extension MainPageDTO.StatusBarDTO {
         let id: Int
         let name: String
         let availableCount: Int
+        let allCount: Int
         let imageUrl: String
         
     }
