@@ -82,8 +82,8 @@ namespace UnderSea.BLL.Services
                 Upgrades = upgrades,
                 User = user,
                 Pearl = 100000,
-                Coral = 100000
-                //TODO add stone  
+                Coral = 100000,
+                Stone = 5000
             };
             user.Country = country;
             await db.SaveChangesAsync();

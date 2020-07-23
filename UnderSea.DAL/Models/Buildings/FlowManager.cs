@@ -13,6 +13,8 @@ namespace UnderSea.DAL.Models.Buildings
             ImageUrl = "/images/buildings/flowmanager.png";
             SmallIconUrl = "/images/buildings/flowmanagericon.png";
             Price = 1000;
+            StonePrice = 50;
+            BuildingTime = 5;
             PopulationBonus = 50;
             CoralBonus = 200;
             UnitStorage = 0;

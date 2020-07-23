@@ -155,6 +155,7 @@ namespace UnderSea.BLL.Services
                     await IncreaseRoundCountAsync();
                     await AddTaxes();
                     await AddCoral();
+                    await AddStone();
                     await PayUnits();
                     await FeedUnits();
                     await DoUpgrades();
@@ -264,6 +265,20 @@ namespace UnderSea.BLL.Services
             foreach (var user in users)
             {
                 user.Country.AddCoral();
+            }
+            await db.SaveChangesAsync();
+        }
+
+        private async Task AddStone()
+        {
+            var users = db.Users
+                .Include(user => user.Country)
+                .ThenInclude(c => c.BuildingGroup)
+                .ThenInclude(bg => bg.Buildings)
+                .ThenInclude(b => b.Type);
+            foreach (var user in users)
+            {
+                user.Country.AddStone();
             }
             await db.SaveChangesAsync();
         }
