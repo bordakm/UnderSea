@@ -24,7 +24,7 @@ struct SeaButton: View {
             }
             
         }.background(Color.clear)
-        .frame(width: 150.0, height: 40.0, alignment: .center)
+        .frame(width: 200.0, height: 40.0, alignment: .center)
         .clipShape(Capsule())
         .shadow(color: Colors.loginShadowColor, radius: 6.0, x: 0.0, y: 3.0)
     }

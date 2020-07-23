@@ -1,18 +1,18 @@
 //
-//  AttackEvents.swift
+//  AttackDetailEvents.swift
 //  Undersea
 //
-//  Created by Vekety Robin on 2020. 07. 15..
+//  Created by Vekety Robin on 2020. 07. 22..
 //  Copyright © 2020. Vekety Robin. All rights reserved.
 //
 
 import Foundation
 
-extension Attack {
+extension AttackDetail {
     
     enum Event {
         case dataLoaded
-        case nextPageLoading
+        case attackSent
     }
     
 }

@@ -13,7 +13,7 @@ extension Attack {
     
     class Presenter {
         
-        private var subscriptions: [Main.Event: AnyCancellable] = [:]
+        private var subscriptions: [Attack.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
@@ -25,6 +25,7 @@ extension Attack {
                     
                     switch result {
                     case .failure(let error):
+                        self.viewModel.isRefreshing = false
                         self.viewModel.set(alertMessage: error.localizedDescription)
                     default:
                         print("-- Presenter: finished")
@@ -33,10 +34,19 @@ extension Attack {
                     
                 }, receiveValue: { (data) in
 
+                    self.viewModel.isRefreshing = false
                     self.populateViewModel(dataModel: data)
                     
                 })
             
+        }
+        
+        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+            subscriptions[.nextPageLoading] = loadingSubject
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { [weak self] (isLoading) in
+                    self?.viewModel.isLoading = isLoading
+                })
         }
         
         private func populateViewModel(dataModel: DataModelType?) {
@@ -46,13 +56,11 @@ extension Attack {
                     return
             }
             
-            var users: [AttackPageViewModel.User] = []
-            
-            for user in dataModel.users {
-                users.append(AttackPageViewModel.User(id: user.id, name: user.name))
+            let userList = dataModel.map { user in
+                return UserViewModel(id: user.id, place: user.place, userName: user.userName)
             }
             
-            self.viewModel.set(viewModel: AttackPageViewModel(users: users))
+            self.viewModel.set(userList: userList)
             
         }
         

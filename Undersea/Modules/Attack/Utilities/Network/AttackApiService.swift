@@ -12,7 +12,7 @@ import Moya
 extension Attack {
     
     enum ApiService {
-        case getAttack
+        case getAttack(_ userName: String?, page: Int)
     }
     
 }
@@ -22,7 +22,7 @@ extension Attack.ApiService: BaseApiService {
     var path: String {
         switch self {
         case .getAttack:
-            return "/AttackPage"
+            return "/Attacks/searchtargets"
         }
     }
     
@@ -35,8 +35,14 @@ extension Attack.ApiService: BaseApiService {
     
     var parameters: [String : Any] {
         switch self {
-        case .getAttack:
-            return [:]
+        case .getAttack(let userName, let page):
+            
+            if let userName = userName?.trimmingCharacters(in: .whitespacesAndNewlines), !userName.isEmpty {
+                return ["SearchPhrase": userName, "Page": page, "ItemPerPage": 15]
+            } else {
+                return ["Page": page, "ItemPerPage": 15]
+            }
+            
         }
     }
 }

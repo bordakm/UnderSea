@@ -8,19 +8,14 @@
 
 import Foundation
 
-struct AttackPageViewModel {
-    
-    let users: [User]
-    
-}
+extension Attack {
 
-extension AttackPageViewModel {
-    
-    struct User: Identifiable {
+    struct UserViewModel: Identifiable {
         
         let id: Int
-        let name: String
+        let place: Int
+        let userName: String
         
     }
-    
+
 }

@@ -10,17 +10,9 @@ import Foundation
 
 struct AttackPageDTO: Decodable {
     
-    let users: [User]
-    
-}
-
-extension AttackPageDTO {
-    
-    struct User: Decodable {
-        
-        let id: Int
-        let name: String
-        
-    }
+    let id: Int
+    let place: Int
+    let userName: String
+    let score: Int
     
 }

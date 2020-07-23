@@ -58,7 +58,7 @@ extension Leaderboard {
             }
             
             let userList = dataModel.map { user in
-                return UserViewModel(id: user.id, userName: user.userName, place: user.place, score: user.score)
+                return UserViewModel(id: user.id, place: user.place, userName: user.userName, score: user.score)
             }
             
             self.viewModel.set(userList: userList)

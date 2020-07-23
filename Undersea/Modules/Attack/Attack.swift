@@ -11,7 +11,7 @@ import SwiftUI
 
 struct Attack {
     
-    typealias DataModelType = AttackPageDTO
+    typealias DataModelType = [AttackPageDTO]
     typealias ViewModelType = ViewModel
     
     static func setup() -> AttackPage {
