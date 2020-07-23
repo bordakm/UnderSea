@@ -47,8 +47,7 @@ namespace UnderSea.BLL
                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))
                         .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Type.Description))
                         .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))
-                        .ForMember(dest => dest.IsPurchased, opt => opt.MapFrom(src => src.State == UpgradeState.Researched))
-                        .ForMember(dest => dest.RemainingRounds, opt => opt.MapFrom(src => src.State == UpgradeState.Researched));
+                        .ForMember(dest => dest.IsPurchased, opt => opt.MapFrom(src => src.State == UpgradeState.Researched));
             CreateMap<User, ScoreboardViewModel>();
             CreateMap<Building, StatusBarViewModel.StatusBarBuilding> ()
                         .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Type.ImageUrl))
