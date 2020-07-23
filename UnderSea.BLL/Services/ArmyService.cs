@@ -30,15 +30,15 @@ namespace UnderSea.BLL.Services
             var unitTypes = await db.UnitTypes.ToListAsync();
             var attackingUser = await db.Users
                 .Include(u => u.Country)
-                .ThenInclude(country => country.DefendingArmy)
-                .ThenInclude(defendingArmy => defendingArmy.Units)
-                .ThenInclude(unit => unit.Type)
-                .ThenInclude(type => type.Levels)
+                    .ThenInclude(country => country.DefendingArmy)
+                        .ThenInclude(defendingArmy => defendingArmy.Units)
+                            .ThenInclude(unit => unit.Type)
+                                .ThenInclude(type => type.Levels)
                 .Include(u => u.Country)
-                .ThenInclude(country => country.AttackingArmy)
-                .ThenInclude(attackingArmy => attackingArmy.Units)
-                .ThenInclude(unit => unit.Type)
-                .ThenInclude(type => type.Levels)
+                    .ThenInclude(country => country.AttackingArmy)
+                        .ThenInclude(attackingArmy => attackingArmy.Units)
+                            .ThenInclude(unit => unit.Type)
+                                .ThenInclude(type => type.Levels)
                 .SingleAsync(u => u.Id == attackerUserId);
             var defendingCountry = await db.Countries
                 .Include(country => country.User)

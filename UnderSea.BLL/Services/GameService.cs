@@ -75,7 +75,8 @@ namespace UnderSea.BLL.Services
                         AllCount = 1,
                         Id = unit.Type.Id,
                         ImageUrl = unit.Type.ImageUrl,
-                        Name = unit.Type.Name
+                        Name = unit.Type.Name,
+                        Level = unit.Level
                     });
                 }
 
@@ -145,12 +146,10 @@ namespace UnderSea.BLL.Services
             return response;
         }
 
-        public async Task NewRoundAsync(int rounds = 1)
+        public async Task NewRoundAsync(int rounds)
         {
             for (int i = 0; i < rounds; ++i)
             {
-                using (var tran = db.Database.BeginTransaction())
-                {
                     await AddTaxes();
                     await AddCoral();
                     await PayUnits();
@@ -160,8 +159,6 @@ namespace UnderSea.BLL.Services
                     //todo
                     await CalculateAttacks();
                     await CalculateRankingsAsync();
-                    tran.Commit();
-                }
             }
             await hubContext.Clients.All.SendAsync("NewRound");
         }
