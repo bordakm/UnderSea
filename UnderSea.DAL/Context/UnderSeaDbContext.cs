@@ -179,7 +179,7 @@ namespace UnderSea.DAL.Context
             {
                 Id = 1,
                 CountryId = 1,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 1
             };
             var upgrade2 = new Upgrade
@@ -200,14 +200,14 @@ namespace UnderSea.DAL.Context
             {
                 Id = 4,
                 CountryId = 1,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 4
             };
             var upgrade5 = new Upgrade
             {
                 Id = 5,
                 CountryId = 1,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 5
             };
             var upgrade6 = new Upgrade
