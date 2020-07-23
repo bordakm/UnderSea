@@ -145,15 +145,19 @@ namespace UnderSea.BLL.Services
         {
             for (int i = 0; i < rounds; ++i)
             {
-                await IncreaseRoundCountAsync();
-                await AddTaxes();
-                await AddCoral();
-                await PayUnits();
-                await FeedUnits();
-                await DoUpgrades();
-                await Build();
-                await CalculateAttacks();
-                await CalculateRankingsAsync();
+                using (var tran = db.Database.BeginTransaction()) 
+                {
+                    await IncreaseRoundCountAsync();
+                    await AddTaxes();
+                    await AddCoral();
+                    await PayUnits();
+                    await FeedUnits();
+                    await DoUpgrades();
+                    await Build();
+                    await CalculateAttacks();
+                    await CalculateRankingsAsync();
+                    await tran.CommitAsync();
+            }
 
             }
             await hubContext.Clients.All.SendAsync("NewRound");
@@ -328,7 +332,7 @@ namespace UnderSea.BLL.Services
                         SendCount = removeUnits[key]
                     });
                 }
-                var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
+                var userAttacks = allAttacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop && userAttacks.Count() != 0)
                 {
@@ -404,7 +408,7 @@ namespace UnderSea.BLL.Services
                         SendCount = removeUnits[key]
                     });
                 }
-                var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
+                var userAttacks = allAttacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop && userAttacks.Count() != 0)
                 {

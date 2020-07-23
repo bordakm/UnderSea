@@ -61,8 +61,7 @@ namespace UnderSea.BLL.Services
                     sentUnits.Add(new Unit() { Count = sendUnit.SendCount, Type = type, UnitGroupId = newUnitGroup.Id });
                 }
             }
-            if(game.Id == null)
-                System.Console.WriteLine("baj van, a game id sosem lehetne null!!");
+
             game.Attacks.Add(new Attack
             {
                 AttackerUserId = attackingUser.Id,

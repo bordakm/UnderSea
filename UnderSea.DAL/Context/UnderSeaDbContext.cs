@@ -23,7 +23,7 @@ namespace UnderSea.DAL.Context
         public DbSet<UnitGroup> UnitGroups { get; set; }
         public UnderSeaDbContext(DbContextOptions<UnderSeaDbContext> options) : base(options)
         {
-
+            this.Database.SetCommandTimeout(TimeSpan.FromSeconds(100));
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
