@@ -11,6 +11,8 @@
     }
 }
 
+
+
 .flex-box-features{
     display: flex;
     flex-direction: row;
@@ -37,6 +39,11 @@
     box-shadow: rgba(#03255F, 34) ;
     padding: 10px;
 }
+
+// .mat-card-content.input-line{
+//     padding-bottom: 10px;
+//     color: $dark-blue !important;
+// }
 
 .mat-card.mat-card-main{
     border-radius: 16px;
@@ -71,10 +78,6 @@
     color: $dark-blue;
     font-family: $baloo-font;
     padding-bottom: 1vw;
-}
-
-::ng-deep .mat-card-content{
-    margin-bottom: 0px !important;
 }
 
 .divider{
