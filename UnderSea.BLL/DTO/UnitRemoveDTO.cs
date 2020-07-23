@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UnderSea.BLL.ViewModels
+namespace UnderSea.BLL.DTO
 {
-    public class SimpleUnitWithNameViewModel
+    public class UnitRemoveDTO
     {
         public int TypeId { get; set; }
         public int Count { get; set; }
-        public string Name { get; set; }
-        public int Level { get; set; }
+        public int Lvl { get; set; }
     }
 }

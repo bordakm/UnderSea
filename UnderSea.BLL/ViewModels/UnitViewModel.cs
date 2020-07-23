@@ -10,6 +10,7 @@ namespace UnderSea.BLL.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public int Count { get; set; }
+        public int Level { get; set; }
         public double AttackScore { get; set; }
         public double DefenseScore { get; set; }
         public int PearlCostPerTurn { get; set; }

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
@@ -21,6 +23,7 @@ namespace UnderSea.DAL.Context
         public DbSet<UpgradeType> UpgradeTypes { get; set; }
         public DbSet<Attack> Attacks { get; set; }
         public DbSet<UnitGroup> UnitGroups { get; set; }
+        public DbSet<UnitLevel> UnitLevels { get; set; }
         public UnderSeaDbContext(DbContextOptions<UnderSeaDbContext> options) : base(options)
         {
             this.Database.SetCommandTimeout(TimeSpan.FromSeconds(100));
@@ -49,14 +52,96 @@ namespace UnderSea.DAL.Context
             {
                 Id = 1
             };
+            var sharkLv1 = new UnitLevel()
+            {
+                Id = 1,
+                Level = 1,
+                AttackScore = 5,
+                DefenseScore = 5,
+                UnitTypeId = 1,
+                BattlesNeeded = 0
+            };
+            var sharkLv2 = new UnitLevel()
+            {
+                Id = 2,
+                Level = 2,
+                AttackScore = 7,
+                DefenseScore = 7,
+                UnitTypeId = 1,
+                BattlesNeeded = 3
+            };
+            var sharkLv3 = new UnitLevel()
+            {
+                Id = 3,
+                Level = 3,
+                AttackScore = 10,
+                DefenseScore = 10,
+                UnitTypeId = 1,
+                BattlesNeeded = 8
+            };
             var stormSeal = new StormSeal
             {
-                Id = 2
+                Id = 2,
+            };
+            var sealLv1 = new UnitLevel()
+            {
+                Id = 4,
+                Level = 1,
+                AttackScore = 6,
+                DefenseScore = 2,
+                UnitTypeId = 2,
+                BattlesNeeded = 0
+            };
+            var sealLv2 = new UnitLevel()
+            {
+                Id = 5,
+                Level = 2,
+                AttackScore = 8,
+                DefenseScore = 3,
+                UnitTypeId = 2,
+                BattlesNeeded = 3
+            };
+            var sealLv3 = new UnitLevel()
+            {
+                Id = 6,
+                Level = 3,
+                AttackScore = 10,
+                DefenseScore = 5,
+                UnitTypeId = 2,
+                BattlesNeeded = 8
             };
             var combatSeaHorse = new CombatSeaHorse
             {
                 Id = 3
             };
+            var horseLv1 = new UnitLevel()
+            {
+                Id = 7,
+                Level = 1,
+                AttackScore = 2,
+                DefenseScore = 6,
+                UnitTypeId = 3,
+                BattlesNeeded = 0
+            };
+            var horseLv2 = new UnitLevel()
+            {
+                Id = 8,
+                Level = 2,
+                AttackScore = 3,
+                DefenseScore = 8,
+                UnitTypeId = 3,
+                BattlesNeeded = 3
+            };
+            var horseLv3 = new UnitLevel()
+            {
+                Id = 9,
+                Level = 3,
+                AttackScore = 5,
+                DefenseScore = 10,
+                UnitTypeId = 3,
+                BattlesNeeded = 8
+            };
+
             var reefCastle = new ReefCastle
             {
                 Id = 1
@@ -94,85 +179,116 @@ namespace UnderSea.DAL.Context
             {
                 Id = 1,
                 UnitGroupId = 1,
-                Count = 0,
-                TypeId = 1
+                TypeId = 1,
+                BattlesSurvived = 0,
             };
             var unit2 = new Unit
             {
                 Id = 2,
                 UnitGroupId = 1,
-                Count = 0,
-                TypeId = 2
+                TypeId = 2,
+                BattlesSurvived = 10,
             };
             var unit3 = new Unit
             {
                 Id = 3,
                 UnitGroupId = 1,
-                Count = 0,
-                TypeId = 3
+                TypeId = 3,
+                BattlesSurvived = 2,
             };
+
+            var unit13 = new Unit
+            {
+                Id = 13,
+                UnitGroupId = 1,
+                TypeId = 2,
+                BattlesSurvived = 10,
+            };
+            var unit14 = new Unit
+            {
+                Id = 14,
+                UnitGroupId = 1,
+                TypeId = 3,
+                BattlesSurvived = 2,
+            };
+            var unit15 = new Unit
+            {
+                Id = 15,
+                UnitGroupId = 2,
+                TypeId = 2,
+                BattlesSurvived = 10,
+            };
+            var unit16 = new Unit
+            {
+                Id = 16,
+                UnitGroupId = 2,
+                TypeId = 3,
+                BattlesSurvived = 2,
+            };
+
+
             var unit4 = new Unit
             {
                 Id = 4,
                 UnitGroupId = 2,
-                Count = 20,
-                TypeId = 1
+                TypeId = 1,
+                BattlesSurvived = 3,
             };
             var unit5 = new Unit
             {
                 Id = 5,
                 UnitGroupId = 2,
-                Count = 20,
-                TypeId = 2
+                TypeId = 2,
+                BattlesSurvived = 8,
             };
             var unit6 = new Unit
             {
                 Id = 6,
                 UnitGroupId = 2,
-                Count = 20,
-                TypeId = 3
+                TypeId = 3,
+                BattlesSurvived = 4,
             };
             var unit7 = new Unit
             {
                 Id = 7,
                 UnitGroupId = 3,
-                Count = 0,
-                TypeId = 1
+                TypeId = 1,
+                BattlesSurvived = 1,
             };
             var unit8 = new Unit
             {
                 Id = 8,
                 UnitGroupId = 3,
-                Count = 0,
-                TypeId = 2
+                TypeId = 2,
+                BattlesSurvived = 5,
             };
             var unit9 = new Unit
             {
                 Id = 9,
                 UnitGroupId = 3,
-                Count = 0,
-                TypeId = 3
+                TypeId = 3,
+                BattlesSurvived = 9,
             };
             var unit10 = new Unit
             {
                 Id = 10,
                 UnitGroupId = 4,
-                Count = 10,
-                TypeId = 1
+                TypeId = 1,
+                BattlesSurvived = 9,
             };
             var unit11 = new Unit
             {
                 Id = 11,
                 UnitGroupId = 4,
-                Count = 20,
-                TypeId = 2
+                TypeId = 2,
+                BattlesSurvived = 3,
             };
             var unit12 = new Unit
             {
                 Id = 12,
                 UnitGroupId = 4,
-                Count = 40,
-                TypeId = 3
+                TypeId = 3,
+                BattlesSurvived = 5,
             };
 
             var upgrade1 = new Upgrade
@@ -420,7 +536,22 @@ namespace UnderSea.DAL.Context
             modelBuilder.Entity<Unit>()
                 .HasData(new Unit[]
                 {
-                    unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8, unit9, unit10, unit11, unit12
+                    unit1,
+                    unit2,
+                    unit3,
+                    unit4,
+                    unit5,
+                    unit6,
+                    unit7,
+                    unit8,
+                    unit9,
+                    unit10,
+                    unit11,
+                    unit12,
+                    unit13,
+                    unit14,
+                    unit15,
+                    unit16,
                 });
             modelBuilder.Entity<Country>()
                 .HasData(new Country[]
@@ -457,6 +588,19 @@ namespace UnderSea.DAL.Context
                     building2,
                     building3,
                     building4
+                });
+
+            modelBuilder.Entity<UnitLevel>()
+                .HasData(new UnitLevel[]{
+                    sharkLv1,
+                    sharkLv2,
+                    sharkLv3,
+                    horseLv1,
+                    horseLv2,
+                    horseLv3,
+                    sealLv1,
+                    sealLv2,
+                    sealLv3,
                 });
         }
     }

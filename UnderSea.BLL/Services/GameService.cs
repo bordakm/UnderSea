@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ using UnderSea.DAL.Models.Buildings;
 using UnderSea.DAL.Models.Upgrades;
 using UnderSea.BLL.Hubs;
 using UnderSea.DAL.Models.Units;
+using AutoMapper;
 using System;
 
 namespace UnderSea.BLL.Services
@@ -37,6 +37,7 @@ namespace UnderSea.BLL.Services
                                 .ThenInclude(country => country.DefendingArmy)
                                 .ThenInclude(da => da.Units)
                                 .ThenInclude(units => units.Type)
+                                .ThenInclude(type => type.Levels)
                                 .Include(users => users.Country.BuildingGroup)
                                 .ThenInclude(bGroup => bGroup.Buildings)
                                 .ThenInclude(buildings => buildings.Type)
@@ -45,6 +46,8 @@ namespace UnderSea.BLL.Services
                                 .Include(users => users.Country)
                                 .ThenInclude(country => country.AttackingArmy)
                                 .ThenInclude(attackingArmy => attackingArmy.Units)
+                                .ThenInclude(aa => aa.Type)
+                                .ThenInclude(type => type.Levels)
                                 .SingleAsync(user => user.Id == userId);
 
             List<AvailableUnitViewModel> availableUnits = new List<AvailableUnitViewModel>();
@@ -57,8 +60,8 @@ namespace UnderSea.BLL.Services
                 {
                     if (unitvm.Id == unit.Type.Id)
                     {
-                        unitvm.AvailableCount += unit.Count;
-                        unitvm.AllCount += unit.Count;
+                        unitvm.AvailableCount++;
+                        unitvm.AllCount++;
                         found = true;
                         break;
                     }
@@ -68,11 +71,12 @@ namespace UnderSea.BLL.Services
                 {
                     availableUnits.Add(new AvailableUnitViewModel()
                     {
-                        AvailableCount = unit.Count,
-                        AllCount = unit.Count,
+                        AvailableCount = 1,
+                        AllCount = 1,
                         Id = unit.Type.Id,
                         ImageUrl = unit.Type.ImageUrl,
-                        Name = unit.Type.Name
+                        Name = unit.Type.Name,
+                        Level = unit.Level
                     });
                 }
 
@@ -86,7 +90,7 @@ namespace UnderSea.BLL.Services
                 {
                     if (unitvm.Id == unit.Type.Id)
                     {
-                        unitvm.AllCount += unit.Count;
+                        unitvm.AllCount++;
                         found = true;
                         break;
                     }
@@ -96,7 +100,7 @@ namespace UnderSea.BLL.Services
                 {
                     availableUnits.Add(new AvailableUnitViewModel()
                     {
-                        AllCount = unit.Count,
+                        AllCount = 1,
                         Id = unit.Type.Id,
                         ImageUrl = unit.Type.ImageUrl,
                         Name = unit.Type.Name
@@ -107,6 +111,7 @@ namespace UnderSea.BLL.Services
 
             MainPageViewModel response = new MainPageViewModel()
             {
+                UserName = user.UserName,
                 CountryName = user.Country.Name,
                 StatusBar = new StatusBarViewModel
                 {
@@ -141,7 +146,7 @@ namespace UnderSea.BLL.Services
             return response;
         }
 
-        public async Task NewRoundAsync(int rounds = 1)
+        public async Task NewRoundAsync(int rounds)
         {
             for (int i = 0; i < rounds; ++i)
             {
@@ -154,6 +159,7 @@ namespace UnderSea.BLL.Services
                     await FeedUnits();
                     await DoUpgrades();
                     await Build();
+                    //todo
                     await CalculateAttacks();
                     await CalculateRankingsAsync();
                     await tran.CommitAsync();
@@ -209,10 +215,12 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(country => country.AttackingArmy)
                 .ThenInclude(aa => aa.Units)
                 .ThenInclude(units => units.Type)
+                .ThenInclude(type => type.Levels)
                 .Include(user => user.Country)
                 .ThenInclude(country => country.DefendingArmy)
                 .ThenInclude(da => da.Units)
-                .ThenInclude(units => units.Type);
+                .ThenInclude(units => units.Type)
+                .ThenInclude(type => type.Levels);
 
             foreach (var user in users)
             {
@@ -263,8 +271,10 @@ namespace UnderSea.BLL.Services
         {
             var users = db.Users
                 .Include(u => u.Country)
-                .ThenInclude(c => c.Upgrades);
-            var countries = db.Countries.Include(c => c.Upgrades);
+                .ThenInclude(c => c.Upgrades)
+                .ThenInclude(upgrades => upgrades.Type);
+            var countries = db.Countries.Include(c => c.Upgrades)
+                                        .ThenInclude(upgrades => upgrades.Type);
             foreach (var country in countries)
             {
                 country.DoUpgrades();
@@ -281,11 +291,13 @@ namespace UnderSea.BLL.Services
                             .ThenInclude(country => country.AttackingArmy)
                             .ThenInclude(army => army.Units)
                             .ThenInclude(units => units.Type)
+                            .ThenInclude(type => type.Levels)
                             .Include(game => game.Users)
                             .ThenInclude(u => u.Country)
                             .ThenInclude(c => c.DefendingArmy)
                             .ThenInclude(da => da.Units)
                             .ThenInclude(units => units.Type)
+                            .ThenInclude(type => type.Levels)
                             .SingleAsync();
             game.CalculateAttacks();
             // támadások listájának törlése utólag, hátha így megy.. TODO visszarakni calculateattacksba
@@ -295,15 +307,7 @@ namespace UnderSea.BLL.Services
 
         private async Task FeedUnits()
         {
-            /*   var users = db.Users
-                               .Include(user => user.Country)
-                               .ThenInclude(country => country.AttackingArmy)
-                               .ThenInclude(aa => aa.Units)
-                               .ThenInclude(units => units.Type)
-                               .Include(user => user.Country.DefendingArmy)
-                               .ThenInclude(da => da.Units)
-                               .ThenInclude(units => units.Type);
-               */
+
 
             var users = await db.Users
               .Include(user => user.Country)
@@ -319,66 +323,40 @@ namespace UnderSea.BLL.Services
                 .Include(a => a.UnitList)
                 .ThenInclude(ul => ul.Type)
                 .ToListAsync();
+            Random rand = new Random();
 
             foreach (var user in users)
             {
                 var removeUnits = user.Country.FeedUnits();
-                List<SendUnitDTO> removeUnitsList = new List<SendUnitDTO>();
-                foreach (var key in removeUnits.Keys)
-                {
-                    removeUnitsList.Add(new SendUnitDTO()
-                    {
-                        Id = key,
-                        SendCount = removeUnits[key]
-                    });
-                }
                 var userAttacks = allAttacks.Where(attack => attack.AttackerUser.Id == user.Id);
-                bool stop = false;
-                while (!stop && userAttacks.Count() != 0)
-                {
-                    foreach (Attack attack in userAttacks)
-                    {
-                        foreach (var unitItem in removeUnitsList)
-                        {
-                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitItem.Id);
-                            if (unitToRemove.Count > 0 && unitItem.SendCount > 0)
-                            {
-                                unitItem.SendCount--;
-                                unitToRemove.Count--;
-                            }
-                        }
 
-                        stop = removeUnitsList.All(item => item.SendCount == 0);
-                        if (stop)
+                List<Unit> removeFromAttack = new List<Unit>();
+                foreach (Attack attack in userAttacks)
+                {
+                    //ki kell venni az attackokból azokat a Unitokat amelyek benne vannak a removeUnits-ban
+                    //sajnos tulajdonságok alapján kell ellenőzni, mivel nem ugyan az a két object
+                    foreach (var unit in removeUnits)
+                    {
+                        foreach (var attackUnit in attack.UnitList)
                         {
-                            break;
+                            if (attackUnit.BattlesSurvived == unit.BattlesSurvived && attackUnit.Type.Id == unit.Type.Id)
+                                removeFromAttack.Add(attackUnit);
                         }
                     }
+
+                    //a megfelelő Unitok eltávolítása
+                    foreach (var unit in removeFromAttack)
+                    {
+                        attack.UnitList.Remove(unit);
+                    }
                 }
-            }
+            
+        }
             await db.SaveChangesAsync();
         }
 
         private async Task PayUnits()
         {
-            /* var game = db.Game
-                 .Include(game => game.Attacks)
-                 .ThenInclude(attacks => attacks.AttackerUser)
-                 .Include(game => game.Attacks)
-                 .ThenInclude(attacks => attacks.UnitList)
-                 .ThenInclude(ul => ul.Type)
-                 .Include(game => game.Users)
-                 .ThenInclude(user => user.Country)
-                 .ThenInclude(country => country.AttackingArmy)
-                 .ThenInclude(aa => aa.Units)
-                 .ThenInclude(units => units.Type)
-                 .Include(game => game.Users)
-                 .ThenInclude(user => user.Country)
-                 .ThenInclude(country => country.DefendingArmy)
-                 .ThenInclude(da => da.Units)
-                 .ThenInclude(units => units.Type);
-             */
-
             var users = await db.Users
                 .Include(user => user.Country)
                 .ThenInclude(country => country.AttackingArmy)
@@ -394,41 +372,30 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(ul => ul.Type)
                 .ToListAsync();
 
-            Console.WriteLine("\t\tPayunits dbquery done");
 
             foreach (var user in users)
             {
                 var removeUnits = user.Country.PayUnits();
-                List<SendUnitDTO> removeUnitsList = new List<SendUnitDTO>();
-                foreach (var key in removeUnits.Keys)
-                {
-                    removeUnitsList.Add(new SendUnitDTO() 
-                    {
-                        Id = key,
-                        SendCount = removeUnits[key]
-                    });
-                }
                 var userAttacks = allAttacks.Where(attack => attack.AttackerUser.Id == user.Id);
-                bool stop = false;
-                while (!stop && userAttacks.Count() != 0)
-                {
-                    foreach (Attack attack in userAttacks)
-                    {
-                        foreach (var unitItem in removeUnitsList)
-                        {
-                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitItem.Id);
-                            if (unitToRemove.Count > 0 && unitItem.SendCount > 0)
-                            {
-                                unitItem.SendCount--;
-                                unitToRemove.Count--;
-                            }
-                        }
 
-                        stop = removeUnitsList.All(item => item.SendCount == 0);
-                        if (stop)
+                List<Unit> removeFromAttack = new List<Unit>();
+                foreach (Attack attack in userAttacks)
+                {
+                    //ki kell venni az attackokból azokat a Unitokat amelyek benne vannak a removeUnits-ban
+                    //sajnos tulajdonságok alapján kell ellenőzni, mivel nem ugyan az a két object
+                    foreach (var unit in removeUnits)
+                    {
+                        foreach (var attackUnit in attack.UnitList)
                         {
-                            break;
+                            if (attackUnit.BattlesSurvived == unit.BattlesSurvived && attackUnit.Type.Id == unit.Type.Id)
+                                removeFromAttack.Add(attackUnit);
                         }
+                    }
+
+                    //a megfelelő Unitok eltávolítása
+                    foreach (var unit in removeFromAttack)
+                    {
+                        attack.UnitList.Remove(unit);
                     }
                 }
             }
@@ -439,7 +406,8 @@ namespace UnderSea.BLL.Services
         {
             var users = db.Users.Include(user => user.Country)
                 .ThenInclude(country => country.BuildingGroup)
-                .ThenInclude(buildingGroup => buildingGroup.Buildings);
+                .ThenInclude(buildingGroup => buildingGroup.Buildings)
+                .ThenInclude(building => building.Type);
             foreach (var user in users)
             {
                 user.Country.Build();

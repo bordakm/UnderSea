@@ -9,5 +9,6 @@ namespace UnderSea.BLL.DTO
     {
         public int Id { get; set; }
         public int SendCount { get; set; }
+        public int Level { get; set; }
     }
 }

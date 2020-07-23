@@ -11,8 +11,6 @@ namespace UnderSea.DAL.Models.Units
             Name = "Csatacsikó";
             ImageUrl = "/images/units/seahorse.png";
             Price = 50;
-            AttackScore = 2.0;
-            DefenseScore = 6.0;
             PearlCostPerTurn = 1;
             CoralCostPerTurn = 1;
             Score = 5;
