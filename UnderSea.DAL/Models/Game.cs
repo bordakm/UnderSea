@@ -87,6 +87,7 @@ namespace UnderSea.DAL.Models
                         }
                     }
                 }
+                //if the attacker wins
                 else if (attackerScore > defenderScore)
                 {
                     //levonjuk az egységeket az attacking armyból
@@ -123,6 +124,7 @@ namespace UnderSea.DAL.Models
                     defUserCountry.Coral -= Convert.ToInt32(Math.Ceiling(defUserCountry.Coral * 0.5));
                 }
             }
+
             //Attacks.Clear();
             //Attacks = new List<Attack>();
         }

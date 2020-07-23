@@ -303,22 +303,32 @@ namespace UnderSea.BLL.Services
             foreach (var user in users)
             {
                 var removeUnits = user.Country.FeedUnits();
+                List<SendUnitDTO> removeUnitsList = new List<SendUnitDTO>();
+                foreach (var key in removeUnits.Keys)
+                {
+                    removeUnitsList.Add(new SendUnitDTO()
+                    {
+                        Id = key,
+                        SendCount = removeUnits[key]
+                    });
+                }
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop && userAttacks.Count() != 0)
                 {
                     foreach (Attack attack in userAttacks)
                     {
-                        foreach (int unitId in removeUnits.Keys)
+                        foreach (var unitItem in removeUnitsList)
                         {
-                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitId);
-                            if (unitToRemove.Count > 0 && removeUnits[unitId] > 0)
+                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitItem.Id);
+                            if (unitToRemove.Count > 0 && unitItem.SendCount > 0)
                             {
-                                removeUnits[unitId]--;
+                                unitItem.SendCount--;
                                 unitToRemove.Count--;
                             }
                         }
-                        stop = removeUnits.Values.All(count => count == 0);
+
+                        stop = removeUnitsList.All(item => item.SendCount == 0);
                         if (stop)
                         {
                             break;
@@ -352,22 +362,32 @@ namespace UnderSea.BLL.Services
             foreach (var user in game.Users)
             {
                 var removeUnits = user.Country.PayUnits();
+                List<SendUnitDTO> removeUnitsList = new List<SendUnitDTO>();
+                foreach (var key in removeUnits.Keys)
+                {
+                    removeUnitsList.Add(new SendUnitDTO() 
+                    {
+                        Id = key,
+                        SendCount = removeUnits[key]
+                    });
+                }
                 var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop && userAttacks.Count() != 0)
                 {
                     foreach (Attack attack in userAttacks)
                     {
-                        foreach (int unitId in removeUnits.Keys)
+                        foreach (var unitItem in removeUnitsList)
                         {
-                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitId);
-                            if (unitToRemove.Count > 0 && removeUnits[unitId] > 0)
+                            var unitToRemove = attack.UnitList.Find(unit => unit.Type.Id == unitItem.Id);
+                            if (unitToRemove.Count > 0 && unitItem.SendCount > 0)
                             {
-                                removeUnits[unitId]--;
+                                unitItem.SendCount--;
                                 unitToRemove.Count--;
                             }
                         }
-                        stop = removeUnits.Values.All(count => count == 0);
+
+                        stop = removeUnitsList.All(item => item.SendCount == 0);
                         if (stop)
                         {
                             break;

@@ -228,14 +228,14 @@ namespace UnderSea.DAL.Context
             {
                 Id = 8,
                 CountryId = 2,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 2
             };
             var upgrade9 = new Upgrade
             {
                 Id = 9,
                 CountryId = 2,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 3
             };
             var upgrade10 = new Upgrade
@@ -249,14 +249,14 @@ namespace UnderSea.DAL.Context
             {
                 Id = 11,
                 CountryId = 2,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 5
             };
             var upgrade12 = new Upgrade
             {
                 Id = 12,
                 CountryId = 2,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 6
             };
 
@@ -287,14 +287,14 @@ namespace UnderSea.DAL.Context
             {
                 Id = 3,
                 BuildingGroupId = 2,
-                Count = 4,
+                Count = 1,
                 TypeId = 1
             };
             var building4 = new Building
             {
                 Id = 4,
                 BuildingGroupId = 2,
-                Count = 1,
+                Count = 0,
                 TypeId = 2
             };
 
@@ -336,9 +336,9 @@ namespace UnderSea.DAL.Context
                 AttackingArmyId = 3,
                 DefendingArmyId = 4,
                 BuildingTimeLeft = 0,
-                Coral = 100000,
+                Coral = 250,
                 Name = "Another Country",
-                Pearl = 100000,
+                Pearl = 250,
                 Score = 0,
                 UpgradeTimeLeft = 0,
                 UserId = 2,
