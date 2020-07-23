@@ -121,10 +121,25 @@ namespace UnderSea.BLL.Services
                                .ThenInclude(country => country.DefendingArmy)
                                .ThenInclude(army => army.Units)
                                .ThenInclude(unit => unit.Type)
+                               .Include(user => user.Country)
+                               .ThenInclude(country => country.AttackingArmy)
+                               .ThenInclude(army => army.Units)
+                               .ThenInclude(unit => unit.Type)
                                .SingleAsync(user => user.Id == userId);
 
-            var units = user.Country.DefendingArmy.Units;
-            return mapper.Map<IEnumerable<Unit>, IEnumerable<AvailableUnitViewModel>>(units);
+            var defUnits = user.Country.DefendingArmy.Units;
+            var result = mapper.Map<IEnumerable<Unit>, IEnumerable<AvailableUnitViewModel>>(defUnits);
+            foreach (var unit in result)
+            {
+                foreach (var attUnit in user.Country.AttackingArmy.Units)
+                {
+                    if(attUnit.Type.Id == unit.Id)
+                    {
+                        unit.AllCount = unit.AvailableCount + attUnit.Count;
+                    }
+                }
+            }
+            return result;
         }
 
         public async Task<IEnumerable<OutgoingAttackViewModel>> GetOutgoingAttacksAsync(int userId)
