@@ -13,6 +13,7 @@ extension AttackDetail {
     
     enum ApiService {
         case getUnits
+        case attack(_ data: SendAttackDTO)
     }
     
 }
@@ -23,6 +24,8 @@ extension AttackDetail.ApiService: BaseApiService {
         switch self {
         case .getUnits:
             return "/Attacks/getunits"
+        case .attack:
+            return "/Attacks/send"
         }
     }
     
@@ -30,6 +33,8 @@ extension AttackDetail.ApiService: BaseApiService {
         switch self {
         case .getUnits:
             return .get
+        case .attack:
+            return .post
         }
     }
     
@@ -37,6 +42,8 @@ extension AttackDetail.ApiService: BaseApiService {
         switch self {
         case .getUnits:
             return [:]
+        case .attack(let data):
+            return data.getDictionary()
         }
     }
     

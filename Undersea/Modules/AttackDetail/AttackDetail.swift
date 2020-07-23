@@ -13,9 +13,9 @@ struct AttackDetail {
     typealias DataModelType = [AttackDetailPageDTO]
     typealias ViewModelType = ViewModel
     
-    static func setup() -> AttackDetailPage {
+    static func setup(defenderId: Int) -> AttackDetailPage {
         
-        let interactor = Interactor()
+        let interactor = Interactor(defenderId: defenderId)
         let presenter = Presenter()
         
         var view = AttackDetailPage(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
@@ -23,7 +23,7 @@ struct AttackDetail {
         interactor.setPresenter = { return presenter }
         
         presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
-        //presenter.bind(loadingSubject: interactor.loadingSubject.eraseToAnyPublisher())
+        presenter.bind(attackSentSubject: interactor.attackSentSubject.eraseToAnyPublisher())
         
         view.setInteractor = { return interactor }
         

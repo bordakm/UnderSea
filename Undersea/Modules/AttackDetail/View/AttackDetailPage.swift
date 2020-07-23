@@ -13,6 +13,9 @@ extension AttackDetail {
 
     struct AttackDetailPage: View {
         
+        @Environment(\.presentationMode)
+        var presentationMode: Binding<PresentationMode>
+        
         lazy var interactor: Interactor = setInteractor()
         var setInteractor: (()->Interactor)!
         
@@ -33,8 +36,13 @@ extension AttackDetail {
                         .foregroundColor(Color.white)
                 }
                 ForEach(viewModel.animalList) { animal in
-                    AttackDetailAnimalCell(animal: animal)
+                    AttackDetailAnimalCell(animal: animal, usecaseHandler: self.usecaseHandler)
                 }
+                Spacer()
+                SeaButton(title: "Megtámadom") {
+                    self.usecaseHandler?(.attack)
+                }
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()
@@ -43,6 +51,9 @@ extension AttackDetail {
             .navigationBarColor(Colors.navBarBackgroundColor)
             .onAppear {
                 self.usecaseHandler?(.load)
+            }
+            .onReceive(viewModel.shouldPopBack) { _ in
+                self.presentationMode.wrappedValue.dismiss()
             }
         }
         

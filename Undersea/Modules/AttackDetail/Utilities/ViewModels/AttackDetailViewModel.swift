@@ -7,12 +7,14 @@
 //
 
 import Foundation
+import Combine
 
 extension AttackDetail {
     
     class ViewModel: ObservableObject {
         
         @Published var isLoading = false
+        var shouldPopBack = PassthroughSubject<Void, Never>()
         private(set) var animalList: [AnimalViewModel] = []
         private(set) var alertMessage: String?
         

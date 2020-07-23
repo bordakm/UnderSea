@@ -40,13 +40,27 @@ extension AttackDetail {
             
         }
         
-        /*func bind(loadingSubject: AnyPublisher<Bool, Never>) {
-            subscriptions[.nextPageLoading] = loadingSubject
+        func bind(attackSentSubject: AnyPublisher<[SendAttackResponseDTO]?, Error>) {
+         
+            subscriptions[.attackSent] = attackSentSubject
                 .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { [weak self] (isLoading) in
-                    self?.viewModel.isLoading = isLoading
+                .sink(receiveCompletion: { (result) in
+                    
+                    switch result {
+                    case .failure(let error):
+                        self.viewModel.set(alertMessage: error.localizedDescription)
+                    default:
+                        print("-- Presenter: finished")
+                        break
+                    }
+                    
+                }, receiveValue: { (data) in
+
+                    self.viewModel.shouldPopBack.send()
+                    
                 })
-        }*/
+            
+        }
         
         private func populateViewModel(dataModel: DataModelType?) {
             
@@ -55,8 +69,20 @@ extension AttackDetail {
                     return
             }
             
-            let animalList = dataModel.map { animal in
-                return AnimalViewModel(name: animal.name, available: Double(animal.availableCount))
+            var animalList: [AnimalViewModel] = []
+            for animal in dataModel {
+                
+                switch animal.id {
+                case 1:
+                    animalList.append(AnimalViewModel(id: animal.id, name: animal.name, imageName: "shark", available: Double(animal.availableCount)))
+                case 2:
+                    animalList.append(AnimalViewModel(id: animal.id, name: animal.name, imageName: "seal", available: Double(animal.availableCount)))
+                case 3:
+                    animalList.append(AnimalViewModel(id: animal.id, name: animal.name, imageName: "seahorse", available: Double(animal.availableCount)))
+                default:
+                    DDLogDebug("Unknown unit id \(animal.id)")
+                }
+                
             }
             
             self.viewModel.set(animalList: animalList)

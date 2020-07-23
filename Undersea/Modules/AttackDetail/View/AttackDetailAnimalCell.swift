@@ -12,21 +12,25 @@ extension AttackDetail {
 
     struct AttackDetailAnimalCell: View {
         
-        @State var animal: AnimalViewModel
+        let animal: AnimalViewModel
+        @State
+        private var selectValue: Double = 0
+        var usecaseHandler: ((AttackDetail.Usecase) -> Void)?
         
         var body: some View {
             HStack(spacing: 20.0) {
-                SVGImage(svgName: animal.name)
+                SVGImage(svgName: animal.imageName)
                     .frame(width: 60.0, height: 60.0, alignment: .center)
                 VStack(alignment: .leading) {
-                    Text(animal.description)
+                    Text("\(animal.name): \(Int(round(selectValue)))/\(Int(animal.available))")
                         .foregroundColor(Color.white)
                     Slider(value: Binding(
                         get: {
-                            self.animal.sending
+                            self.selectValue
                         },
                         set: {newValue in
-                            self.animal.sending = newValue
+                            self.selectValue = newValue
+                            self.usecaseHandler?(.setSendCount(self.animal.id, Int(round(newValue))))
                         }
                     ), in: 0...animal.available)
                         .accentColor(Colors.underseaTitleColor)

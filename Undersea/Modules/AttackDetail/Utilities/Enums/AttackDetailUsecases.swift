@@ -12,6 +12,7 @@ extension AttackDetail {
     
     enum Usecase {
         case load
+        case setSendCount(_ id: Int, _ count: Int)
         case attack
     }
     

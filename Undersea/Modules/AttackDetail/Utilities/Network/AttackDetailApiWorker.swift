@@ -17,6 +17,10 @@ extension AttackDetail {
             return execute(target: .getUnits)
         }
         
+        func attack(_ data: SendAttackDTO) -> AnyPublisher<[SendAttackResponseDTO], Error> {
+            return execute(target: .attack(data))
+        }
+        
     }
 
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7901F35524C96F0B00003D28 /* SendAttackDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7901F35424C96F0B00003D28 /* SendAttackDTO.swift */; };
+		7901F35724C971F100003D28 /* SendAttackResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7901F35624C971F100003D28 /* SendAttackResponseDTO.swift */; };
 		7914335B24C07F6000BC4755 /* RenewDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914335A24C07F6000BC4755 /* RenewDTO.swift */; };
 		7922A9CB24B4BBB8002A7957 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9CA24B4BBB8002A7957 /* AppDelegate.swift */; };
 		7922A9CD24B4BBB8002A7957 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9CC24B4BBB8002A7957 /* SceneDelegate.swift */; };
@@ -172,6 +174,8 @@
 
 /* Begin PBXFileReference section */
 		0407B9A606DA13EEE39D4DF7 /* Pods-Undersea.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Undersea.release.xcconfig"; path = "Target Support Files/Pods-Undersea/Pods-Undersea.release.xcconfig"; sourceTree = "<group>"; };
+		7901F35424C96F0B00003D28 /* SendAttackDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAttackDTO.swift; sourceTree = "<group>"; };
+		7901F35624C971F100003D28 /* SendAttackResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAttackResponseDTO.swift; sourceTree = "<group>"; };
 		7914335A24C07F6000BC4755 /* RenewDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenewDTO.swift; sourceTree = "<group>"; };
 		7922A9C724B4BBB8002A7957 /* Undersea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Undersea.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7922A9CA24B4BBB8002A7957 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -849,6 +853,7 @@
 				7956492824BEFDEF003D6D16 /* LoginDTO.swift */,
 				7956492A24BF0159003D6D16 /* RegisterDTO.swift */,
 				7914335A24C07F6000BC4755 /* RenewDTO.swift */,
+				7901F35424C96F0B00003D28 /* SendAttackDTO.swift */,
 			);
 			path = Encodable;
 			sourceTree = "<group>";
@@ -864,6 +869,7 @@
 				7947A2A524C717F000E912CC /* LeaderboardPageDTO.swift */,
 				79D4D78324C83B670051AAA1 /* TeamsPageDTO.swift */,
 				79D4533024C87D3400A2197B /* AttackDetailPageDTO.swift */,
+				7901F35624C971F100003D28 /* SendAttackResponseDTO.swift */,
 			);
 			path = Decodable;
 			sourceTree = "<group>";
@@ -1419,6 +1425,7 @@
 				79D4D77624C837EB0051AAA1 /* TeamsUsecases.swift in Sources */,
 				792DE2E324BC962F009D175D /* MainApiWorker.swift in Sources */,
 				79237B9624C6D8A3009F5650 /* LeaderboardPage.swift in Sources */,
+				7901F35724C971F100003D28 /* SendAttackResponseDTO.swift in Sources */,
 				79D4532524C8781A00A2197B /* AnimalViewModel.swift in Sources */,
 				79E4869B24BDF52300A0EB3B /* AttackDetailPage.swift in Sources */,
 				79820C8724B73A4D006D7258 /* Teams.swift in Sources */,
@@ -1438,6 +1445,7 @@
 				794CAAE724B60764007DC9C7 /* RegisterPage.swift in Sources */,
 				792DE2EE24BCA3DE009D175D /* MainPresenter.swift in Sources */,
 				79D4533B24C87FA800A2197B /* AttackDetail.swift in Sources */,
+				7901F35524C96F0B00003D28 /* SendAttackDTO.swift in Sources */,
 				7956492924BEFDEF003D6D16 /* LoginDTO.swift in Sources */,
 				79F5314D24C058640058F86D /* UnderseaClaim.swift in Sources */,
 				7947A2A024C7159D00E912CC /* LeaderboardEvents.swift in Sources */,

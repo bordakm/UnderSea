@@ -13,16 +13,11 @@ extension AttackDetail {
 
     struct AnimalViewModel: Identifiable {
         
-        var id = UUID()
+        var id: Int
         var name: String
+        var imageName: String
         var available: Double
         var sending: Double = 0.0
-        
-        var description: String {
-            get {
-                return "\(name): \(Int(available))/\(Int(round(sending)))"
-            }
-        }
         
     }
 

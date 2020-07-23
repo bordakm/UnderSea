@@ -44,14 +44,14 @@ extension Attack {
                     
                     SeaInputField(placeholder: "Felhasznalonev", inputText: $userName, backgroundColor: Colors.searchFieldBackground, keyboardType: UIKeyboardType.webSearch, onEditingChanged: { editing in
                         if !editing {
-                            //self.usecaseHandler?(.load(self.userName))
+                            self.usecaseHandler?(.load(self.userName))
                         }
                     }).padding(.horizontal)
                     
                     List {
                         ForEach(viewModel.userList) { user in
                             VStack(spacing: 0.0) {
-                                NavigationLink(destination: AttackDetail.setup()) {
+                                NavigationLink(destination: AttackDetail.setup(defenderId: user.id)) {
                                     Text(user.userName)
                                         .foregroundColor(Color.white)
                                         .padding(.vertical)
