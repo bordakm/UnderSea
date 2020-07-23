@@ -22,24 +22,11 @@ namespace UnderSea.BLL.Services
 
         public async Task<User> CreateUserAsync(RegisterDTO registerData)
         {
-            var unitTypes = db.UnitTypes;
             var buildingTypes = db.BuildingTypes;
             var upgradeTypes = db.UpgradeTypes;
-            var attackingUnits = new List<Unit>();
-            var defendingUnits = new List<Unit>();
             var upgrades = new List<Upgrade>();
             var buildings = new List<Building>();
-            foreach (var unitType in unitTypes)
-            {
-                attackingUnits.Add(new Unit
-                {
-                    Type = unitType
-                });
-                defendingUnits.Add(new Unit
-                {
-                    Type = unitType
-                });
-            }
+
             foreach (var buildingType in buildingTypes)
             {
                 buildings.Add(new Building
@@ -60,14 +47,8 @@ namespace UnderSea.BLL.Services
             {
                 Buildings = buildings
             };
-            var attackingArmy = new UnitGroup
-            {
-                Units = attackingUnits
-            };
-            var defendingArmy = new UnitGroup
-            {
-                Units = defendingUnits
-            };
+            var attackingArmy = new UnitGroup();
+            var defendingArmy = new UnitGroup();
             var user = new User
             {
                 UserName = registerData.UserName,
@@ -82,7 +63,7 @@ namespace UnderSea.BLL.Services
                 Upgrades = upgrades,
                 User = user,
                 Pearl = 100000,
-                Coral = 100000
+                Coral = 100000,
                 //TODO add stone  
             };
             user.Country = country;
