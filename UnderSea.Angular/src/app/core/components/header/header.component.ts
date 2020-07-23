@@ -6,7 +6,7 @@ import { UnitViewModel, MainPageViewModel } from '../../../shared/index';
 import { LayoutComponent } from '../layout/layout.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.service.getEverything().pipe(
       tap(res => this.everything = res),
-      catchError(error => console.assert)
+      catchError(this.handleError<MainPageViewModel>('Nem sikerült az adatok betöltése'))
     ).subscribe();
   }
 
@@ -37,12 +37,17 @@ export class HeaderComponent implements OnInit {
           panelClass: ['my-snackbar'],
         });
       }),
-      catchError(err => {
-        return of(this.snackbar.open('A művelet sikertelen', 'Bezár', {
-          duration: 3000,
-          panelClass: ['my-snackbar'],
-        }));
-      })
+      catchError(this.handleError('Nem sikerült az új kör indítása'))
     ).subscribe();
+  }
+
+  private handleError<T>(message = 'Hiba', result?: T) {
+    return (error: any): Observable<T> => {
+      this.snackbar.open(message, 'Bezár', {
+        duration: 3000,
+        panelClass: ['my-snackbar'],
+      });
+      return of(result as T);
+    };
   }
 }

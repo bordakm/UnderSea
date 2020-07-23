@@ -22,7 +22,9 @@ export class LoginComponent implements OnInit {
   regForm: FormGroup;
 
   formBuilder: FormBuilder = new FormBuilder();
+
   regformBuilder: FormBuilder = new FormBuilder();
+
 
   constructor(private router: Router, public http: HttpClient, private authService: AuthService, private snackbar: MatSnackBar) { }
 
@@ -45,17 +47,9 @@ export class LoginComponent implements OnInit {
 
   login(): void {
 
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
-    this.authService.login(
-      this.loginForm.controls.username.value,
-      this.loginForm.controls.password.value).pipe(
-      tap(res => {
-        if (res.accessToken != null) {
-          localStorage.setItem('token', res.accessToken);
-          localStorage.setItem('refreshtoken', res.refreshToken);
+    this.authService.login(this.username, this.password).pipe(
+      tap(tokens => {
+        if (tokens.accessToken != null) {
           this.router.navigate(['/main']);
         }
       })
@@ -69,8 +63,8 @@ export class LoginComponent implements OnInit {
       this.regForm.controls.country.value).pipe(
       tap(res => {
         if (res.accessToken != null) {
-          localStorage.setItem('token', res.accessToken);
           this.reg = false;
+          this.router.navigate(['/main']);
         }
         this.snackbar.open('Sikeres regisztráció', 'Bezár', {
           duration: 3000,
@@ -89,13 +83,10 @@ export class LoginComponent implements OnInit {
     this.reg = false;
     this.regForm.reset();
   }
-
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { 'whitespace': true };
   }
+
 }
-
-
-

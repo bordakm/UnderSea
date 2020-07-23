@@ -5,7 +5,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { ICatsDto } from '../models/buildings.dto';
 import { IBuildingInfoViewModel } from 'src/app/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-buildings-page',
@@ -24,7 +24,7 @@ export class BuildingsPageComponent implements OnInit {
   ngOnInit(): void {
     this.service.getBuildings().pipe(
       tap(res => this.buildings = res),
-      catchError(error => console.assert)
+      catchError(error => this.handleError<IBuildingInfoViewModel[]>('Nem sikerült az épületek betöltése', []))
     ).subscribe();
 
   }
@@ -44,14 +44,18 @@ export class BuildingsPageComponent implements OnInit {
             panelClass: ['my-snackbar'],
           });
         }),
-        catchError(err => {
-          return of(this.snackbar.open('A művelet sikertelen', 'Bezár', {
-            duration: 3000,
-            panelClass: ['my-snackbar'],
-          }));
-        })
+        catchError(err => this.handleError('Nem sikerült a vásárlás'))
       ).subscribe();
   }
 
+  private handleError<T>(message = 'Hiba', result?: T) {
+    return (error: any): Observable<T> => {
+      this.snackbar.open(message, 'Bezár', {
+        duration: 3000,
+        panelClass: ['my-snackbar'],
+      });
+      return of(result as T);
+    };
+  }
 }
 

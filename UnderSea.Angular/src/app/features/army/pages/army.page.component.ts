@@ -5,7 +5,7 @@ import { ArmyService } from '../services/army.service';
 import { tap, catchError, concatMap } from 'rxjs/operators';
 import { SimpleUnitViewModel, UnitPurchaseDTO } from 'src/app/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-army-page',
@@ -24,27 +24,27 @@ export class ArmyPageComponent implements OnInit {
   ngOnInit(): void {
     this.service.getUnits().pipe(
       tap(res => this.unitsModel = res),
-      catchError(error => console.assert)
+      catchError(this.handleError<IArmyViewModel[]>('Nem sikerült az egységek betöltése', []))
     ).subscribe();
   }
 
-  increase(id: number): void{
+  increase(id: number): void {
     this.unitsModel.forEach(element => {
-      if (element.id === id){
+      if (element.id === id) {
         element.purchaseCount += 1;
       }
     });
   }
 
-  decrease(id: number): void{
+  decrease(id: number): void {
     this.unitsModel.forEach(element => {
-      if (element.id === id && element.purchaseCount > 0){
+      if (element.id === id && element.purchaseCount > 0) {
         element.purchaseCount -= 1;
       }
     });
   }
 
-  buyUnits(): void{
+  buyUnits(): void {
     this.unitsModel.forEach(element => {
       const temp: UnitPurchaseDTO = new UnitPurchaseDTO({
         typeId: element.id,
@@ -53,19 +53,25 @@ export class ArmyPageComponent implements OnInit {
       this.data.push(temp);
     });
     this.service.buyUnits(this.data
-      ).pipe(
-        tap(res => {
-          this.snackbar.open('Sikeres támadás!', 'Bezár', {
-            duration: 3000,
-            panelClass: ['my-snackbar'],
-          });
-        }),
-        catchError(err => {
-          return of(this.snackbar.open('A művelet sikertelen', 'Bezár', {
-            duration: 3000,
-            panelClass: ['my-snackbar'],
-          }));
-        })
-      ).subscribe();
+    ).pipe(
+      tap(res => {
+        this.snackbar.open('Sikeres támadás!', 'Bezár', {
+          duration: 3000,
+          panelClass: ['my-snackbar'],
+        });
+      }),
+      catchError(this.handleError<SimpleUnitViewModel[]>('Nem sikerült a támadás elindítása', []))
+    ).subscribe();
+
+  }
+
+  private handleError<T>(message = 'Hiba', result?: T) {
+    return (error: any): Observable<T> => {
+      this.snackbar.open(message, 'Bezár', {
+        duration: 3000,
+        panelClass: ['my-snackbar'],
+      });
+      return of(result as T);
+    };
   }
 }

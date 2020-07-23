@@ -4,6 +4,9 @@ import { IUserViewModel } from '../models/scoreboard.model';
 import { ScoreboardService } from '../services/scoreboard.service';
 import { tap, catchError } from 'rxjs/operators';
 import { ScoreboardViewModel } from 'src/app/shared';
+import { MatSliderChange } from '@angular/material/slider';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-scoreboard-page',
@@ -20,13 +23,22 @@ export class ScoreboardPageComponent implements OnInit {
 
   users: ScoreboardViewModel[];
 
-  constructor(private service: ScoreboardService) { }
+  constructor(private service: ScoreboardService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.service.getUser().pipe(
       tap(res => this.users = res),
-      catchError(error => console.assert)
+      catchError(error => this.handleError<ScoreboardViewModel[]>('Nem sikerült a ranglétra betöltése', []))
     ).subscribe();
   }
 
+  private handleError<T>(message = 'Hiba', result?: T) {
+    return (error: any): Observable<T> => {
+      this.snackbar.open(message, 'Bezár', {
+        duration: 3000,
+        panelClass: ['my-snackbar'],
+      });
+      return of(result as T);
+    };
+  }
 }
