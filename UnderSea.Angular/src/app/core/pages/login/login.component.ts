@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-
   constructor(private router: Router, public http: HttpClient, private authService: AuthService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -53,27 +52,21 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-
-    //if (this.loginForm.valid) {
-    console.log(1);
     this.authService.login(this.username, this.password).pipe(
-      tap(res => {
-        if (res.accessToken != null) {
-          localStorage.setItem('token', res.accessToken);
-          localStorage.setItem('refreshtoken', res.refreshToken);
+      tap(tokens => {
+        if (tokens.accessToken != null) {
           this.router.navigate(['/main']);
         }
       })
     ).subscribe();
-    //}
   }
 
   signup(): void {
     this.authService.signup(this.regUsername, this.regPassword, this.countryName).pipe(
       tap(res => {
         if (res.accessToken != null) {
-          localStorage.setItem('token', res.accessToken);
           this.reg = false;
+          this.router.navigate(['/main']);
         }
         this.snackbar.open('Sikeres regisztráció', 'Bezár', {
           duration: 3000,
@@ -96,8 +89,4 @@ export class LoginComponent implements OnInit {
     this.confirmPassword = null;
     this.countryName = null;
   }
-
 }
-
-
-
