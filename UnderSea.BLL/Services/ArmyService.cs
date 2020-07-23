@@ -295,48 +295,58 @@ namespace UnderSea.BLL.Services
             return response;
         }
 
+
+        //TODO
         public async Task<IEnumerable<UnitViewModel>> GetUnitsAsync(int userId)
         {
             var country = await db.Countries.SingleAsync(c => c.UserId == userId);
             var units = db.Units.Where(u => u.UnitGroupId == country.DefendingArmyId)
                                 .Include(u => u.Type)
                                 .ThenInclude(t => t.Levels);
+            var levels = db.UnitLevels.ToList();
+            var unitTypes = db.UnitTypes.ToList();
+
+
 
             List<UnitViewModel> result = new List<UnitViewModel>();
-            var found = false;
+            foreach (var unit in unitTypes)
+            {
+                result.Add(new UnitViewModel()
+                {
+                    Id = unit.Id,
+                    Name = unit.Name,
+                    Count = 0,
+                    Level = 1,
+                    ImageUrl = unit.ImageUrl,
+                    CoralCostPerTurn = unit.CoralCostPerTurn,
+                    PearlCostPerTurn = unit.PearlCostPerTurn,
+                    Price = unit.Price
+                });
+            }
+
             foreach (var unit in units)
             {
-                found = false;
-
                 foreach (var unitvm in result)
                 {
-                    if (unitvm.Id == unit.Type.Id 
-                        //Group by LVL
-                        && unitvm.Level == unit.Level)
+                    if (unitvm.Id == unit.Type.Id)
                     {
                         unitvm.Count++;
-                        found = true;
-                        break;
                     }
                 }
+            }
 
-                if (!found)
+            foreach (var level in levels)
+            {
+                foreach (var unit in result)
                 {
-                    result.Add(new UnitViewModel()
+                    if(level.UnitTypeId == unit.Id 
+                        && level.Level == 1
+                        )
                     {
-                        Id = unit.Type.Id,
-                        Name = unit.Type.Name,
-                        Count = 1,
-                        Level = unit.Level,
-                        ImageUrl = unit.Type.ImageUrl,
-                        AttackScore = unit.AttackScore,
-                        DefenseScore = unit.DefenseScore,
-                        CoralCostPerTurn = unit.Type.CoralCostPerTurn,
-                        PearlCostPerTurn = unit.Type.PearlCostPerTurn,
-                        Price = unit.Type.Price
-                    });
+                        unit.AttackScore = level.AttackScore;
+                        unit.DefenseScore = level.DefenseScore;
+                    }
                 }
-
             }
 
             return result;
