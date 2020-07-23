@@ -6,6 +6,7 @@ import { ICatsDto } from '../models/buildings.dto';
 import { IBuildingInfoViewModel } from 'src/app/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, Observable } from 'rxjs';
+import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
 
 @Component({
   selector: 'app-buildings-page',
@@ -19,14 +20,20 @@ export class BuildingsPageComponent implements OnInit {
   purchaseId: number;
   buildings: IBuildingInfoViewModel[];
 
-  constructor(private service: BuildingsService, private snackbar: MatSnackBar) { }
+  constructor(private service: BuildingsService, private snackbar: MatSnackBar, private refreshService: RefreshDataService) { }
 
   ngOnInit(): void {
+    this.getData();
+    this.refreshService.data.subscribe(res => {
+      this.getData();
+    });
+  }
+
+  getData(): void{
     this.service.getBuildings().pipe(
       tap(res => this.buildings = res),
       catchError(error => this.handleError<IBuildingInfoViewModel[]>('Nem sikerült az épületek betöltése', []))
     ).subscribe();
-
   }
 
   enableButton(value: string, id: number): void{
@@ -43,6 +50,7 @@ export class BuildingsPageComponent implements OnInit {
             duration: 3000,
             panelClass: ['my-snackbar'],
           });
+          this.refreshService.refresh(true);
         }),
         catchError(err => this.handleError('Nem sikerült a vásárlás'))
       ).subscribe();

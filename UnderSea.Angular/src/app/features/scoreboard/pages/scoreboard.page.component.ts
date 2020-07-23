@@ -7,6 +7,7 @@ import { ScoreboardViewModel } from 'src/app/shared';
 import { MatSliderChange } from '@angular/material/slider';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
+import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
 
 @Component({
   selector: 'app-scoreboard-page',
@@ -23,9 +24,16 @@ export class ScoreboardPageComponent implements OnInit {
 
   users: ScoreboardViewModel[];
 
-  constructor(private service: ScoreboardService, private snackbar: MatSnackBar) { }
+  constructor(private service: ScoreboardService, private snackbar: MatSnackBar, private refreshService: RefreshDataService) { }
 
   ngOnInit(): void {
+    this.getData();
+    this.refreshService.data.subscribe(res => {
+      this.getData();
+    });
+  }
+  
+  getData(): void{
     this.service.getUser().pipe(
       tap(res => this.users = res),
       catchError(error => this.handleError<ScoreboardViewModel[]>('Nem sikerült a ranglétra betöltése', []))

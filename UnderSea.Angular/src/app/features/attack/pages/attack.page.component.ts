@@ -7,6 +7,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { MatSlider } from '@angular/material/slider';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, Observable } from 'rxjs';
+import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
 
 @Component({
   selector: 'app-attack-page',

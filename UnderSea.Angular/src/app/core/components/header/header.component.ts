@@ -6,6 +6,7 @@ import { UnitViewModel, MainPageViewModel } from '../../../shared/index';
 import { LayoutComponent } from '../layout/layout.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
+import { RefreshDataService } from '../../services/refresh-data.service';
 import { of, Observable } from 'rxjs';
 
 @Component({
@@ -19,9 +20,21 @@ export class HeaderComponent implements OnInit {
 
   baseUrl = environment.apiUrl;
 
-  constructor(private service: LayoutService, public layout: LayoutComponent, private snackbar: MatSnackBar) { }
+  constructor(
+    private service: LayoutService,
+    public layout: LayoutComponent,
+    private snackbar: MatSnackBar,
+    private refreshService: RefreshDataService
+    ) { }
 
   ngOnInit(): void {
+    this.getData();
+    this.refreshService.data.subscribe(res => {
+      this.getData();
+    });
+  }
+
+  getData(): void{
     this.service.getEverything().pipe(
       tap(res => this.everything = res),
       catchError(this.handleError<MainPageViewModel>('Nem sikerült az adatok betöltése'))
@@ -36,6 +49,7 @@ export class HeaderComponent implements OnInit {
           duration: 3000,
           panelClass: ['my-snackbar'],
         });
+        this.refreshService.refresh(true);
       }),
       catchError(this.handleError('Nem sikerült az új kör indítása'))
     ).subscribe();
