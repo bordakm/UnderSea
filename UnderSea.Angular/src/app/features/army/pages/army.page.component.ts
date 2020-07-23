@@ -67,6 +67,5 @@ export class ArmyPageComponent implements OnInit {
           }));
         })
       ).subscribe();
-    window.location.reload();
   }
 }
