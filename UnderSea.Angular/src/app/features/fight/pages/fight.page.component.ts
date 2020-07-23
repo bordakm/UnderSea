@@ -24,12 +24,6 @@ export class FightPageComponent implements OnInit {
       tap(res => this.fightModels = res),
       catchError(error => this.handleError<OutgoingAttackViewModel[]>('Nem sikerült a harcok betöltése', []))
     ).subscribe();
-
-    if (Array.isArray(this.fightModels) && this.fightModels.length > 0){
-      this.empty = false;
-    }else{
-      this.empty = true;
-    }
   }
 
   private handleError<T>(message = 'Hiba', result?: T) {
