@@ -7,6 +7,7 @@ import { AuthClient, TokensViewModel, LoginDTO, RegisterDTO, RefreshTokenDTO } f
 import { HttpRequest } from '@angular/common/http';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { tap, mapTo, catchError } from 'rxjs/operators';
+import { SignalRService } from './signal-r.service';
 
 
 
@@ -22,7 +23,7 @@ export class AuthService {
     private readonly ACCESS_TOKEN = 'ACCESS_TOKEN';
     private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
 
-    constructor(private client: AuthClient, public router: Router) { }
+    constructor(private client: AuthClient, public router: Router, private signalRService: SignalRService) { }
 
     public getAccessToken(): string {
         return localStorage.getItem(this.ACCESS_TOKEN);
@@ -39,14 +40,17 @@ export class AuthService {
         });
         return this.client.login(loginDto)
             .pipe(
-                tap((tokens: TokensViewModel) => this.storeTokens(tokens))
+                tap((tokens: TokensViewModel) => this.doLogin(tokens))
             );
     }
 
     logout() {
         return this.client.logout()
             .pipe(
-                tap(_ => this.removeTokens())
+                tap(_ => {
+                    this.removeTokens();
+                    this.signalRService.stopConnnection();
+                })
             );
     }
 
@@ -58,7 +62,7 @@ export class AuthService {
         });
         return this.client.register(registerDto)
             .pipe(
-                tap((tokens: TokensViewModel) => this.storeTokens(tokens))
+                tap((tokens: TokensViewModel) => this.doLogin(tokens))
             );
     }
 
@@ -72,12 +76,13 @@ export class AuthService {
             );
     }
 
-    private getRefreshToken() {
-        return localStorage.getItem(this.REFRESH_TOKEN);
+    private doLogin(tokens: TokensViewModel) {
+        this.storeTokens(tokens);
+        this.signalRService.connectToHub();
     }
 
-    private storeAceessToken(accessToken: string) {
-        localStorage.setItem(this.ACCESS_TOKEN, accessToken);
+    private getRefreshToken() {
+        return localStorage.getItem(this.REFRESH_TOKEN);
     }
 
     private storeTokens(tokens: TokensViewModel) {
