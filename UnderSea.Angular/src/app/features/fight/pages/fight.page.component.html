@@ -2,7 +2,8 @@
     <mat-card class="mat-card-main">
         <mat-card-content>
             <h1 class="main-card-title">Harc</h1>
-            <div *ngIf="empty"><h4>Nincsenek folyamatban harcok</h4></div>
+            <div *ngIf="this.fightModels.length === 0"><h4>
+                Nincsenek folyamatban harcok</h4></div>
             <div class="flex-box">
                    <div class="slider">
                         <mat-list>
