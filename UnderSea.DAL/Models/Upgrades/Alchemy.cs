@@ -11,7 +11,7 @@ namespace UnderSea.DAL.Models.Upgrades
             Name = "Alkímia";
             Description = "növeli a beszedett adót 30%-kal";
             ImageUrl = "/images/upgrades/alchemy.png";
-            TaxBonusPercentage = 30;
+            PearlProductionBonusPercentage = 30;
         }
     }
 }

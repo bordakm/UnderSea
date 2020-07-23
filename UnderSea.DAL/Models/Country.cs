@@ -32,7 +32,7 @@ namespace UnderSea.DAL.Models
         public int Score { get; set; }
         public List<Upgrade> Upgrades { get; set; }
         [NotMapped]
-        public int PearlProduction => Population * taxPerPerson * (1 + (Upgrades.Sum(upgrades => upgrades.Type.TaxBonusPercentage) / 100));
+        public int PearlProduction => Convert.ToInt32(Population * taxPerPerson * (1.00 + (Upgrades.Sum(upgrades => Convert.ToDouble(upgrades.Type.PearlProductionBonusPercentage)) / 100.00)));
         [NotMapped]
         public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus * building.Count);
         [NotMapped]
@@ -42,7 +42,7 @@ namespace UnderSea.DAL.Models
         {
             get
             {
-                return BuildingGroup.Buildings.Sum(building => building.Count * building.Type.CoralBonus);
+                return Convert.ToInt32(BuildingGroup.Buildings.Sum(building => building.Count * building.Type.CoralBonus) * (1.00 + Upgrades.Sum(upgrades => Convert.ToDouble(upgrades.Type.CoralProductionBonusPercentage)) / 100.00));
             }
         }
         public void AddTaxes()
