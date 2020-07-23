@@ -61,6 +61,7 @@
 		7947D99924B859F100C5306D /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947D99824B859F100C5306D /* NavigationBarModifier.swift */; };
 		7947D99B24B85A5400C5306D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947D99A24B85A5400C5306D /* View+Extension.swift */; };
 		7947D99D24B8678700C5306D /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947D99C24B8678700C5306D /* HostingController.swift */; };
+		7949EFD524C995790076D151 /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7949EFD424C995790076D151 /* KeyboardAdaptive.swift */; };
 		794C674824B6F8AD006D1F2B /* RootPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794C674724B6F8AD006D1F2B /* RootPage.swift */; };
 		794CAACA24B5C51B007DC9C7 /* BaseApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794CAAC724B5C51A007DC9C7 /* BaseApiService.swift */; };
 		794CAACB24B5C51B007DC9C7 /* BaseApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794CAAC824B5C51A007DC9C7 /* BaseApiWorker.swift */; };
@@ -217,6 +218,7 @@
 		7947D99824B859F100C5306D /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		7947D99A24B85A5400C5306D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		7947D99C24B8678700C5306D /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
+		7949EFD424C995790076D151 /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		794C674724B6F8AD006D1F2B /* RootPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPage.swift; sourceTree = "<group>"; };
 		794CAAC724B5C51A007DC9C7 /* BaseApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseApiService.swift; sourceTree = "<group>"; };
 		794CAAC824B5C51A007DC9C7 /* BaseApiWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseApiWorker.swift; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 		7947D99724B859D300C5306D /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				7949EFD424C995790076D151 /* KeyboardAdaptive.swift */,
 				7947D99824B859F100C5306D /* NavigationBarModifier.swift */,
 			);
 			path = Modifiers;
@@ -1426,6 +1429,7 @@
 				79237B8C24C6CE37009F5650 /* ProfilePresenter.swift in Sources */,
 				79A5B52B24BF40B2009D5AC6 /* LoginPresenter.swift in Sources */,
 				79A5B52724BF0F04009D5AC6 /* LoginUsecases.swift in Sources */,
+				7949EFD524C995790076D151 /* KeyboardAdaptive.swift in Sources */,
 				79237B8224C6CC9D009F5650 /* ProfileApiWorker.swift in Sources */,
 				7956492524BEFD54003D6D16 /* UserManagerApiService.swift in Sources */,
 				79237B9A24C6DB53009F5650 /* LeaderboardViewModel.swift in Sources */,

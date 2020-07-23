@@ -17,6 +17,8 @@ extension Login {
         
         var usecaseHandler: ((Login.Usecase) -> Void)?
         
+        @State private var frameOfInterest: CGRect?
+        
         @State private var userName: String = ""
         @State private var userPassword: String = ""
         
@@ -50,12 +52,19 @@ extension Login {
                         }
                         .frame(width: 280.0)
                         .padding()
-                        .background(Colors.whiteTransparent)
+                        .background(GeometryReader { gp -> Color in
+                            let frame = gp.frame(in: .global)
+                            DispatchQueue.main.async {
+                                if self.frameOfInterest == nil {
+                                    self.frameOfInterest = frame
+                                }
+                            }
+                            return Colors.whiteTransparent
+                        })
                         .cornerRadius(16.0)
                         
-                        Spacer()
-                        
-                    }.padding(.top, geometry.safeAreaInsets.top + 50.0)
+                    }.padding(.top, geometry.safeAreaInsets.top)
+                    .keyboardAdaptive(frameOfInterest: self.frameOfInterest ?? CGRect.zero)
             }
             .background(Image(uiImage: R.image.loginBackground()!)
                 .resizable()

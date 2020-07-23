@@ -23,6 +23,7 @@ extension Register {
         @State private var cityName: String = ""
         
         @State private var alertPresented = false
+        @State private var frameOfInterest: CGRect?
         
         //@State private var pushLogin = false
         
@@ -64,12 +65,19 @@ extension Register {
                     }
                     .frame(width: 280.0)
                     .padding()
-                    .background(Colors.whiteTransparent)
+                    .background(GeometryReader { gp -> Color in
+                        let frame = gp.frame(in: .global)
+                        DispatchQueue.main.async {
+                            if self.frameOfInterest == nil {
+                                self.frameOfInterest = frame
+                            }
+                        }
+                        return Colors.whiteTransparent
+                    })
                     .cornerRadius(16.0)
                     
-                    Spacer()
-                    
-                }.padding(.top, geometry.safeAreaInsets.top + 50.0)
+                }.padding(.top, geometry.safeAreaInsets.top)
+                .keyboardAdaptive(frameOfInterest: self.frameOfInterest ?? CGRect.zero)
                 
             }
             .background(Image(uiImage: R.image.loginBackground()!)
