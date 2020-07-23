@@ -155,7 +155,7 @@ namespace UnderSea.BLL.Services
 
             var attackingUnits = user.Country.AttackingArmy.Units;
             var defendingUnits = user.Country.DefendingArmy.Units;
-            int currentUnitCount = attackingUnits.Count() + defendingUnits.Count;
+            int currentUnitCount = attackingUnits.Count() + defendingUnits.Count();
             int plusUnitCount = purchases.Sum(purchase => purchase.Count);
             if (user.Country.UnitStorage < currentUnitCount + plusUnitCount)
             {

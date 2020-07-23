@@ -22,6 +22,8 @@ namespace UnderSea.DAL.Models
 
         public void CalculateAttacks()
         {
+            Random rand = new Random();
+
             foreach (var attack in Attacks)
             {
                 double defenderScore = 0;
@@ -116,7 +118,6 @@ namespace UnderSea.DAL.Models
                     attUserCountry.DefendingArmy.Units.AddRange(attack.UnitList);
                     
 
-                    //CR Ready
                     //csökkentjük a deffender armyját 10%al
                     var unitCount = defUserCountry.DefendingArmy.Units.Count;
                     int newCount = Convert.ToInt32(Math.Ceiling(unitCount * 0.9));
