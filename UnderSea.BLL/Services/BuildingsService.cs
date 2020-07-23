@@ -34,7 +34,9 @@ namespace UnderSea.BLL.Services
             var buildingInfos = new List<BuildingInfoViewModel>();
             foreach (var building in userBuildings)
             {
-                buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building));
+                var dummy = mapper.Map<BuildingInfoViewModel>(building);
+                dummy.RemainingRounds = user.Country.BuildingTimeLeft;
+                buildingInfos.Add(dummy);
             }
             return buildingInfos;
         }
@@ -58,7 +60,6 @@ namespace UnderSea.BLL.Services
             }
             building.UnderConstructionCount++;
             user.Country.BuildingTimeLeft = 5; // TODO ezt nem is kéne használni, countryban majd csak az épülő épületek darabszámára lesz szükség
-            building.ConstructionTimeLeft = 5;
 
             user.Country.Pearl -= building.Type.Price;
             await db.SaveChangesAsync();
