@@ -6,7 +6,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { UpgradeViewModel } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-upgrades-page',
@@ -27,7 +27,7 @@ export class UpgradesPageComponent implements OnInit {
   ngOnInit(): void {
     this.service.getUpgrades().pipe(
       tap(res => this.upgrades = res),
-      catchError(error => console.assert)
+      catchError(error => this.handleError<UpgradeViewModel[]>('Nem sikerült a fejlesztések betöltése', []))
     ).subscribe();
   }
 
@@ -46,13 +46,17 @@ export class UpgradesPageComponent implements OnInit {
             panelClass: ['my-snackbar'],
           });
         }),
-        catchError(err => {
-          return of(this.snackbar.open('A művelet sikertelen', 'Bezár', {
-            duration: 3000,
-            panelClass: ['my-snackbar'],
-          }));
-        })
+        catchError(err => this.handleError('Nem sikerült a fejlesztés'))
       ).subscribe();
   }
 
+  private handleError<T>(message = 'Hiba', result?: T) {
+    return (error: any): Observable<T> => {
+      this.snackbar.open(message, 'Bezár', {
+        duration: 3000,
+        panelClass: ['my-snackbar'],
+      });
+      return of(result as T);
+    };
+  }
 }

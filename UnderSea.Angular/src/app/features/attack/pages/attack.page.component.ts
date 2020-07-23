@@ -6,7 +6,7 @@ import { AttackService } from '../services/attack.service';
 import { tap, catchError } from 'rxjs/operators';
 import { MatSlider } from '@angular/material/slider';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-attack-page',
@@ -34,12 +34,12 @@ export class AttackPageComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAttacks().pipe(
       tap(res => this.availableUnits = res),
-      catchError(error => console.assert)
+      catchError(error => this.handleError<IAttackUnitViewModel[]>('Nem sikerült a támadások betöltése', []))
     ).subscribe();
 
     this.service.getCountries().pipe(
       tap(res => this.countries = res),
-      catchError(error => console.assert)
+      catchError(error => this.handleError<ScoreboardViewModel[]>('Nem sikerült az országok betöltése', []))
     ).subscribe();
   }
 
@@ -62,13 +62,18 @@ export class AttackPageComponent implements OnInit {
             panelClass: ['my-snackbar'],
           });
         }),
-        catchError(err => {
-          return of(this.snackbar.open('A művelet sikertelen', 'Bezár', {
-            duration: 3000,
-            panelClass: ['my-snackbar'],
-          }));
-        })
+        catchError(err => this.handleError('Nem sikerült a támadás elindítása'))
       ).subscribe();
     this.clicked = false;
+  }
+
+  private handleError<T>(message = 'Hiba', result?: T) {
+    return (error: any): Observable<T> => {
+      this.snackbar.open(message, 'Bezár', {
+        duration: 3000,
+        panelClass: ['my-snackbar'],
+      });
+      return of(result as T);
+    };
   }
 }
