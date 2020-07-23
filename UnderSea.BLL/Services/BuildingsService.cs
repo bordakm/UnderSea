@@ -46,7 +46,7 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(ent => ent.Buildings)
                 .ThenInclude(ent => ent.Type)
                 .SingleAsync(user => user.Id == userId);
-            var building = user.Country.BuildingGroup.Buildings.Single(building => building.Id == buildingId);
+            var building = user.Country.BuildingGroup.Buildings.Single(building => building.Type.Id == buildingId);
             var underConstructionCount = user.Country.BuildingGroup.Buildings.Sum(building => building.UnderConstructionCount);
             if (underConstructionCount > 0)
             {

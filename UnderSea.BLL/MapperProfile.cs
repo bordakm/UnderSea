@@ -19,6 +19,7 @@ namespace UnderSea.BLL
             CreateMap<Unit, SimpleUnitWithNameViewModel>()
                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name));
             CreateMap<Building, BuildingInfoViewModel>()
+                        .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Type.Id))
                         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Type.Name))
                         .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Type.Price))
                         .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Type.Description))
