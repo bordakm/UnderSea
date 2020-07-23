@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,14 +10,14 @@ import { LayoutComponent } from '../layout/layout.component';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private router: Router, public layout: LayoutComponent) { }
+  constructor(private router: Router, public layout: LayoutComponent, private auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
   logout(): void{
-    localStorage.removeItem('token');
+    this.auth.logout()
+    .subscribe();
     this.router.navigate(['login']);
   }
-
 }
