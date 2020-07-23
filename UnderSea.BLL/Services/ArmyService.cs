@@ -153,6 +153,7 @@ namespace UnderSea.BLL.Services
                                     .ThenInclude(upgrades => upgrades.Type)
                                     .FirstAsync(user => user.Id == userId);
 
+            var unittypes = await db.UnitTypes.ToListAsync();
             var attackingUnits = user.Country.AttackingArmy.Units;
             var defendingUnits = user.Country.DefendingArmy.Units;
             int currentUnitCount = attackingUnits.Count() + defendingUnits.Count();
@@ -161,7 +162,7 @@ namespace UnderSea.BLL.Services
             {
                 throw new HttpResponseException { Status = 400, Value = "Nincs elég helyed a barrakkodban!" };
             }
-            int priceTotal = purchases.Sum(purchase => purchase.Count * defendingUnits.Single(unit => unit.Type.Id == purchase.TypeId).Type.Price);
+            int priceTotal = purchases.Sum(purchase => purchase.Count * unittypes.Single(unittype => unittype.Id == purchase.TypeId).Price);
             if (priceTotal > user.Country.Pearl)
             {
                 throw new HttpResponseException { Status = 400, Value = "Nincs eléd gyöngyöd!" };
