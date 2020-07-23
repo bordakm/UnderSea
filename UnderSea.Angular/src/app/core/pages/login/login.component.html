@@ -1,121 +1,124 @@
-<body class = "login-body">
-    
-<div class="flex-box">
+<body class="login-body">
 
-    <div class="wave" style="--w:100px;--h:30px;--p:12.5px; --t:8px;--c:#9FFFF0"></div>
+    <div class="flex-box login">
 
-    <h1>UNDERSEA</h1>
+        <div class="wave" style="--w:100px;--h:30px;--p:12.5px; --t:8px;--c:#9FFFF0"></div>
 
-    <mat-card *ngIf=!reg class="flex-box">
-        <mat-card-title>Belépés</mat-card-title>
-        <mat-card-content class="input-line">
-            <!-- <form class="login-form">
-                <mat-form-field class="login-full-width">
-                    <mat-label >Felhasználónév</mat-label>
-                    <input matInput [(ngModel)]="username" required>
-                </mat-form-field> 
-            </form> -->
+        <h1>UNDERSEA</h1>
 
-            <mat-form-field class="login-full-width">
-                <mat-label >Felhasználónév</mat-label>
-                <input matInput [(ngModel)]="username" required>
-            </mat-form-field>
-           
-        </mat-card-content>
 
-        <mat-card-content class="input-line">
-            <!-- <form class="login-form">
-                <mat-form-field class="login-full-width">  
-                    <mat-label>Jelszó</mat-label>
-                    <input type="password" matInput [(ngModel)]="password">
-                </mat-form-field>
-            </form> -->
 
-            <mat-form-field class="login-full-width">
-                <mat-label >Jelszó</mat-label>
-                <input type="password" matInput [(ngModel)]="password" required>
-            </mat-form-field>
 
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-flat-button type="submit" class="color-button" (click)="login()" >Belépés</button>
-        </mat-card-actions>
-        <mat-card-actions>
-            <button mat-flat-button class="transp-button" (click)="_true()" >Regisztráció</button>
-        </mat-card-actions>
-    </mat-card>
+        <mat-card *ngIf=!reg class="flex-box">
+            <mat-card-title>Belépés</mat-card-title>
+            <mat-card-content class="input-line">
+                <form class="login-form" [formGroup]="loginForm" style="display: flex; flex-direction: column;">
+                    <mat-form-field class="login-full-width" floatLabel="never">
+                        <mat-label>Felhasználónév</mat-label>
+                        <input matInput name="username" formControlName="username">
+                    </mat-form-field>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="loginForm.controls['username'].errors?.required && loginForm.controls['username'].touched">
+                        A felhasználónév kötelező.
+                    </div>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="loginForm.controls['username'].errors?.whitespace && loginForm.controls['username'].touched">
+                        A felhasználónév nem állhat csupán szóközből.
+                    </div>
 
-   
-    <mat-card *ngIf=reg class="flex-box">
-        <mat-card-title>Regisztráció</mat-card-title>
-        <mat-card-content class="input-line">
-            <!-- <form class="login-form">
-                <mat-form-field class="login-full-width">
-                    <mat-label>Felhasználónév</mat-label>
-                    <input matInput [errorStateMatcher]="matcher">
-                    <mat-error *ngIf=".hasError('required')">
-                        <strong>Kötelező</strong> tartomány
-                    </mat-error> 
-                </mat-form-field>
-            </form> -->
 
-            <mat-form-field class="login-full-width">
-                <mat-label >Felhasználónév</mat-label>
-                <input matInput [(ngModel)]="regUsername" required>
-            </mat-form-field>
-            
-        </mat-card-content>
+                    <mat-form-field class="login-full-width" floatLabel="never" style="margin-top: 20px;">
+                        <mat-label>Jelszó</mat-label>
+                        <input matInput type="password" name="password" formControlName="password">
+                    </mat-form-field>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="loginForm.controls['password'].errors?.required && loginForm.controls['password'].touched">
+                        A jelszó kötelező.
+                    </div>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="loginForm.controls['password'].errors?.whitespace && loginForm.controls['password'].touched">
+                        A jelszó nem állhat csupán szóközből.
+                    </div>
+                </form>
 
-        <mat-card-content class="input-line">
-            <!-- <form class="login-form">
-                <mat-form-field class="login-full-width">  
-                    <mat-label>Jelszó</mat-label>
-                    <input matInput>
-                </mat-form-field>
-            </form> -->
-            <mat-form-field class="login-full-width">
-                <mat-label >Jelszó</mat-label>
-                <input type="password" matInput [(ngModel)]="regPassword" required>
-            </mat-form-field>
-        </mat-card-content>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-flat-button type="submit" class="color-button" (click)="login()">Belépés</button>
+            </mat-card-actions>
+            <mat-card-actions>
+                <button mat-flat-button class="transp-button" (click)="_true()">Regisztráció</button>
+            </mat-card-actions>
+        </mat-card>
 
-        <mat-card-content class="input-line">
-            <!-- <form class="login-form">
-                <mat-form-field class="login-full-width">  
-                    <mat-label>Jelszó megerősítése</mat-label>
-                    <input matInput>
-                </mat-form-field>
-            </form> -->
-            
-            <mat-form-field class="login-full-width">
-                <mat-label >Jelszó megerősítése</mat-label>
-                <input type="password" matInput [(ngModel)]="confirmPassword" required>
-            </mat-form-field>
-        </mat-card-content>
 
-        <mat-card-content class="input-line">
-            <!-- <form class="login-form">
-                <mat-form-field class="login-full-width">  
-                    <mat-label>A városod neve amit építesz</mat-label>
-                    <input matInput>
-                </mat-form-field>
-            </form> -->
+        <mat-card *ngIf=reg class="flex-box">
+            <mat-card-title>Regisztráció</mat-card-title>
+            <mat-card-content class="input-line">
+                <form class="login-form" [formGroup]="regForm" style="display: flex; flex-direction: column;">
+                    <mat-form-field class="login-full-width" floatLabel="never">
+                        <mat-label>Felhasználónév</mat-label>
+                        <input matInput name="regUsername" formControlName="regUsername">
+                    </mat-form-field>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="regForm.controls['regUsername'].errors?.required && regForm.controls['regUsername'].touched">
+                        A felhasználónév kötelező.
+                    </div>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="regForm.controls['regUsername'].errors?.whitespace && regForm.controls['regUsername'].touched">
+                        A felhasználónév nem állhat csupán szóközből.
+                    </div>
 
-            <mat-form-field class="login-full-width">  
-                <mat-label>A városod neve amit építesz</mat-label>
-                <input matInput [(ngModel)]="countryName" required>
-            </mat-form-field >
-        </mat-card-content>
+                    <mat-form-field class="login-full-width" floatLabel="never" style="margin-top: 20px;">
+                        <mat-label>Jelszó</mat-label>
+                        <input matInput type="password" name="regPassword" formControlName="regPassword">
+                    </mat-form-field>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="regForm.controls['regPassword'].errors?.required && regForm.controls['regPassword'].touched">
+                        A jelszó kötelező.
+                    </div>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="regForm.controls['regUsername'].errors?.whitespace && regForm.controls['regUsername'].touched">
+                        A jelszó nem állhat csupán szóközből.
+                    </div>
 
-        
-        <mat-card-actions class="input-line">
-            <button class="color-button" (click)="signup()" mat-flat-button>Regisztráció</button>
-        </mat-card-actions>
-        <mat-card-actions>
-            <button class="transp-button" (click)="_false()" mat-flat-button >Bejelentkezés</button>
-        </mat-card-actions>
-    </mat-card>
-</div>
+                    <mat-form-field class="login-full-width" floatLabel="never" style="margin-top: 20px;">
+                        <mat-label>Jelszó megerősítése</mat-label>
+                        <input matInput type="password" name="passConfirm" formControlName="passConfirm">
+                    </mat-form-field>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="regForm.controls['passConfirm'].errors?.required && regForm.controls['passConfirm'].touched">
+                        A jelszó megerősítése kötelező.
+                    </div>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="regForm.controls['passConfirm'].errors?.whitespace && regForm.controls['passConfirm'].touched">
+                        A jelszó nem állhat csupán szóközből.
+                    </div>
+
+                    <mat-form-field class="login-full-width" floatLabel="never" style="margin-top: 20px;">
+                        <mat-label>A városod neve amit építesz</mat-label>
+                        <input matInput name="country" formControlName="country">
+                    </mat-form-field>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="regForm.controls['country'].errors?.required && regForm.controls['country'].touched">
+                        Az országnév kötelező.
+                    </div>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="regForm.controls['country'].errors?.whitespace && regForm.controls['country'].touched">
+                        A felhasználónév kötelező.
+                    </div>
+
+                </form>
+
+            </mat-card-content>
+            <mat-card-actions class="input-line">
+                <button class="color-button" (click)="signup()" mat-flat-button>Regisztráció</button>
+            </mat-card-actions>
+            <mat-card-actions>
+                <button class="transp-button" (click)="_false()" mat-flat-button>Bejelentkezés</button>
+            </mat-card-actions>
+
+        </mat-card>
+    </div>
 
 
 </body>

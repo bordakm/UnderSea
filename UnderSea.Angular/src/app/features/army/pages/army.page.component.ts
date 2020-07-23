@@ -62,7 +62,7 @@ export class ArmyPageComponent implements OnInit {
       }),
       catchError(this.handleError<SimpleUnitViewModel[]>('Nem sikerült a támadás elindítása', []))
     ).subscribe();
-    window.location.reload();
+
   }
 
   private handleError<T>(message = 'Hiba', result?: T) {
