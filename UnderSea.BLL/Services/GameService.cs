@@ -271,7 +271,7 @@ namespace UnderSea.BLL.Services
         private async Task CalculateAttacks()
         {
             var game = await db.Game
-                            .Include(game => game.Attacks)                            
+                            .Include(game => game.Attacks)
                             .Include(game => game.Users)
                             .ThenInclude(users => users.Country)
                             .ThenInclude(country => country.AttackingArmy)
@@ -291,19 +291,35 @@ namespace UnderSea.BLL.Services
 
         private async Task FeedUnits()
         {
-            var game = db.Game.Single();
-            var users = db.Users
-                            .Include(user => user.Country)
-                            .ThenInclude(country => country.AttackingArmy)
-                            .ThenInclude(aa => aa.Units)
-                            .ThenInclude(units => units.Type)
-                            .Include(user => user.Country.DefendingArmy)
-                            .ThenInclude(da => da.Units)
-                            .ThenInclude(units => units.Type);
+            /*   var users = db.Users
+                               .Include(user => user.Country)
+                               .ThenInclude(country => country.AttackingArmy)
+                               .ThenInclude(aa => aa.Units)
+                               .ThenInclude(units => units.Type)
+                               .Include(user => user.Country.DefendingArmy)
+                               .ThenInclude(da => da.Units)
+                               .ThenInclude(units => units.Type);
+               */
+
+            var users = await db.Users
+              .Include(user => user.Country)
+              .ThenInclude(country => country.AttackingArmy)
+              .ThenInclude(aa => aa.Units)
+              .ThenInclude(units => units.Type)
+              .Include(user => user.Country)
+              .ThenInclude(country => country.DefendingArmy)
+              .ThenInclude(aa => aa.Units)
+              .ThenInclude(units => units.Type)
+              .ToListAsync();
+            var allAttacks = await db.Attacks
+                .Include(a => a.UnitList)
+                .ThenInclude(ul => ul.Type)
+                .ToListAsync();
+
             foreach (var user in users)
             {
                 var removeUnits = user.Country.FeedUnits();
-                var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
+                var userAttacks = allAttacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop && userAttacks.Count() != 0)
                 {
@@ -331,28 +347,45 @@ namespace UnderSea.BLL.Services
 
         private async Task PayUnits()
         {
-            var game = await db.Game
-                .Include(game => game.Attacks)
-                .ThenInclude(attacks => attacks.AttackerUser)
-                .Include(game => game.Attacks)
-                .ThenInclude(attacks => attacks.UnitList)
-                .ThenInclude(ul => ul.Type)
-                .Include(game => game.Users)
-                .ThenInclude(user => user.Country)
+            /* var game = db.Game
+                 .Include(game => game.Attacks)
+                 .ThenInclude(attacks => attacks.AttackerUser)
+                 .Include(game => game.Attacks)
+                 .ThenInclude(attacks => attacks.UnitList)
+                 .ThenInclude(ul => ul.Type)
+                 .Include(game => game.Users)
+                 .ThenInclude(user => user.Country)
+                 .ThenInclude(country => country.AttackingArmy)
+                 .ThenInclude(aa => aa.Units)
+                 .ThenInclude(units => units.Type)
+                 .Include(game => game.Users)
+                 .ThenInclude(user => user.Country)
+                 .ThenInclude(country => country.DefendingArmy)
+                 .ThenInclude(da => da.Units)
+                 .ThenInclude(units => units.Type);
+             */
+
+            var users = await db.Users
+                .Include(user => user.Country)
                 .ThenInclude(country => country.AttackingArmy)
                 .ThenInclude(aa => aa.Units)
                 .ThenInclude(units => units.Type)
-                .Include(game => game.Users)
-                .ThenInclude(user => user.Country)
+                .Include(user => user.Country)
                 .ThenInclude(country => country.DefendingArmy)
-                .ThenInclude(da => da.Units)
+                .ThenInclude(aa => aa.Units)
                 .ThenInclude(units => units.Type)
-                .SingleAsync();
+                .ToListAsync();
+            var allAttacks = await db.Attacks
+                .Include(a => a.UnitList)
+                .ThenInclude(ul => ul.Type)
+                .ToListAsync();
 
-            foreach (var user in game.Users)
+            Console.WriteLine("\t\tPayunits dbquery done");
+
+            foreach (var user in users)
             {
                 var removeUnits = user.Country.PayUnits();
-                var userAttacks = game.Attacks.Where(attack => attack.AttackerUser.Id == user.Id);
+                var userAttacks = allAttacks.Where(attack => attack.AttackerUser.Id == user.Id);
                 bool stop = false;
                 while (!stop && userAttacks.Count() != 0)
                 {
