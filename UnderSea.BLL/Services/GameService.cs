@@ -121,6 +121,8 @@ namespace UnderSea.BLL.Services
                     Units = availableUnits,
                     Resources = new StatusBarViewModel.StatusBarResource()
                     {
+                        StoneCount = user.Country.Stone,
+                        StoneProductionCount = user.Country.StoneProduction,
                         CoralCount = user.Country.Coral,
                         CoralProductionCount = user.Country.CoralProduction,
                         CoralPictureUrl = game.CoralPictureUrl,
@@ -134,6 +136,7 @@ namespace UnderSea.BLL.Services
                 {
                     FlowManager = (user.Country.BuildingGroup.Buildings.Single(y => y.Type is FlowManager).Count != 0),
                     ReefCastle = (user.Country.BuildingGroup.Buildings.Single(y => y.Type is ReefCastle).Count != 0),
+                    StoneMine = (user.Country.BuildingGroup.Buildings.Single(y => y.Type is StoneMine).Count != 0),
 
                     Alchemy = (user.Country.Upgrades.Single(y => y.Type is Alchemy).State != UpgradeState.Unresearched),
                     CoralWall = (user.Country.Upgrades.Single(y => y.Type is CoralWall).State != UpgradeState.Unresearched),
