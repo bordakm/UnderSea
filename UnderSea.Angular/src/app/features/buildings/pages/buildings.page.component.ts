@@ -64,7 +64,7 @@ export class BuildingsPageComponent implements OnInit {
 
   purchased(): void{
     this.inProgress = false;
-    this.buildings.forEach(element =>{
+    this.buildings?.forEach(element =>{
       if (element.remainingRounds > 0){
         this.inProgress = true;
       }
