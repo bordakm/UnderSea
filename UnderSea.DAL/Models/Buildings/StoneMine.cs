@@ -12,7 +12,7 @@ namespace UnderSea.DAL.Models.Buildings
             Description = "25 követ termel körönként";
             ImageUrl = "/images/buildings/stonemine.png";
             SmallIconUrl = "/images/buildings/stonemineicon.png";
-            Price = 1000;
+            PearlPrice = 1000;
             BuildingTime = 5;
             StoneBonus = 25;
             Score = 50;

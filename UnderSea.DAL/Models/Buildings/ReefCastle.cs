@@ -12,7 +12,7 @@ namespace UnderSea.DAL.Models.Buildings
             Description = "200 egységnek nyújt szállást";
             ImageUrl = "/images/buildings/reefcastle.png";
             SmallIconUrl = "/images/buildings/reefcastleicon.png";
-            Price = 1000;
+            PearlPrice = 1000;
             StonePrice = 50;
             BuildingTime = 5;
             PopulationBonus = 0;

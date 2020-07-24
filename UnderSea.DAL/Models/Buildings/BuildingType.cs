@@ -9,7 +9,7 @@ namespace UnderSea.DAL.Models.Buildings
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Price { get; set; }
+        public int PearlPrice { get; set; }
         public int StonePrice { get; set; }
         public int BuildingTime { get; set; }
         public int PopulationBonus { get; set; }

@@ -12,7 +12,7 @@ namespace UnderSea.DAL.Models.Buildings
             Description = "50 népességet ad és körönként 200 korallt termel";
             ImageUrl = "/images/buildings/flowmanager.png";
             SmallIconUrl = "/images/buildings/flowmanagericon.png";
-            Price = 1000;
+            PearlPrice = 1000;
             StonePrice = 50;
             BuildingTime = 5;
             PopulationBonus = 50;

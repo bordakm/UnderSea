@@ -55,7 +55,7 @@ namespace UnderSea.BLL.Services
             {
                 throw new HttpResponseException { Status = 400, Value = "Már épül egy épületed!"};
             }
-            if (building.Type.Price > user.Country.Pearl)
+            if (building.Type.PearlPrice > user.Country.Pearl)
             {
                 throw new HttpResponseException { Status = 400, Value = "Nincs elég gyöngyöd az építéshez!" };
             }
@@ -66,7 +66,7 @@ namespace UnderSea.BLL.Services
             building.UnderConstructionCount++;
             user.Country.BuildingTimeLeft = buildingTypes.Single(type => type.Id == buildingId).BuildingTime;
 
-            user.Country.Pearl -= building.Type.Price;
+            user.Country.Pearl -= building.Type.PearlPrice;
             user.Country.Stone -= building.Type.StonePrice;
             await db.SaveChangesAsync();
             var buildingInfos = await GetBuildingInfosAsync(userId);
