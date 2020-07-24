@@ -148,9 +148,6 @@ namespace UnderSea.BLL.Services
                                     .ThenInclude(da => da.Units)
                                     .ThenInclude(units => units.Type)
                                     .ThenInclude(type => type.Levels)
-                                    .Include(user => user.Country)
-                                    .ThenInclude(country => country.Upgrades)
-                                    .ThenInclude(upgrades => upgrades.Type)
                                     .FirstAsync(user => user.Id == userId);
 
             var unittypes = await db.UnitTypes.ToListAsync();
