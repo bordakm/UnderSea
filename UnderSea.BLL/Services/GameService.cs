@@ -119,16 +119,26 @@ namespace UnderSea.BLL.Services
                     RoundCount = game.Round,
                     ScoreboardPosition = user.Place,
                     Units = availableUnits,
-                    Resources = new StatusBarViewModel.StatusBarResource()
+                    Resources = new List<StatusBarViewModel.StatusBarResource>()
                     {
-                        StoneCount = user.Country.Stone,
-                        StoneProductionCount = user.Country.StoneProduction,
-                        CoralCount = user.Country.Coral,
-                        CoralProductionCount = user.Country.CoralProduction,
-                        CoralPictureUrl = game.CoralPictureUrl,
-                        PearlCount = user.Country.Pearl,
-                        PearlProductionCount = user.Country.PearlProduction,
-                        PearlPictureUrl = game.PearlPictureUrl
+                        new StatusBarViewModel.StatusBarResource()
+                        {
+                            Count = user.Country.Stone,
+                            ProductionCount = user.Country.StoneProduction,
+                            PictureUrl = game.StonePictureUrl
+                        },
+                        new StatusBarViewModel.StatusBarResource()
+                        {
+                            Count = user.Country.Pearl,
+                            ProductionCount = user.Country.PearlProduction,
+                            PictureUrl = game.PearlPictureUrl
+                        },
+                        new StatusBarViewModel.StatusBarResource()
+                        {
+                            Count = user.Country.Coral,
+                            ProductionCount = user.Country.CoralProduction,
+                            PictureUrl = game.CoralPictureUrl
+                        }
                     }
 
                 },

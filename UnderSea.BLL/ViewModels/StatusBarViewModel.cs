@@ -10,7 +10,7 @@ namespace UnderSea.BLL.ViewModels
         public IEnumerable<StatusBarBuilding> Buildings { get; set; }
         public int RoundCount { get; set; }
         public int ScoreboardPosition { get; set; }
-        public StatusBarResource Resources { get; set; }
+        public IEnumerable<StatusBarResource> Resources { get; set; }
 
         public class StatusBarBuilding
         {
@@ -23,14 +23,9 @@ namespace UnderSea.BLL.ViewModels
 
         public class StatusBarResource
         {
-            public int StoneCount { get; set; }
-            public int StoneProductionCount { get; set; }
-            public int PearlCount { get; set; }
-            public int PearlProductionCount { get; set; }
-            public string PearlPictureUrl { get; set; }
-            public int CoralCount { get; set; }
-            public int CoralProductionCount { get; set; }
-            public string CoralPictureUrl { get; set; }
+            public int Count { get; set; }
+            public int ProductionCount { get; set; }
+            public string PictureUrl { get; set; }
         }
     }
 }

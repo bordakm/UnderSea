@@ -13,11 +13,14 @@ namespace UnderSea.DAL.Models
         public int Round { get; set; }
         public string CoralPictureUrl { get; set; }
         public string PearlPictureUrl { get; set; }
+        public string StonePictureUrl { get; set; }
 
         public Game()
         {
             CoralPictureUrl = "/images/coral.png";
             PearlPictureUrl = "/images/shell.png";
+            StonePictureUrl = "/images/stone.png";
+            
         }
 
         public void CalculateAttacks()
