@@ -27,8 +27,8 @@ export class AttackService {
     );
   }
 
-  getCountries(): Observable<ScoreboardViewModel[]>{
-    return this.client.searchtargets('', 1, 10);
+  getCountries(term: string): Observable<ScoreboardViewModel[]>{
+    return this.client.searchtargets(term, 1, 10);
   }
 
   sendUnits(attack: AttackDTO): Observable<any>{

@@ -46,16 +46,14 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.login(
-      this.loginForm.controls.username.value,
-      this.loginForm.controls.password.value)
-      .pipe(
-        tap(tokens => {
-          if (tokens.accessToken != null) {
-            this.router.navigate(['/main']);
-          }
-        })
-      ).subscribe();
+    
+    this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).pipe(
+      tap(tokens => {
+        if (tokens.accessToken != null) {
+          this.router.navigate(['/main']);
+        }
+      })
+    ).subscribe();
   }
 
   signup(): void {
