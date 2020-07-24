@@ -35,7 +35,8 @@ namespace UnderSea.BLL.Services
             foreach (var building in userBuildings)
             {
                 var dummy = mapper.Map<BuildingInfoViewModel>(building);
-                dummy.RemainingRounds = user.Country.BuildingTimeLeft;
+                if(building.UnderConstructionCount > 0)
+                    dummy.RemainingRounds = user.Country.BuildingTimeLeft;
                 buildingInfos.Add(dummy);
             }
             return buildingInfos;
