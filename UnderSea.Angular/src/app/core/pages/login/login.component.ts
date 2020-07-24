@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
 
   login(): void {
 
-    this.authService.login(this.username, this.password).pipe(
+    this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).pipe(
       tap(tokens => {
         if (tokens.accessToken != null) {
           this.router.navigate(['/main']);
