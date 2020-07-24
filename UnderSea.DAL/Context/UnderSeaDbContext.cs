@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
@@ -21,14 +23,15 @@ namespace UnderSea.DAL.Context
         public DbSet<UpgradeType> UpgradeTypes { get; set; }
         public DbSet<Attack> Attacks { get; set; }
         public DbSet<UnitGroup> UnitGroups { get; set; }
+        public DbSet<UnitLevel> UnitLevels { get; set; }
         public UnderSeaDbContext(DbContextOptions<UnderSeaDbContext> options) : base(options)
         {
-
+            this.Database.SetCommandTimeout(TimeSpan.FromSeconds(100));
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            optionsBuilder.EnableSensitiveDataLogging(true);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -49,14 +52,96 @@ namespace UnderSea.DAL.Context
             {
                 Id = 1
             };
+            var sharkLv1 = new UnitLevel()
+            {
+                Id = 1,
+                Level = 1,
+                AttackScore = 5,
+                DefenseScore = 5,
+                UnitTypeId = 1,
+                BattlesNeeded = 0
+            };
+            var sharkLv2 = new UnitLevel()
+            {
+                Id = 2,
+                Level = 2,
+                AttackScore = 7,
+                DefenseScore = 7,
+                UnitTypeId = 1,
+                BattlesNeeded = 3
+            };
+            var sharkLv3 = new UnitLevel()
+            {
+                Id = 3,
+                Level = 3,
+                AttackScore = 10,
+                DefenseScore = 10,
+                UnitTypeId = 1,
+                BattlesNeeded = 8
+            };
             var stormSeal = new StormSeal
             {
-                Id = 2
+                Id = 2,
+            };
+            var sealLv1 = new UnitLevel()
+            {
+                Id = 4,
+                Level = 1,
+                AttackScore = 6,
+                DefenseScore = 2,
+                UnitTypeId = 2,
+                BattlesNeeded = 0
+            };
+            var sealLv2 = new UnitLevel()
+            {
+                Id = 5,
+                Level = 2,
+                AttackScore = 8,
+                DefenseScore = 3,
+                UnitTypeId = 2,
+                BattlesNeeded = 3
+            };
+            var sealLv3 = new UnitLevel()
+            {
+                Id = 6,
+                Level = 3,
+                AttackScore = 10,
+                DefenseScore = 5,
+                UnitTypeId = 2,
+                BattlesNeeded = 8
             };
             var combatSeaHorse = new CombatSeaHorse
             {
                 Id = 3
             };
+            var horseLv1 = new UnitLevel()
+            {
+                Id = 7,
+                Level = 1,
+                AttackScore = 2,
+                DefenseScore = 6,
+                UnitTypeId = 3,
+                BattlesNeeded = 0
+            };
+            var horseLv2 = new UnitLevel()
+            {
+                Id = 8,
+                Level = 2,
+                AttackScore = 3,
+                DefenseScore = 8,
+                UnitTypeId = 3,
+                BattlesNeeded = 3
+            };
+            var horseLv3 = new UnitLevel()
+            {
+                Id = 9,
+                Level = 3,
+                AttackScore = 5,
+                DefenseScore = 10,
+                UnitTypeId = 3,
+                BattlesNeeded = 8
+            };
+
             var reefCastle = new ReefCastle
             {
                 Id = 1
@@ -64,6 +149,10 @@ namespace UnderSea.DAL.Context
             var flowManager = new FlowManager
             {
                 Id = 2
+            };
+            var stoneMine = new StoneMine
+            {
+                Id = 3
             };
             var alchemy = new Alchemy
             {
@@ -90,96 +179,11 @@ namespace UnderSea.DAL.Context
                 Id = 6
             };
 
-            var unit1 = new Unit
-            {
-                Id = 1,
-                UnitGroupId = 1,
-                Count = 0,
-                TypeId = 1
-            };
-            var unit2 = new Unit
-            {
-                Id = 2,
-                UnitGroupId = 1,
-                Count = 0,
-                TypeId = 2
-            };
-            var unit3 = new Unit
-            {
-                Id = 3,
-                UnitGroupId = 1,
-                Count = 0,
-                TypeId = 3
-            };
-            var unit4 = new Unit
-            {
-                Id = 4,
-                UnitGroupId = 2,
-                Count = 20,
-                TypeId = 1
-            };
-            var unit5 = new Unit
-            {
-                Id = 5,
-                UnitGroupId = 2,
-                Count = 20,
-                TypeId = 2
-            };
-            var unit6 = new Unit
-            {
-                Id = 6,
-                UnitGroupId = 2,
-                Count = 20,
-                TypeId = 3
-            };
-            var unit7 = new Unit
-            {
-                Id = 7,
-                UnitGroupId = 3,
-                Count = 0,
-                TypeId = 1
-            };
-            var unit8 = new Unit
-            {
-                Id = 8,
-                UnitGroupId = 3,
-                Count = 0,
-                TypeId = 2
-            };
-            var unit9 = new Unit
-            {
-                Id = 9,
-                UnitGroupId = 3,
-                Count = 0,
-                TypeId = 3
-            };
-            var unit10 = new Unit
-            {
-                Id = 10,
-                UnitGroupId = 4,
-                Count = 10,
-                TypeId = 1
-            };
-            var unit11 = new Unit
-            {
-                Id = 11,
-                UnitGroupId = 4,
-                Count = 20,
-                TypeId = 2
-            };
-            var unit12 = new Unit
-            {
-                Id = 12,
-                UnitGroupId = 4,
-                Count = 40,
-                TypeId = 3
-            };
-
             var upgrade1 = new Upgrade
             {
                 Id = 1,
                 CountryId = 1,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 1
             };
             var upgrade2 = new Upgrade
@@ -200,14 +204,14 @@ namespace UnderSea.DAL.Context
             {
                 Id = 4,
                 CountryId = 1,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 4
             };
             var upgrade5 = new Upgrade
             {
                 Id = 5,
                 CountryId = 1,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 5
             };
             var upgrade6 = new Upgrade
@@ -228,14 +232,14 @@ namespace UnderSea.DAL.Context
             {
                 Id = 8,
                 CountryId = 2,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 2
             };
             var upgrade9 = new Upgrade
             {
                 Id = 9,
                 CountryId = 2,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 3
             };
             var upgrade10 = new Upgrade
@@ -249,14 +253,14 @@ namespace UnderSea.DAL.Context
             {
                 Id = 11,
                 CountryId = 2,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 5
             };
             var upgrade12 = new Upgrade
             {
                 Id = 12,
                 CountryId = 2,
-                State = UpgradeState.Researched,
+                State = UpgradeState.Unresearched,
                 TypeId = 6
             };
 
@@ -287,15 +291,29 @@ namespace UnderSea.DAL.Context
             {
                 Id = 3,
                 BuildingGroupId = 2,
-                Count = 4,
+                Count = 1,
                 TypeId = 1
             };
             var building4 = new Building
             {
                 Id = 4,
                 BuildingGroupId = 2,
-                Count = 1,
+                Count = 0,
                 TypeId = 2
+            };
+            var building5 = new Building
+            {
+                Id = 5,
+                BuildingGroupId = 1,
+                Count = 0,
+                TypeId = 3
+            };
+            var building6 = new Building
+            {
+                Id = 6,
+                BuildingGroupId = 2,
+                Count = 0,
+                TypeId = 3
             };
 
             var unitGroup1 = new UnitGroup
@@ -324,6 +342,7 @@ namespace UnderSea.DAL.Context
                 Coral = 100000,
                 Name = "First Country",
                 Pearl = 100000,
+                Stone = 5000,
                 Score = 0,
                 UpgradeTimeLeft = 0,
                 UserId = 1,
@@ -339,6 +358,7 @@ namespace UnderSea.DAL.Context
                 Coral = 100000,
                 Name = "Another Country",
                 Pearl = 100000,
+                Stone = 5000,
                 Score = 0,
                 UpgradeTimeLeft = 0,
                 UserId = 2,
@@ -349,9 +369,7 @@ namespace UnderSea.DAL.Context
             var game = new Game
             {
                 Id = 1,
-                Round = 1,
-                CoralPictureUrl = "",
-                PearlPictureUrl = "",
+                Round = 1
             };
 
             var passwordHasher = new PasswordHasher<User>();
@@ -390,6 +408,8 @@ namespace UnderSea.DAL.Context
                 .HasData(reefCastle);
             modelBuilder.Entity<FlowManager>()
                 .HasData(flowManager);
+            modelBuilder.Entity<StoneMine>()
+                .HasData(stoneMine);
 
             modelBuilder.Entity<Alchemy>()
                 .HasData(alchemy);
@@ -419,11 +439,6 @@ namespace UnderSea.DAL.Context
                     user1,
                     user2
                });
-            modelBuilder.Entity<Unit>()
-                .HasData(new Unit[]
-                {
-                    unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8, unit9, unit10, unit11, unit12
-                });
             modelBuilder.Entity<Country>()
                 .HasData(new Country[]
                 {
@@ -458,7 +473,22 @@ namespace UnderSea.DAL.Context
                     building1,
                     building2,
                     building3,
-                    building4
+                    building4,
+                    building5,
+                    building6
+                });
+
+            modelBuilder.Entity<UnitLevel>()
+                .HasData(new UnitLevel[]{
+                    sharkLv1,
+                    sharkLv2,
+                    sharkLv3,
+                    horseLv1,
+                    horseLv2,
+                    horseLv3,
+                    sealLv1,
+                    sealLv2,
+                    sealLv3,
                 });
         }
     }

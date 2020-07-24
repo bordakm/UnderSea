@@ -17,29 +17,27 @@ namespace UnderSea.API.Controllers
     public class UnitsController : ControllerBase
     {
         private IArmyService armyService;
-        private readonly ILogger logger;
 
-        public UnitsController(IArmyService armyService, ILogger<UnitsController> logger)
+        public UnitsController(IArmyService armyService)
         {
             this.armyService = armyService;
-            this.logger = logger;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IEnumerable<UnitViewModel>> Get()
+        public Task<IEnumerable<UnitViewModel>> Get()
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await armyService.GetUnitsAsync(userId);
+            return armyService.GetUnitsAsync(userId);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IEnumerable<SimpleUnitViewModel>> Buy([FromBody] List<UnitPurchaseDTO> purchases)
+        public Task<IEnumerable<SimpleUnitViewModel>> Buy([FromBody] List<UnitPurchaseDTO> purchases)
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await armyService.BuyUnitsAsync(userId, purchases);
+            return armyService.BuyUnitsAsync(userId, purchases);
         }
     }
 }

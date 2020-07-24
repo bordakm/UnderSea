@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnderSea.BLL.DTO;
+using UnderSea.BLL.ViewModels;
 using UnderSea.DAL.Context;
 using UnderSea.DAL.Models;
 using UnderSea.DAL.Models.Buildings;
@@ -22,24 +22,11 @@ namespace UnderSea.BLL.Services
 
         public async Task<User> CreateUserAsync(RegisterDTO registerData)
         {
-            var unitTypes = db.UnitTypes;
             var buildingTypes = db.BuildingTypes;
             var upgradeTypes = db.UpgradeTypes;
-            var attackingUnits = new List<Unit>();
-            var defendingUnits = new List<Unit>();
             var upgrades = new List<Upgrade>();
             var buildings = new List<Building>();
-            foreach (var unitType in unitTypes)
-            {
-                attackingUnits.Add(new Unit
-                {
-                    Type = unitType
-                });
-                defendingUnits.Add(new Unit
-                {
-                    Type = unitType
-                });
-            }
+
             foreach (var buildingType in buildingTypes)
             {
                 buildings.Add(new Building
@@ -60,14 +47,8 @@ namespace UnderSea.BLL.Services
             {
                 Buildings = buildings
             };
-            var attackingArmy = new UnitGroup
-            {
-                Units = attackingUnits
-            };
-            var defendingArmy = new UnitGroup
-            {
-                Units = defendingUnits
-            };
+            var attackingArmy = new UnitGroup();
+            var defendingArmy = new UnitGroup();
             var user = new User
             {
                 UserName = registerData.UserName,
@@ -80,11 +61,25 @@ namespace UnderSea.BLL.Services
                 AttackingArmy = attackingArmy,
                 DefendingArmy = defendingArmy,
                 Upgrades = upgrades,
-                User = user
+                User = user,
+                Pearl = 100000,
+                Coral = 100000,
+                Stone = 5000
             };
             user.Country = country;
             await db.SaveChangesAsync();
             return user;
+        }
+
+        public async Task<ProfileViewModel> GetProfileAsync(int userId)
+        {
+            var user = await db.Users.Include(user => user.Country)
+                .SingleAsync(user => user.Id == userId);
+            return new ProfileViewModel
+            {
+                UserName = user.UserName,
+                CountryName = user.Country.Name
+            };
         }
     }
 }

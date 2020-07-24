@@ -9,8 +9,8 @@ namespace UnderSea.DAL.Models.Upgrades
         public MudTractor()
         {
             Name = "Iszaptraktor";
-            Description = "növeli a krumpli termesztést 10%-kal";
-            ImageUrl = "majd/kesobb/lesz/kep.jpg";
+            Description = "növeli a korall termesztést 10%-kal";
+            ImageUrl = "/images/upgrades/mudtractor.png";
             CoralProductionBonusPercentage = 10;
         }
     }

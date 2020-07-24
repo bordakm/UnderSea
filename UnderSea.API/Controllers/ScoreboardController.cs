@@ -16,18 +16,16 @@ namespace UnderSea.API.Controllers
     {
 
         private readonly IGameService gameService;
-        private readonly ILogger logger;
 
-        public ScoreboardController(IGameService gameService, ILogger<ScoreboardController> logger)
+        public ScoreboardController(IGameService gameService)
         {
             this.gameService = gameService;
-            this.logger = logger;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ScoreboardViewModel>> Search([FromQuery] SearchDTO search)
+        public Task<IEnumerable<ScoreboardViewModel>> Search([FromQuery] SearchDTO search)
         {
-            return await gameService.SearchScoreboardAsync(search);
+            return gameService.SearchScoreboardAsync(search);
         }
     }
 }

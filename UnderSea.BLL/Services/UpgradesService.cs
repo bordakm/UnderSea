@@ -14,12 +14,10 @@ namespace UnderSea.BLL.Services
     public class UpgradesService : IUpgradesService
     {
         UnderSeaDbContext db;
-        private readonly ILogger logger;
         private readonly IMapper mapper;
-        public UpgradesService(UnderSeaDbContext context, ILogger<UpgradesService> logger, IMapper mapper)
+        public UpgradesService(UnderSeaDbContext context, IMapper mapper)
         {
             db = context;
-            this.logger = logger;
             this.mapper = mapper;
         }
         public async Task<IEnumerable<UpgradeViewModel>> GetUpgradesAsync(int userid)
@@ -29,8 +27,19 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(c => c.Upgrades)
                 .ThenInclude(u => u.Type)
                 .SingleAsync(u => u.Id == userid);
-            int roundsLeft = user.Country.UpgradeTimeLeft;           
-            return mapper.Map<IEnumerable<Upgrade>, IEnumerable<UpgradeViewModel>>(user.Country.Upgrades);
+            int roundsLeft = user.Country.UpgradeTimeLeft;
+
+            var result = mapper.Map<IEnumerable<Upgrade>, IEnumerable<UpgradeViewModel>>(user.Country.Upgrades);
+            foreach (var resUpgrade in result)
+            {
+                foreach(var upgrade in user.Country.Upgrades)
+                {
+                    if (upgrade.State == UpgradeState.InProgress
+                        && upgrade.Type.Id == resUpgrade.Id)
+                            resUpgrade.RemainingRounds = roundsLeft;
+                }
+            }
+            return result;
         }
 
         public async Task<UpgradeViewModel> ResearchByIdAsync(int userId, int upgradeTypeId)
@@ -53,7 +62,7 @@ namespace UnderSea.BLL.Services
             }
             else
             {
-                throw new Exception("Most nem indíthatod el ezt a fejlesztést!");
+                throw new HttpResponseException { Status = 400, Value = "Most nem indíthatod el ezt a fejlesztést!" };
             }
         }
     }

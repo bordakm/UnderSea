@@ -1,9 +1,0 @@
-C:\Users\knapp.rajmund\source\repos\UnderSea2\UnderSea\UnderSea.DAL\bin\Debug\netcoreapp3.1\UnderSea.DAL.deps.json
-C:\Users\knapp.rajmund\source\repos\UnderSea2\UnderSea\UnderSea.DAL\bin\Debug\netcoreapp3.1\UnderSea.DAL.dll
-C:\Users\knapp.rajmund\source\repos\UnderSea2\UnderSea\UnderSea.DAL\bin\Debug\netcoreapp3.1\UnderSea.DAL.pdb
-C:\Users\knapp.rajmund\source\repos\UnderSea2\UnderSea\UnderSea.DAL\obj\Debug\netcoreapp3.1\UnderSea.DAL.csprojAssemblyReference.cache
-C:\Users\knapp.rajmund\source\repos\UnderSea2\UnderSea\UnderSea.DAL\obj\Debug\netcoreapp3.1\UnderSea.DAL.AssemblyInfoInputs.cache
-C:\Users\knapp.rajmund\source\repos\UnderSea2\UnderSea\UnderSea.DAL\obj\Debug\netcoreapp3.1\UnderSea.DAL.AssemblyInfo.cs
-C:\Users\knapp.rajmund\source\repos\UnderSea2\UnderSea\UnderSea.DAL\obj\Debug\netcoreapp3.1\UnderSea.DAL.csproj.CoreCompileInputs.cache
-C:\Users\knapp.rajmund\source\repos\UnderSea2\UnderSea\UnderSea.DAL\obj\Debug\netcoreapp3.1\UnderSea.DAL.dll
-C:\Users\knapp.rajmund\source\repos\UnderSea2\UnderSea\UnderSea.DAL\obj\Debug\netcoreapp3.1\UnderSea.DAL.pdb

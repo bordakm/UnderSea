@@ -10,7 +10,7 @@ namespace UnderSea.DAL.Models.Upgrades
         {
             Name = "Korallfal";
             Description = "növeli a védelmi pontokat 20%-kal";
-            ImageUrl = "majd/kesobb/lesz/kep.jpg";
+            ImageUrl = "/images/upgrades/coralwall.png";
             DefenseBonusPercentage = 20;
         }
     }

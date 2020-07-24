@@ -14,12 +14,10 @@ namespace UnderSea.BLL.Services
     public class BuildingsService : IBuildingsService
     {
         private readonly UnderSeaDbContext db;
-        private readonly ILogger logger;
         private readonly IMapper mapper;
-        public BuildingsService(UnderSeaDbContext db, ILogger<BuildingsService> logger, IMapper mapper)
+        public BuildingsService(UnderSeaDbContext db, IMapper mapper)
         {
             this.db = db;
-            this.logger = logger;
             this.mapper = mapper;
         }
 
@@ -36,34 +34,40 @@ namespace UnderSea.BLL.Services
             var buildingInfos = new List<BuildingInfoViewModel>();
             foreach (var building in userBuildings)
             {
-                buildingInfos.Add(mapper.Map<BuildingInfoViewModel>(building));
+                var dummy = mapper.Map<BuildingInfoViewModel>(building);
+                dummy.RemainingRounds = user.Country.BuildingTimeLeft;
+                buildingInfos.Add(dummy);
             }
             return buildingInfos;
         }
 
         public async Task<BuildingInfoViewModel> PurchaseBuildingByIdAsync(int userId, int buildingId)
         {
-            // TODO authentication
             var user = await db.Users.Include(ent => ent.Country)
                 .ThenInclude(ent => ent.BuildingGroup)
                 .ThenInclude(ent => ent.Buildings)
                 .ThenInclude(ent => ent.Type)
                 .SingleAsync(user => user.Id == userId);
-            var building = user.Country.BuildingGroup.Buildings.Single(building => building.Id == buildingId);
+            var building = user.Country.BuildingGroup.Buildings.Single(building => building.Type.Id == buildingId);
+            var buildingTypes = db.BuildingTypes.ToList();
             var underConstructionCount = user.Country.BuildingGroup.Buildings.Sum(building => building.UnderConstructionCount);
             if (underConstructionCount > 0)
             {
-                throw new Exception("Már épül egy épületed, nem kezdhetsz újat építeni.");
+                throw new HttpResponseException { Status = 400, Value = "Már épül egy épületed!"};
             }
             if (building.Type.Price > user.Country.Pearl)
             {
-                throw new Exception("Nincs elég gyöngyöd az építéshez!");
+                throw new HttpResponseException { Status = 400, Value = "Nincs elég gyöngyöd az építéshez!" };
+            }
+            if(building.Type.StonePrice > user.Country.Stone)
+            {
+                throw new HttpResponseException { Status = 400, Value = "Nincs elég köved az építéshez!" };
             }
             building.UnderConstructionCount++;
-            user.Country.BuildingTimeLeft = 5; // TODO ezt nem is kéne használni, countryban majd csak az épülő épületek darabszámára lesz szükség
-            building.ConstructionTimeLeft = 5;
+            user.Country.BuildingTimeLeft = buildingTypes.Single(type => type.Id == buildingId).BuildingTime;
 
             user.Country.Pearl -= building.Type.Price;
+            user.Country.Stone -= building.Type.StonePrice;
             await db.SaveChangesAsync();
             var buildingInfos = await GetBuildingInfosAsync(userId);
             return buildingInfos.Single(bi => bi.Id == buildingId);

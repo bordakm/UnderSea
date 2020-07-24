@@ -9,6 +9,7 @@ namespace UnderSea.BLL.ViewModels
     {
         public bool FlowManager { get; set; }
         public bool ReefCastle { get; set; }
+        public bool StoneMine { get; set; }
         public bool MudTractor { get; set; }
         public bool MudHarvester { get; set; }
         public bool CoralWall { get; set; }

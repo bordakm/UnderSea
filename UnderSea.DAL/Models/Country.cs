@@ -10,29 +10,30 @@ namespace UnderSea.DAL.Models
 {
     public class Country
     {
-        private readonly int taxRate = 25;
+        private readonly int taxPerPerson = 25;
         public int Id { get; set; }
         public string Name { get; set; }
         [ForeignKey("BuildingGroup")]
         public int BuildingGroupId { get; set; }
-        public BuildingGroup BuildingGroup { get; set; }
+        public virtual BuildingGroup BuildingGroup { get; set; }
         [ForeignKey("UnitGroup")]
         public int AttackingArmyId { get; set; }
-        public UnitGroup AttackingArmy { get; set; }
+        public virtual UnitGroup AttackingArmy { get; set; }
         [ForeignKey("UnitGroup")]
         public int DefendingArmyId { get; set; }
-        public UnitGroup DefendingArmy { get; set; }
+        public virtual UnitGroup DefendingArmy { get; set; }
         public int Coral { get; set; }
         public int Pearl { get; set; }
+        public int Stone { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public int UpgradeTimeLeft { get; set; }
         public int BuildingTimeLeft { get; set; }
         public int Score { get; set; }
-        public List<Upgrade> Upgrades { get; set; }
+        public virtual List<Upgrade> Upgrades { get; set; }
         [NotMapped]
-        public int PearlProduction => Population * taxRate;
+        public int PearlProduction => Convert.ToInt32(Population * taxPerPerson * (1.00 + (Upgrades.Sum(upgrade => Convert.ToDouble(upgrade.State == UpgradeState.Researched ? upgrade.Type.PearlProductionBonusPercentage : 0)) / 100.00)));
         [NotMapped]
         public int Population => BuildingGroup.Buildings.Sum(building => building.Type.PopulationBonus * building.Count);
         [NotMapped]
@@ -42,9 +43,19 @@ namespace UnderSea.DAL.Models
         {
             get
             {
-                return BuildingGroup.Buildings.Sum(building => building.Count * building.Type.CoralBonus);
+                return Convert.ToInt32(BuildingGroup.Buildings.Sum(building => building.Count * building.Type.CoralBonus) * (1.00 + Upgrades.Sum(upgrade => Convert.ToDouble(upgrade.State == UpgradeState.Researched ? upgrade.Type.CoralProductionBonusPercentage : 0)) / 100.00));
             }
         }
+
+        [NotMapped]
+        public int StoneProduction
+        {
+            get
+            {
+                return Convert.ToInt32(BuildingGroup.Buildings.Sum(building => building.Count * building.Type.StoneBonus));
+            }
+        }
+
         public void AddTaxes()
         {
             Pearl += PearlProduction;
@@ -52,68 +63,79 @@ namespace UnderSea.DAL.Models
 
         public void AddCoral()
         {
-            int producedCoral = 0;
-            BuildingGroup.Buildings.ForEach(building =>
-            {
-                producedCoral += building.CoralBonusTotal;
-            });
-            Coral += producedCoral;
+            Coral += CoralProduction;
         }
 
-        public Dictionary<int, int> FeedUnits()
+        public void AddStone()
         {
-            Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
-            int costTotal = AttackingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
-            costTotal += DefendingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
+            Stone += StoneProduction;
+        }
+
+        public List<Unit> FeedUnits()
+        {
+            List<Unit> unitsToRemove = new List<Unit>();
+            int costTotal = AttackingArmy.Units.Sum(unit => unit.Type.CoralCostPerTurn);
+            costTotal += DefendingArmy.Units.Sum(unit => unit.Type.CoralCostPerTurn);
             int difference = Coral - costTotal;
             if (difference < 0)
             {
                 unitsToRemove = FireUnits(Math.Abs(difference), FireReason.Coral);
-                costTotal = AttackingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn)
-                          + DefendingArmy.Units.Sum(unit => unit.Count * unit.Type.CoralCostPerTurn);
+                costTotal = AttackingArmy.Units.Sum(unit => unit.Type.CoralCostPerTurn)
+                          + DefendingArmy.Units.Sum(unit => unit.Type.CoralCostPerTurn);
             }
             Coral -= costTotal;
             return unitsToRemove;
         }
 
-        public Dictionary<int, int> PayUnits()
+        public List<Unit> PayUnits()
         {
-            Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
-            int costTotal = AttackingArmy.Units.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn)
-                          + DefendingArmy.Units.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+            List<Unit> unitsToRemove = new List<Unit>();
+            int costTotal = AttackingArmy.Units.Sum(unit => unit.Type.PearlCostPerTurn)
+                          + DefendingArmy.Units.Sum(unit => unit.Type.PearlCostPerTurn);
             int difference = Pearl - costTotal;
             if (difference < 0)
             {
                 unitsToRemove = FireUnits(Math.Abs(difference), FireReason.Pearl);
-                costTotal = AttackingArmy.Units.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn)
-                          + DefendingArmy.Units.Sum(unit => unit.Count * unit.Type.PearlCostPerTurn);
+                costTotal = AttackingArmy.Units.Sum(unit => unit.Type.PearlCostPerTurn)
+                          + DefendingArmy.Units.Sum(unit => unit.Type.PearlCostPerTurn);
             }
             Pearl -= costTotal;
             return unitsToRemove;
         }
 
-        private Dictionary<int, int> FireUnits(int difference, FireReason fireReason)
+        private List<Unit> FireUnits(int difference, FireReason fireReason)
         {
+            Random rand = new Random();
             Dictionary<int, int> unitsToRemove = new Dictionary<int, int>();
-            foreach (Unit unit in AttackingArmy.Units)
-            {
-                unitsToRemove.Add(unit.Id, 0);
-            }
+
+            //létrehozzuk az üres listát, értelmetlen
+            //foreach (Unit unit in AttackingArmy.Units)
+            //{
+            //    unitsToRemove.Add(unit.Type.Id, 0);
+            //}
             bool stop = false;
+
+            List<Unit> defUnitsToRemove = new List<Unit>();
+            List<Unit> attUnitsToRemove = new List<Unit>();
+            Unit target;
+
             while (!stop)
             {
+                //defending army ritkítása
                 foreach (Unit unit in DefendingArmy.Units)
                 {
-                    if (unit.Count > 0)
-                    {
-                        unit.Count--;
+                    //fölösleges, ha üres lenne a lista, akkor nem is menne a foreach
+                    //if (unit.Count > 0)
+                    //{
+                    target = DefendingArmy.Units[rand.Next(0, DefendingArmy.Units.Count - 1)];
+                    defUnitsToRemove.Add(target);
                         switch (fireReason)
                         {
                             case FireReason.Coral:
-                                difference -= unit.Type.CoralCostPerTurn;
+                                difference -= target.Type.CoralCostPerTurn;
                                 break;
                             case FireReason.Pearl:
-                                difference -= unit.Type.PearlCostPerTurn;
+                                difference -= target.Type.PearlCostPerTurn;
                                 break;
                         }
                         if (difference <= 0)
@@ -121,25 +143,27 @@ namespace UnderSea.DAL.Models
                             stop = true;
                             break;
                         }
-                    }
+                    //}
                 }
                 if (stop)
                 {
                     break;
                 }
+                //attacking army ritkítása
                 foreach (Unit unit in AttackingArmy.Units)
                 {
-                    if (unit.Count > 0)
-                    {
-                        unitsToRemove[unit.Id]++;
-                        unit.Count--;
-                        switch (fireReason)
+                    //if (unit.Count > 0)
+                    //{
+
+                    target = AttackingArmy.Units[rand.Next(0, DefendingArmy.Units.Count - 1)];
+                    attUnitsToRemove.Add(target);
+                    switch (fireReason)
                         {
                             case FireReason.Coral:
-                                difference -= unit.Type.CoralCostPerTurn;
+                                difference -= target.Type.CoralCostPerTurn;
                                 break;
                             case FireReason.Pearl:
-                                difference -= unit.Type.PearlCostPerTurn;
+                                difference -= target.Type.PearlCostPerTurn;
                                 break;
                         }
                         if (difference <= 0)
@@ -147,10 +171,21 @@ namespace UnderSea.DAL.Models
                             stop = true;
                             break;
                         }
-                    }
+                    //}
                 }
             }
-            return unitsToRemove;            
+            //eltávolítás a sima listákból
+            foreach (var unit in attUnitsToRemove)
+            {
+                AttackingArmy.Units.Remove(unit);
+            }
+            foreach (var unit in defUnitsToRemove)
+            {
+                DefendingArmy.Units.Remove(unit);
+            }
+
+            //visszatérünk azzal amit kivettünk, hogy ki tudjuk venni az attacklist-ből
+            return attUnitsToRemove;            
         }
 
         public void Build()
@@ -181,11 +216,11 @@ namespace UnderSea.DAL.Models
 
             foreach (Unit unit in AttackingArmy.Units)
             {
-                score += unit.CalculateScore();
+                score += unit.Type.Score;
             }
             foreach (Unit unit in DefendingArmy.Units)
             {
-                score += unit.CalculateScore();
+                score += unit.Type.Score;
             }
             foreach (Upgrade upgrade in Upgrades)
             {

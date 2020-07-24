@@ -5,6 +5,7 @@ using UnderSea.BLL.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using UnderSea.BLL.DTO;
 
 namespace UnderSea.API.Controllers
 {
@@ -13,26 +14,36 @@ namespace UnderSea.API.Controllers
     public class MainPageController : ControllerBase
     {
         private readonly IGameService gameService;
+        private readonly IUserService userService;
         private readonly ILogger logger;
-
-        public MainPageController(IGameService gameService, ILogger<MainPageController> logger)
+        
+        public MainPageController(IGameService gameService, IUserService userService, ILogger<MainPageController> logger)
         {
             this.gameService = gameService;
+            this.userService = userService;
             this.logger = logger;
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<MainPageViewModel> GetMainPage()
+        public Task<MainPageViewModel> GetMainPage()
         {
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            return await gameService.GetMainPageAsync(userId);
+            return gameService.GetMainPageAsync(userId);
         }
 
         [HttpPost("newround")]
-        public async void NewRound([FromQuery] int rounds)
+        public Task NewRound([FromBody] RoundsDTO rounds)
         {
-            await gameService.NewRoundAsync(rounds);
+            return gameService.NewRoundAsync(rounds.Number);
+        }
+
+        [HttpGet("profile")]
+        [Authorize]
+        public Task<ProfileViewModel> GetProfile()
+        {
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return userService.GetProfileAsync(userId);
         }
     }
 }

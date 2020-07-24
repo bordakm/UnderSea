@@ -8,20 +8,25 @@ namespace UnderSea.DAL.Models
     public class Game
     {
         public int Id { get; set; }
-        public IEnumerable<User> Users { get; set; }
-        public List<Attack> Attacks { get; set; }
+        public virtual IEnumerable<User> Users { get; set; }
+        public virtual List<Attack> Attacks { get; set; }
         public int Round { get; set; }
         public string CoralPictureUrl { get; set; }
         public string PearlPictureUrl { get; set; }
+        public string StonePictureUrl { get; set; }
 
         public Game()
         {
-            CoralPictureUrl = "majd/lesz/kep.jpeg";
-            PearlPictureUrl = "majd/lesz/kep.jpeg";
+            CoralPictureUrl = "/images/coral.png";
+            PearlPictureUrl = "/images/shell.png";
+            StonePictureUrl = "/images/stone.png";
+            
         }
 
         public void CalculateAttacks()
         {
+            Random rand = new Random();
+
             foreach (var attack in Attacks)
             {
                 double defenderScore = 0;
@@ -36,7 +41,7 @@ namespace UnderSea.DAL.Models
                 //calculationg defender base score
                 foreach (var unit in defUserCountry.DefendingArmy.Units)
                 {
-                    defenderScore += unit.Type.DefenseScore;
+                    defenderScore += unit.DefenseScore;
                 }
 
                 //calculating defender modifier
@@ -50,7 +55,7 @@ namespace UnderSea.DAL.Models
                 //calculating attacker base score
                 foreach (var unit in attack.UnitList)
                 {
-                    attackerScore += unit.Type.AttackScore;
+                    attackerScore += unit.AttackScore;
                 }
 
                 //calculating attacker modifier
@@ -59,61 +64,81 @@ namespace UnderSea.DAL.Models
                     if (upgrade.State == Upgrades.UpgradeState.Researched)
                         attackerScoreModifier += upgrade.Type.AttackBonusPercentage;
                 }
-                attackerScore *= 1 + attackerScoreModifier / 100;
+                attackerScore *= 1.00 + attackerScoreModifier / 100.00;
 
-                //calculating random for attacker
-                Random rand = new Random();
-                attackerScore *= 1 + rand.Next(-5, 5) / 100;
+                //calculating random for attacker                
+                attackerScore *= 1 + (new Random().NextDouble() * 10 - 5) / 100;
 
                 //if the defender wins
                 if (defenderScore > attackerScore)
                 {
                     //levonjuk az egységeket az attacking armyból
-                    foreach (var unit in attack.UnitList)
+                    for(int i = attUserCountry.AttackingArmy.Units.Count(); i>0; i--)
                     {
-                        foreach (var attackingUnit in attUserCountry.AttackingArmy.Units)
+                        foreach(var unit in attack.UnitList)
                         {
-                            if (unit.Type.Id == attackingUnit.Type.Id)
-                                attackingUnit.Count -= unit.Count;
+                            if (attUserCountry.AttackingArmy.Units[i].Type.Id == unit.Type.Id
+                                && attUserCountry.AttackingArmy.Units[i].BattlesSurvived == unit.BattlesSurvived)
+                            {
+                                attUserCountry.AttackingArmy.Units.RemoveAt(i); 
+                            }
+                               
                         }
                     }
 
-                    //hozzáadjuk a defender armyhoz 10%osan csökkentve
-                    foreach (var unit in attack.UnitList)
+                    //adding +1 battle in defCountry
+                    foreach (var unit in defUserCountry.DefendingArmy.Units)
                     {
-                        foreach (var defendingUnit in attUserCountry.DefendingArmy.Units)
-                        {
-                            if (unit.Type.Id == defendingUnit.Type.Id)
-                                defendingUnit.Count += Convert.ToInt32(Math.Floor(unit.Count * 0.9));
-                        }
+                        unit.BattlesSurvived++;
                     }
+
+                    //adding +1 battle in attCountry
+                    foreach (var unit in attUserCountry.DefendingArmy.Units)
+                    {
+                        unit.BattlesSurvived++;
+                    }
+
                 }
+
+                //if the attacker wins
                 else if (attackerScore > defenderScore)
                 {
                     //levonjuk az egységeket az attacking armyból
-                    foreach (var unit in attack.UnitList)
+                    for (int i = attUserCountry.AttackingArmy.Units.Count(); i > 0; i--)
                     {
-                        foreach (var attackingUnit in attUserCountry.AttackingArmy.Units)
+                        foreach (var unit in attack.UnitList)
                         {
-                            if (unit.Type.Id == attackingUnit.Type.Id)
-                                attackingUnit.Count -= unit.Count;
+                            if (attUserCountry.AttackingArmy.Units[i].Type.Id == unit.Type.Id
+                                && attUserCountry.AttackingArmy.Units[i].BattlesSurvived == unit.BattlesSurvived)
+                            {
+                                attUserCountry.AttackingArmy.Units.RemoveAt(i);
+                            }
+
                         }
                     }
 
-                    //hozzáadjuk a defender armyhoz
-                    foreach (var unit in attack.UnitList)
-                    {
-                        foreach (var defendingunit in attUserCountry.DefendingArmy.Units)
-                        {
-                            if (unit.Type.Id == defendingunit.Type.Id)
-                                defendingunit.Count += unit.Count;
-                        }
-                    }
+                    //hozzáadjuk az attacker defender armyjához
+                    attUserCountry.DefendingArmy.Units.AddRange(attack.UnitList);
+                    
 
                     //csökkentjük a deffender armyját 10%al
-                    foreach (var defendingUnit in defUserCountry.DefendingArmy.Units)
+                    var unitCount = defUserCountry.DefendingArmy.Units.Count;
+                    int newCount = Convert.ToInt32(Math.Ceiling(unitCount * 0.9));
+                    for(int i = 0; i< unitCount - newCount; i++)
                     {
-                        defendingUnit.Count = Convert.ToInt32(Math.Floor(defendingUnit.Count * 0.9));
+                        defUserCountry.DefendingArmy.Units.RemoveAt(rand.Next(0, unitCount-i));
+                    }
+
+                    //adding +1 battle in defCountry
+                    foreach (var unit in defUserCountry.DefendingArmy.Units)
+                    {
+                        unit.BattlesSurvived++;
+                    }
+
+                    //adding +1 battle in attCountry
+                    foreach (var unit in attUserCountry.DefendingArmy.Units)
+                    {
+                        unit.BattlesSurvived++;
                     }
 
                     //nyereség jóváírása
@@ -125,7 +150,8 @@ namespace UnderSea.DAL.Models
                 }
             }
 
-            Attacks.Clear();
+            //Attacks.Clear();
+            //Attacks = new List<Attack>();
         }
     }
 }
