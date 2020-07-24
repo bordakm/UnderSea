@@ -21,30 +21,35 @@ export class BuildingsPageComponent implements OnInit {
   buildings: IBuildingInfoViewModel[];
   inProgress: boolean;
 
-  constructor(private service: BuildingsService, private snackbar: MatSnackBar, private refreshService: RefreshDataService) { }
+  constructor(
+    private service: BuildingsService,
+    private snackbar: MatSnackBar,
+    private refreshService: RefreshDataService) { }
 
   ngOnInit(): void {
     this.getData();
     this.refreshService.data.subscribe(res => {
       this.getData();
-      this.purchased();
     });
   }
 
-  getData(): void{
+  getData(): void {
     this.service.getBuildings().pipe(
-      tap(res => this.buildings = res),
+      tap(res => {
+        this.buildings = res;
+        this.checkProgress();
+      }),
       catchError(error => this.handleError<IBuildingInfoViewModel[]>('Nem sikerült az épületek betöltése', []))
     ).subscribe();
   }
 
-  enableButton(value: string, id: number): void{
+  enableButton(value: string, id: number): void {
     this.isSelected = value;
     this.purchaseId = id;
     this.clicked = true;
   }
 
-  buyBuilding(): void{
+  buyBuilding(): void {
     this.service.buyBuilding(this.purchaseId
       ).pipe(
         tap(res => {
@@ -59,10 +64,10 @@ export class BuildingsPageComponent implements OnInit {
     this.isSelected = '';
     this.purchaseId = -1;
     this.clicked = false;
-    this.purchased();
+    this.checkProgress();
   }
 
-  purchased(): void{
+  private checkProgress(): void {
     this.inProgress = false;
     this.buildings?.forEach(element =>{
       if (element.remainingRounds > 0){
@@ -71,7 +76,7 @@ export class BuildingsPageComponent implements OnInit {
     });
   }
 
-  private handleError<T>(message = 'Hiba', result?: T){
+  private handleError<T>(message = 'Hiba', result?: T) {
     return (error: any): Observable<T> => {
       this.snackbar.open(message, 'Bezár', {
         duration: 3000,
@@ -81,4 +86,3 @@ export class BuildingsPageComponent implements OnInit {
     };
   }
 }
-
