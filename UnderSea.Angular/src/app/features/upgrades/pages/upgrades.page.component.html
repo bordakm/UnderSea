@@ -11,9 +11,25 @@
                 <div *ngFor="let upgrade of upgrades">
                     <mat-card class="upgrade-card-in-upgrades-page" [class.color1]="isSelected === 'color' + upgrade.id"
                         (click)="enableButton('color' + upgrade.id, upgrade.id)">
-                        <div class="img-container">
+                        <div *ngIf="upgrade.remainingRounds === 0 && !upgrade.isPurchased; else elseBlock"
+                            class="img-container">
+                            <div style="height: 25px;"></div>
                             <img [src]="baseUrl + upgrade.imageUrl" alt=''>
                         </div>
+                        <ng-template #elseBlock>
+                            <div *ngIf="upgrade.remainingRounds > 0"
+                                    style="color: #9FFFF0; font-family: 'open-sans', sans-serif; height: 25px;">
+                                    még {{ upgrade.remainingRounds }} kör
+                                </div>
+                                <div *ngIf="upgrade.isPurchased"
+                                    style="color: #9FFFF0; font-family: 'open-sans', sans-serif; height: 25px;">
+                                    <mat-icon>check_circle</mat-icon>
+                                </div>
+                            <div class="img-container">
+                                <img [src]="baseUrl + upgrade.imageUrl" alt=''>
+                            </div>
+                        </ng-template>
+
 
                         <h3>{{ upgrade.name }}</h3>
                         <h4>{{ upgrade.description }}</h4>
