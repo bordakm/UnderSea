@@ -98,37 +98,51 @@ namespace UnderSea.BLL.Services
             });
             await db.SaveChangesAsync();
 
-            List<SimpleUnitViewModel> result = new List<SimpleUnitViewModel>();
-            var found = false;
-            foreach (var unit in tranferList)
-            {
-                found = false;
+            /* List<SimpleUnitViewModel> result = new List<SimpleUnitViewModel>();
+             var found = false;
+             foreach (var unit in tranferList)
+             {
+                 found = false;
 
-                foreach (var unitvm in result)
-                {
-                    if (unitvm.TypeId == unit.Type.Id
-                        //Group by LVL
-                        && unitvm.Level == unit.Level)
-                    {
-                        unitvm.Count++;
-                        found = true;
-                        break;
-                    }
-                }
+                 foreach (var unitvm in result)
+                 {
+                     if (unitvm.TypeId == unit.Type.Id
+                         //Group by LVL
+                         && unitvm.Level == unit.Level)
+                     {
+                         unitvm.Count++;
+                         found = true;
+                         break;
+                     }
+                 }
 
-                if (!found)
-                {
-                    result.Add(new SimpleUnitViewModel()
+                 if (!found)
+                 {
+                     result.Add(new SimpleUnitViewModel()
+                     {
+                         Count = 1,
+                         Level = unit.Level,
+                         TypeId = unit.Type.Id                        
+                     });
+                 }
+
+             }
+
+             return result;*/
+
+            return tranferList.Aggregate(new List<SimpleUnitViewModel>(), (acc, unit) => {
+                var resultunit = acc.FirstOrDefault(suvm => suvm.TypeId == unit.Type.Id && suvm.Level == unit.Level);
+                if (resultunit == null)
+                    acc.Add(new SimpleUnitViewModel()
                     {
                         Count = 1,
                         Level = unit.Level,
-                        TypeId = unit.Type.Id                        
+                        TypeId = unit.Type.Id
                     });
-                }
-
-            }
-
-            return result;
+                else
+                    resultunit.Count++;
+                return acc;
+            });
         }
 
         public async Task<IEnumerable<SimpleUnitViewModel>> BuyUnitsAsync(int userId, List<UnitPurchaseDTO> purchases)
