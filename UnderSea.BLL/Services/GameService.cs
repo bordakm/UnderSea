@@ -163,7 +163,6 @@ namespace UnderSea.BLL.Services
                     await FeedUnits();
                     await DoUpgrades();
                     await Build();
-                    //todo
                     await CalculateAttacks();
                     await CalculateRankingsAsync();
                     await tran.CommitAsync();
