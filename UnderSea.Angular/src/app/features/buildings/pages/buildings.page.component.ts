@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IBuildingsViewModel, ICatsViewModel } from '../models/buildings.model';
 import { BuildingsService } from '../services/buildings.service';
 import { tap, catchError } from 'rxjs/operators';
-import { ICatsDto } from '../models/buildings.dto';
 import { IBuildingInfoViewModel } from 'src/app/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, Observable } from 'rxjs';
@@ -44,7 +42,7 @@ export class BuildingsPageComponent implements OnInit {
             panelClass: ['my-snackbar'],
           });
         }),
-        catchError(err => this.handleError('Nem sikerült a vásárlás'))
+        catchError(this.handleError('Nem sikerült a vásárlás'))
       ).subscribe();
   }
 
