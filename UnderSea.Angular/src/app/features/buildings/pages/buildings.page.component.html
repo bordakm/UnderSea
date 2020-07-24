@@ -5,35 +5,25 @@
             <h3>Kattints rá, amelyiket szeretnéd megvenni</h3>
             <h4>Egyszerre csak egy épület épülhet</h4>
 
-            <div class="flex-box">
-                <mat-card class="building-card-in-main-page" [class.color1]="isSelected === 'color1'"
-                    (click)="enableButton('color1', buildings[0].id)">
-                    <div class="img-container">
-                        <img src='../../../../assets/images/undersea_game-07.png' alt=''>
+            <div  class="flex-box">
+                <mat-card *ngFor="let building of buildings" class="building-card-in-main-page" [class.color1]="isSelected === 'color' + building.id"
+                    (click)="enableButton('color' + building.id, building.id)">
+                    <div *ngIf="building.remainingRounds > 0"
+                        style="color: #9FFFF0; font-family: 'open-sans', sans-serif">
+                        még {{ building.remainingRounds }} kör
+                        <div class="img-container">
+                            <img [src]="baseUrl + building.imageUrl" alt=''>
+                        </div>
                     </div>
-                    
-                    <h3>{{ buildings[0].name }}</h3>
-                    <div class="h3-container">
-                        <h3>{{ buildings[0].description }}</h3>
+                    <div *ngIf="building.remainingRounds === 0" class="img-container" style="padding-top: 20px;">
+                        <img [src]="baseUrl + building.imageUrl" alt=''>
                     </div>
-
-                    <h4>{{ buildings[0].count }} db</h4>
-                    <h4>{{ buildings[0].price }} Gyöngy / db</h4>
-
-                </mat-card>
-                <mat-card class="building-card-in-main-page" [class.color2]="isSelected === 'color2'"
-                    (click)="enableButton('color2', buildings[1].id)">
-                    <div class="img-container">
-                        <img src='../../../../assets/images/undersea_game-05.png' alt=''>
+                    <h3>{{ building.name }}</h3>
+                    <div class="h3-container" style="text-align: center;">
+                        <h3>{{ building.description }}</h3>
                     </div>
-                    <h3>{{ buildings[1].name }}</h3>
-                    <div class="h3-container">
-                        <h3>{{ buildings[1].description }}</h3>
-                    </div>
-                    
-
-                    <h4>{{ buildings[1].count }} db</h4>
-                    <h4>{{ buildings[1].price }} Gyöngy / db</h4>
+                    <h4>{{ building.count }} db</h4>
+                    <h4>{{ building.price }} Gyöngy / db</h4>
                 </mat-card>
 
             </div>
@@ -42,7 +32,8 @@
             </div>
 
             <div class="button">
-                <button mat-flat-button [disabled]="!clicked" class="color-button" (click)="buyBuilding()">Megveszem</button>
+                <button mat-flat-button [disabled]="!clicked || inProgress" class="color-button"
+                    (click)="buyBuilding()">Megveszem</button>
             </div>
         </mat-card-content>
     </mat-card>

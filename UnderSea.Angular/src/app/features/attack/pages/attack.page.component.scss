@@ -114,3 +114,13 @@ div.button{
   h4{
       margin: 0px;
   }
+
+  element.style {
+    color: #9FFFF0;
+    font-family: 'open-sans', sans-serif;
+    height: 25px;
+}
+
+::ng-deep .mat-list-base .mat-list-item{
+    color: #9FFFF0;
+}
