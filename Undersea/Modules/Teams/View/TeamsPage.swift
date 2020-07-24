@@ -48,6 +48,7 @@ extension Teams {
                     self.usecaseHandler?(.load)
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
                 self.usecaseHandler?(.load)
             }

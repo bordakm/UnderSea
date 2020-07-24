@@ -67,6 +67,7 @@ extension City {
                 .background(Colors.backgroundColor)
                 .navigationBarColor(Colors.navBarBackgroundColor)
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
     

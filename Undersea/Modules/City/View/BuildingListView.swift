@@ -93,6 +93,8 @@ extension City {
                         }
                     }
                     
+                    Spacer(minLength: 16.0)
+                    
                 }.padding(.top, 10)
                 
                 //Image(uiImage: R.image.fighting()!)
