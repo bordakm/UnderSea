@@ -167,7 +167,6 @@ namespace UnderSea.BLL.Services
         {
             var game = await db.Game.FirstAsync();
             game.Round++;
-            await db.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<ScoreboardViewModel>> SearchScoreboardAsync(SearchDTO search)
@@ -242,7 +241,6 @@ namespace UnderSea.BLL.Services
             {
                 user.Country.AddTaxes();
             }
-            await db.SaveChangesAsync();
         }
 
         private async Task AddCoral()
@@ -270,7 +268,6 @@ namespace UnderSea.BLL.Services
             {
                 country.DoUpgrades();
             }
-            await db.SaveChangesAsync();
         }
 
         private async Task CalculateAttacks()
