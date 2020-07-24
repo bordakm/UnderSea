@@ -11,7 +11,7 @@ import CocoaLumberjack
 
 extension City.CityPageViewModel.Unit {
     
-    init(unitData: UnitDTO) {
+    init(unitData: UnitDTO, selected: Int) {
         self.id = unitData.id
         self.name = unitData.name
         self.price = unitData.price
@@ -31,6 +31,7 @@ extension City.CityPageViewModel.Unit {
             DDLogDebug("Unknown building id \(unitData.id)")
             self.imageURL = URL(fileURLWithPath: "")
         }
+        self.selectedAmount = selected
     }
     
 }

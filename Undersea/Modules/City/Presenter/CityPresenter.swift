@@ -67,9 +67,9 @@ extension City {
             
         }
         
-        func bind(armyDataSubject: AnyPublisher<[UnitDTO]?, Error>) {
+        func bind(armyDataSubject: AnyPublisher<[UnitDTO]?, Error>, buyUnitDataSubject: AnyPublisher<[BuyUnitsDTO], Error>) {
          
-            subscriptions[.armyDataLoaded] = armyDataSubject
+            subscriptions[.armyDataLoaded] = Publishers.CombineLatest(armyDataSubject, buyUnitDataSubject)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -81,40 +81,14 @@ extension City {
                         break
                     }
                     
-                }, receiveValue: { (data) in
+                }, receiveValue: { (armyData, selectedUnitData) in
 
-                    self.populateArmyModel(dataModel: data)
+                    self.populateArmyModel(armyData: armyData ?? [], selectedUnitData: selectedUnitData)
                     
                 })
             
         }
-        
-        func bind(selectedUnitsChangedSubject: AnyPublisher<BuyUnitsDTO?, Error>) {
-         
-            subscriptions[.unitSelectedChange] = selectedUnitsChangedSubject
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { (result) in
-                    
-                    switch result {
-                    case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
-                    default:
-                        print("-- Presenter: finished")
-                        break
-                    }
-                    
-                }, receiveValue: { (data) in
-
-                    guard let data = data else {
-                        DDLogDebug("Unit select change received empty data")
-                        return
-                    }
-                    
-                    self.viewModel.set(id: data.typeId, count: data.count)
-                    
-                })
-            
-        }
+    
         
         private func populateBuildingsModel(dataModel: [BuildingDTO]?) {
             
@@ -132,16 +106,16 @@ extension City {
             
         }
         
-        private func populateArmyModel(dataModel: [UnitDTO]?) {
+        
+        private func populateArmyModel(armyData: [UnitDTO], selectedUnitData: [BuyUnitsDTO]) {
             
-            guard let dataModel = dataModel
-                else {
-                    return
-            }
             
             var units: [CityPageViewModel.Unit] = []
-            for unitData in dataModel {
-                units.append(CityPageViewModel.Unit(unitData: unitData))
+            for unitData in armyData {
+                let selected = selectedUnitData.first { (item) -> Bool in
+                    return unitData.id == item.typeId
+                }
+                units.append(CityPageViewModel.Unit(unitData: unitData, selected: selected?.count ?? 0))
             }
             
             self.viewModel.set(units: units)

@@ -98,9 +98,7 @@ extension City {
                                 
                                 Button(action: {
                                     
-                                    if unit.selectedAmount > 0 {
-                                        self.usecaseHandler?(.selectUnitAmount(unit.id, unit.selectedAmount - 1))
-                                    }
+                                    self.usecaseHandler?(.changeUnitAmount(unit.id, false))
                                     
                                 }) {
                                     Image(systemName: "minus.circle.fill")
@@ -115,14 +113,7 @@ extension City {
                                 
                                 Button(action: {
                                     
-                                    /*if let index = self.units.firstIndex(where: { matchingUnit -> Bool in
-                                        return matchingUnit.id == unit.id
-                                    }) {
-                                        //self.units[index].selectedAmount = unit.selectedAmount + 1
-                                        self.usecaseHandler?(.selectUnitAmount(unit.id, unit.selectedAmount + 1))
-                                    }*/
-                                    
-                                    self.usecaseHandler?(.selectUnitAmount(unit.id, unit.selectedAmount + 1))
+                                    self.usecaseHandler?(.changeUnitAmount(unit.id, true))
                                     
                                 }) {
                                     Image(systemName: "plus.circle.fill")

@@ -53,14 +53,21 @@ extension Leaderboard {
                     List {
                         ForEach(viewModel.userList) { user in
                             VStack(alignment: .leading, spacing: 0.0) {
-                                Text(user.userName)
+                                HStack(spacing: 30) {
+                                    Group {
+                                        Text("\(user.place).")
+                                        Text("\(user.userName)")
+                                            .onAppear(perform: {
+                                                if self.viewModel.userList.last?.id == user.id {
+                                                    self.usecaseHandler?(.loadMore(self.userName))
+                                                }
+                                            })
+                                        Spacer()
+                                        Text("\(user.score)")
+                                    }
                                     .foregroundColor(Color.white)
                                     .padding(.vertical)
-                                    .onAppear(perform: {
-                                        if self.viewModel.userList.last?.id == user.id {
-                                            self.usecaseHandler?(.loadMore(self.userName))
-                                        }
-                                    })
+                                }
                                 Divider()
                                     .background(Colors.separatorColor)
                             }.listRowInsets(EdgeInsets(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
@@ -78,6 +85,7 @@ extension Leaderboard {
                 .background(Colors.backgroundColor)
                 .navigationBarColor(Colors.navBarBackgroundColor)
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
                 self.usecaseHandler?(.load(self.userName))
             }

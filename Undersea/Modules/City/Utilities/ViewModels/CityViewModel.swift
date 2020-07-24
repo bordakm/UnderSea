@@ -43,18 +43,6 @@ extension City {
             objectWillChange.send()
         }
         
-        func set(id: Int, count: Int) {
-            
-            if let index = cityPageViewModel.units?.firstIndex(where: { (unit) -> Bool in
-                return unit.id == id
-            }) {
-                alertMessage = nil
-                cityPageViewModel.units?[index].selectedAmount = count
-                objectWillChange.send()
-            }
-            
-        }
-        
         func set(alertMessage: String) {
             //mainPageModel = nil
             self.alertMessage = alertMessage

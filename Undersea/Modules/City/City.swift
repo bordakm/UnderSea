@@ -24,8 +24,8 @@ struct City {
         
         presenter.bind(buildingDataSubject: interactor.buildingDataSubject.eraseToAnyPublisher())
         presenter.bind(buyBuildingDataSubject: interactor.buyBuildingDataSubject.eraseToAnyPublisher())
-        presenter.bind(armyDataSubject: interactor.armyDataSubject.eraseToAnyPublisher())
-        presenter.bind(selectedUnitsChangedSubject: interactor.selectedUnitsChangedSubject.eraseToAnyPublisher())
+        presenter.bind(armyDataSubject: interactor.armyDataSubject.eraseToAnyPublisher(), buyUnitDataSubject: interactor.buyUnitDataSubject.eraseToAnyPublisher())
+        
         
         view.setInteractor = { return interactor }
         

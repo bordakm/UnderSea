@@ -21,11 +21,9 @@ extension City {
         let buildingDataSubject = CurrentValueSubject<[BuildingDTO]?, Error>(nil)
         let buyBuildingDataSubject = CurrentValueSubject<BuildingDTO?, Error>(nil)
         let armyDataSubject = CurrentValueSubject<[UnitDTO]?, Error>(nil)
-        let selectedUnitsChangedSubject = CurrentValueSubject<BuyUnitsDTO?, Error>(nil)
-        //let buyUnitsDataSubject = CurrentValueSubject<[BuyUnitsDTO]?, Error>(nil)
+        let buyUnitDataSubject = CurrentValueSubject<[BuyUnitsDTO], Error>([])
         
         private var subscription: AnyCancellable?
-        private var buyUnitData: [BuyUnitsDTO] = []
      
         func handleUsecase(_ event: City.Usecase) {
             
@@ -36,8 +34,8 @@ extension City {
                 buyBuilding(id: id)
             case .loadArmy:
                 loadArmy()
-            case .selectUnitAmount(let id, let amount):
-                selectedUnitsChanged(id: id, amount: amount)
+            case .changeUnitAmount(let id, let inc):
+                selectedUnitsChanged(id: id, inc: inc)
             case .buyUnits:
                 buyUnits()
             }
@@ -99,41 +97,27 @@ extension City {
             })
             
         }
-        
-        private func selectedUnitsChanged(id: Int, amount: Int) {
+
+        private func selectedUnitsChanged(id: Int, inc: Bool) {
             
+            var buyUnitData = buyUnitDataSubject.value
             if let index = buyUnitData.firstIndex(where: { (unit) -> Bool in
                 return unit.typeId == id
             }) {
-                buyUnitData[index].count = amount
-                self.selectedUnitsChangedSubject.send(buyUnitData[index])
+                let currentValue = buyUnitData[index].count
+                buyUnitData[index].count = max(0, currentValue + (inc ? 1 : -1))
             } else {
-                let unitData = BuyUnitsDTO(typeId: id, count: amount)
+                let unitData = BuyUnitsDTO(typeId: id, count: 1)
                 buyUnitData.append(unitData)
-                self.selectedUnitsChangedSubject.send(unitData)
             }
-            
-            
-            
-            /*var tmpSubjectValue = self.armyDataSubject.value ?? []
-            
-            
-            if let index = tmpSubjectValue.firstIndex(where: { (unitData) -> Bool in
-                unitData.id == id
-            }) {
-                tmpSubjectValue[index].selected += amount
-            }
-            
-            self.armyDataSubject.send(tmpSubjectValue)*/
+            buyUnitDataSubject.send(buyUnitData)
             
         }
         
         private func buyUnits() {
             
-            for index in (0..<buyUnitData.count).reversed() {
-                if buyUnitData[index].count == 0 {
-                    buyUnitData.remove(at: index)
-                }
+            let buyUnitData = buyUnitDataSubject.value.filter { (item) -> Bool in
+                return item.count != 0
             }
             
             if buyUnitData.count == 0 {
@@ -163,6 +147,7 @@ extension City {
                 }
                 
                 self.armyDataSubject.send(tmpSubjectValue)
+                self.buyUnitDataSubject.send([])
                 
             })
             
