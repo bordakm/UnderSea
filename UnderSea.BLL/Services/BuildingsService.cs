@@ -49,6 +49,7 @@ namespace UnderSea.BLL.Services
                 .ThenInclude(ent => ent.Type)
                 .SingleAsync(user => user.Id == userId);
             var building = user.Country.BuildingGroup.Buildings.Single(building => building.Type.Id == buildingId);
+            var buildingTypes = db.BuildingTypes.ToList();
             var underConstructionCount = user.Country.BuildingGroup.Buildings.Sum(building => building.UnderConstructionCount);
             if (underConstructionCount > 0)
             {
@@ -58,10 +59,15 @@ namespace UnderSea.BLL.Services
             {
                 throw new HttpResponseException { Status = 400, Value = "Nincs elég gyöngyöd az építéshez!" };
             }
+            if(building.Type.StonePrice > user.Country.Stone)
+            {
+                throw new HttpResponseException { Status = 400, Value = "Nincs elég köved az építéshez!" };
+            }
             building.UnderConstructionCount++;
-            user.Country.BuildingTimeLeft = 5; // TODO ezt nem is kéne használni, countryban majd csak az épülő épületek darabszámára lesz szükség
+            user.Country.BuildingTimeLeft = buildingTypes.Single(type => type.Id == buildingId).BuildingTime;
 
             user.Country.Pearl -= building.Type.Price;
+            user.Country.Stone -= building.Type.StonePrice;
             await db.SaveChangesAsync();
             var buildingInfos = await GetBuildingInfosAsync(userId);
             return buildingInfos.Single(bi => bi.Id == buildingId);

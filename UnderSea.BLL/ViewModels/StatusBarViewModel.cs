@@ -23,6 +23,8 @@ namespace UnderSea.BLL.ViewModels
 
         public class StatusBarResource
         {
+            public int StoneCount { get; set; }
+            public int StoneProductionCount { get; set; }
             public int PearlCount { get; set; }
             public int PearlProductionCount { get; set; }
             public string PearlPictureUrl { get; set; }

@@ -13,6 +13,8 @@ namespace UnderSea.DAL.Models.Buildings
             ImageUrl = "/images/buildings/reefcastle.png";
             SmallIconUrl = "/images/buildings/reefcastleicon.png";
             Price = 1000;
+            StonePrice = 50;
+            BuildingTime = 5;
             PopulationBonus = 0;
             CoralBonus = 0;
             UnitStorage = 200;
