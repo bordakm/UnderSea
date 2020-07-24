@@ -31,5 +31,6 @@ struct Colors {
     static let separatorUIColor = UIColor(hex: "#3F68AE")
     static let searchFieldBackground = Color.init(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.39)
     static let maximumTrackUIColor = UIColor(red: 122.0/255.0, green: 122.0/255.0, blue: 122.0/255.0, alpha: 0.32)
+    static let borderColor = Color.init(Color.RGBColorSpace.sRGB, white: 1.0, opacity: 0.12)
     
 }

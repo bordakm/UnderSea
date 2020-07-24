@@ -11,8 +11,26 @@ import SwiftUI
 
 struct City {
     
+    typealias ViewModelType = ViewModel
+    
     static func setup() -> CityPage {
-        return CityPage()
+        
+        let interactor = Interactor()
+        let presenter = Presenter()
+        
+        var view = CityPage(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
+        
+        interactor.setPresenter = { return presenter }
+        
+        presenter.bind(buildingDataSubject: interactor.buildingDataSubject.eraseToAnyPublisher())
+        presenter.bind(buyBuildingDataSubject: interactor.buyBuildingDataSubject.eraseToAnyPublisher())
+        presenter.bind(armyDataSubject: interactor.armyDataSubject.eraseToAnyPublisher())
+        presenter.bind(selectedUnitsChangedSubject: interactor.selectedUnitsChangedSubject.eraseToAnyPublisher())
+        
+        view.setInteractor = { return interactor }
+        
+        return view
+        
     }
     
 }
