@@ -20,7 +20,7 @@ namespace UnderSea.DAL.Models
             CoralPictureUrl = "/images/coral.png";
             PearlPictureUrl = "/images/shell.png";
             StonePictureUrl = "/images/stone.png";
-            
+
         }
 
         public void CalculateAttacks()
