@@ -1,25 +1,22 @@
-import { Injectable, OnInit } from '@angular/core';
-import * as signalR from '@microsoft/signalr';
+import { Injectable } from '@angular/core';
+import { HubConnectionBuilder, HubConnection} from '@microsoft/signalr';
 import { environment } from 'src/environments/environment';
+import { RefreshDataService } from './refresh-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService{
-  private connection: signalR.HubConnection;
+  private connection: HubConnection;
 
-  constructor() { 
-   this.connection = new signalR.HubConnectionBuilder()
+  constructor(private refreshService: RefreshDataService) { 
+   this.connection = new HubConnectionBuilder()
     .withUrl(`${environment.apiUrl}/api/newround`)
     .build();
   }
 
   connectToHub() {
     this.start();
-  }
-
-  getConnection(): signalR.HubConnection {
-    return this.connection;
   }
 
   stopConnnection() {
@@ -31,6 +28,7 @@ export class SignalRService{
     await this.connection.start()
       .then(_ => {
         console.log('Connected to SignalR hub');
+        this.connection.on('NewRound', _ => this.refreshService.refresh(true));
       })
       .catch(error => {
         console.log(error);
