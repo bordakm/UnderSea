@@ -43,6 +43,9 @@ namespace UnderSea.BLL.Services
                 .SingleAsync(c => c.UserId == attack.DefenderUserId);
             var defendingUser = defendingCountry.User;
 
+            if (attack.AttackingUnits.All(au => au.SendCount == 0))
+                throw new HttpResponseException { Status = 400, Value = "Nem támadhatsz nulla egységgel!" };
+
             var sentUnits = new List<Unit>();
             var newUnitGroup = new UnitGroup();
             db.UnitGroups.Add(newUnitGroup);
