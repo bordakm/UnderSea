@@ -3,10 +3,10 @@ import { IAttackUnitViewModel } from '../../attack/models/attack.model';
 import { IOutgoingAttackViewModel, ScoreboardViewModel, AttackDTO, SendUnitDTO, IdDTO } from 'src/app/shared';
 
 import { AttackService } from '../services/attack.service';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { MatSlider } from '@angular/material/slider';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { of, Observable } from 'rxjs';
+import { of, Observable, Subject } from 'rxjs';
 import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
 
 @Component({
@@ -25,6 +25,8 @@ export class AttackPageComponent implements OnInit {
   attackData: AttackDTO = new AttackDTO();
   clicked: boolean;
 
+  searchTerm = new Subject<string>();
+
   formatLabel(value: number): number{
     this.units = value;
     return value;
@@ -38,15 +40,26 @@ export class AttackPageComponent implements OnInit {
       catchError(error => this.handleError<IAttackUnitViewModel[]>('Nem sikerült a támadások betöltése', []))
     ).subscribe();
 
-    this.service.getCountries().pipe(
+    this.service.getCountries('').pipe(
       tap(res => this.countries = res),
       catchError(error => this.handleError<ScoreboardViewModel[]>('Nem sikerült az országok betöltése', []))
+    ).subscribe();
+
+    this.searchTerm.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.service.getCountries(term)),
+      tap(res => this.countries = res)
     ).subscribe();
   }
 
   choose(id: number): void{
     this.attackData.defenderUserId = id;
     this.clicked = true;
+  }
+
+  search(term: string): void{
+    this.searchTerm.next(term);
   }
 
   sendAttack(): void{
