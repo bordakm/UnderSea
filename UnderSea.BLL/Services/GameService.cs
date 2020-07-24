@@ -37,17 +37,15 @@ namespace UnderSea.BLL.Services
                                 .ThenInclude(country => country.DefendingArmy)
                                 .ThenInclude(da => da.Units)
                                 .ThenInclude(units => units.Type)
-                                .ThenInclude(type => type.Levels)
+                                .Include(users => users.Country)
+                                .ThenInclude(country => country.AttackingArmy)
+                                .ThenInclude(attackingArmy => attackingArmy.Units)
+                                .ThenInclude(aa => aa.Type)
                                 .Include(users => users.Country.BuildingGroup)
                                 .ThenInclude(bGroup => bGroup.Buildings)
                                 .ThenInclude(buildings => buildings.Type)
                                 .Include(users => users.Country.Upgrades)
                                 .ThenInclude(u => u.Type)
-                                .Include(users => users.Country)
-                                .ThenInclude(country => country.AttackingArmy)
-                                .ThenInclude(attackingArmy => attackingArmy.Units)
-                                .ThenInclude(aa => aa.Type)
-                                .ThenInclude(type => type.Levels)
                                 .SingleAsync(user => user.Id == userId);
 
             List<AvailableUnitViewModel> availableUnits = new List<AvailableUnitViewModel>();
@@ -75,8 +73,7 @@ namespace UnderSea.BLL.Services
                         AllCount = 1,
                         Id = unit.Type.Id,
                         ImageUrl = unit.Type.ImageUrl,
-                        Name = unit.Type.Name,
-                        Level = unit.Level
+                        Name = unit.Type.Name
                     });
                 }
 
