@@ -12,7 +12,5 @@ namespace UnderSea.DAL.Models.Buildings
         public virtual BuildingType Type { get; set; }
         public int Count { get; set; }
         public int UnderConstructionCount { get; set; }
-        [NotMapped]
-        public int CoralBonusTotal => Type.CoralBonus * (Count - UnderConstructionCount);
     }
 }

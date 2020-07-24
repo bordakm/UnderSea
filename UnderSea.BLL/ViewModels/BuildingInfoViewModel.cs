@@ -12,6 +12,7 @@ namespace UnderSea.BLL.ViewModels
         public string Description { get; set; }
         public int Count { get; set; }
         public int Price { get; set; }
+        public int StonePrice { get; set; }
         public string ImageUrl { get; set; }
         public int RemainingRounds { get; set; }
     }

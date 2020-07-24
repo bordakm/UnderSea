@@ -150,6 +150,10 @@ namespace UnderSea.DAL.Context
             {
                 Id = 2
             };
+            var stoneMine = new StoneMine
+            {
+                Id = 3
+            };
             var alchemy = new Alchemy
             {
                 Id = 1
@@ -297,6 +301,20 @@ namespace UnderSea.DAL.Context
                 Count = 0,
                 TypeId = 2
             };
+            var building5 = new Building
+            {
+                Id = 5,
+                BuildingGroupId = 1,
+                Count = 0,
+                TypeId = 3
+            };
+            var building6 = new Building
+            {
+                Id = 6,
+                BuildingGroupId = 2,
+                Count = 0,
+                TypeId = 3
+            };
 
             var unitGroup1 = new UnitGroup
             {
@@ -324,6 +342,7 @@ namespace UnderSea.DAL.Context
                 Coral = 100000,
                 Name = "First Country",
                 Pearl = 100000,
+                Stone = 5000,
                 Score = 0,
                 UpgradeTimeLeft = 0,
                 UserId = 1,
@@ -339,6 +358,7 @@ namespace UnderSea.DAL.Context
                 Coral = 100000,
                 Name = "Another Country",
                 Pearl = 100000,
+                Stone = 5000,
                 Score = 0,
                 UpgradeTimeLeft = 0,
                 UserId = 2,
@@ -388,6 +408,8 @@ namespace UnderSea.DAL.Context
                 .HasData(reefCastle);
             modelBuilder.Entity<FlowManager>()
                 .HasData(flowManager);
+            modelBuilder.Entity<StoneMine>()
+                .HasData(stoneMine);
 
             modelBuilder.Entity<Alchemy>()
                 .HasData(alchemy);
@@ -451,7 +473,9 @@ namespace UnderSea.DAL.Context
                     building1,
                     building2,
                     building3,
-                    building4
+                    building4,
+                    building5,
+                    building6
                 });
 
             modelBuilder.Entity<UnitLevel>()

@@ -121,6 +121,8 @@ namespace UnderSea.BLL.Services
                     Units = availableUnits,
                     Resources = new StatusBarViewModel.StatusBarResource()
                     {
+                        StoneCount = user.Country.Stone,
+                        StoneProductionCount = user.Country.StoneProduction,
                         CoralCount = user.Country.Coral,
                         CoralProductionCount = user.Country.CoralProduction,
                         CoralPictureUrl = game.CoralPictureUrl,
@@ -134,6 +136,7 @@ namespace UnderSea.BLL.Services
                 {
                     FlowManager = (user.Country.BuildingGroup.Buildings.Single(y => y.Type is FlowManager).Count != 0),
                     ReefCastle = (user.Country.BuildingGroup.Buildings.Single(y => y.Type is ReefCastle).Count != 0),
+                    StoneMine = (user.Country.BuildingGroup.Buildings.Single(y => y.Type is StoneMine).Count != 0),
 
                     Alchemy = (user.Country.Upgrades.Single(y => y.Type is Alchemy).State != UpgradeState.Unresearched),
                     CoralWall = (user.Country.Upgrades.Single(y => y.Type is CoralWall).State != UpgradeState.Unresearched),
@@ -155,11 +158,11 @@ namespace UnderSea.BLL.Services
                     await IncreaseRoundCountAsync();
                     await AddTaxes();
                     await AddCoral();
+                    await AddStone();
                     await PayUnits();
                     await FeedUnits();
                     await DoUpgrades();
                     await Build();
-                    //todo
                     await CalculateAttacks();
                     await CalculateRankingsAsync();
                     await tran.CommitAsync();
@@ -264,6 +267,20 @@ namespace UnderSea.BLL.Services
             foreach (var user in users)
             {
                 user.Country.AddCoral();
+            }
+            await db.SaveChangesAsync();
+        }
+
+        private async Task AddStone()
+        {
+            var users = db.Users
+                .Include(user => user.Country)
+                .ThenInclude(c => c.BuildingGroup)
+                .ThenInclude(bg => bg.Buildings)
+                .ThenInclude(b => b.Type);
+            foreach (var user in users)
+            {
+                user.Country.AddStone();
             }
             await db.SaveChangesAsync();
         }

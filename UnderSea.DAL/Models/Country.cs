@@ -24,6 +24,7 @@ namespace UnderSea.DAL.Models
         public virtual UnitGroup DefendingArmy { get; set; }
         public int Coral { get; set; }
         public int Pearl { get; set; }
+        public int Stone { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
         public virtual User User { get; set; }
@@ -45,6 +46,16 @@ namespace UnderSea.DAL.Models
                 return Convert.ToInt32(BuildingGroup.Buildings.Sum(building => building.Count * building.Type.CoralBonus) * (1.00 + Upgrades.Sum(upgrade => Convert.ToDouble(upgrade.State == UpgradeState.Researched ? upgrade.Type.CoralProductionBonusPercentage : 0)) / 100.00));
             }
         }
+
+        [NotMapped]
+        public int StoneProduction
+        {
+            get
+            {
+                return Convert.ToInt32(BuildingGroup.Buildings.Sum(building => building.Count * building.Type.StoneBonus));
+            }
+        }
+
         public void AddTaxes()
         {
             Pearl += PearlProduction;
@@ -53,6 +64,11 @@ namespace UnderSea.DAL.Models
         public void AddCoral()
         {
             Coral += CoralProduction;
+        }
+
+        public void AddStone()
+        {
+            Stone += StoneProduction;
         }
 
         public List<Unit> FeedUnits()

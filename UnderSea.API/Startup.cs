@@ -180,7 +180,7 @@ namespace UnderSea.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<MyHub>("/api/newround");
+                endpoints.MapHub<MyHub>("/api/signalr");
             });
         }
     }
