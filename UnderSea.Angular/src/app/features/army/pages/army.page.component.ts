@@ -67,7 +67,7 @@ export class ArmyPageComponent implements OnInit {
     this.service.buyUnits(this.data
     ).pipe(
       tap(res => {
-        this.snackbar.open('Sikeres támadás!', 'Bezár', {
+        this.snackbar.open('Sikeres vétel!', 'Bezár', {
           duration: 3000,
           panelClass: ['my-snackbar'],
         });
