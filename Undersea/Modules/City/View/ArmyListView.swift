@@ -34,7 +34,7 @@ extension City {
                             
                         VStack {
                         
-                            SVGImage(svgPath: R.file.sharkSvg()!)
+                            SVGImage(svgPath: unit.imageURL)
                                 .frame(width: 100.0, height: 100.0)
                             
                             Text(unit.name)
@@ -97,13 +97,6 @@ extension City {
                             HStack(spacing: 20.0) {
                                 
                                 Button(action: {
-                                    
-                                    /*if let index = self.units.firstIndex(where: { matchingUnit -> Bool in
-                                        return matchingUnit.id == unit.id
-                                    }), unit.selectedAmount > 0 {
-                                        //self.units[index].selectedAmount = unit.selectedAmount - 1
-                                        self.usecaseHandler?(.selectUnitAmount(unit.id, unit.selectedAmount - 1))
-                                    }*/
                                     
                                     if unit.selectedAmount > 0 {
                                         self.usecaseHandler?(.selectUnitAmount(unit.id, unit.selectedAmount - 1))

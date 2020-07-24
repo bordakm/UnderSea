@@ -42,6 +42,27 @@ extension Main {
             
         }
         
+        var background: some View {
+            
+            ZStack {
+                Image(Images.mainBg.rawValue)
+                    .resizable().scaledToFill()
+                if self.viewModel.mainPageModel?.builtStructures.contains(.sonarCannon) ?? false {
+                    Image(uiImage: R.image.sonarCannon_layer()!).resizable().scaledToFit()
+                }
+                if self.viewModel.mainPageModel?.builtStructures.contains(.reefcastle) ?? false {
+                    Image(uiImage: R.image.reefCastle_layer()!).resizable().scaledToFit()
+                }
+                if self.viewModel.mainPageModel?.builtStructures.contains(.alchemy) ?? false {
+                    Image(uiImage: R.image.alchemy_layer()!).resizable().scaledToFit()
+                }
+                if self.viewModel.mainPageModel?.builtStructures.contains(.flowRegulator) ?? false {
+                    Image(uiImage: R.image.flowManager_layer()!).resizable().scaledToFit()
+                }
+            }
+            
+        }
+        
         var body: some View {
             NavigationView {
                 ZStack(alignment: .bottom) {
@@ -62,21 +83,8 @@ extension Main {
                         .shadow(color: Colors.loginShadowColor, radius: 6.0, x: 0.0, y: 3.0)
                         .padding(.top, 15.0)
                         
-                        GeometryReader { geometry in
-                            ZStack {
-                                VStack {
-                                    HStack {
-                                        Image(uiImage: R.image.reefCastle()!).resizable().scaledToFit()
-                                        Image(uiImage: R.image.sonarCannon()!).resizable().scaledToFit()
-                                    }
-                                    HStack {
-                                        Image(uiImage: R.image.alchemy()!).resizable().scaledToFit()
-                                        Image(uiImage: R.image.flowManager()!).resizable().scaledToFit()
-                                    }
-                                }
-                            }
-                            .frame(height: geometry.size.height)
-                        }
+                        Spacer()
+                        
                     }
                     
                     slideInMenu
@@ -87,9 +95,7 @@ extension Main {
                         .offset(y: self.slideInOffset)
                     
                 }
-                .background(Image(Images.mainBg.rawValue)
-                    .resizable()
-                    .scaledToFill())
+                .background(background)
                 .navigationBarTitle("", displayMode: .inline)
                 .navigationBarItems(leading: SVGImage(svgPath: R.file.underseaLogoSvg()!).frame(width: 70.0, height: 40.0),
                                     trailing: userButton)

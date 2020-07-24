@@ -12,6 +12,8 @@ enum StructureType {
     
     case reefcastle
     case flowRegulator
+    case sonarCannon
+    case alchemy
     
 }
 
@@ -21,9 +23,13 @@ extension StructureType {
         
         switch self {
         case .reefcastle:
-            return "us_image_reefcastle"
+            return "reefcastle"
         case .flowRegulator:
-            return "us_image_flowRegulator"
+            return "flowManager"
+        case .sonarCannon:
+            return "sonarCannon"
+        case .alchemy:
+            return "alchemy"
         }
         
     }

@@ -89,6 +89,14 @@ extension Main {
                 builtStructures.insert(.flowRegulator)
             }
             
+            if dataModel.structures.alchemy {
+                builtStructures.insert(.alchemy)
+            }
+            
+            if dataModel.structures.sonarCannon {
+                builtStructures.insert(.sonarCannon)
+            }
+            
             let roundAndRank = "\(dtoStatBar.roundCount). kör\t\(dtoStatBar.scoreboardPosition). hely"
             
             self.viewModel.set(viewModel: MainPageViewModel(roundAndRank: roundAndRank, statList: statList, builtStructures: builtStructures))
