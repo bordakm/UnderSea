@@ -6,9 +6,9 @@
                 <mat-list>
                     <mat-list-item class="list-item">
                         <form class="search-form">
-                            <mat-form-field class="search-full-width">
+                            <mat-form-field class="search-full-width" floatLabel="never">
                                 <mat-label>Felhasználónév</mat-label>
-                                <input matInput>
+                                <input matInput type="search" #searchbox (input)="search(searchbox.value)" autocomplete="off">
                             </mat-form-field>
                         </form>
                     </mat-list-item>
@@ -19,16 +19,7 @@
                         </mat-list-item>
                         <mat-divider></mat-divider>
                     </div>
-                    <!-- <mat-list-item class="list-item">
-                        <app-scoreboard [user]="user"></app-scoreboard>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item class="list-item">2</mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item class="list-item">3</mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item class="list-item">4</mat-list-item>
-                    <mat-divider></mat-divider> -->
+                    
                 </mat-list>
             </div>
         </mat-card-content>

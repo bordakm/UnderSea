@@ -21,6 +21,7 @@ import { API_BASE_URL } from '../shared';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AuthGuardService } from './services/auth-guard.service';
+import { SignalRService } from './services/signal-r.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AuthGuardService } from './services/auth-guard.service';
   providers: [
     AuthGuardService,
     AuthService,
+    SignalRService,
     { provide: API_BASE_URL, useValue: environment.apiUrl },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ]

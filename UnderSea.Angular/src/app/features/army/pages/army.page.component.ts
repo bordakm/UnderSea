@@ -6,6 +6,7 @@ import { tap, catchError, concatMap } from 'rxjs/operators';
 import { SimpleUnitViewModel, UnitPurchaseDTO } from 'src/app/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, Observable } from 'rxjs';
+import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
 
 @Component({
   selector: 'app-army-page',
@@ -19,9 +20,20 @@ export class ArmyPageComponent implements OnInit {
   purchaseModel: SimpleUnitViewModel[];
   data: UnitPurchaseDTO[] = [];
 
-  constructor(private service: ArmyService, private snackbar: MatSnackBar) { }
+  constructor(
+    private service: ArmyService,
+    private snackbar: MatSnackBar,
+    private refreshService: RefreshDataService
+    ) { }
 
   ngOnInit(): void {
+    this.getData();
+    this.refreshService.data.subscribe(res => {
+      this.getData();
+    });
+  }
+
+  getData(): void{
     this.service.getUnits().pipe(
       tap(res => this.unitsModel = res),
       catchError(this.handleError<IArmyViewModel[]>('Nem sikerült az egységek betöltése', []))
@@ -58,11 +70,10 @@ export class ArmyPageComponent implements OnInit {
           duration: 3000,
           panelClass: ['my-snackbar'],
         });
+        this.refreshService.refresh(true);
       }),
       catchError(this.handleError<SimpleUnitViewModel[]>('Nem sikerült a vásárlás', []))
     ).subscribe();
-    // TODO: replace window.reload
-    window.location.reload();
   }
 
   private handleError<T>(message = 'Hiba', result?: T) {

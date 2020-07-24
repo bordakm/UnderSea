@@ -14,7 +14,7 @@ import { UnitViewModel, ApiClient, IScoreboardViewModel, ScoreboardViewModel } f
 
     constructor(private http: HttpClient, private client: ApiClient) { }
 
-    getUser(): Observable<ScoreboardViewModel[]>{
-        return this.client.scoreboard('', 1, 10);
+    getUser(term: string): Observable<ScoreboardViewModel[]>{
+        return this.client.scoreboard(term, 1, 10);
     }
   }

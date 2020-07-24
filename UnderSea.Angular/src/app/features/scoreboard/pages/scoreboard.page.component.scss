@@ -77,6 +77,18 @@ div.button{
 
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: $dark-blue !important;
+}
+
+::ng-deep input.mat-input-element {
+    color: $dark-blue;
+  }
+
 ::ng-deep .mat-form-field-infix{
     border: 40px;
 }

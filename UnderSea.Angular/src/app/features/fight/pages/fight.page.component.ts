@@ -6,6 +6,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { OutgoingAttackViewModel } from 'src/app/shared';
 import { Observable, of } from 'rxjs';
 import { SimpleSnackBar, MatSnackBar } from '@angular/material/snack-bar';
+import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
 
 @Component({
   selector: 'app-fight-page',
@@ -17,19 +18,20 @@ export class FightPageComponent implements OnInit {
   fightModels: OutgoingAttackViewModel[];
   empty: boolean;
 
-  constructor(private service: FightService, private snackbar: MatSnackBar) { }
+  constructor(private service: FightService, private snackbar: MatSnackBar, private refreshService: RefreshDataService) { }
 
   ngOnInit(): void {
+    this.getData();
+    this.refreshService.data.subscribe(res => {
+      this.getData();
+    });
+  }
+
+  getData(): void{
     this.service.getFight().pipe(
       tap(res => this.fightModels = res),
       catchError(error => this.handleError<OutgoingAttackViewModel[]>('Nem sikerült a harcok betöltése', []))
     ).subscribe();
-
-    if (Array.isArray(this.fightModels) && this.fightModels.length > 0){
-      this.empty = false;
-    }else{
-      this.empty = true;
-    }
   }
 
   private handleError<T>(message = 'Hiba', result?: T) {
