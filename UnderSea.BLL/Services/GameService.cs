@@ -179,6 +179,7 @@ namespace UnderSea.BLL.Services
                                .Where(user => user.UserName.ToUpper().Contains(searchWord.ToUpper()))
                                .Skip(perPage * (pageNum - 1))
                                .Take(perPage)
+                               .OrderByDescending(user => user.Score)
                                .ToListAsync();
             return mapper.Map<IEnumerable<ScoreboardViewModel>>(users);
         }
@@ -218,9 +219,9 @@ namespace UnderSea.BLL.Services
             {
                 user.Score = user.Country.CalculateScore();
             }
-            users.OrderByDescending(user => user.Score);
             int rank = 1;
-            foreach (var user in users)
+            var x = users.OrderByDescending(user => user.Score);
+            foreach (var user in x)
             {
                 user.Place = rank++;
             }

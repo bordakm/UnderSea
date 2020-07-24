@@ -8,14 +8,4 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword />
   </PropertyGroup>
-  <ItemGroup>
-    <DestinationConnectionStrings Include="DefaultConnection">
-      <Value>Server=webtest\SQLE2012%3bDatabase=UnderSeaT2LastTry%3bTrusted_Connection=True%3b</Value>
-    </DestinationConnectionStrings>
-  </ItemGroup>
-  <ItemGroup>
-    <EFMigrations Include="UnderSea.DAL.Context.UnderSeaDbContext">
-      <Value>Server=webtest\SQLE2012%3bDatabase=UnderSeaT2LastTry%3bTrusted_Connection=True%3b</Value>
-    </EFMigrations>
-  </ItemGroup>
 </Project>
