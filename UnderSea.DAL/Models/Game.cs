@@ -20,7 +20,6 @@ namespace UnderSea.DAL.Models
             CoralPictureUrl = "/images/coral.png";
             PearlPictureUrl = "/images/shell.png";
             StonePictureUrl = "/images/stone.png";
-
         }
 
         public void CalculateAttacks()
@@ -73,38 +72,7 @@ namespace UnderSea.DAL.Models
                 if (defenderScore > attackerScore)
                 {
                     //levonjuk az egységeket az attacking armyból
-                    for(int i = attUserCountry.AttackingArmy.Units.Count(); i>0; i--)
-                    {
-                        foreach(var unit in attack.UnitList)
-                        {
-                            if (attUserCountry.AttackingArmy.Units[i].Type.Id == unit.Type.Id
-                                && attUserCountry.AttackingArmy.Units[i].BattlesSurvived == unit.BattlesSurvived)
-                            {
-                                attUserCountry.AttackingArmy.Units.RemoveAt(i); 
-                            }
-                               
-                        }
-                    }
-
-                    //adding +1 battle in defCountry
-                    foreach (var unit in defUserCountry.DefendingArmy.Units)
-                    {
-                        unit.BattlesSurvived++;
-                    }
-
-                    //adding +1 battle in attCountry
-                    foreach (var unit in attUserCountry.DefendingArmy.Units)
-                    {
-                        unit.BattlesSurvived++;
-                    }
-
-                }
-
-                //if the attacker wins
-                else if (attackerScore > defenderScore)
-                {
-                    //levonjuk az egységeket az attacking armyból
-                    for (int i = attUserCountry.AttackingArmy.Units.Count(); i > 0; i--)
+                    /*for (int i = attUserCountry.AttackingArmy.Units.Count(); i > 0; i--)
                     {
                         foreach (var unit in attack.UnitList)
                         {
@@ -115,28 +83,69 @@ namespace UnderSea.DAL.Models
                             }
 
                         }
-                    }
+                    }*/
 
-                    //hozzáadjuk az attacker defender armyjához
-                    attUserCountry.DefendingArmy.Units.AddRange(attack.UnitList);
-                    
 
-                    //csökkentjük a deffender armyját 10%al
-                    var unitCount = defUserCountry.DefendingArmy.Units.Count;
+                    // csökkentjük a támadó armyját 10%-kal
+                    var unitCount = attack.UnitList.Count;
                     int newCount = Convert.ToInt32(Math.Ceiling(unitCount * 0.9));
-                    for(int i = 0; i< unitCount - newCount; i++)
+                    for (int i = 0; i < unitCount - newCount; i++)
                     {
-                        defUserCountry.DefendingArmy.Units.RemoveAt(rand.Next(0, unitCount-i));
+                        var unitToDelete = attack.UnitList[rand.Next(0, attack.UnitList.Count)];
+                        attUserCountry.AttackingArmy.Units.Remove(unitToDelete);
+                        attack.UnitList.Remove(unitToDelete);
+                        //attUserCountry.AttackingArmy.Units.RemoveAt(rand.Next(0, unitCount - i));
                     }
+
+
+                    foreach (var unit in attack.UnitList)
+                    {
+                        attUserCountry.AttackingArmy.Units.Where((u => u.Id == unit.Id)).ToList().ForEach(u =>
+                        {
+                            u.UnitGroupId = attUserCountry.DefendingArmyId;
+                            u.BattlesSurvived++;
+                        });
+                        attUserCountry.AttackingArmy.Units.RemoveAll((u => u.Id == unit.Id));
+                    }
+
+
+
+                    //hozzáadjuk a maradék egységeket attacker defender armyjához
+                    attUserCountry.DefendingArmy.Units.AddRange(attack.UnitList);
 
                     //adding +1 battle in defCountry
                     foreach (var unit in defUserCountry.DefendingArmy.Units)
                     {
                         unit.BattlesSurvived++;
                     }
+                }
+
+                //if the attacker wins
+                else if (attackerScore > defenderScore)
+                {
+                    foreach (var unit in attack.UnitList)
+                    {
+                        attUserCountry.AttackingArmy.Units.Where((u => u.Id == unit.Id)).ToList().ForEach(u =>
+                        {
+                            u.UnitGroupId = attUserCountry.DefendingArmyId;
+                            u.BattlesSurvived++;
+                        });
+                        attUserCountry.AttackingArmy.Units.RemoveAll((u => u.Id == unit.Id));
+                    }
+                    //hozzáadjuk az attacker defender armyjához
+                    attUserCountry.DefendingArmy.Units.AddRange(attack.UnitList);
+
+
+                    //csökkentjük a deffender armyját 10%al
+                    var unitCount = defUserCountry.DefendingArmy.Units.Count;
+                    int newCount = Convert.ToInt32(Math.Ceiling(unitCount * 0.9));
+                    for (int i = 0; i < unitCount - newCount; i++)
+                    {
+                        defUserCountry.DefendingArmy.Units.RemoveAt(rand.Next(0, unitCount - i));
+                    }
 
                     //adding +1 battle in attCountry
-                    foreach (var unit in attUserCountry.DefendingArmy.Units)
+                    foreach (var unit in defUserCountry.DefendingArmy.Units)
                     {
                         unit.BattlesSurvived++;
                     }
@@ -149,9 +158,6 @@ namespace UnderSea.DAL.Models
                     defUserCountry.Coral -= Convert.ToInt32(Math.Ceiling(defUserCountry.Coral * 0.5));
                 }
             }
-
-            //Attacks.Clear();
-            //Attacks = new List<Attack>();
         }
     }
 }
