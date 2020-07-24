@@ -46,14 +46,16 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-
-    this.authService.login(this.username, this.password).pipe(
-      tap(tokens => {
-        if (tokens.accessToken != null) {
-          this.router.navigate(['/main']);
-        }
-      })
-    ).subscribe();
+    this.authService.login(
+      this.loginForm.controls.username.value,
+      this.loginForm.controls.password.value)
+      .pipe(
+        tap(tokens => {
+          if (tokens.accessToken != null) {
+            this.router.navigate(['/main']);
+          }
+        })
+      ).subscribe();
   }
 
   signup(): void {
@@ -61,17 +63,17 @@ export class LoginComponent implements OnInit {
       this.regForm.controls.regUsername.value,
       this.regForm.controls.regPassword.value,
       this.regForm.controls.country.value).pipe(
-      tap(res => {
-        if (res.accessToken != null) {
-          this.reg = false;
-          this.router.navigate(['/main']);
-        }
-        this.snackbar.open('Sikeres regisztráció', 'Bezár', {
-          duration: 3000,
-          panelClass: ['my-snackbar'],
-        });
-      })
-    ).subscribe();
+        tap(res => {
+          this.snackbar.open('Sikeres regisztráció', 'Bezár', {
+            duration: 3000,
+            panelClass: ['my-snackbar'],
+          });
+          if (res.accessToken != null) {
+            this.reg = false;
+            this.router.navigate(['/main']);
+          }
+        })
+      ).subscribe();
   }
 
   _true(): void {
@@ -83,6 +85,7 @@ export class LoginComponent implements OnInit {
     this.reg = false;
     this.regForm.reset();
   }
+
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
