@@ -5,6 +5,7 @@ import { IBuildingInfoViewModel } from 'src/app/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, Observable } from 'rxjs';
 import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-buildings-page',
@@ -13,10 +14,12 @@ import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
 })
 export class BuildingsPageComponent implements OnInit {
 
+  baseUrl = environment.apiUrl;
   clicked = false;
   isSelected: string;
   purchaseId: number;
   buildings: IBuildingInfoViewModel[];
+  inProgress: boolean;
 
   constructor(private service: BuildingsService, private snackbar: MatSnackBar, private refreshService: RefreshDataService) { }
 
@@ -24,6 +27,7 @@ export class BuildingsPageComponent implements OnInit {
     this.getData();
     this.refreshService.data.subscribe(res => {
       this.getData();
+      this.purchased();
     });
   }
 
@@ -52,9 +56,22 @@ export class BuildingsPageComponent implements OnInit {
         }),
         catchError(this.handleError('Nem sikerült a vásárlás'))
       ).subscribe();
+    this.isSelected = '';
+    this.purchaseId = -1;
+    this.clicked = false;
+    this.purchased();
   }
 
-  private handleError<T>(message = 'Hiba', result?: T) {
+  purchased(): void{
+    this.inProgress = false;
+    this.buildings.forEach(element =>{
+      if (element.remainingRounds > 0){
+        this.inProgress = true;
+      }
+    });
+  }
+
+  private handleError<T>(message = 'Hiba', result?: T){
     return (error: any): Observable<T> => {
       this.snackbar.open(message, 'Bezár', {
         duration: 3000,

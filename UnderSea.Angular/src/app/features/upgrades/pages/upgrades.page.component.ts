@@ -27,6 +27,9 @@ export class UpgradesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.refreshService.data.subscribe(res => {
+      this.getData();
+    });
   }
 
   getData(): void{
@@ -54,6 +57,9 @@ export class UpgradesPageComponent implements OnInit {
         }),
         catchError(err => this.handleError('Nem sikerült a fejlesztés'))
       ).subscribe();
+    this.isSelected = '';
+    this.researchId = 0;
+    this.clicked = false;
   }
 
   private handleError<T>(message = 'Hiba', result?: T) {
