@@ -38,15 +38,7 @@ export class AttackPageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.service.getAttacks().pipe(
-      tap(res => this.availableUnits = res),
-      catchError(this.handleError<IAttackUnitViewModel[]>('Nem sikerült a támadások betöltése', []))
-    ).subscribe();
-
-    this.service.getCountries('').pipe(
-      tap(res => this.countries = res),
-      catchError(this.handleError<ScoreboardViewModel[]>('Nem sikerült az országok betöltése', []))
-    ).subscribe();
+    this.getData();
 
     this.searchTerm.pipe(
       debounceTime(300),
@@ -54,7 +46,12 @@ export class AttackPageComponent implements OnInit {
       switchMap((term: string) => this.service.getCountries(term)),
       tap(res => this.countries = res)
     ).subscribe();
-  }
+
+    this.refreshService.data.pipe(
+      tap(res => this.getData()),
+      catchError(this.handleError<ScoreboardViewModel[]>('Nem sikerült az országok betöltése', []))
+    ).subscribe();
+  }  
 
   choose(id: number): void{
     this.attackData.defenderUserId = id;
@@ -83,6 +80,18 @@ export class AttackPageComponent implements OnInit {
         catchError(this.handleError('Nem sikerült a támadás elindítása'))
       ).subscribe();
     this.clicked = false;
+  }
+
+  private getData(): void {
+    this.service.getAttacks().pipe(
+      tap(res => this.availableUnits = res),
+      catchError(this.handleError<IAttackUnitViewModel[]>('Nem sikerült a támadások betöltése', []))
+    ).subscribe();
+
+    this.service.getCountries('').pipe(
+      tap(res => this.countries = res),
+      catchError(this.handleError<ScoreboardViewModel[]>('Nem sikerült az országok betöltése', []))
+    ).subscribe();
   }
 
   private handleError<T>(message = 'Hiba', result?: T) {
