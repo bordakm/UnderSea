@@ -9,7 +9,7 @@
                     <div class="slider">
                         <mat-list>
                             <mat-list-item class="list-item">
-                                <form class="search-form">
+                                <form class="search-form" onsubmit="return false;">
                                     <mat-form-field class="search-full-width" floatLabel="never">
                                         <mat-label>Felhasználónév</mat-label>
                                         <input matInput type="search" #searchbox (input)="search(searchbox.value)" autocomplete="off">
