@@ -9,6 +9,7 @@
 import Foundation
 
 enum RootPage {
+    case loading
     case login
     case register
     case main

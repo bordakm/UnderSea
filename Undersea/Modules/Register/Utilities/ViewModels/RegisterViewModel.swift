@@ -12,7 +12,7 @@ extension Register {
     
     class ViewModel: ObservableObject {
         
-        @Published var isLoading = false
+        @Published var alert = false
         @Published var alertMessage: String?
         
     }

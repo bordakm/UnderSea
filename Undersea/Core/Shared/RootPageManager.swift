@@ -11,7 +11,7 @@ import Combine
 
 class RootPageManager : ObservableObject {
     
-    @Published var currentPage = RootPage.login
+    @Published var currentPage = RootPage.loading
     @Published var currentSubPage = TabPage.main
     @Published var leaderboardVisible = false
     

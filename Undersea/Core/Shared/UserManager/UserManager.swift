@@ -40,7 +40,8 @@ class UserManager {
                 
                 switch result {
                 case .failure(_):
-                    self.invalidateTokens()
+                    DDLogDebug("Failed login")
+                    //self.invalidateTokens()
                 default:
                     print("-- UserManager: load data finished")
                     break
