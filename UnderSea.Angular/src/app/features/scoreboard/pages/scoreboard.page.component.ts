@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IUserViewModel } from '../models/scoreboard.model';
 
 import { ScoreboardService } from '../services/scoreboard.service';
 import { tap, catchError, distinctUntilChanged, switchMap, debounceTime } from 'rxjs/operators';
@@ -16,12 +15,6 @@ import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
 export class ScoreboardPageComponent implements OnInit {
 
   searchTerm = new Subject<string>();
-
-  user: IUserViewModel = {
-    name: 'józsiiwinner12',
-    points: 84411,
-    score: 1,
-  };
 
   users: ScoreboardViewModel[];
 
@@ -44,7 +37,7 @@ export class ScoreboardPageComponent implements OnInit {
   getData(term: string): void{
     this.service.getUser(term).pipe(
       tap(res => this.users = res),
-      catchError(error => this.handleError<ScoreboardViewModel[]>('Nem sikerült a ranglétra betöltése', []))
+      catchError(this.handleError<ScoreboardViewModel[]>('Nem sikerült a ranglétra betöltése', []))
     ).subscribe();
   }
 
