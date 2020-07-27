@@ -61,7 +61,7 @@ extension City {
                         return
                     }
                     
-                    self.viewModel.setRemaining(remaining: data.remainingRounds)
+                    self.viewModel.setRemaining(id: data.id, remaining: data.remainingRounds)
                     
                 })
             

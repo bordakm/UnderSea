@@ -28,13 +28,14 @@ extension City {
             objectWillChange.send()
         }
         
-        func setRemaining(remaining: Int) {
-            objectWillChange.send()
-            //cityPageViewModel.objectWillChange.send()
+        func setRemaining(id: Int, remaining: Int) {
             alertMessage = nil
-            for index in 0 ..< (cityPageViewModel.buildings?.count ?? 0) {
+            if let index = cityPageViewModel.buildings?.firstIndex(where: { (building) -> Bool in
+                return building.id == id
+            }) {
                 cityPageViewModel.buildings?[index].remainingRounds = remaining
             }
+            objectWillChange.send()
         }
         
         func set(units: [CityPageViewModel.Unit]) {
