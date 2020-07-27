@@ -18,9 +18,13 @@
                             </mat-list-item>
                             <div *ngFor="let country of countries" >
                                 <mat-divider></mat-divider>
-                                <mat-list-item  class="list-item" (click)="choose(country.id)" style="display: flex; justify-content: space-between;">
-                                    <div style='width: 15vw;'>{{ country.userName }}</div>
-                                    <mat-icon *ngIf="country.id === attackData.defenderUserId && clicked">check_circle</mat-icon>
+                                <mat-list-item  class="list-item" (click)="choose(country.id)" style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
+                                    
+                                    <div style="width: 10vw;">{{ country.userName }}</div>
+                                    <div>
+                                        <mat-icon *ngIf="country.id === attackData.defenderUserId && clicked">check_circle</mat-icon>
+                                    </div>
+                                    
                                 </mat-list-item>
                             </div>
                         </mat-list>
