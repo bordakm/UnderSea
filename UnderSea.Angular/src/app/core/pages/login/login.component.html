@@ -37,9 +37,9 @@
                         A jelszó nem állhat csupán szóközből.
                     </div>
                     
-                    <button mat-flat-button type="submit" class="color-button" style="margin-top: 25px; width: 10vw;" (click)="login()">Belépés</button>
+                    <button mat-flat-button type="submit" class="color-button" style="margin-top: 25px; width: auto;" (click)="login()">Belépés</button>
                     
-                    <button mat-flat-button class="transp-button" style="margin-top: 20px; width: 10vw;" (click)="_true()">Regisztráció</button>
+                    <button mat-flat-button class="transp-button" style="margin-top: 20px; width: auto;" (click)="_true()">Regisztráció</button>
                     
                 </form>
             </mat-card-content>
@@ -72,8 +72,12 @@
                         A jelszó kötelező.
                     </div>
                     <div style="margin-left: 10px; color: red"
-                        *ngIf="regForm.controls['regUsername'].errors?.whitespace && regForm.controls['regUsername'].touched">
+                        *ngIf="regForm.controls['regPassword'].errors?.whitespace && regForm.controls['regPassword'].touched">
                         A jelszó nem állhat csupán szóközből.
+                    </div>
+                    <div style="margin-left: 10px; color: red"
+                        *ngIf="regForm.controls['regPassword'].errors?.minlength && regForm.controls['regPassword'].touched">
+                        A jelszó nem lehet 4 karakternél rövidebb.
                     </div>
 
                     <mat-form-field class="login-full-width" floatLabel="never" style="margin-top: 20px;">
@@ -85,8 +89,8 @@
                         A jelszó megerősítése kötelező.
                     </div>
                     <div style="margin-left: 10px; color: red"
-                        *ngIf="regForm.controls['passConfirm'].errors?.whitespace && regForm.controls['passConfirm'].touched">
-                        A jelszó nem állhat csupán szóközből.
+                        *ngIf="regForm.controls['passConfirm'].value != regForm.controls['regPassword'].value && regForm.controls['passConfirm'].touched">
+                        A jelszók nem egyeznek.
                     </div>
 
                     <mat-form-field class="login-full-width" floatLabel="never" style="margin-top: 20px;">
@@ -97,12 +101,8 @@
                         *ngIf="regForm.controls['country'].errors?.required && regForm.controls['country'].touched">
                         Az országnév kötelező.
                     </div>
-                    <div style="margin-left: 10px; color: red"
-                        *ngIf="regForm.controls['country'].errors?.whitespace && regForm.controls['country'].touched">
-                        A felhasználónév kötelező.
-                    </div>
-                    <button type="submit" class="color-button" style="margin-top: 25px; width: 10vw;" (click)="signup()" mat-flat-button>Regisztráció</button>
-                    <button class="transp-button" style="margin-top: 20px; width: 10vw;" (click)="_false()" mat-flat-button>Bejelentkezés</button>
+                    <button type="submit" class="color-button" style="margin-top: 25px; width: auto;" (click)="signup()" mat-flat-button>Regisztráció</button>
+                    <button class="transp-button" style="margin-top: 20px; width: auto;" (click)="_false()" mat-flat-button>Bejelentkezés</button>
                 </form>
 
             </mat-card-content>
