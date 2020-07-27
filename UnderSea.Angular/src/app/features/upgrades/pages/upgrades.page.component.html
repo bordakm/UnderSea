@@ -45,7 +45,7 @@
             </div>
 
             <div class="button">
-                <button mat-flat-button [disabled]="!clicked" class="color-button"
+                <button mat-flat-button [disabled]="!clicked || inProgress" class="color-button"
                     (click)="buyUpgrade()">Megveszem</button>
             </div>
         </mat-card-content>
