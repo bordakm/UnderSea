@@ -37,6 +37,26 @@ extension City {
             }
         }
         
+        func set(upgrades: [CityPageViewModel.Upgrade]) {
+            alertMessage = nil
+            cityPageViewModel.upgrades = upgrades
+            objectWillChange.send()
+        }
+        
+        func setRemainingUpgrades(id: Int, remaining: Int) {
+            
+            alertMessage = nil
+            
+            if let index = cityPageViewModel.upgrades?.firstIndex(where: { (upgrade) -> Bool in
+                return upgrade.id == id
+            }) {
+                cityPageViewModel.upgrades?[index].remainingRounds = remaining
+            }
+
+            objectWillChange.send()
+            
+        }
+        
         func set(units: [CityPageViewModel.Unit]) {
             alertMessage = nil
             cityPageViewModel.units = units

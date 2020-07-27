@@ -26,7 +26,7 @@ extension City {
             case .buildings:
                 return AnyView(BuildingListView(usecaseHandler: usecaseHandler, buildingList: viewModel.cityPageViewModel.buildings ?? []))
             case .upgrades:
-                return AnyView(EmptyView())
+                return AnyView(UpgradesListView(usecaseHandler: usecaseHandler, upgradeList: viewModel.cityPageViewModel.upgrades ?? []))
             case .army:
                 return AnyView(ArmyListView(usecaseHandler: usecaseHandler, units: viewModel.cityPageViewModel.units ?? []))
             }

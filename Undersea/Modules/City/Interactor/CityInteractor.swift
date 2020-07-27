@@ -20,6 +20,10 @@ extension City {
         
         let buildingDataSubject = CurrentValueSubject<[BuildingDTO]?, Error>(nil)
         let buyBuildingDataSubject = CurrentValueSubject<BuildingDTO?, Error>(nil)
+        
+        let upgradeDataSubject = CurrentValueSubject<[UpgradeDTO]?, Error>(nil)
+        let buyUpgradeDataSubject = CurrentValueSubject<UpgradeDTO?, Error>(nil)
+        
         let armyDataSubject = CurrentValueSubject<[UnitDTO]?, Error>(nil)
         let buyUnitDataSubject = CurrentValueSubject<[BuyUnitsDTO], Error>([])
         
@@ -32,6 +36,10 @@ extension City {
                 loadBuildings()
             case .buyBuilding(let id):
                 buyBuilding(id: id)
+            case .loadUpgrades:
+                loadUpgrades()
+            case .buyUpgrade(let id):
+                buyUpgrade(id: id)
             case .loadArmy:
                 loadArmy()
             case .changeUnitAmount(let id, let inc):
@@ -75,6 +83,44 @@ extension City {
                 }, receiveValue: { data in
                     
                     self.buyBuildingDataSubject.send(data)
+                    
+                })
+            
+        }
+        
+        private func loadUpgrades() {
+            
+            subscription = worker.getUpgrades()
+                .receive(on: DispatchQueue.global())
+                .sink(receiveCompletion: { (result) in
+                    switch result {
+                    case .failure(_):
+                        self.upgradeDataSubject.send(completion: result)
+                    default:
+                        print("-- Profile Interactor: load data finished")
+                        break
+                    }
+                }, receiveValue: { data in
+                    self.upgradeDataSubject.send(data)
+                })
+            
+        }
+        
+        private func buyUpgrade(id: Int) {
+            
+            subscription = worker.buyUpgrade(data: BuyUpgradeDTO(id: id))
+                .receive(on: DispatchQueue.global())
+                .sink(receiveCompletion: { (result) in
+                    switch result {
+                    case .failure(_):
+                        self.buyUpgradeDataSubject.send(completion: result)
+                    default:
+                        print("-- Profile Interactor: load data finished")
+                        break
+                    }
+                }, receiveValue: { data in
+                    
+                    self.buyUpgradeDataSubject.send(data)
                     
                 })
             

@@ -11,6 +11,9 @@
 		7901F35724C971F100003D28 /* SendAttackResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7901F35624C971F100003D28 /* SendAttackResponseDTO.swift */; };
 		7914335B24C07F6000BC4755 /* RenewDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914335A24C07F6000BC4755 /* RenewDTO.swift */; };
 		79170F1C24CEAF760062CE1D /* LoadScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79170F1B24CEAF760062CE1D /* LoadScreen.swift */; };
+		79170F1E24CECD220062CE1D /* UpgradesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79170F1D24CECD220062CE1D /* UpgradesListView.swift */; };
+		79170F2024CED06C0062CE1D /* UpgradeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79170F1F24CED06C0062CE1D /* UpgradeDTO.swift */; };
+		79170F2224CED0FE0062CE1D /* BuyUpgradeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79170F2124CED0FE0062CE1D /* BuyUpgradeDTO.swift */; };
 		7922A9CB24B4BBB8002A7957 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9CA24B4BBB8002A7957 /* AppDelegate.swift */; };
 		7922A9CD24B4BBB8002A7957 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9CC24B4BBB8002A7957 /* SceneDelegate.swift */; };
 		7922A9CF24B4BBB8002A7957 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7922A9CE24B4BBB8002A7957 /* ContentView.swift */; };
@@ -198,6 +201,9 @@
 		7901F35624C971F100003D28 /* SendAttackResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAttackResponseDTO.swift; sourceTree = "<group>"; };
 		7914335A24C07F6000BC4755 /* RenewDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenewDTO.swift; sourceTree = "<group>"; };
 		79170F1B24CEAF760062CE1D /* LoadScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadScreen.swift; sourceTree = "<group>"; };
+		79170F1D24CECD220062CE1D /* UpgradesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradesListView.swift; sourceTree = "<group>"; };
+		79170F1F24CED06C0062CE1D /* UpgradeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeDTO.swift; sourceTree = "<group>"; };
+		79170F2124CED0FE0062CE1D /* BuyUpgradeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyUpgradeDTO.swift; sourceTree = "<group>"; };
 		7922A9C724B4BBB8002A7957 /* Undersea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Undersea.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7922A9CA24B4BBB8002A7957 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7922A9CC24B4BBB8002A7957 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -955,6 +961,7 @@
 				7901F35424C96F0B00003D28 /* SendAttackDTO.swift */,
 				7949EFFD24C9D76B0076D151 /* BuyBuildingDTO.swift */,
 				7959F41B24CAD0AC00626711 /* BuyUnitsDTO.swift */,
+				79170F2124CED0FE0062CE1D /* BuyUpgradeDTO.swift */,
 			);
 			path = Encodable;
 			sourceTree = "<group>";
@@ -973,6 +980,7 @@
 				7901F35624C971F100003D28 /* SendAttackResponseDTO.swift */,
 				7949EFEB24C9C3F40076D151 /* BuildingDTO.swift */,
 				7959F41924CACEE900626711 /* UnitDTO.swift */,
+				79170F1F24CED06C0062CE1D /* UpgradeDTO.swift */,
 			);
 			path = Decodable;
 			sourceTree = "<group>";
@@ -1084,6 +1092,7 @@
 				79820C8024B71E2C006D7258 /* CityPage.swift */,
 				7949EFDD24C9AC2F0076D151 /* BuildingListView.swift */,
 				7959F41724CAC55100626711 /* ArmyListView.swift */,
+				79170F1D24CECD220062CE1D /* UpgradesListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1650,12 +1659,15 @@
 				7949EFFC24C9CDCE0076D151 /* Unit+Extension.swift in Sources */,
 				7949EFD524C995790076D151 /* KeyboardAdaptive.swift in Sources */,
 				79237B8224C6CC9D009F5650 /* ProfileApiWorker.swift in Sources */,
+				79170F1E24CECD220062CE1D /* UpgradesListView.swift in Sources */,
 				7956492524BEFD54003D6D16 /* UserManagerApiService.swift in Sources */,
 				79237B9A24C6DB53009F5650 /* LeaderboardViewModel.swift in Sources */,
 				794CAADC24B5CF38007DC9C7 /* Color+Extension.swift in Sources */,
 				7956492D24BF04EB003D6D16 /* Encodable+Extension.swift in Sources */,
 				7949EFE824C9C3690076D151 /* CityApiService.swift in Sources */,
 				7956491D24BEF588003D6D16 /* RootPageManager.swift in Sources */,
+				79170F2024CED06C0062CE1D /* UpgradeDTO.swift in Sources */,
+				79170F2224CED0FE0062CE1D /* BuyUpgradeDTO.swift in Sources */,
 				7949EFF124C9C5200076D151 /* CityPageViewModel.swift in Sources */,
 				79A5B53524BF5303009D5AC6 /* RegisterPresenter.swift in Sources */,
 				7947A29C24C714CF00E912CC /* LeaderboardApiWorker.swift in Sources */,

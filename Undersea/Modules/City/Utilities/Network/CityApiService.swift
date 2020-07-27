@@ -14,6 +14,8 @@ extension City {
     enum ApiService {
         case getBuildings
         case buyBuilding(_ data: BuyBuildingDTO)
+        case getUpgrades
+        case buyUpgrade(_ data: BuyUpgradeDTO)
         case getArmy
         case buyUnits(_ data: [BuyUnitsDTO])
     }
@@ -31,18 +33,22 @@ extension City.ApiService: BaseApiService {
         case .getArmy,
              .buyUnits:
             return "/Units"
+        case .getUpgrades:
+            return "/Upgrades"
+        case .buyUpgrade:
+            return "/Upgrades/research"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getBuildings:
+        case .getBuildings,
+             .getUpgrades,
+             .getArmy:
             return .get
-        case .buyBuilding:
-            return .post
-        case .getArmy:
-            return .get
-        case .buyUnits:
+        case .buyBuilding,
+             .buyUpgrade,
+             .buyUnits:
             return .post
         }
     }
@@ -59,13 +65,14 @@ extension City.ApiService: BaseApiService {
     var parameters: [String : Any] {
         switch self {
         case .getBuildings,
+             .getUpgrades,
              .getArmy,
              .buyUnits:
             return [:]
         case .buyBuilding(let data):
             return data.getDictionary()
-        /*case .buyUnits(let data):
-            return data.encodeArray(withKey: nil)*/
+        case .buyUpgrade(let data):
+            return data.getDictionary()
         }
     }
     

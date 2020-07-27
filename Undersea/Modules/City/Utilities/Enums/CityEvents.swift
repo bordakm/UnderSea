@@ -13,6 +13,8 @@ extension City {
     enum Event {
         case buildingDataLoaded
         case buildingBought
+        case upgradeDataLoaded
+        case upgradeBought
         case armyDataLoaded
         case unitSelectedChange
         case unitBought

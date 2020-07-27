@@ -67,6 +67,55 @@ extension City {
             
         }
         
+        func bind(upgradeDataSubject: AnyPublisher<[UpgradeDTO]?, Error>) {
+         
+            subscriptions[.upgradeDataLoaded] = upgradeDataSubject
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { (result) in
+                    
+                    switch result {
+                    case .failure(let error):
+                        self.viewModel.set(alertMessage: error.localizedDescription)
+                    default:
+                        print("-- Presenter: finished")
+                        break
+                    }
+                    
+                }, receiveValue: { (data) in
+
+                    self.populateUpgradesModel(dataModel: data)
+                    
+                })
+            
+        }
+        
+        func bind(buyUpgradeDataSubject: AnyPublisher<UpgradeDTO?, Error>) {
+         
+            subscriptions[.upgradeBought] = buyUpgradeDataSubject
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { (result) in
+                    
+                    switch result {
+                    case .failure(let error):
+                        self.viewModel.set(alertMessage: error.localizedDescription)
+                    default:
+                        print("-- Presenter: finished")
+                        break
+                    }
+                    
+                }, receiveValue: { (data) in
+                    
+                    guard let data = data else {
+                        DDLogDebug("Error: no building data cereived in response")
+                        return
+                    }
+                    
+                    self.viewModel.setRemainingUpgrades(id: data.id, remaining: data.remainingRounds)
+                    
+                })
+            
+        }
+        
         func bind(armyDataSubject: AnyPublisher<[UnitDTO]?, Error>, buyUnitDataSubject: AnyPublisher<[BuyUnitsDTO], Error>) {
          
             subscriptions[.armyDataLoaded] = Publishers.CombineLatest(armyDataSubject, buyUnitDataSubject)
@@ -103,6 +152,22 @@ extension City {
             }
             
             self.viewModel.set(buildings: buildings)
+            
+        }
+        
+        private func populateUpgradesModel(dataModel: [UpgradeDTO]?) {
+            
+            guard let dataModel = dataModel
+                else {
+                    return
+            }
+            
+            var upgrades: [CityPageViewModel.Upgrade] = []
+            for upgradeData in dataModel {
+                upgrades.append(CityPageViewModel.Upgrade(upgradeData: upgradeData))
+            }
+            
+            self.viewModel.set(upgrades: upgrades)
             
         }
         
