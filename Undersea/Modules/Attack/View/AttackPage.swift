@@ -55,6 +55,11 @@ extension Attack {
                                     Text(user.userName)
                                         .foregroundColor(Color.white)
                                         .padding(.vertical)
+                                        .onAppear(perform: {
+                                            if self.viewModel.userList.last?.id == user.id {
+                                                self.usecaseHandler?(.loadMore(self.userName))
+                                            }
+                                        })
                                 }
                                 Divider()
                                     .background(Colors.separatorColor)
@@ -65,7 +70,9 @@ extension Attack {
                         if viewModel.isLoading {
                             loadingIndicator
                         }
-                    }.pullToRefresh(isShowing: $viewModel.isRefreshing) {
+                        
+                    }
+                    .pullToRefresh(isShowing: $viewModel.isRefreshing) {
                         self.usecaseHandler?(.load(self.userName))
                     }
                 }

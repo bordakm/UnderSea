@@ -76,7 +76,9 @@ extension Leaderboard {
                         if viewModel.isLoading {
                             loadingIndicator
                         }
-                    }.pullToRefresh(isShowing: $viewModel.isRefreshing) {
+                        
+                    }
+                    .pullToRefresh(isShowing: $viewModel.isRefreshing) {
                         self.usecaseHandler?(.load(self.userName))
                     }
                 }

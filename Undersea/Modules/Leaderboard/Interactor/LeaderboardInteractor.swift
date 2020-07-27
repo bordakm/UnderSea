@@ -69,6 +69,7 @@ extension Leaderboard {
                     break
                 }
             }, receiveValue: { data in
+                sleep(1)
                 self.page += 1
                 var tmp = self.dataSubject.value ?? []
                 tmp.append(contentsOf: data)
