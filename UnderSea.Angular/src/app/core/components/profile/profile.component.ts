@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
     .subscribe(_ => this.router.navigate(['login']));
   }
 
-  main(): void{
+  navigateToCountry(): void {
     this.router.navigate(['']);
   }
 }

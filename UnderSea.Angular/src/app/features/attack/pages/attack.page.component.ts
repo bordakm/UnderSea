@@ -1,10 +1,9 @@
 import { Component, OnInit, Output, Input } from '@angular/core';
 import { IAttackUnitViewModel } from '../../attack/models/attack.model';
-import { IOutgoingAttackViewModel, ScoreboardViewModel, AttackDTO, SendUnitDTO, IdDTO } from 'src/app/shared';
+import { ScoreboardViewModel, AttackDTO, SendUnitDTO } from 'src/app/shared';
 
 import { AttackService } from '../services/attack.service';
 import { tap, catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { MatSlider } from '@angular/material/slider';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, Observable, Subject } from 'rxjs';
 import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
@@ -32,18 +31,14 @@ export class AttackPageComponent implements OnInit {
     return value;
   }
 
-  constructor(private service: AttackService, private snackbar: MatSnackBar) { }
+  constructor(
+    private service: AttackService,
+    private snackbar: MatSnackBar,
+    private refreshService: RefreshDataService
+    ) { }
 
   ngOnInit(): void {
-    this.service.getAttacks().pipe(
-      tap(res => this.availableUnits = res),
-      catchError(error => this.handleError<IAttackUnitViewModel[]>('Nem sikerült a támadások betöltése', []))
-    ).subscribe();
-
-    this.service.getCountries('').pipe(
-      tap(res => this.countries = res),
-      catchError(error => this.handleError<ScoreboardViewModel[]>('Nem sikerült az országok betöltése', []))
-    ).subscribe();
+    this.getData();
 
     this.searchTerm.pipe(
       debounceTime(300),
@@ -51,7 +46,12 @@ export class AttackPageComponent implements OnInit {
       switchMap((term: string) => this.service.getCountries(term)),
       tap(res => this.countries = res)
     ).subscribe();
-  }
+
+    this.refreshService.data.pipe(
+      tap(res => this.getData()),
+      catchError(this.handleError<ScoreboardViewModel[]>('Nem sikerült az országok betöltése', []))
+    ).subscribe();
+  }  
 
   choose(id: number): void{
     this.attackData.defenderUserId = id;
@@ -75,10 +75,23 @@ export class AttackPageComponent implements OnInit {
             duration: 3000,
             panelClass: ['my-snackbar'],
           });
+          this.refreshService.refresh(true);
         }),
-        catchError(err => this.handleError('Nem sikerült a támadás elindítása'))
+        catchError(this.handleError('Nem sikerült a támadás elindítása'))
       ).subscribe();
     this.clicked = false;
+  }
+
+  private getData(): void {
+    this.service.getAttacks().pipe(
+      tap(res => this.availableUnits = res),
+      catchError(this.handleError<IAttackUnitViewModel[]>('Nem sikerült a támadások betöltése', []))
+    ).subscribe();
+
+    this.service.getCountries('').pipe(
+      tap(res => this.countries = res),
+      catchError(this.handleError<ScoreboardViewModel[]>('Nem sikerült az országok betöltése', []))
+    ).subscribe();
   }
 
   private handleError<T>(message = 'Hiba', result?: T) {

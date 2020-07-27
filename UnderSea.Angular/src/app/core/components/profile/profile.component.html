@@ -7,13 +7,12 @@
         </mat-card-content>
 
         <mat-card-content>
-            <div class="profile-text">
-                {{ layout?.everything?.countryName }}
-            </div>
+            <button class="transp-button" (click)="navigateToCountry()" mat-flat-button>{{layout?.everything?.countryName}}</button>
         </mat-card-content>
 
         <mat-card-content>
-            <button class="transp-button" (click)="main()" mat-flat-button>Profil</button>
+            <div class="profile-text">Profil</div>
+
         </mat-card-content>
 
         <mat-card-content>
