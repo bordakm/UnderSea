@@ -176,7 +176,7 @@ namespace UnderSea.BLL.Services
             string searchWord = search.SearchPhrase ?? "";
             var users = await db.Users
                                .Where(user => user.UserName.ToUpper().Contains(searchWord.ToUpper()))
-                               .OrderByDescending(user => user.Score)
+                               .OrderByDescending(user => user.Place)
                                .Skip(perPage * (pageNum - 1))
                                .Take(perPage)
                                .ToListAsync();
@@ -237,6 +237,7 @@ namespace UnderSea.BLL.Services
                 .Include(user => user.Country)
                 .ThenInclude(country => country.Upgrades)
                 .ThenInclude(upgrade => upgrade.Type);
+
             foreach (var user in users)
             {
                 user.Country.AddTaxes();
