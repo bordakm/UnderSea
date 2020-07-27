@@ -44,18 +44,13 @@ export class UpgradesPageComponent implements OnInit {
   }
 
   enableButton(value: string, id: number): void {
-    this.upgrades.forEach(element => {
-      if (element.id === id && element.isPurchased) {
-        return;
-      } else if (this.inProgress) {
-        return;
-      } else {
-        this.isSelected = value;
-        this.researchId = id;
-        this.clicked = true;
-      }
-    });
-
+    if (this.inProgress) {
+      return;
+    } else {
+      this.isSelected = value;
+      this.researchId = id;
+      this.clicked = true;
+    }
   }
 
   buyUpgrade(): void {

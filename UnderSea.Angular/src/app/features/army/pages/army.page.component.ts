@@ -77,11 +77,11 @@ export class ArmyPageComponent implements OnInit {
           panelClass: ['my-snackbar'],
         });
         this.refreshService.refresh(true);
+        this.data.length = 0;
+        this.disable();
       }),
       catchError(this.handleError<SimpleUnitViewModel[]>('Nem sikerült a vásárlás', []))
     ).subscribe();
-    this.data.length = 0;
-    this.disable();
   }
 
   disable(): void{
