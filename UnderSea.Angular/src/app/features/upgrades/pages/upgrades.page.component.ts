@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IUpgradesViewModel } from '../models/upgrades.model';
 
-import {UpgradesService } from '../services/upgrades.service'
+import { UpgradesService } from '../services/upgrades.service'
 import { tap, catchError } from 'rxjs/operators';
 import { UpgradeViewModel } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
@@ -33,7 +33,7 @@ export class UpgradesPageComponent implements OnInit {
     });
   }
 
-  getData(): void{
+  getData(): void {
     this.service.getUpgrades().pipe(
       tap(res => {
         this.upgrades = res;
@@ -43,37 +43,42 @@ export class UpgradesPageComponent implements OnInit {
     ).subscribe();
   }
 
-  enableButton(value: string, id: number): void{
-    if ( this.inProgress){
-      return;
-    }else{
-      this.isSelected = value;
-      this.researchId = id;
-      this.clicked = true;
-    }
+  enableButton(value: string, id: number): void {
+    this.upgrades.forEach(element => {
+      if (element.id === id && element.isPurchased) {
+        return;
+      } else if (this.inProgress) {
+        return;
+      } else {
+        this.isSelected = value;
+        this.researchId = id;
+        this.clicked = true;
+      }
+    });
+
   }
 
-  buyUpgrade(): void{
+  buyUpgrade(): void {
     this.service.research(this.researchId
-      ).pipe(
-        tap(res => {
-          this.snackbar.open('Sikeres fejlesztés!', 'Bezár', {
-            duration: 3000,
-            panelClass: ['my-snackbar'],
-          });
-          this.refreshService.refresh(true);
-        }),
-        catchError(err => this.handleError('Nem sikerült a fejlesztés'))
-      ).subscribe();
+    ).pipe(
+      tap(res => {
+        this.snackbar.open('Sikeres fejlesztés!', 'Bezár', {
+          duration: 3000,
+          panelClass: ['my-snackbar'],
+        });
+        this.refreshService.refresh(true);
+      }),
+      catchError(err => this.handleError('Nem sikerült a fejlesztés'))
+    ).subscribe();
     this.isSelected = '';
     this.researchId = 0;
     this.clicked = false;
   }
 
-  purchased(): void{
+  purchased(): void {
     this.inProgress = false;
     this.upgrades?.forEach(element => {
-      if (element.remainingRounds > 0){
+      if (element.remainingRounds > 0) {
         this.inProgress = true;
         this.isSelected = '';
         this.researchId = -1;
