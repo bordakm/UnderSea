@@ -20,6 +20,8 @@ export class ArmyPageComponent implements OnInit {
   purchaseModel: SimpleUnitViewModel[];
   data: UnitPurchaseDTO[] = [];
 
+  noUnits: boolean;
+
   constructor(
     private service: ArmyService,
     private snackbar: MatSnackBar,
@@ -28,6 +30,7 @@ export class ArmyPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.disable();
     this.refreshService.data.subscribe(res => {
       this.getData();
     });
@@ -46,6 +49,7 @@ export class ArmyPageComponent implements OnInit {
         element.purchaseCount += 1;
       }
     });
+    this.disable();
   }
 
   decrease(id: number): void {
@@ -54,6 +58,7 @@ export class ArmyPageComponent implements OnInit {
         element.purchaseCount -= 1;
       }
     });
+    this.disable();
   }
 
   buyUnits(): void {
@@ -63,6 +68,7 @@ export class ArmyPageComponent implements OnInit {
         count: element.purchaseCount
       });
       this.data.push(temp);
+      element.purchaseCount = 0;
     });
     this.service.buyUnits(this.data).pipe(
       tap(res => {
@@ -74,6 +80,17 @@ export class ArmyPageComponent implements OnInit {
       }),
       catchError(this.handleError<SimpleUnitViewModel[]>('Nem sikerült a vásárlás', []))
     ).subscribe();
+    this.data.length = 0;
+    this.disable();
+  }
+
+  disable(): void{
+    this.noUnits = true;
+    this.unitsModel.forEach(element =>{
+      if (element.purchaseCount > 0){
+        this.noUnits = false;
+      }
+    });
   }
 
   private handleError<T>(message = 'Hiba', result?: T) {

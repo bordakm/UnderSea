@@ -10,13 +10,9 @@ import { environment } from 'src/environments/environment';
 export class UnitComponent implements OnInit {
 
   @Input() unit: IArmyViewModel;
-  @Input() image: string;
-  @Input() buyNumber: number;
 
   @Output() clickAdd = new EventEmitter();
   @Output() clickDecrease = new EventEmitter();
-
-  //baseUrl = environment.apiUrl;
 
   ngOnInit(): void {
   }
