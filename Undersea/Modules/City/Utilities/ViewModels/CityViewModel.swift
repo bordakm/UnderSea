@@ -28,7 +28,8 @@ extension City {
             objectWillChange.send()
         }
         
-        func setRemaining(id: Int, remaining: Int) {
+        func setRemainingBuildTime(id: Int, remaining: Int) {
+            
             alertMessage = nil
             if let index = cityPageViewModel.buildings?.firstIndex(where: { (building) -> Bool in
                 return building.id == id
@@ -36,6 +37,7 @@ extension City {
                 cityPageViewModel.buildings?[index].remainingRounds = remaining
             }
             objectWillChange.send()
+            
         }
         
         func set(upgrades: [CityPageViewModel.Upgrade]) {
@@ -44,16 +46,14 @@ extension City {
             objectWillChange.send()
         }
         
-        func setRemainingUpgrades(id: Int, remaining: Int) {
+        func setRemainingUpgradeTime(id: Int, remaining: Int) {
             
             alertMessage = nil
-            
             if let index = cityPageViewModel.upgrades?.firstIndex(where: { (upgrade) -> Bool in
                 return upgrade.id == id
             }) {
                 cityPageViewModel.upgrades?[index].remainingRounds = remaining
             }
-
             objectWillChange.send()
             
         }

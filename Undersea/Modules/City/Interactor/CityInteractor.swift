@@ -13,6 +13,8 @@ extension City {
     
     class Interactor {
         
+        // MARK: - Properties
+        
         private lazy var presenter: Presenter = setPresenter()
         var setPresenter: (() -> Presenter)!
         
@@ -49,6 +51,8 @@ extension City {
             }
             
         }
+        
+        // MARK: - Buildings
         
         private func loadBuildings() {
             
@@ -88,6 +92,8 @@ extension City {
             
         }
         
+        // MARK: - Upgrades
+        
         private func loadUpgrades() {
             
             subscription = worker.getUpgrades()
@@ -125,6 +131,8 @@ extension City {
                 })
             
         }
+        
+        // MARK: - Army/Units
         
         private func loadArmy() {
             

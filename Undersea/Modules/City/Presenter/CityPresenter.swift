@@ -18,6 +18,8 @@ extension City {
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
+        // MARK: - Buildings
+        
         func bind(buildingDataSubject: AnyPublisher<[BuildingDTO]?, Error>) {
          
             subscriptions[.buildingDataLoaded] = buildingDataSubject
@@ -61,11 +63,13 @@ extension City {
                         return
                     }
                     
-                    self.viewModel.setRemaining(id: data.id, remaining: data.remainingRounds)
+                    self.viewModel.setRemainingBuildTime(id: data.id, remaining: data.remainingRounds)
                     
                 })
             
         }
+        
+        // MARK: - Upgrades
         
         func bind(upgradeDataSubject: AnyPublisher<[UpgradeDTO]?, Error>) {
          
@@ -110,11 +114,13 @@ extension City {
                         return
                     }
                     
-                    self.viewModel.setRemainingUpgrades(id: data.id, remaining: data.remainingRounds)
+                    self.viewModel.setRemainingUpgradeTime(id: data.id, remaining: data.remainingRounds)
                     
                 })
             
         }
+        
+        // MARK: - Army
         
         func bind(armyDataSubject: AnyPublisher<[UnitDTO]?, Error>, buyUnitDataSubject: AnyPublisher<[BuyUnitsDTO], Error>) {
          
@@ -137,7 +143,8 @@ extension City {
                 })
             
         }
-    
+        
+        // MARK: - Populate model
         
         private func populateBuildingsModel(dataModel: [BuildingDTO]?) {
             

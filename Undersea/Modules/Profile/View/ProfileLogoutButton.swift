@@ -14,7 +14,7 @@ struct ProfileLogoutButton: View {
     
     var body: some View {
         Button(action: action) {
-            Text("Kijelentkezes")
+            Text("Kijelentkezés")
                 .frame(minWidth: 0.0, maxWidth: .infinity, minHeight: 0.0, maxHeight: 50.0, alignment: .leading)
                 .foregroundColor(Colors.loginGradientEnd)
                 .font(Fonts.get(.bRegular))

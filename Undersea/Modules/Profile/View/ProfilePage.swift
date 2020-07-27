@@ -49,7 +49,7 @@ extension Profile {
                 }.frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
             }
             .background(Colors.backgroundColor)
-            .navigationBarTitle("Profile", displayMode: .inline)
+            .navigationBarTitle("Profil", displayMode: .inline)
             .navigationBarColor(Colors.navBarBackgroundColor)
             .onAppear {
                 self.usecaseHandler?(.load)
