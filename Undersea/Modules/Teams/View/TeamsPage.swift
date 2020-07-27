@@ -52,6 +52,9 @@ extension Teams {
             .onAppear {
                 self.usecaseHandler?(.load)
             }
+            .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
+                self.usecaseHandler?(.load)
+            }
         }
     }
     

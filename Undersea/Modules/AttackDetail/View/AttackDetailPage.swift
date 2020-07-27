@@ -55,6 +55,9 @@ extension AttackDetail {
             .onReceive(viewModel.shouldPopBack) { _ in
                 self.presentationMode.wrappedValue.dismiss()
             }
+            .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
+                self.usecaseHandler?(.load)
+            }
         }
         
     }

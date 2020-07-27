@@ -77,6 +77,9 @@ extension Attack {
             .onAppear {
                 self.usecaseHandler?(.load(self.userName))
             }
+            .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
+                self.usecaseHandler?(.load(self.userName))
+            }
         }
     }
 }

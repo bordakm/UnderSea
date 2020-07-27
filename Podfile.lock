@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.2.1)
+  - Alamofire (5.2.2)
   - BlueCryptor (1.0.32)
   - BlueECC (1.2.5)
   - BlueRSA (1.0.34)
@@ -28,16 +28,18 @@ PODS:
     - BlueRSA (~> 1.0)
     - KituraContracts (~> 1.1)
     - LoggerAPI (~> 1.7)
+  - SwiftSignalRClient (0.7.0)
   - SWXMLHash (5.0.1)
 
 DEPENDENCIES:
   - CocoaLumberjack/Swift (= 3.6.1)
-  - Introspect
+  - Introspect (= 0.1.0)
   - KeychainAccess (= 4.2.0)
   - Macaw (= 0.9.6)
   - Moya (= 14.0.0)
   - R.swift (= 5.2.2)
   - SwiftJWT (= 3.5.3)
+  - SwiftSignalRClient (= 0.7.0)
 
 SPEC REPOS:
   trunk:
@@ -56,10 +58,11 @@ SPEC REPOS:
     - R.swift
     - R.swift.Library
     - SwiftJWT
+    - SwiftSignalRClient
     - SWXMLHash
 
 SPEC CHECKSUMS:
-  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
   BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
@@ -74,8 +77,9 @@ SPEC CHECKSUMS:
   R.swift: 7c52cdc57a66840ffe6cbd8a823d732059d42a32
   R.swift.Library: 5ba4f1631300caf9a4d890186930da85d540769d
   SwiftJWT: 9a47a71090cae25767078756b5810e3b630aa9a7
+  SwiftSignalRClient: e6f88d5984da218a2b23fc974a56191db4fa6ae6
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
 
-PODFILE CHECKSUM: f932a24dcdbb9be17a5607d79e75bf3add949b67
+PODFILE CHECKSUM: 40141909a297461f981f211f8e35fb71ed7ac58a
 
 COCOAPODS: 1.9.3

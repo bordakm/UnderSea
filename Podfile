@@ -11,6 +11,7 @@ target 'Undersea' do
 pod 'Moya', '14.0.0'
 pod 'KeychainAccess', '4.2.0'
 pod 'SwiftJWT', '3.5.3'
+pod 'SwiftSignalRClient', '0.7.0'
 
 #Log
 pod 'CocoaLumberjack/Swift', '3.6.1'

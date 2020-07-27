@@ -102,7 +102,11 @@ extension City {
                 }.padding(.top, 10)
                 
                 //Image(uiImage: R.image.fighting()!)
-            }.onAppear {
+            }
+            .onAppear {
+                self.usecaseHandler?(.loadUpgrades)
+            }
+            .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
                 self.usecaseHandler?(.loadUpgrades)
             }
         }

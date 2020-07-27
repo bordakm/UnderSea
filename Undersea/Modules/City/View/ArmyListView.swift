@@ -144,8 +144,12 @@ extension City {
                     }
                     
                 }
-            }.padding([.horizontal, .top])
+            }
+            .padding([.horizontal, .top])
             .onAppear {
+                self.usecaseHandler?(.loadArmy)
+            }
+            .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
                 self.usecaseHandler?(.loadArmy)
             }
         }
