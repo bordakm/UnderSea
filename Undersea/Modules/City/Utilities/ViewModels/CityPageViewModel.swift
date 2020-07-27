@@ -54,7 +54,7 @@ extension City.CityPageViewModel {
         let coralCostPerTurn: Int
         let price: Int
         var imageURL: URL
-        var selectedAmount: Int = 0
+        let selectedAmount: Int
     }
     
 }

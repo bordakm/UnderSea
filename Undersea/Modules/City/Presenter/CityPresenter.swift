@@ -67,9 +67,9 @@ extension City {
             
         }
         
-        func bind(armyDataSubject: AnyPublisher<[UnitDTO]?, Error>) {
+        func bind(upgradeDataSubject: AnyPublisher<[UpgradeDTO]?, Error>) {
          
-            subscriptions[.armyDataLoaded] = armyDataSubject
+            subscriptions[.upgradeDataLoaded] = upgradeDataSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -83,15 +83,15 @@ extension City {
                     
                 }, receiveValue: { (data) in
 
-                    self.populateArmyModel(dataModel: data)
+                    self.populateUpgradesModel(dataModel: data)
                     
                 })
             
         }
         
-        func bind(selectedUnitsChangedSubject: AnyPublisher<BuyUnitsDTO?, Error>) {
+        func bind(buyUpgradeDataSubject: AnyPublisher<UpgradeDTO?, Error>) {
          
-            subscriptions[.unitSelectedChange] = selectedUnitsChangedSubject
+            subscriptions[.upgradeBought] = buyUpgradeDataSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -104,17 +104,40 @@ extension City {
                     }
                     
                 }, receiveValue: { (data) in
-
+                    
                     guard let data = data else {
-                        DDLogDebug("Unit select change received empty data")
+                        DDLogDebug("Error: no building data cereived in response")
                         return
                     }
                     
-                    self.viewModel.set(id: data.typeId, count: data.count)
+                    self.viewModel.setRemainingUpgrades(id: data.id, remaining: data.remainingRounds)
                     
                 })
             
         }
+        
+        func bind(armyDataSubject: AnyPublisher<[UnitDTO]?, Error>, buyUnitDataSubject: AnyPublisher<[BuyUnitsDTO], Error>) {
+         
+            subscriptions[.armyDataLoaded] = Publishers.CombineLatest(armyDataSubject, buyUnitDataSubject)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { (result) in
+                    
+                    switch result {
+                    case .failure(let error):
+                        self.viewModel.set(alertMessage: error.localizedDescription)
+                    default:
+                        print("-- Presenter: finished")
+                        break
+                    }
+                    
+                }, receiveValue: { (armyData, selectedUnitData) in
+
+                    self.populateArmyModel(armyData: armyData ?? [], selectedUnitData: selectedUnitData)
+                    
+                })
+            
+        }
+    
         
         private func populateBuildingsModel(dataModel: [BuildingDTO]?) {
             
@@ -132,16 +155,32 @@ extension City {
             
         }
         
-        private func populateArmyModel(dataModel: [UnitDTO]?) {
+        private func populateUpgradesModel(dataModel: [UpgradeDTO]?) {
             
             guard let dataModel = dataModel
                 else {
                     return
             }
             
+            var upgrades: [CityPageViewModel.Upgrade] = []
+            for upgradeData in dataModel {
+                upgrades.append(CityPageViewModel.Upgrade(upgradeData: upgradeData))
+            }
+            
+            self.viewModel.set(upgrades: upgrades)
+            
+        }
+        
+        
+        private func populateArmyModel(armyData: [UnitDTO], selectedUnitData: [BuyUnitsDTO]) {
+            
+            
             var units: [CityPageViewModel.Unit] = []
-            for unitData in dataModel {
-                units.append(CityPageViewModel.Unit(unitData: unitData))
+            for unitData in armyData {
+                let selected = selectedUnitData.first { (item) -> Bool in
+                    return unitData.id == item.typeId
+                }
+                units.append(CityPageViewModel.Unit(unitData: unitData, selected: selected?.count ?? 0))
             }
             
             self.viewModel.set(units: units)

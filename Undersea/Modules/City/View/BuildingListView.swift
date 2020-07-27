@@ -30,6 +30,8 @@ extension City {
                         .font(Fonts.get(.osRegular))
                         .foregroundColor(Color.white)
                 }
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                .padding()
                 
                 ScrollView(.vertical, showsIndicators: true) {
                     
@@ -84,6 +86,7 @@ extension City {
                             
                         }
                         .overlay(RoundedRectangle(cornerRadius: 16.0).stroke(lineWidth: 1.0).fill(Colors.borderColor))
+                        .padding(.bottom, 5.0)
                         
                     }
                     
@@ -92,6 +95,8 @@ extension City {
                             Spacer()
                         }
                     }
+                    
+                    Spacer(minLength: 16.0)
                     
                 }.padding(.top, 10)
                 

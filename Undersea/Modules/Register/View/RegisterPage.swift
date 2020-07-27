@@ -15,6 +15,8 @@ extension Register {
         lazy var interactor: Interactor = setInteractor()
         var setInteractor: (()->Interactor)!
         
+        @ObservedObject var viewModel: ViewModelType
+        
         var usecaseHandler: ((Register.Usecase) -> Void)?
         
         @State private var userName: String = ""
@@ -50,8 +52,12 @@ extension Register {
                             } else {
                                 self.alertPresented = true
                             }
-                        }).alert(isPresented: self.$alertPresented) {
+                        })
+                        .alert(isPresented: self.$alertPresented) {
                             Alert(title: Text("Hiba!"), message: Text("A jelszavak nem egyeznek meg!"), dismissButton: .default(Text("Rendben")))
+                        }
+                        .alert(isPresented: self.$viewModel.alert) {
+                            Alert(title: Text("Hiba!"), message: Text(self.viewModel.alertMessage ?? ""), dismissButton: .default(Text("Rendben")))
                         }
                             
                         Button(action: {

@@ -13,8 +13,10 @@ extension City {
     enum Usecase {
         case loadBuildings
         case buyBuilding(_ id: Int)
+        case loadUpgrades
+        case buyUpgrade(_ id: Int)
         case loadArmy
-        case selectUnitAmount(_ id: Int, _ amount: Int)
+        case changeUnitAmount(_ id: Int, _ inc: Bool)
         case buyUnits
     }
     

@@ -19,7 +19,7 @@ struct Login {
         let interactor = Interactor()
         let presenter = Presenter()
         
-        var view = LoginPage(usecaseHandler: interactor.handleUsecase(_:))
+        var view = LoginPage(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
         
         interactor.setPresenter = { return presenter }
         

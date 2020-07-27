@@ -11,7 +11,7 @@ import Combine
 
 class RootPageManager : ObservableObject {
     
-    @Published var currentPage = RootPage.login
+    @Published var currentPage = RootPage.loading
     @Published var currentSubPage = TabPage.main
     @Published var leaderboardVisible = false
     
@@ -22,7 +22,7 @@ class RootPageManager : ObservableObject {
         subscription = UserManager.shared.loggedInUser
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { (data) in
-                if data == nil {
+                if data == nil, self.currentPage != .register {
                     self.currentPage = .login
                 } else if self.currentPage == .login {
                     self.currentPage = .main

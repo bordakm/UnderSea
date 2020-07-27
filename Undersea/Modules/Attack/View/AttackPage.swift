@@ -73,6 +73,7 @@ extension Attack {
                 .background(Colors.backgroundColor)
                 .navigationBarColor(Colors.navBarBackgroundColor)
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
                 self.usecaseHandler?(.load(self.userName))
             }

@@ -19,7 +19,7 @@ struct Register {
         let interactor = Interactor()
         let presenter = Presenter()
         
-        var view = RegisterPage(usecaseHandler: interactor.handleUsecase(_:))
+        var view = RegisterPage(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
         
         interactor.setPresenter = { return presenter }
         

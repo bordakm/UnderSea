@@ -32,6 +32,8 @@ struct RootPageController: View {
             return AnyView(Register.setup())
         case .main:
             return AnyView(tabBar)
+        case .loading:
+            return AnyView(LoadScreen())
         }
     }
 }

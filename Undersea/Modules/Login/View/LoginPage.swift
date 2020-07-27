@@ -15,6 +15,8 @@ extension Login {
         lazy var interactor: Interactor = setInteractor()
         var setInteractor: (()->Interactor)!
         
+        @ObservedObject var viewModel: ViewModelType
+        
         var usecaseHandler: ((Login.Usecase) -> Void)?
         
         @State private var frameOfInterest: CGRect?
@@ -40,6 +42,9 @@ extension Login {
                             SeaButton(title: "Belepes", action: {
                                 self.usecaseHandler?(.login(self.userName, self.userPassword))
                             })
+                            .alert(isPresented: self.$viewModel.alert) {
+                                Alert(title: Text("Hiba!"), message: Text(self.viewModel.alertMessage ?? ""), dismissButton: .default(Text("Rendben")))
+                            }
                                 
                             Button(action: {
                                 RootPageManager.shared.currentPage = RootPage.register

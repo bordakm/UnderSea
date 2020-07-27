@@ -21,6 +21,14 @@ extension City {
             return execute(target: .buyBuilding(data))
         }
         
+        func getUpgrades() -> AnyPublisher<[UpgradeDTO], Error> {
+            return execute(target: .getUpgrades)
+        }
+        
+        func buyUpgrade(data: BuyUpgradeDTO) -> AnyPublisher<UpgradeDTO, Error> {
+            return execute(target: .buyUpgrade(data))
+        }
+        
         func getArmy() -> AnyPublisher<[UnitDTO], Error> {
             return execute(target: .getArmy)
         }

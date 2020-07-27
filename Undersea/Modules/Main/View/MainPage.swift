@@ -101,7 +101,9 @@ extension Main {
                                     trailing: userButton)
                 .navigationBarColor(Colors.navBarBackgroundColor)
                 
-            }.onAppear {
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .onAppear {
                 self.usecaseHandler?(.load)
             }
         }
