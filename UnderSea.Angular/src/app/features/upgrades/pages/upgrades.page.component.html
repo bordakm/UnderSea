@@ -10,7 +10,7 @@
 
                 <div *ngFor="let upgrade of upgrades">
                     <mat-card class="upgrade-card-in-upgrades-page" [class.color1]="isSelected === 'color' + upgrade.id"
-                        (click)="enableButton('color' + upgrade.id, upgrade.id)">
+                        (click)="upgrade.isPurchased ? '' : enableButton('color' + upgrade.id, upgrade.id)">
                         <div *ngIf="upgrade.remainingRounds === 0 && !upgrade.isPurchased; else elseBlock"
                             class="img-container">
                             <div style="height: 25px;"></div>
@@ -33,11 +33,6 @@
 
                         <h3>{{ upgrade.name }}</h3>
                         <h4>{{ upgrade.description }}</h4>
-
-                        <div>
-                            {{ upgrade.id }}
-                            {{ upgrade.isPurchased }}
-                        </div>
 
                     </mat-card>
                 </div>
