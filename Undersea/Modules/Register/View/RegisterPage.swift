@@ -37,16 +37,16 @@ extension Register {
                         .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.15)
                     VStack {
                         
-                        Text("Belepes")
+                        Text("Belépés")
                             .font(Fonts.get(.bRegular, 20.0))
                             .foregroundColor(Colors.loginTitleColor)
                         
-                        SeaInputField(placeholder: "Felhasznalonev", inputText: self.$userName)
-                        SeaInputField(placeholder: "Jelszo", inputText: self.$password, isSecure: true)
-                        SeaInputField(placeholder: "Jelszo megerositese", inputText: self.$passwordRepeat, isSecure: true)
-                        SeaInputField(placeholder: "A varosod neve, amit epitesz", inputText: self.$cityName)
+                        SeaInputField(placeholder: "Felhasználónév", inputText: self.$userName)
+                        SeaInputField(placeholder: "Jelszó", inputText: self.$password, isSecure: true)
+                        SeaInputField(placeholder: "Jelszó megerősítése", inputText: self.$passwordRepeat, isSecure: true)
+                        SeaInputField(placeholder: "A városod neve, amit építesz", inputText: self.$cityName)
                         
-                        SeaButton(title: "Regisztracio", action: {
+                        SeaButton(title: "Regisztráció", action: {
                             if self.password == self.passwordRepeat {
                                 self.usecaseHandler?(.register(self.userName, self.cityName, self.password))
                             } else {
@@ -63,7 +63,7 @@ extension Register {
                         Button(action: {
                             RootPageManager.shared.currentPage = RootPage.login
                         }) {
-                            Text("Belepes")
+                            Text("Belépés")
                                 .font(Fonts.get(.bRegular))
                                 .foregroundColor(Colors.loginBtnTextColor)
                         }

@@ -32,14 +32,14 @@ extension Login {
                             .frame(width: geometry.size.width * 0.5, height: geometry.size.width * 0.15)
                         VStack {
                             
-                            Text("Belepes")
+                            Text("Belépés")
                                 .font(Fonts.get(.bRegular, 20.0))
                                 .foregroundColor(Colors.loginTitleColor)
                             
-                            SeaInputField(placeholder: "Felhasznalonev", inputText: self.$userName)
-                            SeaInputField(placeholder: "Jelszo", inputText: self.$userPassword, isSecure: true)
+                            SeaInputField(placeholder: "Felhasználónév", inputText: self.$userName)
+                            SeaInputField(placeholder: "Jelszó", inputText: self.$userPassword, isSecure: true)
                             
-                            SeaButton(title: "Belepes", action: {
+                            SeaButton(title: "Belépés", action: {
                                 self.usecaseHandler?(.login(self.userName, self.userPassword))
                             })
                             .alert(isPresented: self.$viewModel.alert) {
@@ -49,7 +49,7 @@ extension Login {
                             Button(action: {
                                 RootPageManager.shared.currentPage = RootPage.register
                             }) {
-                                Text("Regisztracio")
+                                Text("Regisztráció")
                                     .font(Fonts.get(.bRegular))
                                     .foregroundColor(Colors.loginBtnTextColor)
                             }

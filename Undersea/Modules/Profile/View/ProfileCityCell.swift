@@ -14,7 +14,7 @@ struct ProfileCityCell: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Varosom neve")
+            Text("Városom neve")
                 .foregroundColor(Color.white)
                 .font(Fonts.get(.osBold))
             Text(cityName)

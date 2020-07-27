@@ -42,7 +42,7 @@ extension Attack {
                     .padding(.top, 20.0)
                     .padding(.leading, 20.0)
                     
-                    SeaInputField(placeholder: "Felhasznalonev", inputText: $userName, backgroundColor: Colors.searchFieldBackground, keyboardType: UIKeyboardType.webSearch, onEditingChanged: { editing in
+                    SeaInputField(placeholder: "Felhasználónév", inputText: $userName, backgroundColor: Colors.searchFieldBackground, keyboardType: UIKeyboardType.webSearch, onEditingChanged: { editing in
                         if !editing {
                             self.usecaseHandler?(.load(self.userName))
                         }
