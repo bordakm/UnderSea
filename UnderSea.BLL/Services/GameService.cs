@@ -176,7 +176,7 @@ namespace UnderSea.BLL.Services
             string searchWord = search.SearchPhrase ?? "";
             var users = await db.Users
                                .Where(user => user.UserName.ToUpper().Contains(searchWord.ToUpper()))
-                               .OrderByDescending(user => user.Place)
+                               .OrderBy(user => user.Place)
                                .Skip(perPage * (pageNum - 1))
                                .Take(perPage)
                                .ToListAsync();
