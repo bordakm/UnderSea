@@ -66,7 +66,8 @@ namespace UnderSea.API
                     options.Password.RequireDigit = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequiredLength = 4;
+                    options.Password.RequiredLength = 1;
+                    options.User.AllowedUserNameCharacters = "aábcdeéfghiíjklmnoóöõpqrssztuúüûvwxyzAÁBCDEÉFGHIÍJKLMNOÓÖÕPQRSSZTUÚÜÛVWXYZ0123456789";
                 })
                 .AddEntityFrameworkStores<UnderSeaDbContext>()
                 .AddDefaultTokenProviders();
