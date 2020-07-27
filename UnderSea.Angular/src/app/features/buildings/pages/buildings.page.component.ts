@@ -37,7 +37,7 @@ export class BuildingsPageComponent implements OnInit {
     this.service.getBuildings().pipe(
       tap(res => {
         this.buildings = res;
-        this.purchased();
+        this.checkProgress();
       }),
       catchError(error => this.handleError<IBuildingInfoViewModel[]>('Nem sikerült az épületek betöltése', []))
     ).subscribe();
