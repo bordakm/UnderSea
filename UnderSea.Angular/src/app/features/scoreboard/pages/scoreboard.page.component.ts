@@ -4,7 +4,6 @@ import { IUserViewModel } from '../models/scoreboard.model';
 import { ScoreboardService } from '../services/scoreboard.service';
 import { tap, catchError, distinctUntilChanged, switchMap, debounceTime } from 'rxjs/operators';
 import { ScoreboardViewModel } from 'src/app/shared';
-import { MatSliderChange } from '@angular/material/slider';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, Subject } from 'rxjs';
 import { RefreshDataService } from 'src/app/core/services/refresh-data.service';
@@ -49,7 +48,7 @@ export class ScoreboardPageComponent implements OnInit {
     ).subscribe();
   }
 
-  search(term: string): void{
+  search(term: string): void {
     this.searchTerm.next(term);
   }
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
@@ -37,8 +36,8 @@ export class LoginComponent implements OnInit {
 
     this.regForm = this.regformBuilder.group({
       regUsername: ['', [Validators.required, this.noWhitespaceValidator]],
-      regPassword: ['', [Validators.required, this.noWhitespaceValidator]],
-      passConfirm: ['', [Validators.required, this.noWhitespaceValidator]],
+      regPassword: ['', [Validators.required, this.noWhitespaceValidator, this.minLengthValidator]],
+      passConfirm: ['', [Validators.required]],
       country: ['', [Validators.required, this.noWhitespaceValidator]]
     });
 
@@ -46,7 +45,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    
     this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).pipe(
       tap(tokens => {
         if (tokens.accessToken != null) {
@@ -82,6 +80,17 @@ export class LoginComponent implements OnInit {
   _false(): void {
     this.reg = false;
     this.regForm.reset();
+  }
+
+  public minLengthValidator(control: FormControl) {
+    const isValid = control.value.length >= 4;
+    return isValid ? null : { 'minlength': true };
+  }
+
+  public checkPasswords(group: FormGroup) {
+    let regPassword = group.controls['regPassword'].value;
+    let passConfirm = group.controls['passConfirm'].value;
+    return regPassword === passConfirm ? null : { 'notSame': true }
   }
 
   public noWhitespaceValidator(control: FormControl) {

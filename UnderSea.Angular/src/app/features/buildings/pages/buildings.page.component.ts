@@ -21,7 +21,10 @@ export class BuildingsPageComponent implements OnInit {
   buildings: IBuildingInfoViewModel[];
   inProgress: boolean;
 
-  constructor(private service: BuildingsService, private snackbar: MatSnackBar, private refreshService: RefreshDataService) { }
+  constructor(
+    private service: BuildingsService,
+    private snackbar: MatSnackBar,
+    private refreshService: RefreshDataService) { }
 
   ngOnInit(): void {
     this.getData();
@@ -30,7 +33,7 @@ export class BuildingsPageComponent implements OnInit {
     });
   }
 
-  getData(): void{
+  getData(): void {
     this.service.getBuildings().pipe(
       tap(res => {
         this.buildings = res;
@@ -50,7 +53,7 @@ export class BuildingsPageComponent implements OnInit {
     }
   }
 
-  buyBuilding(): void{
+  buyBuilding(): void {
     this.service.buyBuilding(this.purchaseId
       ).pipe(
         tap(res => {
@@ -67,7 +70,7 @@ export class BuildingsPageComponent implements OnInit {
     this.clicked = false;
   }
 
-  purchased(): void{
+  private checkProgress(): void {
     this.inProgress = false;
     this.buildings?.forEach(element =>{
       if (element.remainingRounds > 0){
@@ -79,7 +82,7 @@ export class BuildingsPageComponent implements OnInit {
     });
   }
 
-  private handleError<T>(message = 'Hiba', result?: T){
+  private handleError<T>(message = 'Hiba', result?: T) {
     return (error: any): Observable<T> => {
       this.snackbar.open(message, 'Bezár', {
         duration: 3000,
@@ -89,4 +92,3 @@ export class BuildingsPageComponent implements OnInit {
     };
   }
 }
-

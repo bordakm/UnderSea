@@ -21,7 +21,7 @@
             </div>
             
             <div class="button">
-                <button mat-flat-button class="color-button" (click)="buyUnits()">Megveszem</button>
+                <button mat-flat-button class="color-button" [disabled]="noUnits" (click)="buyUnits()">Megveszem</button>
             </div>
         </mat-card-content>
     </mat-card>

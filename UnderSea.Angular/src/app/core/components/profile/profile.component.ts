@@ -19,4 +19,8 @@ export class ProfileComponent implements OnInit {
     this.auth.logout()
     .subscribe(_ => this.router.navigate(['login']));
   }
+
+  navigateToCountry(): void {
+    this.router.navigate(['']);
+  }
 }
