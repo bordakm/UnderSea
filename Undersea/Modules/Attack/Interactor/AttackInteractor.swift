@@ -70,6 +70,7 @@ extension Attack {
                     break
                 }
             }, receiveValue: { data in
+                sleep(1)
                 self.page += 1
                 var tmp = self.dataSubject.value ?? []
                 tmp.append(contentsOf: data)
@@ -77,18 +78,6 @@ extension Attack {
             })
             
         }
-        
-        /*private func sendTestData() {
-            
-            var users: [AttackPageDTO] = []
-            
-            for i in 0 ..< 10 {
-                users.append(AttackPageDTO(id: i, name: "User\(i)"))
-            }
-            
-            self.dataSubject.send(users)
-            
-        }*/
         
     }
     
