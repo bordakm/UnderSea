@@ -26,7 +26,7 @@ extension Profile {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -42,14 +42,25 @@ extension Profile {
         
         private func populateViewModel(dataModel: DataModelType?) {
             
-            guard let dataModel = dataModel
-                else {
-                    return
+            guard let dataModel = dataModel else {
+                return
             }
             
             let viewModel = ProfilePageViewModel(userName: dataModel.userName, cityName: dataModel.countryName)
             
             self.viewModel.set(viewModel: viewModel)
+            
+        }
+        
+        func presentError(_ error: Error) {
+            
+            viewModel.errorModel = ErrorAlertModel(error: error)
+            
+        }
+        
+        func presentError(message: String) {
+            
+            viewModel.errorModel = ErrorAlertModel(message: message)
             
         }
         

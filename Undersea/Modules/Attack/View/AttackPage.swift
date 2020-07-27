@@ -79,6 +79,9 @@ extension Attack {
                 .navigationBarTitle("Támadás", displayMode: .inline)
                 .background(Colors.backgroundColor)
                 .navigationBarColor(Colors.navBarBackgroundColor)
+                .alert(isPresented: self.$viewModel.errorModel.alert) {
+                    Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
+                }
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .onAppear {

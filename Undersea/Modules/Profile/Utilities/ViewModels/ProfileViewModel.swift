@@ -14,17 +14,10 @@ extension Profile {
         
         @Published var isLoading = false
         private(set) var profilePageModel: ProfilePageViewModel?
-        private(set) var alertMessage: String?
+        @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         
         func set(viewModel: ProfilePageViewModel) {
-            alertMessage = nil
             profilePageModel = viewModel
-            objectWillChange.send()
-        }
-        
-        func set(alertMessage: String) {
-            //mainPageModel = nil
-            self.alertMessage = alertMessage
             objectWillChange.send()
         }
         

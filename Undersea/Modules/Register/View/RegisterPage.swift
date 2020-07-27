@@ -56,8 +56,8 @@ extension Register {
                         .alert(isPresented: self.$alertPresented) {
                             Alert(title: Text("Hiba!"), message: Text("A jelszavak nem egyeznek meg!"), dismissButton: .default(Text("Rendben")))
                         }
-                        .alert(isPresented: self.$viewModel.alert) {
-                            Alert(title: Text("Hiba!"), message: Text(self.viewModel.alertMessage ?? ""), dismissButton: .default(Text("Rendben")))
+                        .alert(isPresented: self.$viewModel.errorModel.alert) {
+                            Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
                         }
                             
                         Button(action: {

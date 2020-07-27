@@ -49,6 +49,9 @@ extension AttackDetail {
             .background(Colors.backgroundColor)
             .navigationBarTitle("Támadás", displayMode: .inline)
             .navigationBarColor(Colors.navBarBackgroundColor)
+            .alert(isPresented: self.$viewModel.errorModel.alert) {
+                Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
+            }
             .onAppear {
                 self.usecaseHandler?(.load)
             }
@@ -58,6 +61,7 @@ extension AttackDetail {
             .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
                 self.usecaseHandler?(.load)
             }
+            
         }
         
     }

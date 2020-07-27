@@ -28,7 +28,7 @@ extension City {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -50,7 +50,7 @@ extension City {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -79,7 +79,7 @@ extension City {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -101,7 +101,7 @@ extension City {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -110,7 +110,7 @@ extension City {
                 }, receiveValue: { (data) in
                     
                     guard let data = data else {
-                        DDLogDebug("Error: no building data cereived in response")
+                        DDLogDebug("Error: no building data received in response")
                         return
                     }
                     
@@ -130,7 +130,7 @@ extension City {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -148,9 +148,8 @@ extension City {
         
         private func populateBuildingsModel(dataModel: [BuildingDTO]?) {
             
-            guard let dataModel = dataModel
-                else {
-                    return
+            guard let dataModel = dataModel else {
+                return
             }
             
             var buildings: [CityPageViewModel.Building] = []
@@ -164,9 +163,8 @@ extension City {
         
         private func populateUpgradesModel(dataModel: [UpgradeDTO]?) {
             
-            guard let dataModel = dataModel
-                else {
-                    return
+            guard let dataModel = dataModel else {
+                return
             }
             
             var upgrades: [CityPageViewModel.Upgrade] = []
@@ -191,6 +189,20 @@ extension City {
             }
             
             self.viewModel.set(units: units)
+            
+        }
+        
+        // MARK: - Error handling
+        
+        func presentError(_ error: Error) {
+            
+            viewModel.errorModel = ErrorAlertModel(error: error)
+            
+        }
+        
+        func presentError(message: String) {
+            
+            viewModel.errorModel = ErrorAlertModel(message: message)
             
         }
         

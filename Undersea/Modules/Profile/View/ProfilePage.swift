@@ -22,6 +22,7 @@ extension Profile {
         var body: some View {
             
             GeometryReader { geometry in
+                
                 VStack(alignment: .leading, spacing: 0) {
                     
                     ProfileHeader(userName: self.viewModel.profilePageModel?.userName ?? "")
@@ -46,7 +47,12 @@ extension Profile {
                         .background(Colors.separatorColor)
                         .padding(.horizontal)
                     
-                }.frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
+                }
+                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
+                .alert(isPresented: self.$viewModel.errorModel.alert) {
+                    Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
+                }
+                
             }
             .background(Colors.backgroundColor)
             .navigationBarTitle("Profil", displayMode: .inline)

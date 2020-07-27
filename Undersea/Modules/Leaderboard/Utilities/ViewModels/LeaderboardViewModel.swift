@@ -15,17 +15,10 @@ extension Leaderboard {
         @Published var isLoading = false
         @Published var isRefreshing = false
         private(set) var userList: [UserViewModel] = []
-        private(set) var alertMessage: String?
+        @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         
         func set(userList: [UserViewModel]) {
-            alertMessage = nil
             self.userList = userList
-            objectWillChange.send()
-        }
-        
-        func set(alertMessage: String) {
-            //mainPageModel = nil
-            self.alertMessage = alertMessage
             objectWillChange.send()
         }
         

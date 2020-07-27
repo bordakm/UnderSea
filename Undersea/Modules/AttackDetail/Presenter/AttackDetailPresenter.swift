@@ -26,7 +26,7 @@ extension AttackDetail {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -48,7 +48,7 @@ extension AttackDetail {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -64,9 +64,8 @@ extension AttackDetail {
         
         private func populateViewModel(dataModel: DataModelType?) {
             
-            guard let dataModel = dataModel
-                else {
-                    return
+            guard let dataModel = dataModel else {
+                return
             }
             
             var animalList: [AnimalViewModel] = []
@@ -86,6 +85,18 @@ extension AttackDetail {
             }
             
             self.viewModel.set(animalList: animalList)
+            
+        }
+        
+        func presentError(_ error: Error) {
+            
+            viewModel.errorModel = ErrorAlertModel(error: error)
+            
+        }
+        
+        func presentError(message: String) {
+            
+            viewModel.errorModel = ErrorAlertModel(message: message)
             
         }
         

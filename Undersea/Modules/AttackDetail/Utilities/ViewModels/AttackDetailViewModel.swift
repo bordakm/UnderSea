@@ -16,17 +16,10 @@ extension AttackDetail {
         @Published var isLoading = false
         var shouldPopBack = PassthroughSubject<Void, Never>()
         private(set) var animalList: [AnimalViewModel] = []
-        private(set) var alertMessage: String?
+        @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         
         func set(animalList: [AnimalViewModel]) {
-            alertMessage = nil
             self.animalList = animalList
-            objectWillChange.send()
-        }
-        
-        func set(alertMessage: String) {
-            //mainPageModel = nil
-            self.alertMessage = alertMessage
             objectWillChange.send()
         }
         
