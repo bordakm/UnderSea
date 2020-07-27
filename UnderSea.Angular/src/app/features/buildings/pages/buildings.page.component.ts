@@ -37,16 +37,20 @@ export class BuildingsPageComponent implements OnInit {
     this.service.getBuildings().pipe(
       tap(res => {
         this.buildings = res;
-        this.checkProgress();
+        this.purchased();
       }),
       catchError(error => this.handleError<IBuildingInfoViewModel[]>('Nem sikerült az épületek betöltése', []))
     ).subscribe();
   }
 
-  enableButton(value: string, id: number): void {
-    this.isSelected = value;
-    this.purchaseId = id;
-    this.clicked = true;
+  enableButton(value: string, id: number): void{
+    if ( this.inProgress){
+      return;
+    }else{
+      this.isSelected = value;
+      this.purchaseId = id;
+      this.clicked = true;
+    }
   }
 
   buyBuilding(): void {
@@ -64,7 +68,6 @@ export class BuildingsPageComponent implements OnInit {
     this.isSelected = '';
     this.purchaseId = -1;
     this.clicked = false;
-    this.checkProgress();
   }
 
   private checkProgress(): void {
@@ -72,6 +75,9 @@ export class BuildingsPageComponent implements OnInit {
     this.buildings?.forEach(element =>{
       if (element.remainingRounds > 0){
         this.inProgress = true;
+        this.isSelected = '';
+        this.purchaseId = -1;
+        this.clicked = false;
       }
     });
   }

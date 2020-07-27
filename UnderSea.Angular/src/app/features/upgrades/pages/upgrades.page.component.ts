@@ -20,6 +20,7 @@ export class UpgradesPageComponent implements OnInit {
   isSelected: string;
   baseUrl = environment.apiUrl;
   researchId: number;
+  inProgress: boolean;
 
   upgrades: UpgradeViewModel[];
 
@@ -34,7 +35,10 @@ export class UpgradesPageComponent implements OnInit {
 
   getData(): void{
     this.service.getUpgrades().pipe(
-      tap(res => this.upgrades = res),
+      tap(res => {
+        this.upgrades = res;
+        this.purchased();
+      }),
       catchError(error => this.handleError<UpgradeViewModel[]>('Nem sikerült a fejlesztések betöltése', []))
     ).subscribe();
   }
@@ -60,6 +64,18 @@ export class UpgradesPageComponent implements OnInit {
     this.isSelected = '';
     this.researchId = 0;
     this.clicked = false;
+  }
+
+  purchased(): void{
+    this.inProgress = false;
+    this.upgrades?.forEach(element =>{
+      if (element.remainingRounds > 0){
+        this.inProgress = true;
+        this.isSelected = '';
+        this.researchId = -1;
+        this.clicked = false;
+      }
+    });
   }
 
   private handleError<T>(message = 'Hiba', result?: T) {

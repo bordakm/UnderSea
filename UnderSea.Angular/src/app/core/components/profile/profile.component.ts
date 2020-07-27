@@ -21,6 +21,6 @@ export class ProfileComponent implements OnInit {
   }
 
   navigateToCountry(): void {
-    this.router.navigate(['main']);
+    this.router.navigate(['']);
   }
 }
