@@ -33,10 +33,10 @@ extension AttackDetail {
                             self.usecaseHandler?(.setSendCount(self.animal.id, Int(round(newValue))))
                         }
                     ), in: 0...animal.available)
-                        .accentColor(Colors.underseaTitleColor)
+                        .accentColor(Colors.cyanLight)
                         .introspectSlider { (slider) in
-                            slider.thumbTintColor = Colors.underseaTitleUIColor
-                            slider.maximumTrackTintColor = Colors.maximumTrackUIColor
+                            slider.thumbTintColor = Colors.cyanLightUI
+                            slider.maximumTrackTintColor = Colors.greyTransparent
                     }
                 }
             }

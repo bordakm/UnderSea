@@ -2,7 +2,7 @@
 //  BuildingsPresenter.swift
 //  Undersea
 //
-//  Created by Vekety Robin on 2020. 07. 24..
+//  Created by Vekety Robin on 2020. 07. 28..
 //  Copyright © 2020. Vekety Robin. All rights reserved.
 //
 
@@ -18,15 +18,17 @@ extension Buildings {
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
-        func bind(dataSubject: AnyPublisher<[BuildingDTO]?, Error>) {
+        // MARK: - Buildings
+        
+        func bind(dataSubject: AnyPublisher<[DataModelType]?, Error>) {
          
-            subscriptions[.dataLoaded] = dataSubject
+            subscriptions[.buildingDataLoaded] = dataSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -40,15 +42,15 @@ extension Buildings {
             
         }
         
-        func bind(buyBuildingDataSubject: AnyPublisher<BuildingDTO?, Error>) {
+        func bind(buyDataSubject: AnyPublisher<DataModelType?, Error>) {
          
-            subscriptions[.dataLoaded] = buyBuildingDataSubject
+            subscriptions[.buildingBought] = buyDataSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -61,25 +63,40 @@ extension Buildings {
                         return
                     }
                     
-                    self.viewModel.setRemaining(buildingId: data.id, remaining: data.remainingRounds)
+                    self.viewModel.setRemainingBuildTime(id: data.id, remaining: data.remainingRounds)
                     
                 })
             
         }
         
-        private func populateViewModel(dataModel: [BuildingDTO]?) {
+        // MARK: - Populate model
+        
+        private func populateViewModel(dataModel: [DataModelType]?) {
             
-            guard let dataModel = dataModel
-                else {
-                    return
+            guard let dataModel = dataModel else {
+                return
             }
             
-            var buildings: [Building] = []
+            var buildings: [BuildingModel] = []
             for buildingData in dataModel {
-                buildings.append(Building(buildingData: buildingData))
+                buildings.append(BuildingModel(buildingData: buildingData))
             }
             
-            self.viewModel.set(buildings: buildings)
+            self.viewModel.set(buildingList: buildings)
+            
+        }
+        
+        // MARK: - Error handling
+        
+        func presentError(_ error: Error) {
+            
+            viewModel.errorModel = ErrorAlertModel(error: error)
+            
+        }
+        
+        func presentError(message: String) {
+            
+            viewModel.errorModel = ErrorAlertModel(message: message)
             
         }
         

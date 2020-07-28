@@ -2,7 +2,7 @@
 //  BuildingsInteractor.swift
 //  Undersea
 //
-//  Created by Vekety Robin on 2020. 07. 24..
+//  Created by Vekety Robin on 2020. 07. 28..
 //  Copyright © 2020. Vekety Robin. All rights reserved.
 //
 
@@ -13,17 +13,19 @@ extension Buildings {
     
     class Interactor {
         
+        // MARK: - Properties
+        
         private lazy var presenter: Presenter = setPresenter()
         var setPresenter: (() -> Presenter)!
         
         private let worker = Buildings.ApiWorker()
         
-        let dataSubject = CurrentValueSubject<[BuildingDTO]?, Error>(nil)
-        let buyBuildingDataSubject = CurrentValueSubject<BuildingDTO?, Error>(nil)
+        let dataSubject = CurrentValueSubject<[DataModelType]?, Error>(nil)
+        let buyDataSubject = CurrentValueSubject<DataModelType?, Error>(nil)
         
         private var subscription: AnyCancellable?
      
-        func handleUsecase(_ event: City.Usecase) {
+        func handleUsecase(_ event: Buildings.Usecase) {
             
             switch event {
             case .loadBuildings:
@@ -33,6 +35,8 @@ extension Buildings {
             }
             
         }
+        
+        // MARK: - Buildings
         
         private func loadBuildings() {
             
@@ -59,14 +63,15 @@ extension Buildings {
                 .sink(receiveCompletion: { (result) in
                     switch result {
                     case .failure(_):
-                        self.buyBuildingDataSubject.send(completion: result)
+                        self.buyDataSubject.send(completion: result)
                     default:
                         print("-- Profile Interactor: load data finished")
                         break
                     }
                 }, receiveValue: { data in
                     
-                    self.buyBuildingDataSubject.send(data)
+                    self.buyDataSubject.send(data)
+                    
                 })
             
         }

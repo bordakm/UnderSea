@@ -2,7 +2,7 @@
 //  Buildings.swift
 //  Undersea
 //
-//  Created by Vekety Robin on 2020. 07. 24..
+//  Created by Vekety Robin on 2020. 07. 28..
 //  Copyright © 2020. Vekety Robin. All rights reserved.
 //
 
@@ -11,9 +11,10 @@ import SwiftUI
 
 struct Buildings {
     
+    typealias DataModelType = BuildingDTO
     typealias ViewModelType = ViewModel
     
-    /*static func setup() -> BuildingListView {
+    static func setup() -> BuildingListView {
         
         let interactor = Interactor()
         let presenter = Presenter()
@@ -22,13 +23,13 @@ struct Buildings {
         
         interactor.setPresenter = { return presenter }
         
-        //presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
-        presenter.bind(dataSubject: interactor.buildingDataSubject.eraseToAnyPublisher())
+        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
+        presenter.bind(buyDataSubject: interactor.buyDataSubject.eraseToAnyPublisher())
         
         view.setInteractor = { return interactor }
         
         return view
         
-    }*/
+    }
     
 }

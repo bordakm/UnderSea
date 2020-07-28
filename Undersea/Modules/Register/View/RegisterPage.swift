@@ -27,8 +27,6 @@ extension Register {
         @State private var alertPresented = false
         @State private var frameOfInterest: CGRect?
         
-        //@State private var pushLogin = false
-        
         var body: some View {
             
             GeometryReader { geometry in
@@ -39,7 +37,7 @@ extension Register {
                         
                         Text("Belépés")
                             .font(Fonts.get(.bRegular, 20.0))
-                            .foregroundColor(Colors.loginTitleColor)
+                            .foregroundColor(Colors.nightlyBlue)
                         
                         SeaInputField(placeholder: "Felhasználónév", inputText: self.$userName)
                         SeaInputField(placeholder: "Jelszó", inputText: self.$password, isSecure: true)
@@ -65,7 +63,7 @@ extension Register {
                         }) {
                             Text("Belépés")
                                 .font(Fonts.get(.bRegular))
-                                .foregroundColor(Colors.loginBtnTextColor)
+                                .foregroundColor(Colors.nightlyBlue)
                         }
                     
                     }
@@ -78,7 +76,7 @@ extension Register {
                                 self.frameOfInterest = frame
                             }
                         }
-                        return Colors.whiteTransparent
+                        return Colors.whiteSemiTransparent
                     })
                     .cornerRadius(16.0)
                     
@@ -93,9 +91,3 @@ extension Register {
         }
     }
 }
-    
-/*struct RegisterPage_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisterPage()
-    }
-}*/

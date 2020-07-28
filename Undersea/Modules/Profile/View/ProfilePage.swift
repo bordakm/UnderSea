@@ -26,17 +26,17 @@ extension Profile {
                 VStack(alignment: .leading, spacing: 0) {
                     
                     ProfileHeader(userName: self.viewModel.profilePageModel?.userName ?? "")
-                    .frame(minWidth: 0.0, maxWidth: .infinity)
+                        .frame(minWidth: 0.0, maxWidth: .infinity)
                     
                     Divider()
-                        .background(Colors.separatorColor)
+                        .background(Colors.blueColor)
                         .padding(.horizontal)
                     
                     ProfileCityCell(cityName: self.viewModel.profilePageModel?.cityName ?? "")
                         .padding(.horizontal)
                     
                     Divider()
-                        .background(Colors.separatorColor)
+                        .background(Colors.blueColor)
                         .padding(.horizontal)
                     
                     ProfileLogoutButton(action: {
@@ -44,7 +44,7 @@ extension Profile {
                     })
                     
                     Divider()
-                        .background(Colors.separatorColor)
+                        .background(Colors.blueColor)
                         .padding(.horizontal)
                     
                 }
@@ -54,9 +54,9 @@ extension Profile {
                 }
                 
             }
-            .background(Colors.backgroundColor)
+            .background(Colors.deepBlue)
             .navigationBarTitle("Profil", displayMode: .inline)
-            .navigationBarColor(Colors.navBarBackgroundColor)
+            .navigationBarColor(Colors.darkBlueUI)
             .onAppear {
                 self.usecaseHandler?(.load)
             }
@@ -67,10 +67,3 @@ extension Profile {
         }
     }
 }
-
-/*
-struct ProfilePage_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfilePage()
-    }
-}*/

@@ -26,7 +26,7 @@ class SignalRService {
             return
         }
         
-        connection = HubConnectionBuilder(url: url).withLogging(minLogLevel: .error).build()
+        connection = HubConnectionBuilder(url: url).withLogging(minLogLevel: .error).withAutoReconnect().build()
         
         connection!.on(method: "NewRound", callback: {
             DDLogDebug("-- Incoming new round signal")

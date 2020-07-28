@@ -18,9 +18,3 @@ struct LeaderboardCloseButton: View {
         }.frame(width: 40.0, height: 40.0, alignment: .center)
     }
 }
-
-/*struct LeaderboardCloseButton_Previews: PreviewProvider {
-    static var previews: some View {
-        LeaderboardCloseButton()
-    }
-}*/

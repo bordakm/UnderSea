@@ -10,7 +10,7 @@ import SwiftUI
 
 extension City {
 
-    struct UpgradesListView: View {
+    struct UpgradeListView: View {
         
         @State
         private var selected = false
@@ -70,14 +70,14 @@ extension City {
                                     Image(systemName: "checkmark.circle.fill")
                                         .resizable()
                                         .frame(width: 20.0, height: 20.0)
-                                        .foregroundColor(Colors.underseaTitleColor)
+                                        .foregroundColor(Colors.cyanLight)
                                         .padding()
                                     
                                 } else if upgrade.remainingRounds > 0 {
                                 
                                     Text("még \(upgrade.remainingRounds) kör")
                                         .font(Fonts.get(.osBold, 14))
-                                        .foregroundColor(Colors.underseaTitleColor)
+                                        .foregroundColor(Colors.cyanLight)
                                         .padding()
                                 
                                 }
@@ -86,7 +86,7 @@ extension City {
                             
                         }
                         .frame(width: 310.0)
-                        .overlay(RoundedRectangle(cornerRadius: 16.0).stroke(lineWidth: 1.0).fill(Colors.borderColor))
+                        .overlay(RoundedRectangle(cornerRadius: 16.0).stroke(lineWidth: 1.0).fill(Colors.whiteFullyTransparent))
                         .padding(.bottom, 5.0)
                         
                     }

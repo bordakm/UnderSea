@@ -2,22 +2,25 @@
 //  ArmyListView.swift
 //  Undersea
 //
-//  Created by Vekety Robin on 2020. 07. 24..
+//  Created by Vekety Robin on 2020. 07. 28..
 //  Copyright © 2020. Vekety Robin. All rights reserved.
 //
 
 import SwiftUI
 
-extension City {
+extension Army {
 
     struct ArmyListView: View {
         
         @State
         private var selected = false
-               
-        var usecaseHandler: ((City.Usecase) -> Void)?
-               
-        var units: [CityPageViewModel.Unit]
+        
+        lazy var interactor: Interactor = setInteractor()
+        var setInteractor: (()->Interactor)!
+        
+        @ObservedObject var viewModel: ViewModelType
+        
+        let usecaseHandler: ((Army.Usecase) -> Void)?
         
         var body: some View {
             VStack {
@@ -30,7 +33,7 @@ extension City {
                 
                 ScrollView(.vertical, showsIndicators: true) {
                 
-                    ForEach(units) { unit in
+                    ForEach(viewModel.unitList) { unit in
                             
                         VStack {
                         
@@ -101,11 +104,11 @@ extension City {
                                     self.usecaseHandler?(.changeUnitAmount(unit.id, false))
                                     
                                 }) {
-                                    Image(systemName: "minus.circle.fill")
+                                    Image(systemName: Images.minusCircle.rawValue)
                                         .resizable()
                                         .frame(width: 25.0, height: 25.0, alignment: .center)
                                 }
-                                .accentColor(Colors.underseaTitleColor)
+                                .accentColor(Colors.cyanLight)
                                 
                                 Text("\(unit.selectedAmount)")
                                     .font(Fonts.get(.osBold))
@@ -116,16 +119,16 @@ extension City {
                                     self.usecaseHandler?(.changeUnitAmount(unit.id, true))
                                     
                                 }) {
-                                    Image(systemName: "plus.circle.fill")
+                                    Image(systemName: Images.plusCircle.rawValue)
                                         .resizable()
                                         .frame(width: 25.0, height: 25.0, alignment: .center)
                                 }
-                                .accentColor(Colors.underseaTitleColor)
+                                .accentColor(Colors.cyanLight)
                                 
                             }
                             
                             Divider()
-                                .background(Colors.separatorColor)
+                                .background(Colors.blueColor)
                         
                         }
                         .padding()
@@ -137,7 +140,7 @@ extension City {
                     })
                         .padding(.bottom, 30.0)
                     
-                    if (units.count == 0) {
+                    if (viewModel.unitList.count == 0) {
                         HStack{
                             Spacer()
                         }
@@ -146,19 +149,16 @@ extension City {
                 }
             }
             .padding([.horizontal, .top])
+            .alert(isPresented: self.$viewModel.errorModel.alert) {
+                Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
+            }
             .onAppear {
-                self.usecaseHandler?(.loadArmy)
+                self.usecaseHandler?(.load)
             }
             .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
-                self.usecaseHandler?(.loadArmy)
+                self.usecaseHandler?(.load)
             }
         }
     }
 }
 
-/*struct ArmyListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArmyListView()
-    }
-}
-*/

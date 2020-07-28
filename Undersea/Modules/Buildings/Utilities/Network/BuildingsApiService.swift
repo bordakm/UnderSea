@@ -2,7 +2,7 @@
 //  BuildingsApiService.swift
 //  Undersea
 //
-//  Created by Vekety Robin on 2020. 07. 24..
+//  Created by Vekety Robin on 2020. 07. 28..
 //  Copyright © 2020. Vekety Robin. All rights reserved.
 //
 
@@ -15,7 +15,7 @@ extension Buildings {
         case getBuildings
         case buyBuilding(_ data: BuyBuildingDTO)
     }
-    
+
 }
 
 extension Buildings.ApiService: BaseApiService {
@@ -37,6 +37,10 @@ extension Buildings.ApiService: BaseApiService {
             return .post
         }
     }
+    
+    /*var task: Task {
+        return .requestParameters(parameters: parameters, encoding: parameterEncoding)
+    }*/
     
     var parameters: [String : Any] {
         switch self {

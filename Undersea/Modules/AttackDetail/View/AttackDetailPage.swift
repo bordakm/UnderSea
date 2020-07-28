@@ -46,9 +46,9 @@ extension AttackDetail {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()
-            .background(Colors.backgroundColor)
+            .background(Colors.deepBlue)
             .navigationBarTitle("Támadás", displayMode: .inline)
-            .navigationBarColor(Colors.navBarBackgroundColor)
+            .navigationBarColor(Colors.darkBlueUI)
             .alert(isPresented: self.$viewModel.errorModel.alert) {
                 Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
             }
@@ -67,11 +67,3 @@ extension AttackDetail {
     }
     
 }
-
-/*
-struct AttackDetailPage_Previews: PreviewProvider {
-    static var previews: some View {
-        AttackDetail.AttackDetailPage()
-    }
-}
-*/

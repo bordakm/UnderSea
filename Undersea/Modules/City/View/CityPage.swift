@@ -12,23 +12,16 @@ extension City {
 
     struct CityPage: View {
         
-        lazy var interactor: Interactor = setInteractor()
-        var setInteractor: (()->Interactor)!
-        
-        @ObservedObject var viewModel: ViewModelType
-        
-        var usecaseHandler: ((City.Usecase) -> Void)?
-        
         @State var selectedTab = CityTabs.buildings
         
         var tabView: some View {
             switch selectedTab {
             case .buildings:
-                return AnyView(BuildingListView(usecaseHandler: usecaseHandler, buildingList: viewModel.cityPageViewModel.buildings ?? []))
+                return AnyView(Buildings.setup())
             case .upgrades:
-                return AnyView(UpgradesListView(usecaseHandler: usecaseHandler, upgradeList: viewModel.cityPageViewModel.upgrades ?? []))
+                return AnyView(Upgrades.setup())
             case .army:
-                return AnyView(ArmyListView(usecaseHandler: usecaseHandler, units: viewModel.cityPageViewModel.units ?? []))
+                return AnyView(Army.setup())
             }
         }
         
@@ -64,20 +57,10 @@ extension City {
                 }
                 .frame(minWidth: 0.0, maxWidth: .infinity, minHeight: 0.0, maxHeight: .infinity, alignment: .top)
                 .navigationBarTitle("Városom", displayMode: .inline)
-                .background(Colors.backgroundColor)
-                .navigationBarColor(Colors.navBarBackgroundColor)
-                .alert(isPresented: self.$viewModel.errorModel.alert) {
-                    Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
-                }
+                .background(Colors.deepBlue)
+                .navigationBarColor(Colors.darkBlueUI)
             }
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }
-    
 }
-
-/*struct CityPage_Previews: PreviewProvider {
-    static var previews: some View {
-        City.CityPage()
-    }
-}*/

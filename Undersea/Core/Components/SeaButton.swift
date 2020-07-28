@@ -17,16 +17,16 @@ struct SeaButton: View {
         Button(action: action) {
             
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Colors.loginGradientStart, Colors.loginGradientMid, Colors.loginGradientEnd]), startPoint: .leading, endPoint: .trailing)
+                LinearGradient(gradient: Gradient(colors: [Colors.cyanDark, Colors.cyan, Colors.cyanLight]), startPoint: .leading, endPoint: .trailing)
                 Text(title)
-                    .font(Font.custom("Baloo2-Regular", size: 16))
-                    .foregroundColor(Colors.loginBtnTextColor)
+                    .font(Fonts.get(.bRegular))
+                    .foregroundColor(Colors.nightlyBlue)
             }
             
         }.background(Color.clear)
         .frame(width: 200.0, height: 40.0, alignment: .center)
         .clipShape(Capsule())
-        .shadow(color: Colors.loginShadowColor, radius: 6.0, x: 0.0, y: 3.0)
+        .shadow(color: Colors.lightBlue, radius: 6.0, x: 0.0, y: 3.0)
     }
 }
 
