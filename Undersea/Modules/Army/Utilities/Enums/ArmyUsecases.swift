@@ -1,5 +1,5 @@
 //
-//  BuildingsEvents.swift
+//  ArmyUsecases.swift
 //  Undersea
 //
 //  Created by Vekety Robin on 2020. 07. 28..
@@ -8,11 +8,12 @@
 
 import Foundation
 
-extension Buildings {
+extension Army {
     
-    enum Event {
-        case buildingDataLoaded
-        case buildingBought
+    enum Usecase {
+        case load
+        case changeUnitAmount(_ id: Int, _ inc: Bool)
+        case buyUnits
     }
     
 }

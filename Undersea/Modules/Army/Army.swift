@@ -1,5 +1,5 @@
 //
-//  Buildings.swift
+//  Army.swift
 //  Undersea
 //
 //  Created by Vekety Robin on 2020. 07. 28..
@@ -9,22 +9,21 @@
 import Foundation
 import SwiftUI
 
-struct Buildings {
+struct Army {
     
-    typealias DataModelType = BuildingDTO
+    typealias DataModelType = UnitDTO
     typealias ViewModelType = ViewModel
     
-    static func setup() -> BuildingListView {
+    static func setup() -> ArmyListView {
         
         let interactor = Interactor()
         let presenter = Presenter()
         
-        var view = BuildingListView(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
+        var view = ArmyListView(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
         
         interactor.setPresenter = { return presenter }
         
-        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
-        presenter.bind(buyDataSubject: interactor.buyDataSubject.eraseToAnyPublisher())
+        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher(), buyDataSubject: interactor.buyDataSubject.eraseToAnyPublisher())
         
         view.setInteractor = { return interactor }
         

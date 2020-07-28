@@ -1,5 +1,5 @@
 //
-//  BuildingsPresenter.swift
+//  UpgradesPresenter.swift
 //  Undersea
 //
 //  Created by Vekety Robin on 2020. 07. 28..
@@ -10,19 +10,19 @@ import Foundation
 import Combine
 import CocoaLumberjack
 
-extension Buildings {
+extension Upgrades {
     
     class Presenter {
         
-        private var subscriptions: [Buildings.Event: AnyCancellable] = [:]
+        private var subscriptions: [Upgrades.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
-        // MARK: - Buildings
+        // MARK: - Upgrades
         
         func bind(dataSubject: AnyPublisher<[DataModelType]?, Error>) {
          
-            subscriptions[.buildingDataLoaded] = dataSubject
+            subscriptions[.upgradeDataLoaded] = dataSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -36,7 +36,7 @@ extension Buildings {
                     
                 }, receiveValue: { (data) in
 
-                    self.populateViewModel(dataModel: data)
+                    self.populateModel(dataModel: data)
                     
                 })
             
@@ -44,7 +44,7 @@ extension Buildings {
         
         func bind(buyDataSubject: AnyPublisher<DataModelType?, Error>) {
          
-            subscriptions[.buildingBought] = buyDataSubject
+            subscriptions[.upgradeBought] = buyDataSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -59,11 +59,11 @@ extension Buildings {
                 }, receiveValue: { (data) in
                     
                     guard let data = data else {
-                        DDLogDebug("Error: no building data cereived in response")
+                        DDLogDebug("Error: no building data received in response")
                         return
                     }
                     
-                    self.viewModel.setRemainingBuildTime(id: data.id, remaining: data.remainingRounds)
+                    self.viewModel.setRemainingUpgradeTime(id: data.id, remaining: data.remainingRounds)
                     
                 })
             
@@ -71,18 +71,18 @@ extension Buildings {
         
         // MARK: - Populate model
         
-        private func populateViewModel(dataModel: [DataModelType]?) {
+        private func populateModel(dataModel: [DataModelType]?) {
             
             guard let dataModel = dataModel else {
                 return
             }
             
-            var buildings: [BuildingModel] = []
-            for buildingData in dataModel {
-                buildings.append(BuildingModel(buildingData: buildingData))
+            var upgrades: [UpgradeModel] = []
+            for upgradeData in dataModel {
+                upgrades.append(UpgradeModel(upgradeData: upgradeData))
             }
             
-            self.viewModel.set(buildingList: buildings)
+            self.viewModel.set(upgradeList: upgrades)
             
         }
         

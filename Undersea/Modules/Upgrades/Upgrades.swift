@@ -1,5 +1,5 @@
 //
-//  Buildings.swift
+//  Upgrades.swift
 //  Undersea
 //
 //  Created by Vekety Robin on 2020. 07. 28..
@@ -9,17 +9,17 @@
 import Foundation
 import SwiftUI
 
-struct Buildings {
+struct Upgrades {
     
-    typealias DataModelType = BuildingDTO
+    typealias DataModelType = UpgradeDTO
     typealias ViewModelType = ViewModel
     
-    static func setup() -> BuildingListView {
+    static func setup() -> UpgradesListView {
         
         let interactor = Interactor()
         let presenter = Presenter()
         
-        var view = BuildingListView(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
+        var view = UpgradesListView(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
         
         interactor.setPresenter = { return presenter }
         

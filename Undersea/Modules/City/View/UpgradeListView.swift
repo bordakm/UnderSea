@@ -10,7 +10,7 @@ import SwiftUI
 
 extension City {
 
-    struct UpgradesListView: View {
+    struct UpgradeListView: View {
         
         @State
         private var selected = false

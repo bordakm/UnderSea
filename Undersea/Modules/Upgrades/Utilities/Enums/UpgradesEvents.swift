@@ -1,5 +1,5 @@
 //
-//  BuildingsEvents.swift
+//  UpgradesEvents.swift
 //  Undersea
 //
 //  Created by Vekety Robin on 2020. 07. 28..
@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension Buildings {
+extension Upgrades {
     
     enum Event {
-        case buildingDataLoaded
-        case buildingBought
+        case upgradeDataLoaded
+        case upgradeBought
     }
     
 }
