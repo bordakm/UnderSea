@@ -26,7 +26,7 @@ extension Attack {
                     switch result {
                     case .failure(let error):
                         self.viewModel.isRefreshing = false
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -51,9 +51,8 @@ extension Attack {
         
         private func populateViewModel(dataModel: DataModelType?) {
             
-            guard let dataModel = dataModel
-                else {
-                    return
+            guard let dataModel = dataModel else {
+                return
             }
             
             let userList = dataModel.map { user in
@@ -61,6 +60,18 @@ extension Attack {
             }
             
             self.viewModel.set(userList: userList)
+            
+        }
+        
+        func presentError(_ error: Error) {
+            
+            viewModel.errorModel = ErrorAlertModel(error: error)
+            
+        }
+        
+        func presentError(message: String) {
+            
+            viewModel.errorModel = ErrorAlertModel(message: message)
             
         }
         

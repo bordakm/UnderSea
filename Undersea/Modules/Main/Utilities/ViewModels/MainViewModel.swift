@@ -14,17 +14,10 @@ extension Main {
         
         @Published var isLoading = false
         private(set) var mainPageModel: MainPageViewModel?
-        private(set) var alertMessage: String?
+        @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         
         func set(viewModel: MainPageViewModel) {
-            alertMessage = nil
             mainPageModel = viewModel
-            objectWillChange.send()
-        }
-        
-        func set(alertMessage: String) {
-            //mainPageModel = nil
-            self.alertMessage = alertMessage
             objectWillChange.send()
         }
         

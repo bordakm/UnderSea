@@ -103,6 +103,9 @@ extension Main {
                 
             }
             .navigationViewStyle(StackNavigationViewStyle())
+            .alert(isPresented: self.$viewModel.errorModel.alert) {
+                Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
+            }
             .onAppear {
                 self.usecaseHandler?(.load)
             }

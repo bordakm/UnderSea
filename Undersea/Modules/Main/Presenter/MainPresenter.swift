@@ -26,7 +26,7 @@ extension Main {
                     
                     switch result {
                     case .failure(let error):
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -42,9 +42,8 @@ extension Main {
         
         private func populateViewModel(dataModel: DataModelType?) {
             
-            guard let dataModel = dataModel
-                else {
-                    return
+            guard let dataModel = dataModel else {
+                return
             }
             
             let dtoStatBar = dataModel.statusBar
@@ -100,6 +99,18 @@ extension Main {
             let roundAndRank = "\(dtoStatBar.roundCount). kör\t\(dtoStatBar.scoreboardPosition). hely"
             
             self.viewModel.set(viewModel: MainPageViewModel(roundAndRank: roundAndRank, statList: statList, builtStructures: builtStructures))
+            
+        }
+        
+        func presentError(_ error: Error) {
+            
+            viewModel.errorModel = ErrorAlertModel(error: error)
+            
+        }
+        
+        func presentError(message: String) {
+            
+            viewModel.errorModel = ErrorAlertModel(message: message)
             
         }
         

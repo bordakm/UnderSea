@@ -10,6 +10,7 @@
 		7901F35524C96F0B00003D28 /* SendAttackDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7901F35424C96F0B00003D28 /* SendAttackDTO.swift */; };
 		7901F35724C971F100003D28 /* SendAttackResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7901F35624C971F100003D28 /* SendAttackResponseDTO.swift */; };
 		790579E624CF03AB00392855 /* SignalRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790579E524CF03AB00392855 /* SignalRService.swift */; };
+		790579E824CF187700392855 /* ErrorAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790579E724CF187700392855 /* ErrorAlertModel.swift */; };
 		7914335B24C07F6000BC4755 /* RenewDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914335A24C07F6000BC4755 /* RenewDTO.swift */; };
 		79170F1C24CEAF760062CE1D /* LoadScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79170F1B24CEAF760062CE1D /* LoadScreen.swift */; };
 		79170F1E24CECD220062CE1D /* UpgradesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79170F1D24CECD220062CE1D /* UpgradesListView.swift */; };
@@ -191,7 +192,6 @@
 		79E4869424BDE10900A0EB3B /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79E4868924BDD0B200A0EB3B /* OpenSans-SemiBold.ttf */; };
 		79E4869524BDE10900A0EB3B /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79E4868224BDD0B100A0EB3B /* OpenSans-SemiBoldItalic.ttf */; };
 		79E4869B24BDF52300A0EB3B /* AttackDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4869A24BDF52300A0EB3B /* AttackDetailPage.swift */; };
-		79F5314B24C0581E0058F86D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5314A24C0581E0058F86D /* Token.swift */; };
 		79F5314D24C058640058F86D /* UnderseaClaim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5314C24C058640058F86D /* UnderseaClaim.swift */; };
 		9716A4D8D401F86C5396A3DE /* Pods_Undersea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A22C343B8C5C4E5D915B7CB6 /* Pods_Undersea.framework */; };
 /* End PBXBuildFile section */
@@ -201,6 +201,7 @@
 		7901F35424C96F0B00003D28 /* SendAttackDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAttackDTO.swift; sourceTree = "<group>"; };
 		7901F35624C971F100003D28 /* SendAttackResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAttackResponseDTO.swift; sourceTree = "<group>"; };
 		790579E524CF03AB00392855 /* SignalRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalRService.swift; sourceTree = "<group>"; };
+		790579E724CF187700392855 /* ErrorAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertModel.swift; sourceTree = "<group>"; };
 		7914335A24C07F6000BC4755 /* RenewDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenewDTO.swift; sourceTree = "<group>"; };
 		79170F1B24CEAF760062CE1D /* LoadScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadScreen.swift; sourceTree = "<group>"; };
 		79170F1D24CECD220062CE1D /* UpgradesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradesListView.swift; sourceTree = "<group>"; };
@@ -384,7 +385,6 @@
 		79E4868A24BDD0B200A0EB3B /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		79E4868B24BDD0B200A0EB3B /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		79E4869A24BDF52300A0EB3B /* AttackDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackDetailPage.swift; sourceTree = "<group>"; };
-		79F5314A24C0581E0058F86D /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		79F5314C24C058640058F86D /* UnderseaClaim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderseaClaim.swift; sourceTree = "<group>"; };
 		7B2A8D040160C9A807195C73 /* Pods-Undersea.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Undersea.debug.xcconfig"; path = "Target Support Files/Pods-Undersea/Pods-Undersea.debug.xcconfig"; sourceTree = "<group>"; };
 		A22C343B8C5C4E5D915B7CB6 /* Pods_Undersea.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Undersea.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -584,8 +584,8 @@
 			isa = PBXGroup;
 			children = (
 				792DE2DB24BC8D97009D175D /* DTO */,
-				79F5314A24C0581E0058F86D /* Token.swift */,
 				79F5314C24C058640058F86D /* UnderseaClaim.swift */,
+				790579E724CF187700392855 /* ErrorAlertModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1580,7 +1580,6 @@
 				7956491424BEE401003D6D16 /* AttackPresenter.swift in Sources */,
 				79820C8D24B7415C006D7258 /* CustomTabBar.swift in Sources */,
 				794CAACF24B5C577007DC9C7 /* ApiError.swift in Sources */,
-				79F5314B24C0581E0058F86D /* Token.swift in Sources */,
 				79820C8B24B73A67006D7258 /* TeamsPage.swift in Sources */,
 				79A5B53724BF5316009D5AC6 /* RegisterInteractor.swift in Sources */,
 				79A5998824C5EC3A00B1E17E /* ProfileHeader.swift in Sources */,
@@ -1656,6 +1655,7 @@
 				79D4D77824C837FB0051AAA1 /* TeamsEvents.swift in Sources */,
 				79D4532B24C87BDE00A2197B /* AttackDetailEvents.swift in Sources */,
 				7956491024BEE338003D6D16 /* AttackEvents.swift in Sources */,
+				790579E824CF187700392855 /* ErrorAlertModel.swift in Sources */,
 				79237B8C24C6CE37009F5650 /* ProfilePresenter.swift in Sources */,
 				79A5B52B24BF40B2009D5AC6 /* LoginPresenter.swift in Sources */,
 				79A5B52724BF0F04009D5AC6 /* LoginUsecases.swift in Sources */,

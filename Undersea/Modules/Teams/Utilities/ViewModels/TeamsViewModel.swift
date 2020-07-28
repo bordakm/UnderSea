@@ -14,17 +14,10 @@ extension Teams {
         
         @Published var isRefreshing = false
         private(set) var teams: [TeamModel] = []
-        private(set) var alertMessage: String?
+        @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         
         func set(teams: [TeamModel]) {
-            alertMessage = nil
             self.teams = teams
-            objectWillChange.send()
-        }
-        
-        func set(alertMessage: String) {
-            //mainPageModel = nil
-            self.alertMessage = alertMessage
             objectWillChange.send()
         }
         

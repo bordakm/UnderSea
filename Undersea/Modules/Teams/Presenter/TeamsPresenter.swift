@@ -27,7 +27,7 @@ extension Teams {
                     switch result {
                     case .failure(let error):
                         self.viewModel.isRefreshing = false
-                        self.viewModel.set(alertMessage: error.localizedDescription)
+                        self.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
@@ -44,9 +44,8 @@ extension Teams {
         
         private func populateViewModel(dataModel: DataModelType?) {
             
-            guard let dataModel = dataModel
-                else {
-                    return
+            guard let dataModel = dataModel else {
+                return
             }
             
             let teams = dataModel.map { team in
@@ -56,6 +55,18 @@ extension Teams {
             }
             
             self.viewModel.set(teams: teams)
+            
+        }
+        
+        func presentError(_ error: Error) {
+            
+            viewModel.errorModel = ErrorAlertModel(error: error)
+            
+        }
+        
+        func presentError(message: String) {
+            
+            viewModel.errorModel = ErrorAlertModel(message: message)
             
         }
         

@@ -12,8 +12,7 @@ extension Login {
     
     class ViewModel: ObservableObject {
         
-        @Published var alert = false
-        @Published var alertMessage: String?
+        @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         
     }
     

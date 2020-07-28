@@ -42,8 +42,8 @@ extension Login {
                             SeaButton(title: "Belépés", action: {
                                 self.usecaseHandler?(.login(self.userName, self.userPassword))
                             })
-                            .alert(isPresented: self.$viewModel.alert) {
-                                Alert(title: Text("Hiba!"), message: Text(self.viewModel.alertMessage ?? ""), dismissButton: .default(Text("Rendben")))
+                            .alert(isPresented: self.$viewModel.errorModel.alert) {
+                                Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
                             }
                                 
                             Button(action: {

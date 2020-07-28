@@ -14,23 +14,20 @@ extension City {
         
         @Published var isLoading = false
         private(set) var cityPageViewModel: CityPageViewModel = CityPageViewModel()
-        private(set) var alertMessage: String?
+        @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         
         func set(viewModel: CityPageViewModel) {
-            alertMessage = nil
             cityPageViewModel = viewModel
             objectWillChange.send()
         }
         
         func set(buildings: [CityPageViewModel.Building]) {
-            alertMessage = nil
             cityPageViewModel.buildings = buildings
             objectWillChange.send()
         }
         
         func setRemainingBuildTime(id: Int, remaining: Int) {
             
-            alertMessage = nil
             if let index = cityPageViewModel.buildings?.firstIndex(where: { (building) -> Bool in
                 return building.id == id
             }) {
@@ -41,14 +38,12 @@ extension City {
         }
         
         func set(upgrades: [CityPageViewModel.Upgrade]) {
-            alertMessage = nil
             cityPageViewModel.upgrades = upgrades
             objectWillChange.send()
         }
         
         func setRemainingUpgradeTime(id: Int, remaining: Int) {
             
-            alertMessage = nil
             if let index = cityPageViewModel.upgrades?.firstIndex(where: { (upgrade) -> Bool in
                 return upgrade.id == id
             }) {
@@ -59,16 +54,14 @@ extension City {
         }
         
         func set(units: [CityPageViewModel.Unit]) {
-            alertMessage = nil
             cityPageViewModel.units = units
             objectWillChange.send()
         }
         
-        func set(alertMessage: String) {
-            //mainPageModel = nil
+        /*func set(alertMessage: String) {
             self.alertMessage = alertMessage
             objectWillChange.send()
-        }
+        }*/
         
     }
     

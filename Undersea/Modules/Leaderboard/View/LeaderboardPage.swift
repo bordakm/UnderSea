@@ -81,11 +81,16 @@ extension Leaderboard {
                     .pullToRefresh(isShowing: $viewModel.isRefreshing) {
                         self.usecaseHandler?(.load(self.userName))
                     }
+                    
                 }
                 .navigationBarTitle("Ranglista", displayMode: .inline)
                 .navigationBarItems(leading: closeButton, trailing: attackButton)
                 .background(Colors.backgroundColor)
                 .navigationBarColor(Colors.navBarBackgroundColor)
+                .alert(isPresented: self.$viewModel.errorModel.alert) {
+                    Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
+                }
+                
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
