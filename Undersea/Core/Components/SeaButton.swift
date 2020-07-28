@@ -19,7 +19,7 @@ struct SeaButton: View {
             ZStack {
                 LinearGradient(gradient: Gradient(colors: [Colors.cyanDark, Colors.cyan, Colors.cyanLight]), startPoint: .leading, endPoint: .trailing)
                 Text(title)
-                    .font(Font.custom("Baloo2-Regular", size: 16))
+                    .font(Fonts.get(.bRegular))
                     .foregroundColor(Colors.nightlyBlue)
             }
             

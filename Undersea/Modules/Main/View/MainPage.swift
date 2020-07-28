@@ -69,7 +69,6 @@ extension Main {
                     VStack {
                         
                         Button(action: {
-                            //ToDo: push to rank page
                             RootPageManager.shared.leaderboardVisible = true
                         }){
                             Text(viewModel.mainPageModel?.roundAndRank ?? "...")
@@ -114,11 +113,4 @@ extension Main {
             }
         }
     }
-
 }
-
-/*struct MainPage_Previews: PreviewProvider {
-    static var previews: some View {
-        MainPage()
-    }
-}*/

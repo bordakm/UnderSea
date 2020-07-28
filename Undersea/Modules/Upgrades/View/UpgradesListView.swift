@@ -70,7 +70,7 @@ extension Upgrades {
                                 
                                 if upgrade.isPurchased {
                                     
-                                    Image(systemName: "checkmark.circle.fill")
+                                    Image(systemName: Images.checkMark.rawValue)
                                         .resizable()
                                         .frame(width: 20.0, height: 20.0)
                                         .foregroundColor(Colors.cyanLight)

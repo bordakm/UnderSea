@@ -93,9 +93,3 @@ extension Attack {
         }
     }
 }
-
-/*struct AttackPage_Previews: PreviewProvider {
-    static var previews: some View {
-        AttackPage()
-    }
-}*/

@@ -67,11 +67,8 @@ struct SlideInMenuView: View {
                     Rectangle()
                         .fill(Color.white)
                         .frame(height: 20.0)
-                    /*Rectangle()
-                        .fill(Color.black)
-                        .frame(width: 10.0, height: 10.0)*/
                     Image(systemName: Images.chevronUp.rawValue)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Colors.nightlyBlue)
                         .rotationEffect(.degrees(detailHidden ? 0.0 : 180.0))
                 }
             }
@@ -79,16 +76,26 @@ struct SlideInMenuView: View {
                 HStack(alignment: .top, spacing: 20.0) {
                     ForEach(0 ..< (self.statList.count / 2), id:\.self) { index in
                         VStack {
-                            SVGImage(svgName: self.statList[index].imageName).scaledToFit().frame(height: 40.0)
-                            Text(self.statList[index].label).multilineTextAlignment(TextAlignment.center)
+                            SVGImage(svgName: self.statList[index].imageName)
+                                .scaledToFit()
+                                .frame(height: 40.0)
+                            Text(self.statList[index].label)
+                                .font(Fonts.get(.bRegular))
+                                .foregroundColor(Colors.darkBlue)
+                                .multilineTextAlignment(TextAlignment.center)
                         }.frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     }
                 }
                 HStack(alignment: .top, spacing: 20.0) {
                     ForEach((self.statList.count / 2) ..< self.statList.count, id:\.self) { index in
                         VStack {
-                            SVGImage(svgName: self.statList[index].imageName).scaledToFit().frame(height: 40.0)
-                            Text(self.statList[index].label).multilineTextAlignment(TextAlignment.center)
+                            SVGImage(svgName: self.statList[index].imageName)
+                                .scaledToFit()
+                                .frame(height: 40.0)
+                            Text(self.statList[index].label)
+                                .font(Fonts.get(.bRegular))
+                                .foregroundColor(Colors.darkBlue)
+                                .multilineTextAlignment(TextAlignment.center)
                         }.frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     }
                 }
@@ -100,9 +107,3 @@ struct SlideInMenuView: View {
         .background(Colors.whiteSemiTransparent)
     }
 }
-
-/*struct SlideInMenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        SlideInMenuView()
-    }
-}*/

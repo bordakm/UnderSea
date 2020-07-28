@@ -15,5 +15,8 @@ enum Images: String {
     case userImage = "userImage"
     case chevronUp = "chevron.up"
     case chevronDown = "chevron.down"
+    case minusCircle = "minus.circle.fill"
+    case plusCircle = "plus.circle.fill"
+    case checkMark = "checkmark.circle.fill"
     
 }

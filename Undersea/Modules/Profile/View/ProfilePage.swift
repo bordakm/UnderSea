@@ -26,7 +26,7 @@ extension Profile {
                 VStack(alignment: .leading, spacing: 0) {
                     
                     ProfileHeader(userName: self.viewModel.profilePageModel?.userName ?? "")
-                    .frame(minWidth: 0.0, maxWidth: .infinity)
+                        .frame(minWidth: 0.0, maxWidth: .infinity)
                     
                     Divider()
                         .background(Colors.blueColor)
@@ -67,10 +67,3 @@ extension Profile {
         }
     }
 }
-
-/*
-struct ProfilePage_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfilePage()
-    }
-}*/

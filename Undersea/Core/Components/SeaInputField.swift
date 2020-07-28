@@ -33,11 +33,10 @@ struct SeaInputField: View {
     var body: some View {
         ZStack {
             GeometryReader() { geometry in
-                // TODO: Placeholder szinenek beallitasara nincs beepitett megoldas meg SwiftUI-ban
                 self.textField
                     .padding(Edge.Set.horizontal, 16.0)
                     .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
-                    .font(Font.system(size: 15.0))
+                    .font(Fonts.get(.osRegular, 15))
                     .foregroundColor(Colors.nightlyBlue)
                     .accentColor(Colors.nightlyBlue)
             }

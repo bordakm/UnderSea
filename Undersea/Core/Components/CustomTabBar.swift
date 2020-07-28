@@ -37,7 +37,7 @@ struct CustomTabBar: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                self.tabItems.filter({ $0.page == self.selected }).first?.view //[self.selectedTab].view
+                self.tabItems.filter({ $0.page == self.selected }).first?.view
                 ZStack {
                     LinearGradient(gradient: Gradient(colors: [Colors.cyanDark, Colors.cyan, Colors.cyanLight]), startPoint: .bottom, endPoint: .top)
                         .frame(width: geometry.size.width, height: self.tabHeight + geometry.safeAreaInsets.bottom)
@@ -50,14 +50,6 @@ struct CustomTabBar: View {
         .edgesIgnoringSafeArea(.bottom)
     }
 }
-
-/*struct CustomTabBar_Previews: PreviewProvider {
-    static var previews: some View {
-        let tab1 = CustomTabItem(view: AnyView(Text("First page")), title: "First", imageName: "star")
-        let tab2 = CustomTabItem(view: AnyView(Text("Second page")), title: "Second", imageName: "star")
-        return CustomTabBar(tabItems: [tab1, tab2])
-    }
-}*/
 
 struct TabButtons: View {
     
@@ -72,7 +64,7 @@ struct TabButtons: View {
                     SVGImage(svgName: tabItem.imageName)
                         .frame(width: 20.0, height: 20.0)
                     Text(tabItem.title)
-                        .font(.system(size: 11))
+                        .font(Fonts.get(.bRegular, 11))
                         .foregroundColor(Colors.nightlyBlue)
                 }.gesture(
                     TapGesture().onEnded({ _ in
@@ -83,11 +75,5 @@ struct TabButtons: View {
             }
         }
     }
-    
-    /*private func index(of tabItem: CustomTabItem) -> Int {
-        return self.tabItems.firstIndex(where: { (item) -> Bool in
-            return tabItem.id == item.id
-        }) ?? 0
-    }*/
     
 }

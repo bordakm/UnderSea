@@ -102,9 +102,3 @@ extension Leaderboard {
         }
     }
 }
-
-/*struct LeaderboardPage_Previews: PreviewProvider {
-    static var previews: some View {
-        LeaderboardPage()
-    }
-}*/

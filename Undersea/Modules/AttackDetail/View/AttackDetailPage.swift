@@ -67,11 +67,3 @@ extension AttackDetail {
     }
     
 }
-
-/*
-struct AttackDetailPage_Previews: PreviewProvider {
-    static var previews: some View {
-        AttackDetail.AttackDetailPage()
-    }
-}
-*/

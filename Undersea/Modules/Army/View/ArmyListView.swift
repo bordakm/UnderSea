@@ -104,7 +104,7 @@ extension Army {
                                     self.usecaseHandler?(.changeUnitAmount(unit.id, false))
                                     
                                 }) {
-                                    Image(systemName: "minus.circle.fill")
+                                    Image(systemName: Images.minusCircle.rawValue)
                                         .resizable()
                                         .frame(width: 25.0, height: 25.0, alignment: .center)
                                 }
@@ -119,7 +119,7 @@ extension Army {
                                     self.usecaseHandler?(.changeUnitAmount(unit.id, true))
                                     
                                 }) {
-                                    Image(systemName: "plus.circle.fill")
+                                    Image(systemName: Images.plusCircle.rawValue)
                                         .resizable()
                                         .frame(width: 25.0, height: 25.0, alignment: .center)
                                 }

@@ -23,10 +23,3 @@ struct LeaderboardAttackButton: View {
         .mask(SVGImage(svgPath: R.file.attackSvg()!))
     }
 }
-
-/*struct LeaderboardAttackButton_Previews: PreviewProvider {
-    static var previews: some View {
-        LeaderboardAttackButton()
-    }
-}*/
-

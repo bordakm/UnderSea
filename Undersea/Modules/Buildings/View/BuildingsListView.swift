@@ -102,8 +102,7 @@ extension Buildings {
                     Spacer(minLength: 16.0)
                     
                 }.padding(.top, 10)
-                
-                //Image(uiImage: R.image.fighting()!)
+
             }
             .alert(isPresented: self.$viewModel.errorModel.alert) {
                 Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))

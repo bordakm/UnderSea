@@ -27,8 +27,6 @@ extension Register {
         @State private var alertPresented = false
         @State private var frameOfInterest: CGRect?
         
-        //@State private var pushLogin = false
-        
         var body: some View {
             
             GeometryReader { geometry in
@@ -93,9 +91,3 @@ extension Register {
         }
     }
 }
-    
-/*struct RegisterPage_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisterPage()
-    }
-}*/

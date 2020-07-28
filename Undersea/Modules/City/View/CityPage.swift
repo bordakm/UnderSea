@@ -63,5 +63,4 @@ extension City {
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }
-    
 }

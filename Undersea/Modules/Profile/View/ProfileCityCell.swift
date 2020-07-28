@@ -23,9 +23,3 @@ struct ProfileCityCell: View {
         }.padding(.vertical, 15.0)
     }
 }
-
-/*struct ProfileCityCell_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileCityCell()
-    }
-}*/
