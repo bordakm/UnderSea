@@ -41,8 +41,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UINavigationBar.appearance().tintColor = .white
         
         UITableView.appearance().tableFooterView = UIView()
-        UITableView.appearance().backgroundColor = Colors.backgroundUIColor
-        UITableViewCell.appearance().backgroundColor = Colors.backgroundUIColor
+        UITableView.appearance().backgroundColor = Colors.deepBlueUI
+        UITableViewCell.appearance().backgroundColor = Colors.deepBlueUI
         UITableView.appearance().separatorColor = UIColor.clear
         
         // Use a UIHostingController as window root view controller.

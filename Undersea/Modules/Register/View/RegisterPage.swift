@@ -39,7 +39,7 @@ extension Register {
                         
                         Text("Belépés")
                             .font(Fonts.get(.bRegular, 20.0))
-                            .foregroundColor(Colors.loginTitleColor)
+                            .foregroundColor(Colors.nightlyBlue)
                         
                         SeaInputField(placeholder: "Felhasználónév", inputText: self.$userName)
                         SeaInputField(placeholder: "Jelszó", inputText: self.$password, isSecure: true)
@@ -65,7 +65,7 @@ extension Register {
                         }) {
                             Text("Belépés")
                                 .font(Fonts.get(.bRegular))
-                                .foregroundColor(Colors.loginBtnTextColor)
+                                .foregroundColor(Colors.nightlyBlue)
                         }
                     
                     }
@@ -78,7 +78,7 @@ extension Register {
                                 self.frameOfInterest = frame
                             }
                         }
-                        return Colors.whiteTransparent
+                        return Colors.whiteSemiTransparent
                     })
                     .cornerRadius(16.0)
                     

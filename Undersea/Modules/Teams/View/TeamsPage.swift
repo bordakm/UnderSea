@@ -36,14 +36,14 @@ extension Teams {
                                     .foregroundColor(Color.white)
                             }
                             Divider()
-                                .background(Colors.separatorColor)
+                                .background(Colors.blueColor)
                         }.listRowInsets(EdgeInsets(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
                     }
                     
                 }
                 .navigationBarTitle("Csapataim", displayMode: .inline)
-                .background(Colors.backgroundColor)
-                .navigationBarColor(Colors.navBarBackgroundColor)
+                .background(Colors.deepBlue)
+                .navigationBarColor(Colors.darkBlueUI)
                 .pullToRefresh(isShowing: $viewModel.isRefreshing) {
                     self.usecaseHandler?(.load)
                 }

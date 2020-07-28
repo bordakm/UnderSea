@@ -64,8 +64,8 @@ extension City {
                 }
                 .frame(minWidth: 0.0, maxWidth: .infinity, minHeight: 0.0, maxHeight: .infinity, alignment: .top)
                 .navigationBarTitle("Városom", displayMode: .inline)
-                .background(Colors.backgroundColor)
-                .navigationBarColor(Colors.navBarBackgroundColor)
+                .background(Colors.deepBlue)
+                .navigationBarColor(Colors.darkBlueUI)
                 .alert(isPresented: self.$viewModel.errorModel.alert) {
                     Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
                 }

@@ -39,7 +39,7 @@ struct CustomTabBar: View {
             VStack(spacing: 0) {
                 self.tabItems.filter({ $0.page == self.selected }).first?.view //[self.selectedTab].view
                 ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Colors.loginGradientStart, Colors.loginGradientMid, Colors.loginGradientEnd]), startPoint: .bottom, endPoint: .top)
+                    LinearGradient(gradient: Gradient(colors: [Colors.cyanDark, Colors.cyan, Colors.cyanLight]), startPoint: .bottom, endPoint: .top)
                         .frame(width: geometry.size.width, height: self.tabHeight + geometry.safeAreaInsets.bottom)
                     TabButtons(tabItems: self.tabItems, selected: self.$selected)
                         .padding(.bottom, geometry.safeAreaInsets.bottom)
@@ -73,7 +73,7 @@ struct TabButtons: View {
                         .frame(width: 20.0, height: 20.0)
                     Text(tabItem.title)
                         .font(.system(size: 11))
-                        .foregroundColor(Colors.tabTintColor)
+                        .foregroundColor(Colors.nightlyBlue)
                 }.gesture(
                     TapGesture().onEnded({ _ in
                         self.selected = tabItem.page

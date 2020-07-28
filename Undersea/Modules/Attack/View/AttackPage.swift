@@ -42,7 +42,7 @@ extension Attack {
                     .padding(.top, 20.0)
                     .padding(.leading, 20.0)
                     
-                    SeaInputField(placeholder: "Felhasználónév", inputText: $userName, backgroundColor: Colors.searchFieldBackground, keyboardType: UIKeyboardType.webSearch, onEditingChanged: { editing in
+                    SeaInputField(placeholder: "Felhasználónév", inputText: $userName, backgroundColor: Colors.whiteTransparent, keyboardType: UIKeyboardType.webSearch, onEditingChanged: { editing in
                         if !editing {
                             self.usecaseHandler?(.load(self.userName))
                         }
@@ -62,7 +62,7 @@ extension Attack {
                                         })
                                 }
                                 Divider()
-                                    .background(Colors.separatorColor)
+                                    .background(Colors.blueColor)
                             }
                             .listRowInsets(EdgeInsets(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
                         }
@@ -77,8 +77,8 @@ extension Attack {
                     }
                 }
                 .navigationBarTitle("Támadás", displayMode: .inline)
-                .background(Colors.backgroundColor)
-                .navigationBarColor(Colors.navBarBackgroundColor)
+                .background(Colors.deepBlue)
+                .navigationBarColor(Colors.darkBlueUI)
                 .alert(isPresented: self.$viewModel.errorModel.alert) {
                     Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
                 }

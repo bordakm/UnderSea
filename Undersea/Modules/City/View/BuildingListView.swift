@@ -51,7 +51,7 @@ extension City {
                                 
                                     Text("még \(building.remainingRounds) kör")
                                         .font(Fonts.get(.osBold, 14))
-                                        .foregroundColor(Colors.underseaTitleColor)
+                                        .foregroundColor(Colors.cyanLight)
                                         .padding()
                                 
                                 }
@@ -85,7 +85,7 @@ extension City {
                             }
                             
                         }
-                        .overlay(RoundedRectangle(cornerRadius: 16.0).stroke(lineWidth: 1.0).fill(Colors.borderColor))
+                        .overlay(RoundedRectangle(cornerRadius: 16.0).stroke(lineWidth: 1.0).fill(Colors.whiteFullyTransparent))
                         .padding(.bottom, 5.0)
                         
                     }

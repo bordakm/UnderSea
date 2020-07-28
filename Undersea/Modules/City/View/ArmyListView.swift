@@ -105,7 +105,7 @@ extension City {
                                         .resizable()
                                         .frame(width: 25.0, height: 25.0, alignment: .center)
                                 }
-                                .accentColor(Colors.underseaTitleColor)
+                                .accentColor(Colors.cyanLight)
                                 
                                 Text("\(unit.selectedAmount)")
                                     .font(Fonts.get(.osBold))
@@ -120,12 +120,12 @@ extension City {
                                         .resizable()
                                         .frame(width: 25.0, height: 25.0, alignment: .center)
                                 }
-                                .accentColor(Colors.underseaTitleColor)
+                                .accentColor(Colors.cyanLight)
                                 
                             }
                             
                             Divider()
-                                .background(Colors.separatorColor)
+                                .background(Colors.blueColor)
                         
                         }
                         .padding()

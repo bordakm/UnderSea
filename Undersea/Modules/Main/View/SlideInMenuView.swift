@@ -97,7 +97,7 @@ struct SlideInMenuView: View {
             .clipped()
             .modifier(SizeModifier())
         }
-        .background(Colors.whiteTransparent)
+        .background(Colors.whiteSemiTransparent)
     }
 }
 

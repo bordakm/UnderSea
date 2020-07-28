@@ -38,8 +38,8 @@ struct SeaInputField: View {
                     .padding(Edge.Set.horizontal, 16.0)
                     .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
                     .font(Font.system(size: 15.0))
-                    .foregroundColor(Colors.tabTintColor)
-                    .accentColor(Colors.tabTintColor)
+                    .foregroundColor(Colors.nightlyBlue)
+                    .accentColor(Colors.nightlyBlue)
             }
         }
         .frame(height: 40.0, alignment: .leading)

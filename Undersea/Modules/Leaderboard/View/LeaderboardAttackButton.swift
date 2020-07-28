@@ -18,7 +18,7 @@ struct LeaderboardAttackButton: View {
                 .fill(Color.clear)
         }.frame(width: 25.0, height: 25.0)
         .background(
-            LinearGradient(gradient: Gradient(colors: [Colors.loginGradientStart, Colors.loginGradientMid, Colors.loginGradientEnd]), startPoint: .bottom, endPoint: .top)
+            LinearGradient(gradient: Gradient(colors: [Colors.cyanDark, Colors.cyan, Colors.cyanLight]), startPoint: .bottom, endPoint: .top)
         )
         .mask(SVGImage(svgPath: R.file.attackSvg()!))
     }

@@ -34,7 +34,7 @@ extension Login {
                             
                             Text("Belépés")
                                 .font(Fonts.get(.bRegular, 20.0))
-                                .foregroundColor(Colors.loginTitleColor)
+                                .foregroundColor(Colors.nightlyBlue)
                             
                             SeaInputField(placeholder: "Felhasználónév", inputText: self.$userName)
                             SeaInputField(placeholder: "Jelszó", inputText: self.$userPassword, isSecure: true)
@@ -51,7 +51,7 @@ extension Login {
                             }) {
                                 Text("Regisztráció")
                                     .font(Fonts.get(.bRegular))
-                                    .foregroundColor(Colors.loginBtnTextColor)
+                                    .foregroundColor(Colors.nightlyBlue)
                             }
                             
                         }
@@ -64,7 +64,7 @@ extension Login {
                                     self.frameOfInterest = frame
                                 }
                             }
-                            return Colors.whiteTransparent
+                            return Colors.whiteSemiTransparent
                         })
                         .cornerRadius(16.0)
                         
@@ -78,9 +78,3 @@ extension Login {
         }
     }
 }
-
-/*struct LoginPage_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginPage()
-    }
-}*/

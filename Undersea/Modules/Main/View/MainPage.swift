@@ -80,7 +80,7 @@ extension Main {
                         .frame(height: 40.0)
                         .background(Color.white)
                         .clipShape(RoundedRectangle(cornerRadius: 13.0))
-                        .shadow(color: Colors.loginShadowColor, radius: 6.0, x: 0.0, y: 3.0)
+                        .shadow(color: Colors.lightBlue, radius: 6.0, x: 0.0, y: 3.0)
                         .padding(.top, 15.0)
                         
                         Spacer()
@@ -99,7 +99,7 @@ extension Main {
                 .navigationBarTitle("", displayMode: .inline)
                 .navigationBarItems(leading: SVGImage(svgPath: R.file.underseaLogoSvg()!).frame(width: 70.0, height: 40.0),
                                     trailing: userButton)
-                .navigationBarColor(Colors.navBarBackgroundColor)
+                .navigationBarColor(Colors.darkBlueUI)
                 
             }
             .navigationViewStyle(StackNavigationViewStyle())
