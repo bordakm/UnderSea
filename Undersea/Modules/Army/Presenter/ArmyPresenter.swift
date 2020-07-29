@@ -12,7 +12,7 @@ import CocoaLumberjack
 
 extension Army {
     
-    class Presenter {
+    class Presenter : ArmyPresenterProtocol {
         
         private var subscriptions: [Army.Event: AnyCancellable] = [:]
         
@@ -20,9 +20,9 @@ extension Army {
         
         // MARK: - Army
         
-        func bind(dataSubject: AnyPublisher<[DataModelType]?, Error>, buyDataSubject: AnyPublisher<[BuyUnitsDTO], Error>) {
+        func bind<S, T>(dataListSubject: AnyPublisher<[S], Error>, buyDataSubject: AnyPublisher<[T], Error>) where S : DTOProtocol, T : DTOProtocol {
          
-            subscriptions[.dataLoaded] = Publishers.CombineLatest(dataSubject, buyDataSubject)
+            subscriptions[.dataLoaded] = Publishers.CombineLatest(dataListSubject, buyDataSubject)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -36,16 +36,22 @@ extension Army {
                     
                 }, receiveValue: { (armyData, selectedUnitData) in
 
-                    self.populateModel(armyData: armyData ?? [], selectedUnitData: selectedUnitData)
+                    guard let armyData = armyData as? [DataModelType], let selectedUnitData = selectedUnitData as? [BuyUnitsDTO] else {
+                        return
+                    }
+                    
+                    self.populateModel(armyData: armyData, selectedUnitData: selectedUnitData)
                     
                 })
             
         }
         
+        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+        }
+        
         // MARK: - Populate model
         
         private func populateModel(armyData: [DataModelType], selectedUnitData: [BuyUnitsDTO]) {
-            
             
             var units: [UnitModel] = []
             for unitData in armyData {

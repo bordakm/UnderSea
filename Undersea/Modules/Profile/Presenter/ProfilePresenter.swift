@@ -12,13 +12,14 @@ import CocoaLumberjack
 
 extension Profile {
     
-    class Presenter {
+    class Presenter : DetailPresenterProtocol {
         
         private var subscriptions: [Profile.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
-        func bind(dataSubject: AnyPublisher<DataModelType?, Error>) {
+        //bind(dataSubject: AnyPublisher<DataModelType?, Error>)
+        func bind<S>(dataSubject: AnyPublisher<S?, Error>) where S : DTOProtocol {
          
             subscriptions[.dataLoaded] = dataSubject
                 .receive(on: DispatchQueue.main)
@@ -40,13 +41,18 @@ extension Profile {
             
         }
         
-        private func populateViewModel(dataModel: DataModelType?) {
+        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+        }
+        
+        private func populateViewModel<S>(dataModel: S?) where S : DTOProtocol {
             
             guard let dataModel = dataModel else {
                 return
             }
             
-            let viewModel = ProfilePageViewModel(userName: dataModel.userName, cityName: dataModel.countryName)
+            guard let viewModel = ProfilePageViewModel(data: dataModel) else {
+                return
+            }
             
             self.viewModel.set(viewModel: viewModel)
             

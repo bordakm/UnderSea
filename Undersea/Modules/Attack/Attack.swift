@@ -23,7 +23,7 @@ struct Attack {
         
         interactor.setPresenter = { return presenter }
         
-        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
+        presenter.bind(dataListSubject: interactor.dataSubject.eraseToAnyPublisher())
         presenter.bind(loadingSubject: interactor.loadingSubject.eraseToAnyPublisher())
         
         view.setInteractor = { return interactor }

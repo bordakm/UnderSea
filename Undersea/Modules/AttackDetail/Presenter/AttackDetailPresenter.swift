@@ -12,15 +12,17 @@ import CocoaLumberjack
 
 extension AttackDetail {
     
-    class Presenter {
+    class Presenter : AttackDetailPresenterProtocol {
         
         private var subscriptions: [AttackDetail.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
-        func bind(dataSubject: AnyPublisher<DataModelType?, Error>) {
+        
+        //bind(dataSubject: AnyPublisher<DataModelType?, Error>)
+        func bind<S>(dataListSubject: AnyPublisher<[S], Error>) where S : DTOProtocol {
          
-            subscriptions[.dataLoaded] = dataSubject
+            subscriptions[.dataLoaded] = dataListSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -40,7 +42,8 @@ extension AttackDetail {
             
         }
         
-        func bind(attackSentSubject: AnyPublisher<[SendAttackResponseDTO]?, Error>) {
+        //bind(attackSentSubject: AnyPublisher<[SendAttackResponseDTO]?, Error>)
+        func bind<S>(attackSentSubject: AnyPublisher<[S], Error>) where S : DTOProtocol {
          
             subscriptions[.attackSent] = attackSentSubject
                 .receive(on: DispatchQueue.main)
@@ -62,26 +65,17 @@ extension AttackDetail {
             
         }
         
-        private func populateViewModel(dataModel: DataModelType?) {
+        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+        }
+        
+        private func populateViewModel<S>(dataModel: [S]?) where S : DTOProtocol {
             
             guard let dataModel = dataModel else {
                 return
             }
             
-            var animalList: [AnimalViewModel] = []
-            for animal in dataModel {
-                
-                switch animal.id {
-                case 1:
-                    animalList.append(AnimalViewModel(id: animal.id, name: animal.name, imageName: "shark", available: Double(animal.availableCount)))
-                case 2:
-                    animalList.append(AnimalViewModel(id: animal.id, name: animal.name, imageName: "seal", available: Double(animal.availableCount)))
-                case 3:
-                    animalList.append(AnimalViewModel(id: animal.id, name: animal.name, imageName: "seahorse", available: Double(animal.availableCount)))
-                default:
-                    DDLogDebug("Unknown unit id \(animal.id)")
-                }
-                
+            let animalList: [AnimalViewModel] = dataModel.compactMap { animalData in
+                return AnimalViewModel(data: animalData)
             }
             
             self.viewModel.set(animalList: animalList)

@@ -12,13 +12,13 @@ import CocoaLumberjack
 
 extension Main {
     
-    class Presenter {
+    class Presenter : DetailPresenterProtocol {
         
         private var subscriptions: [Main.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
-        func bind(dataSubject: AnyPublisher<DataModelType?, Error>) {
+        func bind<S>(dataSubject: AnyPublisher<S?, Error>) where S : DTOProtocol {
          
             subscriptions[.dataLoaded] = dataSubject
                 .receive(on: DispatchQueue.main)
@@ -40,65 +40,20 @@ extension Main {
             
         }
         
-        private func populateViewModel(dataModel: DataModelType?) {
+        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+        }
+        
+        private func populateViewModel<S>(dataModel: S?) where S : DTOProtocol {
             
             guard let dataModel = dataModel else {
                 return
             }
             
-            let dtoStatBar = dataModel.statusBar
-            let resources = dtoStatBar.resources
-            
-            var statList: [StatusBarItem] = []
-            
-            for unit in dtoStatBar.units {
-                switch unit.id {
-                case 1:
-                    statList.append(.shark(unit.availableCount, unit.allCount))
-                case 2:
-                    statList.append(.seal(unit.availableCount, unit.allCount))
-                case 3:
-                    statList.append(.seahorse(unit.availableCount, unit.allCount))
-                default:
-                    DDLogDebug("Unknown unit id \(unit.id)")
-                }
+            guard let viewModel = MainPageViewModel(data: dataModel) else {
+                return
             }
             
-            statList.append(.pearl(resources.pearlCount, resources.pearlProductionCount))
-            statList.append(.coral(resources.coralCount, resources.coralProductionCount))
-            
-            for building in dtoStatBar.buildings {
-                switch building.typeId {
-                case 1:
-                    statList.append(.reefcastle(building.count))
-                case 2:
-                    statList.append(.flowRegulator(building.count))
-                default:
-                    DDLogDebug("Unknown building id \(building.typeId)")
-                }
-            }
-            
-            var builtStructures: Set<StructureType> = Set<StructureType>()
-            
-            if dataModel.structures.reefCastle {
-                builtStructures.insert(.reefcastle)
-            }
-            
-            if dataModel.structures.flowManager {
-                builtStructures.insert(.flowRegulator)
-            }
-            
-            if dataModel.structures.alchemy {
-                builtStructures.insert(.alchemy)
-            }
-            
-            if dataModel.structures.sonarCannon {
-                builtStructures.insert(.sonarCannon)
-            }
-            
-            let roundAndRank = "\(dtoStatBar.roundCount). kör\t\(dtoStatBar.scoreboardPosition). hely"
-            
-            self.viewModel.set(viewModel: MainPageViewModel(roundAndRank: roundAndRank, statList: statList, builtStructures: builtStructures))
+            self.viewModel.set(viewModel: viewModel)
             
         }
         

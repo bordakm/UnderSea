@@ -15,12 +15,12 @@ extension Upgrades {
         
         // MARK: - Properties
         
-        private lazy var presenter: Presenter = setPresenter()
-        var setPresenter: (() -> Presenter)!
+        private lazy var presenter: CombinedPresenterProtocol = setPresenter()
+        var setPresenter: (() -> CombinedPresenterProtocol)!
         
         private let worker = Upgrades.ApiWorker()
         
-        let dataSubject = CurrentValueSubject<[DataModelType]?, Error>(nil)
+        let dataSubject = CurrentValueSubject<[DataModelType], Error>([])
         let buyDataSubject = CurrentValueSubject<DataModelType?, Error>(nil)
         
         private var subscription: AnyCancellable?

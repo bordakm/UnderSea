@@ -8,8 +8,7 @@
 
 import Foundation
 
-struct MainPageDTO: Decodable {
-    
+struct MainPageDTO: Decodable, DTOProtocol {
     
     let statusBar: StatusBarDTO
     let countryName: String

@@ -13,11 +13,11 @@ extension Leaderboard {
     
     class Interactor {
         
-        private lazy var presenter: Presenter = setPresenter()
-        var setPresenter: (() -> Presenter)!
+        private lazy var presenter: ListPresenterProtocol = setPresenter()
+        var setPresenter: (() -> ListPresenterProtocol)!
         
         private let worker = Leaderboard.ApiWorker()
-        let dataSubject = CurrentValueSubject<DataModelType?, Error>(nil)
+        let dataSubject = CurrentValueSubject<DataModelType, Error>(DataModelType())
         let loadingSubject = CurrentValueSubject<Bool, Never>(false)
         private var subscription: AnyCancellable?
         

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LeaderboardPageDTO: Decodable {
+struct LeaderboardPageDTO: Decodable, DTOProtocol {
     
     let id: Int
     let userName: String

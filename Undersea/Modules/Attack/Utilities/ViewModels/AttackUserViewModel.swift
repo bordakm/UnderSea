@@ -19,3 +19,17 @@ extension Attack {
     }
 
 }
+
+extension Attack.UserViewModel {
+    
+    init?(data: DTOProtocol) {
+        
+        if let data = data as? AttackPageDTO {
+            self.init(id: data.id, place: data.place, userName: data.userName)
+        } else {
+            return nil
+        }
+        
+    }
+    
+}

@@ -23,8 +23,8 @@ struct Upgrades {
         
         interactor.setPresenter = { return presenter }
         
-        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
-        presenter.bind(buyDataSubject: interactor.buyDataSubject.eraseToAnyPublisher())
+        presenter.bind(dataListSubject: interactor.dataSubject.eraseToAnyPublisher())
+        presenter.bind(dataSubject: interactor.buyDataSubject.eraseToAnyPublisher())
         
         view.setInteractor = { return interactor }
         

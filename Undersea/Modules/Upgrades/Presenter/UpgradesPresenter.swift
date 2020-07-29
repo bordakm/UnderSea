@@ -12,7 +12,7 @@ import CocoaLumberjack
 
 extension Upgrades {
     
-    class Presenter {
+    class Presenter : CombinedPresenterProtocol {
         
         private var subscriptions: [Upgrades.Event: AnyCancellable] = [:]
         
@@ -20,9 +20,10 @@ extension Upgrades {
         
         // MARK: - Upgrades
         
-        func bind(dataSubject: AnyPublisher<[DataModelType]?, Error>) {
+        //bind(dataSubject: AnyPublisher<[DataModelType]?, Error>)
+        func bind<S>(dataListSubject: AnyPublisher<[S], Error>) where S : DTOProtocol {
          
-            subscriptions[.upgradeDataLoaded] = dataSubject
+            subscriptions[.upgradeDataLoaded] = dataListSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -42,9 +43,10 @@ extension Upgrades {
             
         }
         
-        func bind(buyDataSubject: AnyPublisher<DataModelType?, Error>) {
+        //bind(buyDataSubject: AnyPublisher<DataModelType?, Error>)
+        func bind<S: DTOProtocol>(dataSubject: AnyPublisher<S?, Error>) {
          
-            subscriptions[.upgradeBought] = buyDataSubject
+            subscriptions[.upgradeBought] = dataSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -58,7 +60,7 @@ extension Upgrades {
                     
                 }, receiveValue: { (data) in
                     
-                    guard let data = data else {
+                    guard let data = data as? UpgradeDTO else {
                         DDLogDebug("Error: no building data received in response")
                         return
                     }
@@ -69,17 +71,19 @@ extension Upgrades {
             
         }
         
+        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+        }
+        
         // MARK: - Populate model
         
-        private func populateModel(dataModel: [DataModelType]?) {
+        private func populateModel<S>(dataModel: [S]?) where S : DTOProtocol {
             
             guard let dataModel = dataModel else {
                 return
             }
             
-            var upgrades: [UpgradeModel] = []
-            for upgradeData in dataModel {
-                upgrades.append(UpgradeModel(upgradeData: upgradeData))
+            var upgrades: [UpgradeModel] = dataModel.compactMap { upgrade in
+                return UpgradeModel(data: upgrade)
             }
             
             self.viewModel.set(upgradeList: upgrades)

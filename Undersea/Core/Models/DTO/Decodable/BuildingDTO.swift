@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BuildingDTO : Decodable {
+struct BuildingDTO : Decodable, DTOProtocol {
     
     let id: Int
     let name: String

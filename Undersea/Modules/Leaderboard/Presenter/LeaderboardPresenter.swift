@@ -12,15 +12,15 @@ import CocoaLumberjack
 
 extension Leaderboard {
     
-    class Presenter {
+    class Presenter : ListPresenterProtocol {
         
         private var subscriptions: [Leaderboard.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
-        func bind(dataSubject: AnyPublisher<DataModelType?, Error>) {
+        func bind<S>(dataListSubject: AnyPublisher<[S], Error>) where S : DTOProtocol {
          
-            subscriptions[.dataLoaded] = dataSubject
+            subscriptions[.dataLoaded] = dataListSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -39,7 +39,7 @@ extension Leaderboard {
                     self.populateViewModel(dataModel: data)
                     
                 })
-            
+
         }
         
         func bind(loadingSubject: AnyPublisher<Bool, Never>) {
@@ -50,14 +50,14 @@ extension Leaderboard {
                 })
         }
         
-        private func populateViewModel(dataModel: DataModelType?) {
+        private func populateViewModel<S>(dataModel: [S]?) where S : DTOProtocol {
             
             guard let dataModel = dataModel else {
                 return
             }
             
-            let userList = dataModel.map { user in
-                return UserViewModel(id: user.id, place: user.place, userName: user.userName, score: user.score)
+            let userList = dataModel.compactMap { user in
+                return UserViewModel(data: user)
             }
             
             self.viewModel.set(userList: userList)

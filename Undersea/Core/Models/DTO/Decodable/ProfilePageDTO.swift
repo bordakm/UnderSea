@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProfilePageDTO: Decodable {
+struct ProfilePageDTO: Decodable, DTOProtocol {
  
     let userName: String
     let countryName: String

@@ -12,7 +12,7 @@ import CocoaLumberjack
 
 extension Buildings {
     
-    class Presenter {
+    class Presenter : CombinedPresenterProtocol {
         
         private var subscriptions: [Buildings.Event: AnyCancellable] = [:]
         
@@ -20,9 +20,10 @@ extension Buildings {
         
         // MARK: - Buildings
         
-        func bind(dataSubject: AnyPublisher<[DataModelType]?, Error>) {
+        //bind(dataSubject: AnyPublisher<[DataModelType]?, Error>)
+        func bind<S>(dataListSubject: AnyPublisher<[S], Error>) where S : DTOProtocol {
          
-            subscriptions[.buildingDataLoaded] = dataSubject
+            subscriptions[.buildingDataLoaded] = dataListSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -42,9 +43,10 @@ extension Buildings {
             
         }
         
-        func bind(buyDataSubject: AnyPublisher<DataModelType?, Error>) {
+        //bind(buyDataSubject: AnyPublisher<DataModelType?, Error>)
+        func bind<S: DTOProtocol>(dataSubject: AnyPublisher<S?, Error>) {
          
-            subscriptions[.buildingBought] = buyDataSubject
+            subscriptions[.buildingBought] = dataSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -58,7 +60,7 @@ extension Buildings {
                     
                 }, receiveValue: { (data) in
                     
-                    guard let data = data else {
+                    guard let data = data as? BuildingDTO else {
                         DDLogDebug("Error: no building data cereived in response")
                         return
                     }
@@ -69,17 +71,19 @@ extension Buildings {
             
         }
         
+        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+        }
+        
         // MARK: - Populate model
         
-        private func populateViewModel(dataModel: [DataModelType]?) {
+        private func populateViewModel<S>(dataModel: [S]?) where S : DTOProtocol {
             
             guard let dataModel = dataModel else {
                 return
             }
             
-            var buildings: [BuildingModel] = []
-            for buildingData in dataModel {
-                buildings.append(BuildingModel(buildingData: buildingData))
+            let buildings: [BuildingModel] = dataModel.compactMap { buildingData in
+                return BuildingModel(data: buildingData)
             }
             
             self.viewModel.set(buildingList: buildings)

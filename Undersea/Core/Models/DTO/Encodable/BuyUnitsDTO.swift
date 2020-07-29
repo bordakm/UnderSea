@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BuyUnitsDTO : Encodable, Decodable {
+struct BuyUnitsDTO : Encodable, Decodable, DTOProtocol {
     
     let typeId: Int
     var count: Int

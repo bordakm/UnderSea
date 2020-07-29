@@ -17,9 +17,13 @@ struct RootPageController: View {
     
     var tabBar: some View {
         
-        CustomTabBar(tabItems: tabs, selected: $observedPages.currentSubPage)
-            .sheet(isPresented: $observedPages.leaderboardVisible) {
-                Leaderboard.setup()
+        LoadingController {
+        
+            CustomTabBar(tabItems: self.tabs, selected: self.$observedPages.currentSubPage)
+                .sheet(isPresented: self.$observedPages.leaderboardVisible) {
+                    Leaderboard.setup()
+            }
+            
         }
         
     }

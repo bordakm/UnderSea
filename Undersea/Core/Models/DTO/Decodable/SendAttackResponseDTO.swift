@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SendAttackResponseDTO : Decodable {
+struct SendAttackResponseDTO : Decodable, DTOProtocol {
     
     let typeId: Int
     let count: Int

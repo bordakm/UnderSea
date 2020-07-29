@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AttackPageDTO: Decodable {
+struct AttackPageDTO: Decodable, DTOProtocol {
     
     let id: Int
     let place: Int

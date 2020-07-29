@@ -13,12 +13,12 @@ extension AttackDetail {
     
     class Interactor {
         
-        private lazy var presenter: Presenter = setPresenter()
-        var setPresenter: (() -> Presenter)!
+        private lazy var presenter: AttackDetailPresenterProtocol = setPresenter()
+        var setPresenter: (() -> AttackDetailPresenterProtocol)!
         
         private let worker = AttackDetail.ApiWorker()
-        let dataSubject = CurrentValueSubject<DataModelType?, Error>(nil)
-        let attackSentSubject = CurrentValueSubject<[SendAttackResponseDTO]?, Error>(nil)
+        let dataSubject = CurrentValueSubject<DataModelType, Error>(DataModelType())
+        let attackSentSubject = CurrentValueSubject<[SendAttackResponseDTO], Error>([])
         let loadingSubject = CurrentValueSubject<Bool, Never>(false)
         private var subscription: AnyCancellable?
         

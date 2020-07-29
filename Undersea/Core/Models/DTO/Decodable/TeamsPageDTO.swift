@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TeamsPageDTO: Decodable {
+struct TeamsPageDTO: Decodable, DTOProtocol {
     
     let countryName: String
     let units: [Unit]

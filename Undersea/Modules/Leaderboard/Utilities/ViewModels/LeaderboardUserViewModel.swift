@@ -20,3 +20,19 @@ extension Leaderboard {
     }
 
 }
+
+extension Leaderboard.UserViewModel {
+    
+    init?(data: DTOProtocol) {
+        
+        if let user = data as? LeaderboardPageDTO {
+            
+            self.init(id: user.id, place: user.place, userName: user.userName, score: user.score)
+            
+        } else {
+            return nil
+        }
+        
+    }
+    
+}

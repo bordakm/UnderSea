@@ -14,3 +14,17 @@ struct ProfilePageViewModel {
     var cityName: String
     
 }
+
+extension ProfilePageViewModel {
+    
+    init?(data: DTOProtocol) {
+        
+        if let dataModel = data as? ProfilePageDTO {
+            self.init(userName: dataModel.userName, cityName: dataModel.countryName)
+        } else {
+            return nil
+        }
+
+    }
+    
+}

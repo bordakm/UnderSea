@@ -15,12 +15,12 @@ extension Army {
         
         // MARK: - Properties
         
-        private lazy var presenter: Presenter = setPresenter()
-        var setPresenter: (() -> Presenter)!
+        private lazy var presenter: ArmyPresenterProtocol = setPresenter()
+        var setPresenter: (() -> ArmyPresenterProtocol)!
         
         private let worker = Army.ApiWorker()
         
-        let dataSubject = CurrentValueSubject<[DataModelType]?, Error>(nil)
+        let dataSubject = CurrentValueSubject<[DataModelType], Error>([])
         let buyDataSubject = CurrentValueSubject<[BuyUnitsDTO], Error>([])
         
         private var subscription: AnyCancellable?

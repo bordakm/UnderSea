@@ -13,8 +13,8 @@ extension Profile {
     
     class Interactor {
         
-        private lazy var presenter: Presenter = setPresenter()
-        var setPresenter: (() -> Presenter)!
+        private lazy var presenter: DetailPresenterProtocol = setPresenter()
+        var setPresenter: (() -> DetailPresenterProtocol)!
         
         private let worker = Profile.ApiWorker()
         let dataSubject = CurrentValueSubject<DataModelType?, Error>(nil)

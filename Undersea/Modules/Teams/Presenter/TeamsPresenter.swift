@@ -12,15 +12,15 @@ import CocoaLumberjack
 
 extension Teams {
     
-    class Presenter {
-        
+    class Presenter : ListPresenterProtocol {
+
         private var subscriptions: [Teams.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
-        func bind(dataSubject: AnyPublisher<DataModelType?, Error>) {
+        func bind<S>(dataListSubject: AnyPublisher<[S], Error>) where S : DTOProtocol {
          
-            subscriptions[.dataLoaded] = dataSubject
+            subscriptions[.dataLoaded] = dataListSubject
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { (result) in
                     
@@ -42,16 +42,17 @@ extension Teams {
             
         }
         
-        private func populateViewModel(dataModel: DataModelType?) {
+        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+        }
+        
+        private func populateViewModel<S>(dataModel: [S]?) where S : DTOProtocol {
             
             guard let dataModel = dataModel else {
                 return
             }
             
-            let teams = dataModel.map { team in
-                return TeamModel(name: team.countryName, units: team.units.map { unit in
-                    return "\(unit.count) \(unit.name)"
-                })
+            let teams = dataModel.compactMap { team in
+                return TeamModel(data: team)
             }
             
             self.viewModel.set(teams: teams)

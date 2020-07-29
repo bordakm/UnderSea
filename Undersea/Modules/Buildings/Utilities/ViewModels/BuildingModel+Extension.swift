@@ -29,4 +29,16 @@ extension Buildings.BuildingModel {
         }
     }
     
+    init?(data: DTOProtocol) {
+        
+        if let buildingData = data as? BuildingDTO {
+            
+            self.init(buildingData: buildingData)
+            
+        } else {
+            return nil
+        }
+        
+    }
+    
 }

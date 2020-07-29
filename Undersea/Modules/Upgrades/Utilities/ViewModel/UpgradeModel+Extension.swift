@@ -36,4 +36,14 @@ extension Upgrades.UpgradeModel {
         }
     }
     
+    init?(data: DTOProtocol) {
+        
+        if let upgradeData = data as? UpgradeDTO {
+            self.init(upgradeData: upgradeData)
+        } else {
+            return nil
+        }
+        
+    }
+    
 }

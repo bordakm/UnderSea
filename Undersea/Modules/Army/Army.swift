@@ -23,7 +23,7 @@ struct Army {
         
         interactor.setPresenter = { return presenter }
         
-        presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher(), buyDataSubject: interactor.buyDataSubject.eraseToAnyPublisher())
+        presenter.bind(dataListSubject: interactor.dataSubject.eraseToAnyPublisher(), buyDataSubject: interactor.buyDataSubject.eraseToAnyPublisher())
         
         view.setInteractor = { return interactor }
         
