@@ -12,6 +12,7 @@ extension Main {
     
     enum Event {
         case dataLoaded
+        case viewLoading
     }
     
 }

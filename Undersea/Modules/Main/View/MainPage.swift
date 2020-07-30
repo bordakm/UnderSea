@@ -19,6 +19,7 @@ extension Main {
         var setInteractor: (()->Interactor)!
         
         @ObservedObject var viewModel: ViewModelType
+        @EnvironmentObject var loadingObserver: LoadingObserver
         
         var usecaseHandler: ((Main.Usecase) -> Void)?
         
@@ -64,52 +65,60 @@ extension Main {
         }
         
         var body: some View {
-            NavigationView {
-                ZStack(alignment: .bottom) {
-                    VStack {
-                        
-                        Button(action: {
-                            RootPageManager.shared.leaderboardVisible = true
-                        }){
-                            Text(viewModel.mainPageModel?.roundAndRank ?? "...")
-                                .font(Fonts.get(.bRegular))
-                                .foregroundColor(Colors.darkBlue)
-                                .padding(10.0)
+            GeometryReader { geometry in
+                NavigationView {
+                    ZStack(alignment: .bottom) {
+                        VStack {
+                            
+                            Button(action: {
+                                RootPageManager.shared.leaderboardVisible = true
+                            }){
+                                Text(self.viewModel.mainPageModel?.roundAndRank ?? "...")
+                                    .font(Fonts.get(.bRegular))
+                                    .foregroundColor(Colors.darkBlue)
+                                    .padding(10.0)
+                            }
+                            .frame(height: 40.0)
+                            .background(Color.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 13.0))
+                            .shadow(color: Colors.lightBlue, radius: 6.0, x: 0.0, y: 3.0)
+                            .padding(.top, 15.0)
+                            
+                            Spacer()
+                            
                         }
-                        .frame(height: 40.0)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 13.0))
-                        .shadow(color: Colors.lightBlue, radius: 6.0, x: 0.0, y: 3.0)
-                        .padding(.top, 15.0)
                         
-                        Spacer()
+                        self.slideInMenu
+                            .onPreferenceChange(SizePreferenceKey.self, perform: {
+                                self.slideInSize = $0
+                                self.slideInOffset = $0.height
+                            })
+                            .offset(y: self.slideInOffset)
                         
                     }
-                    
-                    slideInMenu
-                        .onPreferenceChange(SizePreferenceKey.self, perform: {
-                            self.slideInSize = $0
-                            self.slideInOffset = $0.height
-                        })
-                        .offset(y: self.slideInOffset)
+                    .background(self.background)
+                    .navigationBarTitle("", displayMode: .inline)
+                    .navigationBarItems(leading: SVGImage(svgPath: R.file.underseaLogoSvg()!).frame(width: 70.0, height: 40.0),
+                                        trailing: self.userButton)
+                    .navigationBarColor(Colors.darkBlueUI)
                     
                 }
-                .background(background)
-                .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(leading: SVGImage(svgPath: R.file.underseaLogoSvg()!).frame(width: 70.0, height: 40.0),
-                                    trailing: userButton)
-                .navigationBarColor(Colors.darkBlueUI)
-                
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .alert(isPresented: self.$viewModel.errorModel.alert) {
-                Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
-            }
-            .onAppear {
-                self.usecaseHandler?(.load)
-            }
-            .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
-                self.usecaseHandler?(.load)
+                .navigationViewStyle(StackNavigationViewStyle())
+                .alert(isPresented: self.$viewModel.errorModel.alert) {
+                    Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
+                }
+                .onAppear {
+                    self.usecaseHandler?(.load)
+                }
+                .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
+                    self.usecaseHandler?(.load)
+                }
+                .onReceive(self.viewModel.isLoading) { (loading) in
+                    var tempFrame = geometry.frame(in: CoordinateSpace.global)
+                    tempFrame.origin.y -= geometry.safeAreaInsets.top
+                    self.loadingObserver.rect = tempFrame
+                    self.loadingObserver.isLoading = loading
+                }
             }
         }
     }

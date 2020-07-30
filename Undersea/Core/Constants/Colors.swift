@@ -27,10 +27,12 @@ struct Colors {
     static let deepBlue = Color(hex: "#03255F")
     static let deepBlueUI = UIColor(hex: "#03255F")
     static let nightlyBlue = Color(hex: "#001234")
+    static let nightlyBlueUI = UIColor(hex: "#001234")
     
     // MARK: - Grey
     
-    static let greyTransparent = UIColor(red: 122.0/255.0, green: 122.0/255.0, blue: 122.0/255.0, alpha: 0.32)
+    static let greyTransparent = Color(Color.RGBColorSpace.sRGB, white: 0.5, opacity: 0.32)
+    static let greyTransparentUI = UIColor(red: 122.0/255.0, green: 122.0/255.0, blue: 122.0/255.0, alpha: 0.32)
     
     // MARK: - White
     

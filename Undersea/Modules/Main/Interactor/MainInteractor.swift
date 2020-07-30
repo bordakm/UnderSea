@@ -18,6 +18,7 @@ extension Main {
         
         private let worker = Main.ApiWorker()
         let dataSubject = CurrentValueSubject<DataModelType?, Error>(nil)
+        let loadingSubject = CurrentValueSubject<Bool, Never>(false)
         private var subscription: AnyCancellable?
      
         func handleUsecase(_ event: Main.Usecase) {
@@ -31,9 +32,11 @@ extension Main {
         
         private func loadData() {
             
+            loadingSubject.send(true)
             subscription = worker.getMain()
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { (result) in
+                    self.loadingSubject.send(false)
                     switch result {
                     case .failure(_):
                         self.dataSubject.send(completion: result)
@@ -42,6 +45,7 @@ extension Main {
                         break
                     }
                 }, receiveValue: { data in
+                    sleep(3)
                     self.dataSubject.send(data)
                 })
             

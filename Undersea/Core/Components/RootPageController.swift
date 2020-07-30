@@ -25,7 +25,7 @@ struct RootPageController: View {
             }
             
         }
-        
+
     }
     
     var body: some View {
