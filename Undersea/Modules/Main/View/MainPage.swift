@@ -23,6 +23,8 @@ extension Main {
         
         var usecaseHandler: ((Main.Usecase) -> Void)?
         
+        let profile = Profile.setup()
+        
         var slideInMenu: some View {
             SlideInMenuView(statList: viewModel.mainPageModel?.statList ?? [], action: {
                 withAnimation(.easeInOut) {
@@ -37,7 +39,7 @@ extension Main {
         
         var userButton: some View {
             
-            NavigationLink(destination: Profile.setup()) {
+            NavigationLink(destination: profile) {
                 SVGImage(svgPath: R.file.userImageSvg()!)
             }.frame(width: 30.0, height: 30.0)
             
@@ -114,9 +116,7 @@ extension Main {
                     self.usecaseHandler?(.load)
                 }
                 .onReceive(self.viewModel.isLoading) { (loading) in
-                    var tempFrame = geometry.frame(in: CoordinateSpace.global)
-                    tempFrame.origin.y -= geometry.safeAreaInsets.top
-                    self.loadingObserver.rect = tempFrame
+                    self.loadingObserver.rect = geometry.frame(in: CoordinateSpace.global)
                     self.loadingObserver.isLoading = loading
                 }
             }

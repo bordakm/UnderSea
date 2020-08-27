@@ -17,18 +17,15 @@ struct RootPageController: View {
     
     var tabBar: some View {
         
-        LoadingController {
-        
-            CustomTabBar(tabItems: self.tabs, selected: self.$observedPages.currentSubPage)
-                .sheet(isPresented: self.$observedPages.leaderboardVisible) {
-                    Leaderboard.setup()
-            }
-            
+        CustomTabBar(tabItems: self.tabs, selected: self.$observedPages.currentSubPage)
+            .sheet(isPresented: self.$observedPages.leaderboardVisible) {
+                Leaderboard.setup()
         }
 
     }
     
-    var body: some View {
+    var selectedRoot: some View {
+        
         switch observedPages.currentPage {
         case .login:
             return AnyView(Login.setup())
@@ -38,6 +35,13 @@ struct RootPageController: View {
             return AnyView(tabBar)
         case .loading:
             return AnyView(LoadScreen())
+        }
+        
+    }
+    
+    var body: some View {
+        LoadingController {
+            self.selectedRoot
         }
     }
 }

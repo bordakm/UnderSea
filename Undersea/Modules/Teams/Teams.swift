@@ -23,6 +23,7 @@ struct Teams {
         
         interactor.setPresenter = { return presenter }
         
+        presenter.bind(loadingSubject: interactor.loadingSubject.eraseToAnyPublisher())
         presenter.bind(dataListSubject: interactor.dataSubject.eraseToAnyPublisher())
         
         view.setInteractor = { return interactor }

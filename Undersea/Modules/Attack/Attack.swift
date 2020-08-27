@@ -16,13 +16,14 @@ struct Attack {
     
     static func setup() -> AttackPage {
         
-        let interactor = Interactor()
-        let presenter = Presenter()
+        let interactor = AttackInteractor()
+        let presenter = AttackPresenter()
         
         var view = AttackPage(viewModel: presenter.viewModel, usecaseHandler: interactor.handleUsecase(_:))
         
         interactor.setPresenter = { return presenter }
         
+        presenter.bind(loadMoreSubject: interactor.loadMoreSubject.eraseToAnyPublisher())
         presenter.bind(dataListSubject: interactor.dataSubject.eraseToAnyPublisher())
         presenter.bind(loadingSubject: interactor.loadingSubject.eraseToAnyPublisher())
         

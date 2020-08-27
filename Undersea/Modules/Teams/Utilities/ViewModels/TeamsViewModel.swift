@@ -7,12 +7,14 @@
 //
 
 import Foundation
+import Combine
 
 extension Teams {
     
     class ViewModel: ObservableObject {
         
         @Published var isRefreshing = false
+        @Published var isLoading = PassthroughSubject<Bool, Never>()
         private(set) var teams: [TeamModel] = []
         @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         

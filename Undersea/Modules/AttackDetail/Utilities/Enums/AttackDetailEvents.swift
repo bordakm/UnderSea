@@ -13,6 +13,7 @@ extension AttackDetail {
     enum Event {
         case dataLoaded
         case attackSent
+        case viewLoading
     }
     
 }

@@ -16,6 +16,7 @@ extension Login {
         var setInteractor: (()->Interactor)!
         
         @ObservedObject var viewModel: ViewModelType
+        @EnvironmentObject var loadingObserver: LoadingObserver
         
         var usecaseHandler: ((Login.Usecase) -> Void)?
         
@@ -70,6 +71,10 @@ extension Login {
                         
                     }.padding(.top, geometry.safeAreaInsets.top)
                     .keyboardAdaptive(frameOfInterest: self.frameOfInterest ?? CGRect.zero)
+                    .onReceive(self.viewModel.isLoading) { (loading) in
+                        self.loadingObserver.rect = geometry.frame(in: CoordinateSpace.global)
+                        self.loadingObserver.isLoading = loading
+                    }
             }
             .background(Image(uiImage: R.image.loginBackground()!)
                 .resizable()

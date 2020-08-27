@@ -13,7 +13,7 @@ extension AttackDetail {
     
     class ViewModel: ObservableObject {
         
-        @Published var isLoading = false
+        var isLoading = PassthroughSubject<Bool, Never>()
         var shouldPopBack = PassthroughSubject<Void, Never>()
         private(set) var animalList: [AnimalViewModel] = []
         @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)

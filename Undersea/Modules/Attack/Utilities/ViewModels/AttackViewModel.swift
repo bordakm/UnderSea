@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import Combine
 
 extension Attack {
     
     class ViewModel: ObservableObject {
         
-        @Published var isLoading = false
+        //@Published var isLoading = false
+        @Published var isLoading = PassthroughSubject<Bool, Never>()
+        @Published var isLoadingMore = false
         @Published var isRefreshing = false
         private(set) var userList: [UserViewModel] = []
         @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)

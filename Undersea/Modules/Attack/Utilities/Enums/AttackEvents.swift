@@ -13,6 +13,7 @@ extension Attack {
     enum Event {
         case dataLoaded
         case nextPageLoading
+        case viewLoading
     }
     
 }

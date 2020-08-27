@@ -72,6 +72,11 @@ extension Buildings {
         }
         
         func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+            subscriptions[.viewLoading] = loadingSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] (isLoading) in
+                self?.viewModel.isLoading.send(isLoading)
+            })
         }
         
         // MARK: - Populate model

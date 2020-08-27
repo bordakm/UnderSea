@@ -13,6 +13,7 @@ extension Buildings {
     enum Event {
         case buildingDataLoaded
         case buildingBought
+        case viewLoading
     }
     
 }

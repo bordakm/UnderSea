@@ -12,6 +12,7 @@ extension Teams {
     
     enum Event {
         case dataLoaded
+        case viewLoading
     }
     
 }

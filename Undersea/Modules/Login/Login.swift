@@ -23,6 +23,7 @@ struct Login {
         
         interactor.setPresenter = { return presenter }
         
+        presenter.bind(loadingSubject: interactor.loadingSubject.eraseToAnyPublisher())
         presenter.bind(dataSubject: interactor.dataSubject.eraseToAnyPublisher())
         
         view.setInteractor = { return interactor }

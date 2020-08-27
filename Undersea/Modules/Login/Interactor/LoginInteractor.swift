@@ -13,10 +13,11 @@ extension Login {
     
     class Interactor {
         
-        private lazy var presenter: Presenter = setPresenter()
-        var setPresenter: (() -> Presenter)!
+        private lazy var presenter: DetailPresenterProtocol = setPresenter()
+        var setPresenter: (() -> DetailPresenterProtocol)!
         
         let dataSubject = CurrentValueSubject<DataModelType?, Error>(nil)
+        let loadingSubject = CurrentValueSubject<Bool, Never>(false)
         private var subscription: AnyCancellable?
      
         func handleUsecase(_ event: Login.Usecase) {
@@ -30,9 +31,11 @@ extension Login {
         
         private func login(_ data: LoginDTO) {
             
+            loadingSubject.send(true)
             subscription = UserManager.shared.login(data)
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { (result) in
+                    self.loadingSubject.send(false)
                     switch result {
                     case .failure(_):
                         self.dataSubject.send(completion: result)
@@ -41,6 +44,7 @@ extension Login {
                         break
                     }
                 }, receiveValue: { (data) in
+                    sleep(2)
                     self.dataSubject.send(data)
                 })
             

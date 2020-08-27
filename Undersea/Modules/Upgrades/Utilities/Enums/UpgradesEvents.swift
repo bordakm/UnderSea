@@ -13,6 +13,7 @@ extension Upgrades {
     enum Event {
         case upgradeDataLoaded
         case upgradeBought
+        case viewLoading
     }
     
 }

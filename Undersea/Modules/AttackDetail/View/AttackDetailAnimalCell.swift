@@ -36,7 +36,7 @@ extension AttackDetail {
                         .accentColor(Colors.cyanLight)
                         .introspectSlider { (slider) in
                             slider.thumbTintColor = Colors.cyanLightUI
-                            slider.maximumTrackTintColor = Colors.greyTransparent
+                            slider.maximumTrackTintColor = Colors.greyTransparentUI
                     }
                 }
             }

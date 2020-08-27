@@ -12,6 +12,7 @@ extension Profile {
     
     enum Event {
         case dataLoaded
+        case viewLoading
     }
     
 }

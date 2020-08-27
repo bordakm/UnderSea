@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import Combine
 
 extension Buildings {
     
     class ViewModel: ObservableObject {
         
-        @Published var isLoading = false
+        @Published var isLoading = PassthroughSubject<Bool, Never>()
         private(set) var buildingList: [BuildingModel] = []
         @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         

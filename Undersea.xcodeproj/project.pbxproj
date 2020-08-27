@@ -139,6 +139,7 @@
 		7958750424C7410D00CB7B5F /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7958750324C7410D00CB7B5F /* ActivityIndicator.swift */; };
 		7959F41A24CACEE900626711 /* UnitDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7959F41924CACEE900626711 /* UnitDTO.swift */; };
 		7959F41C24CAD0AC00626711 /* BuyUnitsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7959F41B24CAD0AC00626711 /* BuyUnitsDTO.swift */; };
+		7962571224D2ED7400D03CD1 /* AttackPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7962571124D2ED7400D03CD1 /* AttackPresenterProtocol.swift */; };
 		79820C5024B707F7006D7258 /* RootPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79820C4F24B707F7006D7258 /* RootPageController.swift */; };
 		79820C5824B716C1006D7258 /* teams.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5424B716C1006D7258 /* teams.svg */; };
 		79820C5924B716C1006D7258 /* city.svg in Resources */ = {isa = PBXBuildFile; fileRef = 79820C5524B716C1006D7258 /* city.svg */; };
@@ -359,6 +360,7 @@
 		7958750324C7410D00CB7B5F /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		7959F41924CACEE900626711 /* UnitDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitDTO.swift; sourceTree = "<group>"; };
 		7959F41B24CAD0AC00626711 /* BuyUnitsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyUnitsDTO.swift; sourceTree = "<group>"; };
+		7962571124D2ED7400D03CD1 /* AttackPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPresenterProtocol.swift; sourceTree = "<group>"; };
 		79820C4F24B707F7006D7258 /* RootPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPageController.swift; sourceTree = "<group>"; };
 		79820C5424B716C1006D7258 /* teams.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teams.svg; sourceTree = "<group>"; };
 		79820C5524B716C1006D7258 /* city.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = city.svg; sourceTree = "<group>"; };
@@ -1143,6 +1145,7 @@
 		7956490524BEE1B5003D6D16 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7962571024D2ED3E00D03CD1 /* Protocols */,
 				7956490824BEE1DE003D6D16 /* Network */,
 				7956490724BEE1D4003D6D16 /* Enums */,
 				7956490624BEE1C1003D6D16 /* ViewModels */,
@@ -1227,6 +1230,14 @@
 				79170F1F24CED06C0062CE1D /* UpgradeDTO.swift */,
 			);
 			path = Decodable;
+			sourceTree = "<group>";
+		};
+		7962571024D2ED3E00D03CD1 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7962571124D2ED7400D03CD1 /* AttackPresenterProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		79820C5124B71685006D7258 /* SVG */ = {
@@ -1840,6 +1851,7 @@
 				79D4533B24C87FA800A2197B /* AttackDetail.swift in Sources */,
 				7949EFEC24C9C3F40076D151 /* BuildingDTO.swift in Sources */,
 				7901F35524C96F0B00003D28 /* SendAttackDTO.swift in Sources */,
+				7962571224D2ED7400D03CD1 /* AttackPresenterProtocol.swift in Sources */,
 				7956492924BEFDEF003D6D16 /* LoginDTO.swift in Sources */,
 				79F5314D24C058640058F86D /* UnderseaClaim.swift in Sources */,
 				7947A2A024C7159D00E912CC /* LeaderboardEvents.swift in Sources */,

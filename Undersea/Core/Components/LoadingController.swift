@@ -36,7 +36,7 @@ struct LoadingController<Content>: View where Content: View {
                     .edgesIgnoringSafeArea(.all)
                     .frame(width: self.loadingObserver.rect.width, height: self.loadingObserver.rect.height)
                     //.position(self.loadingObserver.rect.origin)
-                    .position(CGPoint(x: self.loadingObserver.rect.midX, y: self.loadingObserver.rect.midY))
+                    .position(CGPoint(x: self.loadingObserver.rect.midX, y: self.loadingObserver.rect.midY - geometry.safeAreaInsets.top))
                     //.offset(x: self.loadingObserver.rect.minX, y: self.loadingObserver.rect.minY - geometry.safeAreaInsets.top)
                     .opacity(self.loadingObserver.isLoading ? 1 : 0)
 

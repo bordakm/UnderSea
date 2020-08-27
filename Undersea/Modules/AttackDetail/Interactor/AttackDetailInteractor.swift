@@ -11,7 +11,7 @@ import Combine
 
 extension AttackDetail {
     
-    class Interactor {
+    class AttackDetailInteractor {
         
         private lazy var presenter: AttackDetailPresenterProtocol = setPresenter()
         var setPresenter: (() -> AttackDetailPresenterProtocol)!
@@ -19,14 +19,21 @@ extension AttackDetail {
         private let worker = AttackDetail.ApiWorker()
         let dataSubject = CurrentValueSubject<DataModelType, Error>(DataModelType())
         let attackSentSubject = CurrentValueSubject<[SendAttackResponseDTO], Error>([])
-        let loadingSubject = CurrentValueSubject<Bool, Never>(false)
+        let loadingSubject = PassthroughSubject<Bool, Never>()
+        
         private var subscription: AnyCancellable?
+        private var signalRSubscription: AnyCancellable?
         
         private var attackingUnits: [SendAttackDTO.Unit] = []
         private var defenderId: Int?
         
-        init(defenderId: Int) {
+        init(defenderId: Int?) {
             self.defenderId = defenderId
+            signalRSubscription = SignalRService.shared.incomingSignalSubject
+                .receive(on: DispatchQueue.global())
+                .sink(receiveValue: { [weak self] (_) in
+                    self?.loadData()
+                })
         }
      
         func handleUsecase(_ event: AttackDetail.Usecase) {
@@ -55,19 +62,23 @@ extension AttackDetail {
         
         private func loadData() {
             
+            print("-- INTERACTOR LOAD DATA")
+            //loadingSubject.send(true)
             subscription = worker.getUnits()
                 .receive(on: DispatchQueue.global())
-                .sink(receiveCompletion: { (result) in
+                .sink(receiveCompletion: { [weak self] (result) in
+                    //self.loadingSubject.send(false)
                     switch result {
                     case .failure(_):
                         //self.sendFakeData()
-                        self.dataSubject.send(completion: result)
+                        self?.dataSubject.send(completion: result)
                     default:
                         print("-- Profile Interactor: load data finished")
                         break
                     }
-                }, receiveValue: { data in
-                    self.dataSubject.send(data)
+                }, receiveValue: { [weak self] data in
+                    sleep(2)
+                    self?.dataSubject.send(data)
                     //self.sendFakeData()
                 })
             
@@ -91,30 +102,24 @@ extension AttackDetail {
             
             let attackData = SendAttackDTO(defenderUserId: defenderId, attackingUnits: attackingUnits)
             
+            //loadingSubject.send(true)
             subscription = worker.attack(attackData)
                 .receive(on: DispatchQueue.global())
-                .sink(receiveCompletion: { (result) in
+                .sink(receiveCompletion: { [weak self] (result) in
+                    //self?.loadingSubject.send(false)
                     switch result {
                     case .failure(_):
                         //self.sendFakeData()
-                        self.attackSentSubject.send(completion: result)
+                        self?.attackSentSubject.send(completion: result)
                     default:
                         print("-- Profile Interactor: load data finished")
                         break
                     }
-                }, receiveValue: { data in
-                    //self.sendFakeData()
-                    self.attackSentSubject.send(data)
+                }, receiveValue: { [weak self] data in
+                    self?.attackSentSubject.send(data)
                 })
             
         }
-        
-        /*
-        private func sendFakeData() {
-            let animals = [AttackDetailPageDTO(id: 1, name: "shark", availableCount: 15, imageUrl: ""), AttackDetailPageDTO(id: 2, name: "seahorse", availableCount: 20, imageUrl: ""), AttackDetailPageDTO(id: 3, name: "seal", availableCount: 12, imageUrl: "")]
-            self.dataSubject.send(animals)
-        }
-        */
         
     }
     

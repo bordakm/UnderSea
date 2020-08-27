@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import Combine
 
 extension Login {
     
     class ViewModel: ObservableObject {
         
+        @Published var isLoading = PassthroughSubject<Bool, Never>()
         @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         
     }

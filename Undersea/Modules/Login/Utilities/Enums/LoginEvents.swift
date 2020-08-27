@@ -13,6 +13,7 @@ extension Login {
     enum Event {
         case loggedIn
         case fail
+        case viewLoading
     }
     
 }

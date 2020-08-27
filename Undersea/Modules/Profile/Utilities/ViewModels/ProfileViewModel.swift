@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import Combine
 
 extension Profile {
     
     class ViewModel: ObservableObject {
         
-        @Published var isLoading = false
+        var isLoading = PassthroughSubject<Bool, Never>()
         private(set) var profilePageModel: ProfilePageViewModel?
         @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         

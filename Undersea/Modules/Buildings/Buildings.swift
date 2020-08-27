@@ -23,6 +23,7 @@ struct Buildings {
         
         interactor.setPresenter = { return presenter }
         
+        presenter.bind(loadingSubject: interactor.loadingSubject.eraseToAnyPublisher())
         presenter.bind(dataListSubject: interactor.dataSubject.eraseToAnyPublisher())
         presenter.bind(dataSubject: interactor.buyDataSubject.eraseToAnyPublisher())
         

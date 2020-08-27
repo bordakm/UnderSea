@@ -22,6 +22,7 @@ extension Army {
         
         let dataSubject = CurrentValueSubject<[DataModelType], Error>([])
         let buyDataSubject = CurrentValueSubject<[BuyUnitsDTO], Error>([])
+        let loadingSubject = PassthroughSubject<Bool, Never>()
         
         private var subscription: AnyCancellable?
      
@@ -42,9 +43,11 @@ extension Army {
         
         private func loadArmy() {
             
+            loadingSubject.send(true)
             subscription = worker.getArmy()
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
+                self.loadingSubject.send(false)
                 switch result {
                 case .failure(_):
                     self.dataSubject.send(completion: result)
@@ -53,6 +56,7 @@ extension Army {
                     break
                 }
             }, receiveValue: { data in
+                sleep(3)
                 self.dataSubject.send(data)
             })
             
@@ -84,9 +88,11 @@ extension Army {
                 return
             }
             
+            loadingSubject.send(true)
             subscription = worker.buyUnits(data: buyUnitData)
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
+                self.loadingSubject.send(false)
                 switch result {
                 case .failure(_):
                     self.dataSubject.send(completion: result)
@@ -96,7 +102,7 @@ extension Army {
                 }
             }, receiveValue: { data in
                 
-                var tmpSubjectValue = self.dataSubject.value ?? []
+                var tmpSubjectValue = self.dataSubject.value
                 
                 for index in 0 ..< tmpSubjectValue.count {
                     if let buyUnitData = data.first(where: { (buyUnitData) -> Bool in

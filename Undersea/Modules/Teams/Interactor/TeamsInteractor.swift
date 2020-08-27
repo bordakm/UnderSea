@@ -32,9 +32,11 @@ extension Teams {
         
         private func loadData() {
             
+            loadingSubject.send(true)
             subscription = worker.getTeams()
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { (result) in
+                    self.loadingSubject.send(false)
                     switch result {
                     case .failure(_):
                         self.dataSubject.send(completion: result)
@@ -43,6 +45,7 @@ extension Teams {
                         break
                     }
                 }, receiveValue: { data in
+                    sleep(2)
                     self.dataSubject.send(data)
                 })
             

@@ -11,13 +11,14 @@ import Combine
 
 extension Login {
     
-    class Presenter {
+    class Presenter : DetailPresenterProtocol {
         
         private var subscriptions: [Login.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
         
-        func bind(dataSubject: AnyPublisher<DataModelType?, Error>) {
+        //bind(dataSubject: AnyPublisher<DataModelType?, Error>)
+        func bind<S: DTOProtocol>(dataSubject: AnyPublisher<S?, Error>) {
          
             subscriptions[.loggedIn] = dataSubject
                 .receive(on: DispatchQueue.main)
@@ -39,6 +40,14 @@ extension Login {
                     
                 })
             
+        }
+        
+        func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+            subscriptions[.viewLoading] = loadingSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] (isLoading) in
+                self?.viewModel.isLoading.send(isLoading)
+            })
         }
         
         func presentError(_ error: Error) {

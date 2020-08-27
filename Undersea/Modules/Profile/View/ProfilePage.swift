@@ -16,6 +16,7 @@ extension Profile {
         var setInteractor: (()->Interactor)!
         
         @ObservedObject var viewModel: ViewModelType
+        @EnvironmentObject var loadingObserver: LoadingObserver
         
         var usecaseHandler: ((Profile.Usecase) -> Void)?
         
@@ -51,6 +52,10 @@ extension Profile {
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
                 .alert(isPresented: self.$viewModel.errorModel.alert) {
                     Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
+                }
+                .onReceive(self.viewModel.isLoading) { (loading) in
+                    self.loadingObserver.rect = geometry.frame(in: CoordinateSpace.global)
+                    self.loadingObserver.isLoading = loading
                 }
                 
             }

@@ -11,14 +11,15 @@ import Combine
 
 extension Attack {
     
-    class Interactor {
+    class AttackInteractor {
         
-        private lazy var presenter: ListPresenterProtocol = setPresenter()
-        var setPresenter: (() -> ListPresenterProtocol)!
+        private lazy var presenter: AttackPresenterProtocol = setPresenter()
+        var setPresenter: (() -> AttackPresenterProtocol)!
         
         private let worker = Attack.ApiWorker()
         let dataSubject = CurrentValueSubject<DataModelType, Error>(DataModelType())
         let loadingSubject = CurrentValueSubject<Bool, Never>(false)
+        let loadMoreSubject = CurrentValueSubject<Bool, Never>(false)
         private var subscription: AnyCancellable?
      
         private var page = 1
@@ -38,9 +39,11 @@ extension Attack {
         private func loadData(_ userName: String?) {
             
             page = 1
+            loadingSubject.send(true)
             subscription = worker.getAttack(userName)
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { (result) in
+                    self.loadingSubject.send(false)
                     switch result {
                     case .failure(_):
                         //self.sendTestData()
@@ -50,6 +53,7 @@ extension Attack {
                         break
                     }
                 }, receiveValue: { data in
+                    sleep(2)
                     self.dataSubject.send(data)
                 })
             
@@ -57,11 +61,11 @@ extension Attack {
         
         private func loadMore(_ userName: String) {
             
-            loadingSubject.send(true)
+            loadMoreSubject.send(true)
             subscription = worker.getAttack(userName, page: page + 1)
             .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: { (result) in
-                self.loadingSubject.send(false)
+                self.loadMoreSubject.send(false)
                 switch result {
                 case .failure(_):
                     self.dataSubject.send(completion: result)

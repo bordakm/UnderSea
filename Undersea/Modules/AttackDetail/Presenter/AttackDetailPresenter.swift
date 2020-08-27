@@ -12,31 +12,30 @@ import CocoaLumberjack
 
 extension AttackDetail {
     
-    class Presenter : AttackDetailPresenterProtocol {
+    class AttackDetailPresenter : AttackDetailPresenterProtocol {
         
         private var subscriptions: [AttackDetail.Event: AnyCancellable] = [:]
         
         private(set) var viewModel: ViewModelType = ViewModelType()
-        
         
         //bind(dataSubject: AnyPublisher<DataModelType?, Error>)
         func bind<S>(dataListSubject: AnyPublisher<[S], Error>) where S : DTOProtocol {
          
             subscriptions[.dataLoaded] = dataListSubject
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { (result) in
+                .sink(receiveCompletion: { [weak self] (result) in
                     
                     switch result {
                     case .failure(let error):
-                        self.presentError(error)
+                        self?.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
                     }
                     
-                }, receiveValue: { (data) in
+                }, receiveValue: { [weak self] (data) in
 
-                    self.populateViewModel(dataModel: data)
+                    self?.populateViewModel(dataModel: data)
                     
                 })
             
@@ -47,25 +46,32 @@ extension AttackDetail {
          
             subscriptions[.attackSent] = attackSentSubject
                 .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { (result) in
+                .sink(receiveCompletion: { [weak self] (result) in
                     
                     switch result {
                     case .failure(let error):
-                        self.presentError(error)
+                        self?.presentError(error)
                     default:
                         print("-- Presenter: finished")
                         break
                     }
                     
-                }, receiveValue: { (data) in
+                }, receiveValue: { [weak self] (data) in
 
-                    self.viewModel.shouldPopBack.send()
+                    if (data.count > 0) {
+                        self?.viewModel.shouldPopBack.send()
+                    }
                     
                 })
             
         }
         
         func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+            subscriptions[.viewLoading] = loadingSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] (isLoading) in
+                self?.viewModel.isLoading.send(isLoading)
+            })
         }
         
         private func populateViewModel<S>(dataModel: [S]?) where S : DTOProtocol {

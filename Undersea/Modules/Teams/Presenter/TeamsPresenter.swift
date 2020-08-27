@@ -43,6 +43,11 @@ extension Teams {
         }
         
         func bind(loadingSubject: AnyPublisher<Bool, Never>) {
+            subscriptions[.viewLoading] = loadingSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] (isLoading) in
+                self?.viewModel.isLoading.send(isLoading)
+            })
         }
         
         private func populateViewModel<S>(dataModel: [S]?) where S : DTOProtocol {

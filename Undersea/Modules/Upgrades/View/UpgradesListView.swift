@@ -19,100 +19,109 @@ extension Upgrades {
         var setInteractor: (()->Interactor)!
         
         @ObservedObject var viewModel: ViewModelType
+        @EnvironmentObject var loadingObserver: LoadingObserver
         
         let usecaseHandler: ((Upgrades.Usecase) -> Void)?
         
         var body: some View {
-            VStack(spacing: 0) {
+            
+            GeometryReader { geometry in
                 
-                VStack(alignment: .leading) {
-                    Text("Jelöld ki, amelyiket szeretnéd megvenni.")
-                        .font(Fonts.get(.osBold))
-                        .foregroundColor(Color.white)
-                    Text("Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog fejleszthető és minden csak egyszer fejleszthető ki (nem lehet két kombájn).")
-                        .font(Fonts.get(.osRegular))
-                        .foregroundColor(Color.white)
-                }.padding()
-                
-                ScrollView(.vertical, showsIndicators: true) {
+                VStack(spacing: 0) {
                     
-                    Color.clear.frame(height: 5.0)
-                
-                    ForEach(viewModel.upgradeList) { upgrade in
+                    VStack(alignment: .leading) {
+                        Text("Jelöld ki, amelyiket szeretnéd megvenni.")
+                            .font(Fonts.get(.osBold))
+                            .foregroundColor(Color.white)
+                        Text("Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog fejleszthető és minden csak egyszer fejleszthető ki (nem lehet két kombájn).")
+                            .font(Fonts.get(.osRegular))
+                            .foregroundColor(Color.white)
+                    }.padding()
+                    
+                    ScrollView(.vertical, showsIndicators: true) {
                         
-                        Button(action: {
-                                
-                            self.usecaseHandler?(.buyUpgrade(upgrade.id))
+                        Color.clear.frame(height: 5.0)
+                    
+                        ForEach(self.viewModel.upgradeList) { upgrade in
                             
-                        }) {
-                            
-                            ZStack(alignment: .topLeading) {
-                            
-                                VStack {
-                                
-                                    Image(upgrade.imageName)
-                                        .renderingMode(.original)
-                                        .frame(maxWidth: 200.0, maxHeight: 100.0)
+                            Button(action: {
                                     
-                                    Text(upgrade.name)
-                                        .frame(maxWidth: 280.0)
-                                        .font(Fonts.get(.osBold))
-                                        .foregroundColor(Color.white)
+                                self.usecaseHandler?(.buyUpgrade(upgrade.id))
+                                
+                            }) {
+                                
+                                ZStack(alignment: .topLeading) {
+                                
+                                    VStack {
                                     
-                                    Text(upgrade.description)
-                                        .font(Fonts.get(.osRegular))
-                                        .foregroundColor(Color.white)
-                                        .multilineTextAlignment(.center)
-                                        .fixedSize(horizontal: false, vertical: true)
+                                        Image(upgrade.imageName)
+                                            .renderingMode(.original)
+                                            .frame(maxWidth: 200.0, maxHeight: 100.0)
+                                        
+                                        Text(upgrade.name)
+                                            .frame(maxWidth: 280.0)
+                                            .font(Fonts.get(.osBold))
+                                            .foregroundColor(Color.white)
+                                        
+                                        Text(upgrade.description)
+                                            .font(Fonts.get(.osRegular))
+                                            .foregroundColor(Color.white)
+                                            .multilineTextAlignment(.center)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    
+                                    }
+                                    .padding()
+                                    
+                                    if upgrade.isPurchased {
+                                        
+                                        Image(systemName: Images.checkMark.rawValue)
+                                            .resizable()
+                                            .frame(width: 20.0, height: 20.0)
+                                            .foregroundColor(Colors.cyanLight)
+                                            .padding()
+                                        
+                                    } else if upgrade.remainingRounds > 0 {
+                                    
+                                        Text("még \(upgrade.remainingRounds) kör")
+                                            .font(Fonts.get(.osBold, 14))
+                                            .foregroundColor(Colors.cyanLight)
+                                            .padding()
+                                    
+                                    }
                                 
                                 }
-                                .padding()
                                 
-                                if upgrade.isPurchased {
-                                    
-                                    Image(systemName: Images.checkMark.rawValue)
-                                        .resizable()
-                                        .frame(width: 20.0, height: 20.0)
-                                        .foregroundColor(Colors.cyanLight)
-                                        .padding()
-                                    
-                                } else if upgrade.remainingRounds > 0 {
-                                
-                                    Text("még \(upgrade.remainingRounds) kör")
-                                        .font(Fonts.get(.osBold, 14))
-                                        .foregroundColor(Colors.cyanLight)
-                                        .padding()
-                                
-                                }
-                            
                             }
+                            .frame(width: 310.0)
+                            .overlay(RoundedRectangle(cornerRadius: 16.0).stroke(lineWidth: 1.0).fill(Colors.whiteFullyTransparent))
+                            .padding(.bottom, 5.0)
                             
                         }
-                        .frame(width: 310.0)
-                        .overlay(RoundedRectangle(cornerRadius: 16.0).stroke(lineWidth: 1.0).fill(Colors.whiteFullyTransparent))
-                        .padding(.bottom, 5.0)
                         
-                    }
-                    
-                    if (viewModel.upgradeList.count == 0) {
-                        HStack{
-                            Spacer()
+                        if (self.viewModel.upgradeList.count == 0) {
+                            HStack{
+                                Spacer()
+                            }
                         }
-                    }
+                        
+                        Spacer(minLength: 30.0)
+                        
+                    }.padding(.top, 10)
                     
-                    Spacer(minLength: 30.0)
-                    
-                }.padding(.top, 10)
-                
-            }
-            .alert(isPresented: self.$viewModel.errorModel.alert) {
-                Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
-            }
-            .onAppear {
-                self.usecaseHandler?(.loadUpgrades)
-            }
-            .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
-                self.usecaseHandler?(.loadUpgrades)
+                }
+                .alert(isPresented: self.$viewModel.errorModel.alert) {
+                    Alert(title: Text(self.viewModel.errorModel.title), message: Text(self.viewModel.errorModel.message), dismissButton: .default(Text("Rendben")))
+                }
+                .onAppear {
+                    self.usecaseHandler?(.loadUpgrades)
+                }
+                .onReceive(SignalRService.shared.incomingSignalSubject) { _ in
+                    self.usecaseHandler?(.loadUpgrades)
+                }
+                .onReceive(self.viewModel.isLoading) { (loading) in
+                    self.loadingObserver.rect = geometry.frame(in: CoordinateSpace.global)
+                    self.loadingObserver.isLoading = loading
+                }
             }
         }
     }

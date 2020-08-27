@@ -22,6 +22,7 @@ extension Upgrades {
         
         let dataSubject = CurrentValueSubject<[DataModelType], Error>([])
         let buyDataSubject = CurrentValueSubject<DataModelType?, Error>(nil)
+        let loadingSubject = PassthroughSubject<Bool, Never>()
         
         private var subscription: AnyCancellable?
      
@@ -40,9 +41,11 @@ extension Upgrades {
         
         private func loadUpgrades() {
             
+            loadingSubject.send(true)
             subscription = worker.getUpgrades()
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { (result) in
+                    self.loadingSubject.send(false)
                     switch result {
                     case .failure(_):
                         self.dataSubject.send(completion: result)
@@ -51,6 +54,7 @@ extension Upgrades {
                         break
                     }
                 }, receiveValue: { data in
+                    sleep(3)
                     self.dataSubject.send(data)
                 })
             
@@ -58,9 +62,11 @@ extension Upgrades {
         
         private func buyUpgrade(id: Int) {
             
+            loadingSubject.send(true)
             subscription = worker.buyUpgrade(data: BuyUpgradeDTO(id: id))
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { (result) in
+                    self.loadingSubject.send(false)
                     switch result {
                     case .failure(_):
                         self.buyDataSubject.send(completion: result)

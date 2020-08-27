@@ -11,7 +11,7 @@ import Combine
 
 extension Attack {
     
-    class Presenter : ListPresenterProtocol {
+    class AttackPresenter : AttackPresenterProtocol {
         
         private var subscriptions: [Attack.Event: AnyCancellable] = [:]
         
@@ -41,12 +41,20 @@ extension Attack {
             
         }
         
+        func bind(loadMoreSubject: AnyPublisher<Bool, Never>) {
+            subscriptions[.nextPageLoading] = loadMoreSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] (isLoadingMore) in
+                self?.viewModel.isLoadingMore = isLoadingMore
+            })
+        }
+        
         func bind(loadingSubject: AnyPublisher<Bool, Never>) {
-            subscriptions[.nextPageLoading] = loadingSubject
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { [weak self] (isLoading) in
-                    self?.viewModel.isLoading = isLoading
-                })
+            subscriptions[.viewLoading] = loadingSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] (isLoading) in
+                self?.viewModel.isLoading.send(isLoading)
+            })
         }
         
         private func populateViewModel<S>(dataModel: [S]?) where S : DTOProtocol {

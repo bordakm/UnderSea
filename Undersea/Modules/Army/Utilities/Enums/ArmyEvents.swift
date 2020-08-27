@@ -14,6 +14,7 @@ extension Army {
         case dataLoaded
         case selectedChange
         case unitBought
+        case viewLoading
     }
     
 }

@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import Combine
 
 extension Upgrades {
     
     class ViewModel: ObservableObject {
         
-        @Published var isLoading = false
+        @Published var isLoading = PassthroughSubject<Bool, Never>()
         private(set) var upgradeList: [UpgradeModel] = []
         @Published var errorModel: ErrorAlertModel = ErrorAlertModel(message: "Unknown error", show: false)
         

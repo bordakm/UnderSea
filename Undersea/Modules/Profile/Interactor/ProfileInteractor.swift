@@ -18,6 +18,7 @@ extension Profile {
         
         private let worker = Profile.ApiWorker()
         let dataSubject = CurrentValueSubject<DataModelType?, Error>(nil)
+        let loadingSubject = CurrentValueSubject<Bool, Never>(false)
         private var subscription: AnyCancellable?
      
         func handleUsecase(_ event: Profile.Usecase) {
@@ -33,9 +34,11 @@ extension Profile {
         
         private func loadData() {
             
+            loadingSubject.send(true)
             subscription = worker.getProfile()
                 .receive(on: DispatchQueue.global())
                 .sink(receiveCompletion: { (result) in
+                    self.loadingSubject.send(false)
                     switch result {
                     case .failure(_):
                         self.dataSubject.send(completion: result)
@@ -44,11 +47,12 @@ extension Profile {
                         break
                     }
                 }, receiveValue: { data in
+                    sleep(2)
                     self.dataSubject.send(data)
                 })
             
         }
-        
+
     }
     
 }

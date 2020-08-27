@@ -14,14 +14,18 @@ extension City {
         
         @State var selectedTab = CityTabs.buildings
         
+        private let buildings = Buildings.setup()
+        private let upgrades = Upgrades.setup()
+        private let army = Army.setup()
+        
         var tabView: some View {
             switch selectedTab {
             case .buildings:
-                return AnyView(Buildings.setup())
+                return AnyView(buildings)
             case .upgrades:
-                return AnyView(Upgrades.setup())
+                return AnyView(upgrades)
             case .army:
-                return AnyView(Army.setup())
+                return AnyView(army)
             }
         }
         

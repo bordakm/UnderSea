@@ -9,7 +9,7 @@
 import Foundation
 import SwiftJWT
 
-struct TokenDTO: Decodable {
+struct TokenDTO: Decodable, DTOProtocol {
     
     let refreshToken: String
     let accessToken: String
